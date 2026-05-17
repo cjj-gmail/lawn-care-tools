@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lawn Care — Sheets Connection Test</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep: #1a3a2a;
+      --green-mid: #2d6a4f;
+      --green-light: #52b788;
+      --green-pale: #b7e4c7;
+      --cream: #f8f4e8;
+      --brown: #6b4c2a;
+      --text: #1a1a1a;
+      --muted: #666;
+    }
+
+    body {
+      font-family: 'Fraunces', Georgia, serif;
+      background: var(--cream);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background: white;
+      border: 2px solid var(--green-deep);
+      border-radius: 2px;
+      max-width: 520px;
+      width: 100%;
+      padding: 3rem;
+      box-shadow: 6px 6px 0 var(--green-deep);
+      position: relative;
+    }
+
+    .card::before {
+      content: '🌱';
+      position: absolute;
+      top: -1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      background: var(--cream);
+      padding: 0 0.5rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .status-box {
+      background: var(--cream);
+      border: 1px solid var(--green-pale);
+      border-radius: 2px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.3rem 0;
+      color: var(--text);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    .dot.green { background: var(--green-light); }
+    .dot.red { background: #e07070; }
+    .dot.yellow { background: #e0c070; animation: pulse 1s infinite; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 0.9rem 1.5rem;
+      background: var(--green-deep);
+      color: white;
+      border: 2px solid var(--green-deep);
+      border-radius: 2px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .btn:hover {
+      background: var(--green-mid);
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--green-deep);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--green-deep);
+    }
+
+    .btn.secondary:hover {
+      background: var(--green-pale);
+    }
+
+    .data-box {
+      display: none;
+      margin-top: 1.5rem;
+      border: 1px solid var(--green-pale);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .data-box.visible { display: block; }
+
+    .data-header {
+      background: var(--green-deep);
+      color: white;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.5rem 1rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .data-content {
+      padding: 1rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      max-height: 200px;
+      overflow-y: auto;
+      background: var(--cream);
+    }
+
+    .data-row {
+      display: flex;
+      gap: 1rem;
+      padding: 0.2rem 0;
+      border-bottom: 1px solid var(--green-pale);
+      color: var(--text);
+    }
+
+    .data-row:last-child { border-bottom: none; }
+
+    .data-label { color: var(--green-mid); font-weight: 500; min-width: 120px; }
+
+    .error-msg {
+      color: #c0392b;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      padding: 0.8rem;
+      background: #fdf0ef;
+      border: 1px solid #f0c0bc;
+      border-radius: 2px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .error-msg.visible { display: block; }
+
+    .note {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Sheets Connection Test</h1>
+  <p class="subtitle">Lawn Care Tools — OAuth Verification</p>
+
+  <div class="status-box">
+    <div class="status-row">
+      <div class="dot" id="dot-auth"></div>
+      <span id="status-auth">Not authenticated</span>
+    </div>
+    <div class="status-row">
+      <div class="dot" id="dot-read"></div>
+      <span id="status-read">Sheet not read</span>
+    </div>
+    <div class="status-row">
+      <div class="dot" id="dot-write"></div>
+      <span id="status-write">Write not tested</span>
+    </div>
+  </div>
+
+  <button class="btn" id="btn-auth" onclick="signIn()">
+    Sign in with Google
+  </button>
+
+  <button class="btn secondary" id="btn-test" onclick="testReadWrite()" disabled>
+    Test Read + Write Access
+  </button>
+
+  <div class="error-msg" id="error-box"></div>
+
+  <div class="data-box" id="data-box">
+    <div class="data-header">Sheet Data — Lawn Specs Tab</div>
+    <div class="data-content" id="data-content"></div>
+  </div>
+
+  <p class="note">
+    Sheet ID: 1xFGTMYh0gxYQb78YTUVs2BwW8jb2znZxbq9Ed3Z_6xE<br>
+    This test reads your Lawn Specs tab and confirms write access.
+  </p>
+</div>
+
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script>
+  const CLIENT_ID = '416766323294-e1cpni5440aio0pjgqr2cd6gjn0lvori.apps.googleusercontent.com';
+  const SHEET_ID = '1xFGTMYh0gxYQb78YTUVs2BwW8jb2znZxbq9Ed3Z_6xE';
+  const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+
+  let accessToken = null;
+  let tokenClient = null;
+
+  function setStatus(id, dotId, text, state) {
+    document.getElementById(id).textContent = text;
+    const dot = document.getElementById(dotId);
+    dot.className = 'dot ' + state;
+  }
+
+  function showError(msg) {
+    const box = document.getElementById('error-box');
+    box.textContent = msg;
+    box.classList.add('visible');
+  }
+
+  function hideError() {
+    document.getElementById('error-box').classList.remove('visible');
+  }
+
+  window.onload = function() {
+    // Wait for GSI to load then init token client
+    const interval = setInterval(() => {
+      if (window.google && google.accounts) {
+        clearInterval(interval);
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          callback: handleTokenResponse,
+        });
+      }
+    }, 200);
+  };
+
+  function signIn() {
+    hideError();
+    if (!tokenClient) {
+      showError('Google Identity Services not loaded yet. Please wait a moment and try again.');
+      return;
+    }
+    setStatus('status-auth', 'dot-auth', 'Authenticating...', 'yellow');
+    tokenClient.requestAccessToken();
+  }
+
+  function handleTokenResponse(response) {
+    if (response.error) {
+      setStatus('status-auth', 'dot-auth', 'Authentication failed', 'red');
+      showError('Auth error: ' + response.error);
+      return;
+    }
+    accessToken = response.access_token;
+    setStatus('status-auth', 'dot-auth', 'Authenticated ✓', 'green');
+    document.getElementById('btn-auth').disabled = true;
+    document.getElementById('btn-test').disabled = false;
+  }
+
+  async function testReadWrite() {
+    hideError();
+    document.getElementById('btn-test').disabled = true;
+
+    // --- TEST READ ---
+    setStatus('status-read', 'dot-read', 'Reading sheet...', 'yellow');
+    try {
+      const readRes = await fetch(
+        `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Lawn%20Specs!A1:C10`,
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
+      const readData = await readRes.json();
+
+      if (readData.error) {
+        setStatus('status-read', 'dot-read', 'Read failed', 'red');
+        showError('Read error: ' + readData.error.message);
+        document.getElementById('btn-test').disabled = false;
+        return;
+      }
+
+      setStatus('status-read', 'dot-read', 'Read successful ✓', 'green');
+
+      // Display data
+      const box = document.getElementById('data-box');
+      const content = document.getElementById('data-content');
+      content.innerHTML = '';
+      const rows = readData.values || [];
+      rows.forEach(row => {
+        const div = document.createElement('div');
+        div.className = 'data-row';
+        div.innerHTML = `<span class="data-label">${row[0] || ''}</span><span>${row[1] || ''}</span><span>${row[2] || ''}</span>`;
+        content.appendChild(div);
+      });
+      box.classList.add('visible');
+
+    } catch (e) {
+      setStatus('status-read', 'dot-read', 'Read failed', 'red');
+      showError('Network error during read: ' + e.message);
+      document.getElementById('btn-test').disabled = false;
+      return;
+    }
+
+    // --- TEST WRITE ---
+    setStatus('status-write', 'dot-write', 'Testing write access...', 'yellow');
+    try {
+      const now = new Date().toLocaleString('en-AU');
+      const writeRes = await fetch(
+        `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Lawn%20Specs!E1?valueInputOption=RAW`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ values: [[`Connection test: ${now}`]] })
+        }
+      );
+      const writeData = await writeRes.json();
+
+      if (writeData.error) {
+        setStatus('status-write', 'dot-write', 'Write failed', 'red');
+        showError('Write error: ' + writeData.error.message);
+      } else {
+        setStatus('status-write', 'dot-write', 'Write successful ✓', 'green');
+      }
+
+    } catch (e) {
+      setStatus('status-write', 'dot-write', 'Write failed', 'red');
+      showError('Network error during write: ' + e.message);
+    }
+
+    document.getElementById('btn-test').disabled = false;
+  }
+</script>
+
+</body>
+</html>
