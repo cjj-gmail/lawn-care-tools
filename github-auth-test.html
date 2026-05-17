@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lawn Care — GitHub Auth Test</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-deep: #1a3a2a;
+      --green-mid: #2d6a4f;
+      --green-light: #52b788;
+      --green-pale: #b7e4c7;
+      --cream: #f8f4e8;
+    }
+    body {
+      font-family: 'Fraunces', Georgia, serif;
+      background: var(--cream);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      border: 2px solid var(--green-deep);
+      border-radius: 2px;
+      max-width: 520px;
+      width: 100%;
+      padding: 3rem;
+      box-shadow: 6px 6px 0 var(--green-deep);
+      position: relative;
+    }
+    .card::before {
+      content: '🌿';
+      position: absolute;
+      top: -1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      background: var(--cream);
+      padding: 0 0.5rem;
+    }
+    h1 { font-size: 1.6rem; font-weight: 600; color: var(--green-deep); margin-bottom: 0.4rem; }
+    .subtitle {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: #666;
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .status-box {
+      background: var(--cream);
+      border: 1px solid var(--green-pale);
+      border-radius: 2px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.3rem 0;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    .dot.green { background: var(--green-light); }
+    .dot.red { background: #e07070; }
+    .dot.yellow { background: #e0c070; animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 0.9rem 1.5rem;
+      background: var(--green-deep);
+      color: white;
+      border: 2px solid var(--green-deep);
+      border-radius: 2px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+      margin-bottom: 0.8rem;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: var(--green-mid);
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--green-deep);
+    }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn.secondary { background: transparent; color: var(--green-deep); }
+    .btn.secondary:hover { background: var(--green-pale); }
+    .data-box { display: none; margin-top: 1.5rem; border: 1px solid var(--green-pale); border-radius: 2px; overflow: hidden; }
+    .data-box.visible { display: block; }
+    .data-header {
+      background: var(--green-deep);
+      color: white;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.5rem 1rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .data-content {
+      padding: 1rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      background: var(--cream);
+    }
+    .data-row {
+      display: flex;
+      gap: 1rem;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid var(--green-pale);
+    }
+    .data-row:last-child { border-bottom: none; }
+    .data-label { color: var(--green-mid); font-weight: 500; min-width: 140px; }
+    .error-msg {
+      color: #c0392b;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      padding: 0.8rem;
+      background: #fdf0ef;
+      border: 1px solid #f0c0bc;
+      border-radius: 2px;
+      margin-top: 1rem;
+      display: none;
+    }
+    .error-msg.visible { display: block; }
+    .note {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: #666;
+      margin-top: 1.2rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>GitHub Auth Test</h1>
+  <p class="subtitle">Lawn Care Tools — OAuth Verification</p>
+
+  <div class="status-box">
+    <div class="status-row">
+      <div class="dot" id="dot-auth"></div>
+      <span id="status-auth">Not authenticated</span>
+    </div>
+    <div class="status-row">
+      <div class="dot" id="dot-read"></div>
+      <span id="status-read">Repo not read</span>
+    </div>
+    <div class="status-row">
+      <div class="dot" id="dot-write"></div>
+      <span id="status-write">Write not tested</span>
+    </div>
+  </div>
+
+  <a class="btn" href="https://lawn-care-tools.cameronjude1.workers.dev/login" id="btn-login">
+    Sign in with GitHub
+  </a>
+
+  <button class="btn secondary" id="btn-test" onclick="testAccess()" disabled>
+    Test Read + Write Access
+  </button>
+
+  <div class="error-msg" id="error-box"></div>
+
+  <div class="data-box" id="data-box">
+    <div class="data-header">GitHub Repo — lawn-care-tools</div>
+    <div class="data-content" id="data-content"></div>
+  </div>
+
+  <p class="note">
+    Worker: lawn-care-tools.cameronjude1.workers.dev<br>
+    Repo: cjj-gmail/lawn-care-tools<br>
+    Token stored in sessionStorage only — cleared on tab close.
+  </p>
+</div>
+
+<script>
+  const WORKER = 'https://lawn-care-tools.cameronjude1.workers.dev';
+  const REPO = 'cjj-gmail/lawn-care-tools';
+
+  function setStatus(id, dotId, text, state) {
+    document.getElementById(id).textContent = text;
+    document.getElementById(dotId).className = 'dot ' + state;
+  }
+
+  function showError(msg) {
+    const box = document.getElementById('error-box');
+    box.textContent = msg;
+    box.classList.add('visible');
+  }
+
+  // Check if we already have a token from this session
+  window.onload = async function() {
+    const token = sessionStorage.getItem('gh_token');
+    if (token) {
+      // Verify it's still valid
+      setStatus('status-auth', 'dot-auth', 'Verifying token...', 'yellow');
+      try {
+        const res = await fetch(`${WORKER}/verify`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.valid) {
+          setStatus('status-auth', 'dot-auth', `Authenticated as ${data.login} ✓`, 'green');
+          document.getElementById('btn-login').style.display = 'none';
+          document.getElementById('btn-test').disabled = false;
+        } else {
+          sessionStorage.removeItem('gh_token');
+          setStatus('status-auth', 'dot-auth', 'Token expired — please sign in again', 'red');
+        }
+      } catch(e) {
+        setStatus('status-auth', 'dot-auth', 'Verification failed', 'red');
+      }
+    }
+  };
+
+  async function testAccess() {
+    const token = sessionStorage.getItem('gh_token');
+    if (!token) { showError('No token found — please sign in first.'); return; }
+
+    document.getElementById('btn-test').disabled = true;
+
+    // --- TEST READ ---
+    setStatus('status-read', 'dot-read', 'Reading repo...', 'yellow');
+    try {
+      const res = await fetch(`https://api.github.com/repos/${REPO}/contents/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'User-Agent': 'lawn-care-tools'
+        }
+      });
+      const files = await res.json();
+
+      if (!Array.isArray(files)) {
+        setStatus('status-read', 'dot-read', 'Read failed', 'red');
+        showError('Read error: ' + JSON.stringify(files));
+        document.getElementById('btn-test').disabled = false;
+        return;
+      }
+
+      setStatus('status-read', 'dot-read', `Read successful — ${files.length} files found ✓`, 'green');
+
+      const content = document.getElementById('data-content');
+      content.innerHTML = files.map(f => `
+        <div class="data-row">
+          <span class="data-label">${f.type === 'dir' ? '📁' : '📄'} ${f.name}</span>
+          <span>${f.size ? f.size + ' bytes' : ''}</span>
+        </div>
+      `).join('');
+      document.getElementById('data-box').classList.add('visible');
+
+    } catch(e) {
+      setStatus('status-read', 'dot-read', 'Read failed', 'red');
+      showError('Network error: ' + e.message);
+      document.getElementById('btn-test').disabled = false;
+      return;
+    }
+
+    // --- TEST WRITE ---
+    setStatus('status-write', 'dot-write', 'Testing write access...', 'yellow');
+    try {
+      const testContent = btoa(JSON.stringify({
+        test: true,
+        timestamp: new Date().toISOString(),
+        message: 'Connection test from Lawn Care Tools'
+      }, null, 2));
+
+      // Check if file exists first
+      let sha = null;
+      const checkRes = await fetch(`https://api.github.com/repos/${REPO}/contents/data/connection-test.json`, {
+        headers: { Authorization: `Bearer ${token}`, 'User-Agent': 'lawn-care-tools' }
+      });
+      if (checkRes.ok) {
+        const existing = await checkRes.json();
+        sha = existing.sha;
+      }
+
+      const writeRes = await fetch(`https://api.github.com/repos/${REPO}/contents/data/connection-test.json`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'User-Agent': 'lawn-care-tools'
+        },
+        body: JSON.stringify({
+          message: 'Connection test',
+          content: testContent,
+          ...(sha && { sha })
+        })
+      });
+
+      const writeData = await writeRes.json();
+      if (writeData.content) {
+        setStatus('status-write', 'dot-write', 'Write successful — data/connection-test.json created ✓', 'green');
+      } else {
+        setStatus('status-write', 'dot-write', 'Write failed', 'red');
+        showError('Write error: ' + JSON.stringify(writeData));
+      }
+    } catch(e) {
+      setStatus('status-write', 'dot-write', 'Write failed', 'red');
+      showError('Write error: ' + e.message);
+    }
+
+    document.getElementById('btn-test').disabled = false;
+  }
+</script>
+</body>
+</html>
