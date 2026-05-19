@@ -1,3 +1,1 @@
-# Test
-
-This is a test file.
+Test write confirmed.
