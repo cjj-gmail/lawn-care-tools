@@ -1,0 +1,2556 @@
+{
+  "meta": {
+    "version": "1.0",
+    "lastUpdated": "21/05/2026",
+    "description": "Custom 12-month lawn care program for Oakhurst NSW — Kikuyu, Zoysia, Couch",
+    "location": "Oakhurst, NSW 2761",
+    "climate": "Humid subtropical — hot summers, mild winters, occasional frost risk",
+    "notes": [
+      "LawnPride PDFs (Zoysia Fine Leaf + Kikuyu) used as reference only",
+      "Couch treated on same schedule as Kikuyu (closest grass type match)",
+      "All quantities calculated from actual zone m² — not rounded estimates",
+      "Kelpxtra MUST always be applied solo — never tank mixed",
+      "Iron overload rule: reduce Tracemaxx to 100mL/100sqm when tank-mixing with GreenXtra at 200mL/100sqm",
+      "Tribute is NOT safe on Kikuyu — back lawn excluded from Tribute applications",
+      "Heritage Maxx must NOT be applied via backpack sprayer"
+    ]
+  },
+  "zones": [
+    { "id": "back", "name": "Back Lawn", "grass": "Kikuyu", "areaSqm": 68.2 },
+    { "id": "front", "name": "Front Lawn", "grass": "Zoysia", "areaSqm": 35.0 },
+    { "id": "strip1", "name": "Front Nature Strip", "grass": "Couch", "areaSqm": 20.8 },
+    { "id": "strip2", "name": "Front Left Strip", "grass": "Couch", "areaSqm": 16.15 }
+  ],
+  "seasons": {
+    "summer": ["December", "January", "February"],
+    "autumn": ["March", "April", "May"],
+    "winter": ["June", "July", "August"],
+    "spring": ["September", "October", "November"]
+  },
+  "months": [
+    {
+      "month": "January",
+      "season": "summer",
+      "monthNum": 1,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Liquid Fertiliser + Biostimulant",
+          "tasks": [
+            {
+              "id": "jan-w1-t1",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar)",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule when tank-mixing with GreenXtra",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Allow to dry on leaf — do NOT water in. Apply in cool hours (early morning). Dilute with water before mixing concentrates.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            },
+            {
+              "id": "jan-w1-t2",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application (separate day)",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "MUST be applied on a SEPARATE day from all other products. Never tank mix.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Granular Fertiliser",
+          "tasks": [
+            {
+              "id": "jan-w2-t1",
+              "taskType": "fertilise",
+              "label": "TX10 granular fertiliser",
+              "products": [
+                {
+                  "productId": 1,
+                  "name": "TX10 (5-2-8)",
+                  "ratePer100sqm": 3,
+                  "rateUnit": "kg",
+                  "note": "Mid-rate 3kg/100sqm for summer maintenance",
+                  "quantities": {
+                    "back": 2.046,
+                    "front": 1.05,
+                    "strip1": 0.624,
+                    "strip2": 0.485
+                  }
+                }
+              ],
+              "applicationMethod": "Fertiliser spreader",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Water in thoroughly after application. Brush or blow off hard surfaces immediately — iron stains.",
+              "cautions": ["staining", "water-in"]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Organic Boost + Soil Wetter",
+          "tasks": [
+            {
+              "id": "jan-w3-t1",
+              "taskType": "fertilise",
+              "label": "Activ8EXTRA + Seaweed Secrets + Nature's Soil Wetter tank mix",
+              "products": [
+                {
+                  "productId": 6,
+                  "name": "Activ8EXTRA",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 11,
+                  "name": "Nature's Soil Wetter",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer / hose-on",
+              "waterIn": true,
+              "foliarOrIrrigate": "Foliar + light water in",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Compatible combination. Dilute with water before mixing. Water in lightly after application.",
+              "cautions": ["tank-mix-dilute-first"]
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Root Stimulus + Insecticide check",
+          "tasks": [
+            {
+              "id": "jan-w4-t1",
+              "taskType": "biostimulant",
+              "label": "Stimulus root stimulant (soil drench)",
+              "products": [
+                {
+                  "productId": 9,
+                  "name": "Stimulus",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "note": "200mL/100sqm soil drench mode for summer heat stress root support",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Water in thoroughly (minimum 5L water carrier per 100sqm). Targets root growth during summer heat stress.",
+              "cautions": ["water-in"]
+            },
+            {
+              "id": "jan-w4-t2",
+              "taskType": "insecticide",
+              "label": "Acelepryn — curative lawn grub application (if required)",
+              "products": [
+                {
+                  "productId": 18,
+                  "name": "Acelepryn",
+                  "ratePer100sqm": 15,
+                  "rateUnit": "mL",
+                  "note": "Apply only if grub activity observed. Low stock — 100mL remaining.",
+                  "quantities": {
+                    "back": 10.23,
+                    "front": 5.25,
+                    "strip1": 3.12,
+                    "strip2": 2.42
+                  }
+                }
+              ],
+              "applicationMethod": "Spray, water in immediately",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply if lawn armyworm, black beetle larvae or grub activity detected. Water in well. Low stock — 100mL remaining.",
+              "cautions": ["water-in", "low-stock"],
+              "conditional": true,
+              "condition": "Apply only if insect activity observed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month": "February",
+      "season": "summer",
+      "monthNum": 2,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Pre-emergent + Liquid Fertiliser",
+          "tasks": [
+            {
+              "id": "feb-w1-t1",
+              "taskType": "herbicide",
+              "label": "Spartan pre-emergent (late summer — winter weed prevention)",
+              "products": [
+                {
+                  "productId": 14,
+                  "name": "Spartan",
+                  "ratePer100sqm": 20,
+                  "rateUnit": "mL",
+                  "note": "20mL/100sqm for ~6 month control of winter weeds",
+                  "quantities": {
+                    "back": 13.64,
+                    "front": 7.0,
+                    "strip1": 4.16,
+                    "strip2": 3.23
+                  }
+                },
+                {
+                  "productId": 10,
+                  "name": "Hydramaxx",
+                  "ratePer100sqm": 250,
+                  "rateUnit": "mL",
+                  "note": "Pairs with Spartan to aid soil penetration",
+                  "quantities": {
+                    "back": 170.5,
+                    "front": 87.5,
+                    "strip1": 52.0,
+                    "strip2": 40.375
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Water in within 7 days (minimum 6mm irrigation). Area must be weed-free before application. Dilute with water before mixing.",
+              "cautions": ["water-in", "tank-mix-dilute-first", "pre-emergent-weed-free-first"]
+            },
+            {
+              "id": "feb-w1-t2",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar)",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply on a different day to Spartan. Allow to dry on leaf.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Biostimulant",
+          "tasks": [
+            {
+              "id": "feb-w2-t1",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "MUST be applied solo — never tank mix with any other product.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Organic Boost",
+          "tasks": [
+            {
+              "id": "feb-w3-t1",
+              "taskType": "fertilise",
+              "label": "Activ8EXTRA + Seaweed Secrets tank mix",
+              "products": [
+                {
+                  "productId": 6,
+                  "name": "Activ8EXTRA",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer / hose-on",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Compatible combination. Apply in cool hours.",
+              "cautions": []
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Granular Fertiliser + Fungicide (if required)",
+          "tasks": [
+            {
+              "id": "feb-w4-t1",
+              "taskType": "fertilise",
+              "label": "Maintain granular fertiliser — Kikuyu + Couch zones",
+              "products": [
+                {
+                  "productId": 2,
+                  "name": "Maintain (26-1-9)",
+                  "ratePer100sqm": 2,
+                  "rateUnit": "kg",
+                  "quantities": {
+                    "back": 1.364,
+                    "strip1": 0.416,
+                    "strip2": 0.323
+                  }
+                }
+              ],
+              "applicationMethod": "Fertiliser spreader",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "strip1", "strip2"],
+              "notes": "Kikuyu and Couch zones only. Water in thoroughly. Brush off hard surfaces — iron stains.",
+              "cautions": ["staining", "water-in"]
+            },
+            {
+              "id": "feb-w4-t2",
+              "taskType": "fungicide",
+              "label": "Tombstone Duo preventative fungicide (if conditions warrant)",
+              "products": [
+                {
+                  "productId": 12,
+                  "name": "Tombstone Duo",
+                  "ratePer100sqm": 20,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 13.64,
+                    "front": 7.0,
+                    "strip1": 4.16,
+                    "strip2": 3.23
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply preventatively in hot humid conditions. Max 2 consecutive applications then rotate fungicide group.",
+              "cautions": ["fungicide-rotation"],
+              "conditional": true,
+              "condition": "Apply if hot/humid conditions prevail or disease symptoms appear"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month": "March",
+      "season": "autumn",
+      "monthNum": 3,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Liquid Fertiliser + Biostimulant",
+          "tasks": [
+            {
+              "id": "mar-w1-t1",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar)",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Allow to dry on leaf. Apply in cool hours. Dilute water before mixing.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            },
+            {
+              "id": "mar-w1-t2",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application (separate day)",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "MUST be applied solo — never tank mix.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Granular Fertiliser + Root Stimulus",
+          "tasks": [
+            {
+              "id": "mar-w2-t1",
+              "taskType": "fertilise",
+              "label": "TX10 granular fertiliser",
+              "products": [
+                {
+                  "productId": 1,
+                  "name": "TX10 (5-2-8)",
+                  "ratePer100sqm": 3,
+                  "rateUnit": "kg",
+                  "quantities": {
+                    "back": 2.046,
+                    "front": 1.05,
+                    "strip1": 0.624,
+                    "strip2": 0.485
+                  }
+                }
+              ],
+              "applicationMethod": "Fertiliser spreader",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Water in thoroughly. Brush off hard surfaces immediately.",
+              "cautions": ["staining", "water-in"]
+            },
+            {
+              "id": "mar-w2-t2",
+              "taskType": "biostimulant",
+              "label": "Stimulus root stimulant (soil drench)",
+              "products": [
+                {
+                  "productId": 9,
+                  "name": "Stimulus",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Water in well. Promotes root depth before winter.",
+              "cautions": ["water-in"]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Organic Boost + Soil Wetter",
+          "tasks": [
+            {
+              "id": "mar-w3-t1",
+              "taskType": "fertilise",
+              "label": "Activ8EXTRA + Seaweed Secrets + Nature's Soil Wetter tank mix",
+              "products": [
+                {
+                  "productId": 6,
+                  "name": "Activ8EXTRA",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 11,
+                  "name": "Nature's Soil Wetter",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer / hose-on",
+              "waterIn": true,
+              "foliarOrIrrigate": "Foliar + light water in",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Autumn soil biology support. Water in lightly.",
+              "cautions": ["tank-mix-dilute-first"]
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Fungicide (autumn disease risk)",
+          "tasks": [
+            {
+              "id": "mar-w4-t1",
+              "taskType": "fungicide",
+              "label": "Tombstone Duo preventative fungicide",
+              "products": [
+                {
+                  "productId": 12,
+                  "name": "Tombstone Duo",
+                  "ratePer100sqm": 20,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 13.64,
+                    "front": 7.0,
+                    "strip1": 4.16,
+                    "strip2": 3.23
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Autumn fungicide preventative — brown patch, dollar spot, winter fusarium risk rises. Max 2 consecutive applications.",
+              "cautions": ["fungicide-rotation"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month": "April",
+      "season": "autumn",
+      "monthNum": 4,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Liquid Fertiliser",
+          "tasks": [
+            {
+              "id": "apr-w1-t1",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar)",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Allow to dry on leaf. Apply in cool hours.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Biostimulant + Liquid Iron",
+          "tasks": [
+            {
+              "id": "apr-w2-t1",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply solo — never tank mix.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            },
+            {
+              "id": "apr-w2-t2",
+              "taskType": "fertilise",
+              "label": "Liquid Iron — standalone colour boost (separate day to Kelpxtra)",
+              "products": [
+                {
+                  "productId": 5,
+                  "name": "Liquid Iron (7%)",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply on a separate day from Kelpxtra. Add to water first before any other products. Stains hard surfaces.",
+              "cautions": ["staining"]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Granular Fertiliser",
+          "tasks": [
+            {
+              "id": "apr-w3-t1",
+              "taskType": "fertilise",
+              "label": "TX10 granular fertiliser",
+              "products": [
+                {
+                  "productId": 1,
+                  "name": "TX10 (5-2-8)",
+                  "ratePer100sqm": 3,
+                  "rateUnit": "kg",
+                  "quantities": {
+                    "back": 2.046,
+                    "front": 1.05,
+                    "strip1": 0.624,
+                    "strip2": 0.485
+                  }
+                }
+              ],
+              "applicationMethod": "Fertiliser spreader",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Water in thoroughly. Brush off hard surfaces immediately.",
+              "cautions": ["staining", "water-in"]
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Organic Boost",
+          "tasks": [
+            {
+              "id": "apr-w4-t1",
+              "taskType": "fertilise",
+              "label": "Activ8EXTRA + Seaweed Secrets tank mix",
+              "products": [
+                {
+                  "productId": 6,
+                  "name": "Activ8EXTRA",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer / hose-on",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Compatible combo. Cool hours preferred.",
+              "cautions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month": "May",
+      "season": "autumn",
+      "monthNum": 5,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Liquid Fertiliser + Root Stimulus",
+          "tasks": [
+            {
+              "id": "may-w1-t1",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar)",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Allow to dry on leaf. Last major liquid fert push before winter.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            },
+            {
+              "id": "may-w1-t2",
+              "taskType": "biostimulant",
+              "label": "Stimulus root stimulant (separate day)",
+              "products": [
+                {
+                  "productId": 9,
+                  "name": "Stimulus",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Pre-winter root depth building. Water in thoroughly.",
+              "cautions": ["water-in"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Biostimulant",
+          "tasks": [
+            {
+              "id": "may-w2-t1",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply solo. Builds frost and disease resistance heading into winter.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Granular Fertiliser",
+          "tasks": [
+            {
+              "id": "may-w3-t1",
+              "taskType": "fertilise",
+              "label": "TX10 granular fertiliser — last autumn application",
+              "products": [
+                {
+                  "productId": 1,
+                  "name": "TX10 (5-2-8)",
+                  "ratePer100sqm": 2,
+                  "rateUnit": "kg",
+                  "note": "Reduced to low rate for late autumn — minimise growth before dormancy",
+                  "quantities": {
+                    "back": 1.364,
+                    "front": 0.7,
+                    "strip1": 0.416,
+                    "strip2": 0.323
+                  }
+                }
+              ],
+              "applicationMethod": "Fertiliser spreader",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Low rate — avoid promoting lush growth before winter. Water in.",
+              "cautions": ["staining", "water-in"]
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Organic Boost + Soil Wetter",
+          "tasks": [
+            {
+              "id": "may-w4-t1",
+              "taskType": "fertilise",
+              "label": "Activ8EXTRA + Seaweed Secrets + Nature's Soil Wetter tank mix",
+              "products": [
+                {
+                  "productId": 6,
+                  "name": "Activ8EXTRA",
+                  "ratePer100sqm": 75,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 75mL/100sqm — cooler months rate",
+                  "quantities": {
+                    "back": 51.15,
+                    "front": 26.25,
+                    "strip1": 15.6,
+                    "strip2": 12.1
+                  }
+                },
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 11,
+                  "name": "Nature's Soil Wetter",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer / hose-on",
+              "waterIn": true,
+              "foliarOrIrrigate": "Foliar + light water in",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Late autumn soil biology maintenance. Reduced Activ8EXTRA rate for cooler months.",
+              "cautions": ["tank-mix-dilute-first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month": "June",
+      "season": "winter",
+      "monthNum": 6,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Liquid Fertiliser (reduced winter rate)",
+          "tasks": [
+            {
+              "id": "jun-w1-t1",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar) — winter rate",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Winter colour maintenance. Allow to dry on leaf.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Biostimulant",
+          "tasks": [
+            {
+              "id": "jun-w2-t1",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply solo. Frost and disease resistance support.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Soil Wetter + Organic Boost",
+          "tasks": [
+            {
+              "id": "jun-w3-t1",
+              "taskType": "fertilise",
+              "label": "Seaweed Secrets + Nature's Soil Wetter tank mix",
+              "products": [
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 11,
+                  "name": "Nature's Soil Wetter",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Hose-on or pressure sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Winter soil biology and moisture retention support. Water in.",
+              "cautions": []
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Fungicide (winter disease watch)",
+          "tasks": [
+            {
+              "id": "jun-w4-t1",
+              "taskType": "fungicide",
+              "label": "Heritage Maxx fungicide (if winter fusarium risk)",
+              "products": [
+                {
+                  "productId": 13,
+                  "name": "Heritage Maxx",
+                  "ratePer100sqm": 60,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 40.92,
+                    "front": 21.0,
+                    "strip1": 12.48,
+                    "strip2": 9.69
+                  }
+                }
+              ],
+              "applicationMethod": "Professional spray equipment — NOT backpack sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "DO NOT apply with backpack sprayer (label restriction). Preventative for winter fusarium, pythium, brown patch. Max 2 consecutive applications then rotate.",
+              "cautions": ["no-backpack-sprayer", "fungicide-rotation"],
+              "conditional": true,
+              "condition": "Apply if disease symptoms appear or wet mild conditions prevail"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month": "July",
+      "season": "winter",
+      "monthNum": 7,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Liquid Fertiliser",
+          "tasks": [
+            {
+              "id": "jul-w1-t1",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar)",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Winter colour maintenance. Allow to dry on leaf.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Biostimulant + Liquid Iron",
+          "tasks": [
+            {
+              "id": "jul-w2-t1",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply solo.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            },
+            {
+              "id": "jul-w2-t2",
+              "taskType": "fertilise",
+              "label": "Liquid Iron — colour boost (separate day to Kelpxtra)",
+              "products": [
+                {
+                  "productId": 5,
+                  "name": "Liquid Iron (7%)",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Fast green colour response. Apply cool hours. Stains surfaces.",
+              "cautions": ["staining"]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Soil Wetter",
+          "tasks": [
+            {
+              "id": "jul-w3-t1",
+              "taskType": "soilwetter",
+              "label": "Hydramaxx soil wetter",
+              "products": [
+                {
+                  "productId": 10,
+                  "name": "Hydramaxx",
+                  "ratePer100sqm": 250,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 170.5,
+                    "front": 87.5,
+                    "strip1": 52.0,
+                    "strip2": 40.375
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Winter dry patch prevention. Water in thoroughly.",
+              "cautions": ["water-in"]
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Organic Boost",
+          "tasks": [
+            {
+              "id": "jul-w4-t1",
+              "taskType": "fertilise",
+              "label": "Seaweed Secrets + Nature's Soil Wetter tank mix",
+              "products": [
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 11,
+                  "name": "Nature's Soil Wetter",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Hose-on or pressure sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Winter soil biology support. Water in.",
+              "cautions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month": "August",
+      "season": "winter",
+      "monthNum": 8,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Liquid Fertiliser + Biostimulant",
+          "tasks": [
+            {
+              "id": "aug-w1-t1",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar)",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Allow to dry on leaf. Pre-spring prep begins.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            },
+            {
+              "id": "aug-w1-t2",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application (separate day)",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply solo. Builds resilience heading into spring.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Organic Boost + Soil Wetter",
+          "tasks": [
+            {
+              "id": "aug-w2-t1",
+              "taskType": "fertilise",
+              "label": "Activ8EXTRA + Seaweed Secrets + Nature's Soil Wetter tank mix",
+              "products": [
+                {
+                  "productId": 6,
+                  "name": "Activ8EXTRA",
+                  "ratePer100sqm": 75,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 51.15,
+                    "front": 26.25,
+                    "strip1": 15.6,
+                    "strip2": 12.1
+                  }
+                },
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 11,
+                  "name": "Nature's Soil Wetter",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer / hose-on",
+              "waterIn": true,
+              "foliarOrIrrigate": "Foliar + light water in",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Pre-spring soil biology activation.",
+              "cautions": ["tank-mix-dilute-first"]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Root Stimulus pre-spring",
+          "tasks": [
+            {
+              "id": "aug-w3-t1",
+              "taskType": "biostimulant",
+              "label": "Stimulus root stimulant (soil drench)",
+              "products": [
+                {
+                  "productId": 9,
+                  "name": "Stimulus",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Root development push before spring flush. Water in well.",
+              "cautions": ["water-in"]
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Pre-emergent (spring weed prevention)",
+          "tasks": [
+            {
+              "id": "aug-w4-t1",
+              "taskType": "herbicide",
+              "label": "Spartan pre-emergent + Hydramaxx (early spring — summer weed prevention)",
+              "products": [
+                {
+                  "productId": 14,
+                  "name": "Spartan",
+                  "ratePer100sqm": 20,
+                  "rateUnit": "mL",
+                  "note": "20mL/100sqm for ~6 month control of summer weeds",
+                  "quantities": {
+                    "back": 13.64,
+                    "front": 7.0,
+                    "strip1": 4.16,
+                    "strip2": 3.23
+                  }
+                },
+                {
+                  "productId": 10,
+                  "name": "Hydramaxx",
+                  "ratePer100sqm": 250,
+                  "rateUnit": "mL",
+                  "note": "Aids soil penetration of Spartan",
+                  "quantities": {
+                    "back": 170.5,
+                    "front": 87.5,
+                    "strip1": 52.0,
+                    "strip2": 40.375
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply late August for summer weed prevention. Area must be weed-free first. Water in within 7 days (6mm minimum).",
+              "cautions": ["water-in", "tank-mix-dilute-first", "pre-emergent-weed-free-first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month": "September",
+      "season": "spring",
+      "monthNum": 9,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Liquid Fertiliser + Biostimulant",
+          "tasks": [
+            {
+              "id": "sep-w1-t1",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar)",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Spring kick-off. Allow to dry on leaf.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            },
+            {
+              "id": "sep-w1-t2",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application (separate day)",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply solo. Spring biostimulant for shoot and root activation.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Granular Fertiliser + Insecticide (preventative)",
+          "tasks": [
+            {
+              "id": "sep-w2-t1",
+              "taskType": "fertilise",
+              "label": "TX10 granular fertiliser — spring rate",
+              "products": [
+                {
+                  "productId": 1,
+                  "name": "TX10 (5-2-8)",
+                  "ratePer100sqm": 4,
+                  "rateUnit": "kg",
+                  "note": "High rate for spring growth flush",
+                  "quantities": {
+                    "back": 2.728,
+                    "front": 1.4,
+                    "strip1": 0.832,
+                    "strip2": 0.646
+                  }
+                }
+              ],
+              "applicationMethod": "Fertiliser spreader",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Water in thoroughly. Brush off hard surfaces.",
+              "cautions": ["staining", "water-in"]
+            },
+            {
+              "id": "sep-w2-t2",
+              "taskType": "insecticide",
+              "label": "Acelepryn — spring preventative lawn grub treatment",
+              "products": [
+                {
+                  "productId": 18,
+                  "name": "Acelepryn",
+                  "ratePer100sqm": 15,
+                  "rateUnit": "mL",
+                  "note": "Low stock — 100mL remaining total. Apply to highest risk zones first.",
+                  "quantities": {
+                    "back": 10.23,
+                    "front": 5.25,
+                    "strip1": 3.12,
+                    "strip2": 2.42
+                  }
+                }
+              ],
+              "applicationMethod": "Spray, water in immediately",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Spring preventative. Low stock — total 100mL covers ~6.7m² at 15mL/100sqm; prioritise Back Lawn. Consider restocking.",
+              "cautions": ["water-in", "low-stock"]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Organic Boost + Root Stimulus",
+          "tasks": [
+            {
+              "id": "sep-w3-t1",
+              "taskType": "fertilise",
+              "label": "Activ8EXTRA + Seaweed Secrets + Nature's Soil Wetter tank mix",
+              "products": [
+                {
+                  "productId": 6,
+                  "name": "Activ8EXTRA",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 11,
+                  "name": "Nature's Soil Wetter",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer / hose-on",
+              "waterIn": true,
+              "foliarOrIrrigate": "Foliar + light water in",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Spring soil biology activation.",
+              "cautions": ["tank-mix-dilute-first"]
+            },
+            {
+              "id": "sep-w3-t2",
+              "taskType": "biostimulant",
+              "label": "Stimulus root stimulant (separate day, soil drench)",
+              "products": [
+                {
+                  "productId": 9,
+                  "name": "Stimulus",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Spring root push. Apply on a different day from tank mix. Water in well.",
+              "cautions": ["water-in"]
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Renovation (scarify, aerate, top-dress)",
+          "tasks": [
+            {
+              "id": "sep-w4-t1",
+              "taskType": "renovation",
+              "label": "Spring renovation — scarify, aerate, top-dress",
+              "products": [],
+              "applicationMethod": "Ryobi 36V Scarifier + manual/machine aeration + top-dressing spread",
+              "waterIn": false,
+              "foliarOrIrrigate": null,
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Scarify with Ryobi 36V at appropriate depth. Aerate. Apply top-dressing. Follow with Stimulus and Kelpxtra applications post-renovation.",
+              "cautions": [],
+              "machinery": ["Ryobi 36V Scarifier"]
+            },
+            {
+              "id": "sep-w4-t2",
+              "taskType": "biostimulant",
+              "label": "Post-renovation: Kelpxtra — solo (same day or next day after renovation)",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply solo post-renovation. Accelerates recovery.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month": "October",
+      "season": "spring",
+      "monthNum": 10,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Liquid Fertiliser",
+          "tasks": [
+            {
+              "id": "oct-w1-t1",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar)",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Allow to dry on leaf.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Biostimulant + Organic Boost",
+          "tasks": [
+            {
+              "id": "oct-w2-t1",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply solo.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            },
+            {
+              "id": "oct-w2-t2",
+              "taskType": "fertilise",
+              "label": "Activ8EXTRA + Seaweed Secrets tank mix (separate day to Kelpxtra)",
+              "products": [
+                {
+                  "productId": 6,
+                  "name": "Activ8EXTRA",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer / hose-on",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply on different day from Kelpxtra.",
+              "cautions": []
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Granular Fertiliser + Root Stimulus",
+          "tasks": [
+            {
+              "id": "oct-w3-t1",
+              "taskType": "fertilise",
+              "label": "TX10 granular fertiliser",
+              "products": [
+                {
+                  "productId": 1,
+                  "name": "TX10 (5-2-8)",
+                  "ratePer100sqm": 4,
+                  "rateUnit": "kg",
+                  "quantities": {
+                    "back": 2.728,
+                    "front": 1.4,
+                    "strip1": 0.832,
+                    "strip2": 0.646
+                  }
+                }
+              ],
+              "applicationMethod": "Fertiliser spreader",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Water in thoroughly.",
+              "cautions": ["staining", "water-in"]
+            },
+            {
+              "id": "oct-w3-t2",
+              "taskType": "biostimulant",
+              "label": "Stimulus root stimulant (separate day)",
+              "products": [
+                {
+                  "productId": 9,
+                  "name": "Stimulus",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Foliar rate for spring maintenance",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Foliar application for root maintenance. Water in.",
+              "cautions": ["water-in"]
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Soil Wetter",
+          "tasks": [
+            {
+              "id": "oct-w4-t1",
+              "taskType": "soilwetter",
+              "label": "Hydramaxx soil wetter",
+              "products": [
+                {
+                  "productId": 10,
+                  "name": "Hydramaxx",
+                  "ratePer100sqm": 250,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 170.5,
+                    "front": 87.5,
+                    "strip1": 52.0,
+                    "strip2": 40.375
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Pre-summer soil moisture prep. Water in well.",
+              "cautions": ["water-in"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month": "November",
+      "season": "spring",
+      "monthNum": 11,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Liquid Fertiliser + Biostimulant",
+          "tasks": [
+            {
+              "id": "nov-w1-t1",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar)",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Allow to dry on leaf. Apply in early morning — heat increases.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            },
+            {
+              "id": "nov-w1-t2",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application (separate day)",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply solo. Pre-summer pest and stress resistance.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Granular Fertiliser",
+          "tasks": [
+            {
+              "id": "nov-w2-t1",
+              "taskType": "fertilise",
+              "label": "Maintain granular — Kikuyu + Couch zones",
+              "products": [
+                {
+                  "productId": 2,
+                  "name": "Maintain (26-1-9)",
+                  "ratePer100sqm": 2,
+                  "rateUnit": "kg",
+                  "quantities": {
+                    "back": 1.364,
+                    "strip1": 0.416,
+                    "strip2": 0.323
+                  }
+                }
+              ],
+              "applicationMethod": "Fertiliser spreader",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "strip1", "strip2"],
+              "notes": "Kikuyu + Couch only. Pre-summer high-N push. Water in.",
+              "cautions": ["staining", "water-in"]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Organic Boost + Root Stimulus",
+          "tasks": [
+            {
+              "id": "nov-w3-t1",
+              "taskType": "fertilise",
+              "label": "Activ8EXTRA + Seaweed Secrets + Nature's Soil Wetter tank mix",
+              "products": [
+                {
+                  "productId": 6,
+                  "name": "Activ8EXTRA",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 11,
+                  "name": "Nature's Soil Wetter",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer / hose-on",
+              "waterIn": true,
+              "foliarOrIrrigate": "Foliar + light water in",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Pre-summer soil biology and moisture prep.",
+              "cautions": ["tank-mix-dilute-first"]
+            },
+            {
+              "id": "nov-w3-t2",
+              "taskType": "biostimulant",
+              "label": "Stimulus root stimulant (separate day, soil drench)",
+              "products": [
+                {
+                  "productId": 9,
+                  "name": "Stimulus",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Deep root push before summer heat. Water in well.",
+              "cautions": ["water-in"]
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Soil Wetter + Fungicide watch",
+          "tasks": [
+            {
+              "id": "nov-w4-t1",
+              "taskType": "soilwetter",
+              "label": "Hydramaxx soil wetter",
+              "products": [
+                {
+                  "productId": 10,
+                  "name": "Hydramaxx",
+                  "ratePer100sqm": 250,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 170.5,
+                    "front": 87.5,
+                    "strip1": 52.0,
+                    "strip2": 40.375
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Pre-summer dry patch prevention. Water in well.",
+              "cautions": ["water-in"]
+            },
+            {
+              "id": "nov-w4-t2",
+              "taskType": "fungicide",
+              "label": "Tombstone Duo preventative (if warm/humid conditions)",
+              "products": [
+                {
+                  "productId": 12,
+                  "name": "Tombstone Duo",
+                  "ratePer100sqm": 20,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 13.64,
+                    "front": 7.0,
+                    "strip1": 4.16,
+                    "strip2": 3.23
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply preventatively if warm humid conditions arrive early. Max 2 consecutive applications.",
+              "cautions": ["fungicide-rotation"],
+              "conditional": true,
+              "condition": "Apply if warm/humid conditions or disease symptoms appear"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "month": "December",
+      "season": "summer",
+      "monthNum": 12,
+      "weeks": [
+        {
+          "week": 1,
+          "label": "Week 1 — Liquid Fertiliser + Biostimulant",
+          "tasks": [
+            {
+              "id": "dec-w1-t1",
+              "taskType": "fertilise",
+              "label": "GreenXtra + Tracemaxx tank mix (foliar)",
+              "products": [
+                {
+                  "productId": 3,
+                  "name": "GreenXtra",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                },
+                {
+                  "productId": 4,
+                  "name": "Tracemaxx",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "note": "Reduced to 100mL/100sqm — iron overload rule",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Allow to dry on leaf. Early morning application — hot weather risk.",
+              "cautions": ["iron-overload", "staining", "tank-mix-dilute-first"]
+            },
+            {
+              "id": "dec-w1-t2",
+              "taskType": "biostimulant",
+              "label": "Kelpxtra — solo application (separate day)",
+              "products": [
+                {
+                  "productId": 8,
+                  "name": "Kelpxtra",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply solo — early morning. Builds summer heat and pest resistance.",
+              "cautions": ["kelpxtra-solo", "staining"]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "label": "Week 2 — Granular Fertiliser",
+          "tasks": [
+            {
+              "id": "dec-w2-t1",
+              "taskType": "fertilise",
+              "label": "TX10 granular fertiliser",
+              "products": [
+                {
+                  "productId": 1,
+                  "name": "TX10 (5-2-8)",
+                  "ratePer100sqm": 3,
+                  "rateUnit": "kg",
+                  "quantities": {
+                    "back": 2.046,
+                    "front": 1.05,
+                    "strip1": 0.624,
+                    "strip2": 0.485
+                  }
+                }
+              ],
+              "applicationMethod": "Fertiliser spreader",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Water in thoroughly. Brush off hard surfaces immediately.",
+              "cautions": ["staining", "water-in"]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "label": "Week 3 — Organic Boost + Soil Wetter",
+          "tasks": [
+            {
+              "id": "dec-w3-t1",
+              "taskType": "fertilise",
+              "label": "Activ8EXTRA + Seaweed Secrets + Nature's Soil Wetter tank mix",
+              "products": [
+                {
+                  "productId": 6,
+                  "name": "Activ8EXTRA",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 7,
+                  "name": "Seaweed Secrets",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                },
+                {
+                  "productId": 11,
+                  "name": "Nature's Soil Wetter",
+                  "ratePer100sqm": 100,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 68.2,
+                    "front": 35.0,
+                    "strip1": 20.8,
+                    "strip2": 16.15
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer / hose-on",
+              "waterIn": true,
+              "foliarOrIrrigate": "Foliar + light water in",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Summer soil biology and moisture support.",
+              "cautions": ["tank-mix-dilute-first"]
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "label": "Week 4 — Root Stimulus + Fungicide watch",
+          "tasks": [
+            {
+              "id": "dec-w4-t1",
+              "taskType": "biostimulant",
+              "label": "Stimulus root stimulant (soil drench)",
+              "products": [
+                {
+                  "productId": 9,
+                  "name": "Stimulus",
+                  "ratePer100sqm": 200,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 136.4,
+                    "front": 70.0,
+                    "strip1": 41.6,
+                    "strip2": 32.3
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Summer heat stress root support. Water in well.",
+              "cautions": ["water-in"]
+            },
+            {
+              "id": "dec-w4-t2",
+              "taskType": "fungicide",
+              "label": "Tombstone Duo preventative (hot/humid conditions)",
+              "products": [
+                {
+                  "productId": 12,
+                  "name": "Tombstone Duo",
+                  "ratePer100sqm": 20,
+                  "rateUnit": "mL",
+                  "quantities": {
+                    "back": 13.64,
+                    "front": 7.0,
+                    "strip1": 4.16,
+                    "strip2": 3.23
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer",
+              "waterIn": false,
+              "foliarOrIrrigate": "Foliar",
+              "zones": ["back", "front", "strip1", "strip2"],
+              "notes": "Apply preventatively in hot/humid periods. Rotate after 2 applications.",
+              "cautions": ["fungicide-rotation"],
+              "conditional": true,
+              "condition": "Apply if hot/humid conditions or disease symptoms present"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cautions": {
+    "iron-overload": "Iron overload risk: reduce Tracemaxx to 100mL/100sqm when tank-mixing with GreenXtra at 200mL/100sqm",
+    "staining": "This product can cause staining on hard surfaces — brush or blow off immediately. Allow to dry on leaf.",
+    "kelpxtra-solo": "CRITICAL: Kelpxtra must ALWAYS be applied solo — never tank mixed with any other LawnPride concentrate or any other product",
+    "tank-mix-dilute-first": "When mixing concentrates together — always dilute with water first before combining",
+    "water-in": "Thoroughly water in after application",
+    "fungicide-rotation": "Max 2 consecutive applications of same fungicide group — then rotate to different mode of action (resistance management)",
+    "no-backpack-sprayer": "Heritage Maxx label restriction: DO NOT apply via backpack sprayer",
+    "low-stock": "Low stock alert — check inventory before scheduling application",
+    "pre-emergent-weed-free-first": "Pre-emergent only — will not kill established weeds. Ensure area is weed-free before applying Spartan"
+  }
+}
