@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lawn Care Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,600;1,9..144,300;1,9..144,200&display=swap" rel="stylesheet">
+<style>
+:root {
+  --grass: #3d6b35;
+  --grass-light: #5a9448;
+  --grass-pale: #e8f0e4;
+  --grass-faint: #f2f7f0;
+  --soil: #6b4c2a;
+  --soil-light: #c49a6c;
+  --cream: #f5f0e8;
+  --paper: #faf8f3;
+  --ink: #1a1a18;
+  --ink-mid: #4a4a42;
+  --ink-light: #8a8a7a;
+  --border: #d8d0c0;
+  --border-light: #ede8de;
+  --white: #ffffff;
+  --cat-fertilise: #4a7c3f;
+  --cat-biostimulant: #7b5ea7;
+  --cat-herbicide: #c0692a;
+  --cat-fungicide: #c0882a;
+  --cat-insecticide: #2a7aa0;
+  --cat-soilwetter: #3a7a8a;
+  --cat-renovation: #6b4c2a;
+  --status-ok: #3d7a35;
+  --status-low: #c0882a;
+  --status-critical: #c04040;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Mono', monospace;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--grass);
+  color: var(--cream);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+.header-title {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.header-link {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: var(--cream);
+  padding: 5px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.header-link:hover { background: rgba(255,255,255,0.25); }
+
+/* ── NAV TABS ── */
+.dash-nav {
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.dash-nav::-webkit-scrollbar { display: none; }
+.nav-tab {
+  padding: 12px 18px;
+  border: none;
+  background: none;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--ink-light);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.nav-tab:hover { color: var(--grass); }
+.nav-tab.active { color: var(--grass); border-bottom-color: var(--grass); font-weight: 500; }
+
+/* ── LAYOUT ── */
+.dash-body { max-width: 1100px; margin: 0 auto; padding: 28px 24px 60px; }
+
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── SECTION HEADING ── */
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: 30px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+}
+.section-sub {
+  font-size: 13px;
+  color: var(--ink-light);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* ── STAT TILES ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.stat-tile {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 18px 20px;
+}
+.stat-value {
+  font-family: 'Fraunces', serif;
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--grass);
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--ink-light);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 4px;
+}
+.stat-sub {
+  font-size: 13px;
+  color: var(--ink-mid);
+  margin-top: 6px;
+}
+
+/* ── CARDS / PANELS ── */
+.panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+}
+.panel-title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--ink-light);
+  margin-bottom: 16px;
+}
+
+/* ── PROGRESS BARS ── */
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+.progress-row-label {
+  font-size: 14px;
+  color: var(--ink-mid);
+  min-width: 130px;
+  flex-shrink: 0;
+}
+.progress-bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: var(--border-light);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+.progress-bar-fill.ok { background: var(--grass); }
+.progress-bar-fill.low { background: var(--status-low); }
+.progress-bar-fill.critical { background: var(--status-critical); }
+.progress-row-num {
+  font-size: 13px;
+  color: var(--ink-light);
+  min-width: 80px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── INVENTORY CARDS ── */
+.inv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.inv-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.inv-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.inv-card-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+.inv-card-brand { font-size: 12px; color: var(--ink-light); margin-top: 2px; }
+.inv-card-bar { margin-bottom: 6px; }
+.inv-bar-wrap { height: 5px; background: var(--border-light); border-radius: 3px; overflow: hidden; }
+.inv-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+.inv-card-meta { font-size: 12px; color: var(--ink-light); display: flex; justify-content: space-between; }
+.inv-status-badge {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-weight: 500;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+.inv-status-badge.ok { background: var(--grass-pale); color: var(--grass); }
+.inv-status-badge.low { background: #fff5e0; color: #8a5a00; }
+.inv-status-badge.critical { background: #fff0f0; color: var(--status-critical); }
+
+/* Category color stripe */
+.inv-card { border-left: 3px solid var(--border); }
+.inv-card[data-cat="Fertiliser"] { border-left-color: var(--cat-fertilise); }
+.inv-card[data-cat="Biostimulant"] { border-left-color: var(--cat-biostimulant); }
+.inv-card[data-cat="Soil Wetter"] { border-left-color: var(--cat-soilwetter); }
+.inv-card[data-cat="Fungicide"] { border-left-color: var(--cat-fungicide); }
+.inv-card[data-cat="Herbicide"] { border-left-color: var(--cat-herbicide); }
+.inv-card[data-cat="Insecticide"] { border-left-color: var(--cat-insecticide); }
+
+/* ── CATEGORY FILTER CHIPS ── */
+.filter-chips {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.filter-chip {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--ink-mid);
+  cursor: pointer;
+  transition: all 0.12s;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.4px;
+}
+.filter-chip:hover { border-color: var(--grass); color: var(--grass); }
+.filter-chip.active { background: var(--grass); border-color: var(--grass); color: white; }
+
+/* ── PROGRAM OVERVIEW ── */
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 28px;
+}
+@media (max-width: 700px) { .month-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .month-grid { grid-template-columns: repeat(2, 1fr); } }
+.month-tile {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  cursor: default;
+}
+.month-tile.current { border-color: var(--grass); box-shadow: 0 0 0 2px var(--grass-pale); }
+.month-tile-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.month-tile-name {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--ink);
+}
+.season-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.season-dot.summer { background: #d4a017; }
+.season-dot.autumn { background: #c07030; }
+.season-dot.winter { background: #4a80b0; }
+.season-dot.spring { background: #5a9448; }
+.month-tile-bar { height: 4px; background: var(--border-light); border-radius: 2px; overflow: hidden; margin-bottom: 5px; }
+.month-tile-fill { height: 100%; background: var(--grass); border-radius: 2px; }
+.month-tile-count { font-size: 12px; color: var(--ink-light); }
+.month-tile-count .done { color: var(--grass); font-weight: 500; }
+
+/* ── UPCOMING TASKS ── */
+.upcoming-list { display: flex; flex-direction: column; gap: 8px; }
+.upcoming-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  background: var(--paper);
+  border: 1px solid var(--border-light);
+  border-radius: 5px;
+  font-size: 14px;
+}
+.upcoming-week {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--ink-light);
+  min-width: 55px;
+  flex-shrink: 0;
+}
+.upcoming-label { color: var(--ink); flex: 1; }
+.upcoming-type-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.upcoming-type-dot.fertilise { background: var(--cat-fertilise); }
+.upcoming-type-dot.biostimulant { background: var(--cat-biostimulant); }
+.upcoming-type-dot.herbicide { background: var(--cat-herbicide); }
+.upcoming-type-dot.fungicide { background: var(--cat-fungicide); }
+.upcoming-type-dot.insecticide { background: var(--cat-insecticide); }
+.upcoming-type-dot.soilwetter { background: var(--cat-soilwetter); }
+.upcoming-type-dot.renovation { background: var(--cat-renovation); }
+
+/* ── FULL PROGRAM TABLE ── */
+.task-type-legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--ink-mid);
+}
+.legend-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+}
+.prog-table-wrap { overflow-x: auto; }
+.prog-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.prog-table th {
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--border);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--ink-light);
+  background: var(--cream);
+  white-space: nowrap;
+}
+.prog-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+.prog-table tr:hover td { background: var(--grass-faint); }
+.prog-table tr.completed-row td { opacity: 0.55; }
+.prog-table tr.completed-row .task-name-cell { text-decoration: line-through; }
+.type-pip {
+  display: inline-block;
+  width: 9px; height: 9px; border-radius: 50%;
+  margin-right: 5px;
+  flex-shrink: 0;
+}
+.task-name-cell { display: flex; align-items: center; }
+.cond-flag {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: var(--cream);
+  border: 1px solid var(--soil-light);
+  color: var(--soil);
+  margin-left: 7px;
+  white-space: nowrap;
+}
+.done-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px; height: 18px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+.done-check.yes { background: var(--grass); color: white; }
+.done-check.no { background: var(--border-light); color: transparent; }
+
+/* ── ALERTS SECTION ── */
+.alerts-list { display: flex; flex-direction: column; gap: 10px; }
+.alert-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 6px;
+  border: 1px solid;
+  align-items: flex-start;
+}
+.alert-item.warn { background: #fff9e8; border-color: #d4a017; }
+.alert-item.critical { background: #fff0f0; border-color: #c04040; }
+.alert-item.info { background: #eef5ff; border-color: #4a80b0; }
+.alert-icon { font-size: 18px; line-height: 1.3; flex-shrink: 0; }
+.alert-body { flex: 1; }
+.alert-title { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+.alert-item.warn .alert-title { color: #8a5a00; }
+.alert-item.critical .alert-title { color: #8a0000; }
+.alert-item.info .alert-title { color: #0a3a6a; }
+.alert-text { font-size: 13px; color: var(--ink-mid); }
+.no-alerts { padding: 28px; text-align: center; color: var(--ink-light); font-size: 14px; font-style: italic; }
+
+/* ── ZONE MAP ── */
+.zone-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.zone-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px 18px;
+}
+.zone-card-name { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+.zone-card-grass { font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+.zone-card-grass.Kikuyu { color: var(--cat-fertilise); }
+.zone-card-grass.Zoysia { color: var(--cat-biostimulant); }
+.zone-card-grass.Couch { color: var(--cat-soilwetter); }
+.zone-stat-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+.zone-stat-label { color: var(--ink-light); }
+.zone-stat-val { color: var(--ink-mid); font-weight: 500; }
+.zone-area-big {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 200;
+  color: var(--grass);
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+
+/* ── LOADING / ERROR ── */
+#loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 60px);
+  gap: 16px;
+  color: var(--ink-light);
+}
+.spinner {
+  width: 28px; height: 28px;
+  border: 2px solid var(--border);
+  border-top-color: var(--grass);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 14px; letter-spacing: 0.5px; }
+#error-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 60px);
+  gap: 12px;
+  color: var(--ink-mid);
+  text-align: center;
+  padding: 24px;
+}
+.error-icon { font-size: 38px; }
+.error-title { font-family: 'Fraunces', serif; font-size: 24px; color: var(--ink); }
+.error-msg { font-size: 15px; color: var(--ink-light); max-width: 420px; line-height: 1.6; }
+
+#dashboard { display: none; }
+
+/* ── SEASONAL BAND ── */
+.season-band {
+  display: flex;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.season-band-seg { flex: 1; }
+.season-band-seg.summer { background: #d4a017; }
+.season-band-seg.autumn { background: #c07030; }
+.season-band-seg.winter { background: #4a80b0; }
+.season-band-seg.spring { background: #5a9448; }
+
+/* ── TWO-COL LAYOUT ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  header { padding: 0 16px; }
+  .dash-nav { padding: 0 12px; }
+  .dash-body { padding: 16px 14px 40px; }
+  .nav-tab { padding: 10px 12px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-title">🌿 Lawn Dashboard</div>
+  <div class="header-links">
+    <a class="header-link" href="tracker.html">→ Tracker</a>
+  </div>
+</header>
+
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <div class="loading-text">Loading lawn data...</div>
+</div>
+
+<div id="error-screen">
+  <div class="error-icon">⚠</div>
+  <div class="error-title">Could not load data</div>
+  <div class="error-msg" id="error-msg-text">Unable to fetch data files from GitHub.</div>
+  <button onclick="init()" style="margin-top:12px;background:var(--grass);color:white;border:none;padding:8px 20px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;font-size:14px;">Retry</button>
+</div>
+
+<div id="dashboard">
+  <nav class="dash-nav" id="dash-nav">
+    <button class="nav-tab active" data-tab="overview">Overview</button>
+    <button class="nav-tab" data-tab="program">Program</button>
+    <button class="nav-tab" data-tab="inventory">Inventory</button>
+    <button class="nav-tab" data-tab="alerts">Alerts</button>
+    <button class="nav-tab" data-tab="zones">Zones</button>
+  </nav>
+
+  <div class="dash-body">
+
+    <!-- OVERVIEW -->
+    <div class="section active" id="tab-overview">
+      <div class="section-heading">
+        <div class="section-title">Overview</div>
+        <div class="section-sub" id="overview-date"></div>
+      </div>
+
+      <div class="stat-grid" id="stat-grid"></div>
+
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-title">Monthly Progress — This Year</div>
+          <div id="monthly-progress-bars"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Upcoming this month</div>
+          <div class="upcoming-list" id="upcoming-list"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Inventory — Stock levels at a glance</div>
+        <div id="inv-summary-bars"></div>
+      </div>
+    </div>
+
+    <!-- PROGRAM -->
+    <div class="section" id="tab-program">
+      <div class="section-heading">
+        <div class="section-title">12-Month Program</div>
+        <div class="section-sub">All tasks &amp; completions</div>
+      </div>
+
+      <div class="season-band">
+        <div class="season-band-seg summer"></div><div class="season-band-seg summer"></div><div class="season-band-seg summer"></div>
+        <div class="season-band-seg autumn"></div><div class="season-band-seg autumn"></div><div class="season-band-seg autumn"></div>
+        <div class="season-band-seg winter"></div><div class="season-band-seg winter"></div><div class="season-band-seg winter"></div>
+        <div class="season-band-seg spring"></div><div class="season-band-seg spring"></div><div class="season-band-seg spring"></div>
+      </div>
+
+      <div class="month-grid" id="month-grid"></div>
+
+      <div class="panel">
+        <div class="panel-title">All Tasks</div>
+        <div class="task-type-legend" id="type-legend"></div>
+        <div style="margin-bottom:14px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <span style="font-size:13px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.6px;">Filter:</span>
+          <div class="filter-chips" id="program-filter-chips" style="margin-bottom:0;"></div>
+        </div>
+        <div class="prog-table-wrap">
+          <table class="prog-table" id="prog-table">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Wk</th>
+                <th>Task</th>
+                <th>Type</th>
+                <th>Method</th>
+                <th>Done</th>
+              </tr>
+            </thead>
+            <tbody id="prog-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVENTORY -->
+    <div class="section" id="tab-inventory">
+      <div class="section-heading">
+        <div class="section-title">Product Inventory</div>
+        <div class="section-sub" id="inv-section-sub"></div>
+      </div>
+
+      <div class="stat-grid" id="inv-stat-grid"></div>
+
+      <div class="filter-chips" id="inv-filter-chips"></div>
+      <div class="inv-grid" id="inv-grid"></div>
+    </div>
+
+    <!-- ALERTS -->
+    <div class="section" id="tab-alerts">
+      <div class="section-heading">
+        <div class="section-title">Alerts</div>
+        <div class="section-sub">Inventory warnings &amp; program notes</div>
+      </div>
+      <div class="alerts-list" id="alerts-list"></div>
+    </div>
+
+    <!-- ZONES -->
+    <div class="section" id="tab-zones">
+      <div class="section-heading">
+        <div class="section-title">Lawn Zones</div>
+        <div class="section-sub">4 zones · 140.15 m²</div>
+      </div>
+
+      <div class="zone-summary-grid" id="zone-summary-grid"></div>
+
+      <div class="panel">
+        <div class="panel-title">Compatibility Rules</div>
+        <div id="compat-list"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var CONFIG = {
+  base: 'https://raw.githubusercontent.com/cjj-gmail/lawn-care-tools/main/data/',
+};
+
+var state = {
+  program: null,
+  inventory: null,
+  completions: {}
+};
+
+var CATEGORY_COLORS = {
+  'Fertiliser':   '#4a7c3f',
+  'Biostimulant': '#7b5ea7',
+  'Herbicide':    '#c0692a',
+  'Fungicide':    '#c0882a',
+  'Insecticide':  '#2a7aa0',
+  'Soil Wetter':  '#3a7a8a',
+};
+var TYPE_COLORS = {
+  fertilise:    '#4a7c3f',
+  biostimulant: '#7b5ea7',
+  herbicide:    '#c0692a',
+  fungicide:    '#c0882a',
+  insecticide:  '#2a7aa0',
+  soilwetter:   '#3a7a8a',
+  renovation:   '#6b4c2a',
+};
+
+// ── INIT ──
+async function init() {
+  try {
+    var [progResp, invResp] = await Promise.all([
+      fetch(CONFIG.base + 'program.json?t=' + Date.now()),
+      fetch(CONFIG.base + 'inventory.json?t=' + Date.now())
+    ]);
+    if (!progResp.ok) throw new Error('program.json: HTTP ' + progResp.status);
+    if (!invResp.ok)  throw new Error('inventory.json: HTTP ' + invResp.status);
+    state.program   = await progResp.json();
+    state.inventory = await invResp.json();
+  } catch(e) {
+    document.getElementById('error-msg-text').textContent = e.message;
+    document.getElementById('error-screen').style.display = 'flex';
+    document.getElementById('loading-screen').style.display = 'none';
+    return;
+  }
+
+  // Try completions (optional)
+  try {
+    var cResp = await fetch(CONFIG.base + 'completions.json?t=' + Date.now());
+    if (cResp.ok) state.completions = await cResp.json();
+  } catch(e) {}
+
+  // Deduplicate inventory products (keep first by name)
+  var seen = {};
+  state.inventory.products = state.inventory.products.filter(function(p) {
+    if (seen[p.name]) return false;
+    seen[p.name] = true;
+    return true;
+  });
+
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+
+  setupNav();
+  renderOverview();
+  renderProgram();
+  renderInventory();
+  renderAlerts();
+  renderZones();
+}
+
+// ── NAV ──
+function setupNav() {
+  document.querySelectorAll('.nav-tab').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var tab = btn.dataset.tab;
+      document.querySelectorAll('.nav-tab').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+    });
+  });
+}
+
+// ── HELPERS ──
+function now() { return new Date(); }
+function currentMonthNum() { return now().getMonth() + 1; }
+function monthNameToNum(name) {
+  return ['January','February','March','April','May','June','July','August','September','October','November','December'].indexOf(name) + 1;
+}
+function getMonthData(n) {
+  for (var i = 0; i < state.program.months.length; i++) {
+    if (state.program.months[i].monthNum === n) return state.program.months[i];
+  }
+  return null;
+}
+function allTasks(monthNum) {
+  var m = getMonthData(monthNum);
+  if (!m) return [];
+  var tasks = [];
+  m.weeks.forEach(function(w) { (w.tasks||[]).forEach(function(t) { tasks.push({task:t, week:w.week}); }); });
+  return tasks;
+}
+function countDone(monthNum) {
+  var total = 0, done = 0;
+  var m = getMonthData(monthNum);
+  if (!m) return {total:0, done:0};
+  m.weeks.forEach(function(w) {
+    (w.tasks||[]).forEach(function(t) { total++; if (state.completions[t.id]) done++; });
+  });
+  return {total:total, done:done};
+}
+function totalTaskCount() {
+  var t = 0;
+  state.program.months.forEach(function(m) {
+    m.weeks.forEach(function(w) { t += (w.tasks||[]).length; });
+  });
+  return t;
+}
+function totalDoneCount() {
+  return Object.keys(state.completions).length;
+}
+function invStatus(p) {
+  var unit = p.unit;
+  var rem = p.qtyRemaining;
+  var fullMap = {
+    'TX10 (5-2-8)': 25,
+    'Maintain (26-1-9)': 20,
+    'default_kg': 20,
+    'default_L': 5
+  };
+  var full = fullMap[p.name] || (unit === 'kg' ? fullMap['default_kg'] : fullMap['default_L']);
+  var pct = Math.min(100, Math.round((rem / full) * 100));
+  var status = pct > 40 ? 'ok' : pct > 15 ? 'low' : 'critical';
+  return {pct: pct, status: status};
+}
+function esc(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── OVERVIEW ──
+function renderOverview() {
+  var d = now();
+  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('overview-date').textContent = d.toLocaleDateString('en-AU', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+
+  var mn = currentMonthNum();
+  var thisMonth = countDone(mn);
+  var totalDone = totalDoneCount();
+  var totalT = totalTaskCount();
+  var yearPct = totalT > 0 ? Math.round(totalDone / totalT * 100) : 0;
+
+  var lowCount = 0;
+  state.inventory.products.forEach(function(p) {
+    if (invStatus(p).status !== 'ok') lowCount++;
+  });
+
+  var statGrid = document.getElementById('stat-grid');
+  statGrid.innerHTML = [
+    {val: months[mn-1], label: 'Current month', sub: state.program.months[mn-1] ? state.program.months[mn-1].season : ''},
+    {val: thisMonth.done + '/' + thisMonth.total, label: 'Tasks done this month', sub: thisMonth.total > 0 ? Math.round(thisMonth.done/thisMonth.total*100) + '% complete' : 'No tasks logged'},
+    {val: yearPct + '%', label: 'Year completion', sub: totalDone + ' of ' + totalT + ' tasks done'},
+    {val: state.inventory.products.length, label: 'Products in inventory', sub: lowCount > 0 ? lowCount + ' needing attention' : 'All well stocked'},
+  ].map(function(s) {
+    return '<div class="stat-tile"><div class="stat-value">' + esc(s.val.toString()) + '</div><div class="stat-label">' + s.label + '</div>' + (s.sub ? '<div class="stat-sub">' + esc(s.sub) + '</div>' : '') + '</div>';
+  }).join('');
+
+  var mpb = document.getElementById('monthly-progress-bars');
+  mpb.innerHTML = '';
+  state.program.months.forEach(function(m) {
+    var c = countDone(m.monthNum);
+    var pct = c.total > 0 ? Math.round(c.done / c.total * 100) : 0;
+    var cls = pct === 100 ? 'ok' : pct > 0 ? 'low' : 'ok';
+    var isThis = m.monthNum === mn;
+    var row = document.createElement('div');
+    row.className = 'progress-row';
+    row.innerHTML =
+      '<div class="progress-row-label" style="' + (isThis ? 'color:var(--grass);font-weight:500;' : '') + '">' + m.month.slice(0,3) + (isThis ? ' ◄' : '') + '</div>' +
+      '<div class="progress-bar-wrap"><div class="progress-bar-fill ' + cls + '" style="width:' + pct + '%"></div></div>' +
+      '<div class="progress-row-num">' + c.done + '/' + c.total + '</div>';
+    mpb.appendChild(row);
+  });
+
+  var upcoming = document.getElementById('upcoming-list');
+  upcoming.innerHTML = '';
+  var remaining = allTasks(mn).filter(function(t) { return !state.completions[t.task.id]; });
+  if (remaining.length === 0) {
+    upcoming.innerHTML = '<div style="padding:16px;text-align:center;color:var(--ink-light);font-size:13px;font-style:italic;">All tasks done for this month ✓</div>';
+  } else {
+    remaining.slice(0, 8).forEach(function(t) {
+      var item = document.createElement('div');
+      item.className = 'upcoming-item';
+      item.innerHTML =
+        '<span class="upcoming-type-dot ' + t.task.taskType + '"></span>' +
+        '<span class="upcoming-week">W' + t.week + '</span>' +
+        '<span class="upcoming-label">' + esc(t.task.label) + '</span>' +
+        (t.task.conditional ? '<span class="cond-flag">if req.</span>' : '');
+      upcoming.appendChild(item);
+    });
+    if (remaining.length > 8) {
+      upcoming.innerHTML += '<div style="padding:8px;text-align:center;color:var(--ink-light);font-size:12px;">+ ' + (remaining.length - 8) + ' more</div>';
+    }
+  }
+
+  var isb = document.getElementById('inv-summary-bars');
+  isb.innerHTML = '';
+  state.inventory.products.forEach(function(p) {
+    var s = invStatus(p);
+    var row = document.createElement('div');
+    row.className = 'progress-row';
+    row.style.marginBottom = '7px';
+    row.innerHTML =
+      '<div class="progress-row-label" style="font-size:13px;">' + esc(p.name) + '</div>' +
+      '<div class="progress-bar-wrap" style="height:6px;"><div class="progress-bar-fill ' + s.status + '" style="width:' + s.pct + '%"></div></div>' +
+      '<div class="progress-row-num" style="font-size:12px;">' + p.qtyRemaining + p.unit + '</div>';
+    isb.appendChild(row);
+  });
+}
+
+// ── PROGRAM ──
+function renderProgram() {
+  var mn = currentMonthNum();
+
+  var grid = document.getElementById('month-grid');
+  grid.innerHTML = '';
+  state.program.months.forEach(function(m) {
+    var c = countDone(m.monthNum);
+    var pct = c.total > 0 ? Math.round(c.done / c.total * 100) : 0;
+    var tile = document.createElement('div');
+    tile.className = 'month-tile' + (m.monthNum === mn ? ' current' : '');
+    tile.innerHTML =
+      '<div class="month-tile-top">' +
+        '<div class="month-tile-name">' + m.month.slice(0,3) + '</div>' +
+        '<div class="season-dot ' + m.season + '"></div>' +
+      '</div>' +
+      '<div class="month-tile-bar"><div class="month-tile-fill" style="width:' + pct + '%"></div></div>' +
+      '<div class="month-tile-count"><span class="done">' + c.done + '</span> / ' + c.total + ' tasks</div>';
+    grid.appendChild(tile);
+  });
+
+  var legend = document.getElementById('type-legend');
+  legend.innerHTML = Object.entries(TYPE_COLORS).map(function(e) {
+    return '<div class="legend-item"><div class="legend-dot" style="background:' + e[1] + '"></div>' + e[0].replace('soilwetter','soil wetter') + '</div>';
+  }).join('');
+
+  var chips = document.getElementById('program-filter-chips');
+  var activeFilter = 'all';
+  function buildChips() {
+    chips.innerHTML = '';
+    ['all','fertilise','biostimulant','herbicide','fungicide','insecticide','soilwetter','renovation'].forEach(function(f) {
+      var chip = document.createElement('button');
+      chip.className = 'filter-chip' + (f === activeFilter ? ' active' : '');
+      chip.textContent = f === 'all' ? 'All' : f.replace('soilwetter','soil wetter');
+      chip.addEventListener('click', function() {
+        activeFilter = f;
+        buildChips();
+        buildTable();
+      });
+      chips.appendChild(chip);
+    });
+  }
+
+  function buildTable() {
+    var tbody = document.getElementById('prog-tbody');
+    tbody.innerHTML = '';
+    state.program.months.forEach(function(m) {
+      m.weeks.forEach(function(w) {
+        (w.tasks||[]).forEach(function(t) {
+          if (activeFilter !== 'all' && t.taskType !== activeFilter) return;
+          var isDone = !!state.completions[t.id];
+          var color = TYPE_COLORS[t.taskType] || '#888';
+          var tr = document.createElement('tr');
+          tr.className = isDone ? 'completed-row' : '';
+          tr.innerHTML =
+            '<td>' + m.month.slice(0,3) + '</td>' +
+            '<td>W' + w.week + '</td>' +
+            '<td><div class="task-name-cell"><div class="type-pip" style="background:' + color + '"></div>' + esc(t.label) + (t.conditional ? '<span class="cond-flag">if req.</span>' : '') + '</div></td>' +
+            '<td>' + t.taskType.replace('soilwetter','soil wetter') + '</td>' +
+            '<td style="font-size:12px;color:var(--ink-light);">' + esc(t.applicationMethod).replace('Backpack or handheld sprayer','Sprayer').replace('Fertiliser spreader','Spreader') + '</td>' +
+            '<td><div class="done-check ' + (isDone ? 'yes' : 'no') + '">' + (isDone ? '✓' : '') + '</div></td>';
+          tbody.appendChild(tr);
+        });
+      });
+    });
+  }
+
+  buildChips();
+  buildTable();
+}
+
+// ── INVENTORY ──
+function renderInventory() {
+  var products = state.inventory.products;
+  var sub = document.getElementById('inv-section-sub');
+  sub.textContent = products.length + ' products · updated ' + state.inventory.lastUpdated;
+
+  var statGrid = document.getElementById('inv-stat-grid');
+  var total = products.length;
+  var okCount = 0, lowCount = 0, critCount = 0;
+  products.forEach(function(p) {
+    var s = invStatus(p).status;
+    if (s === 'ok') okCount++;
+    else if (s === 'low') lowCount++;
+    else critCount++;
+  });
+  statGrid.innerHTML = [
+    {val: total, label: 'Products', sub: 'in inventory'},
+    {val: okCount, label: 'Well stocked', sub: '>40% remaining'},
+    {val: lowCount, label: 'Running low', sub: '15–40% remaining'},
+    {val: critCount, label: 'Critical', sub: '<15% remaining'},
+  ].map(function(s) {
+    return '<div class="stat-tile"><div class="stat-value" style="' + (s.label==='Critical'&&critCount>0?'color:var(--status-critical);':'') + (s.label==='Running low'&&lowCount>0?'color:var(--status-low);':'') + '">' + s.val + '</div><div class="stat-label">' + s.label + '</div><div class="stat-sub">' + s.sub + '</div></div>';
+  }).join('');
+
+  var cats = ['All'];
+  products.forEach(function(p) { if (cats.indexOf(p.category) < 0) cats.push(p.category); });
+
+  var activeInvFilter = 'All';
+  var filterChips = document.getElementById('inv-filter-chips');
+
+  function buildInvChips() {
+    filterChips.innerHTML = '';
+    cats.forEach(function(c) {
+      var chip = document.createElement('button');
+      chip.className = 'filter-chip' + (c === activeInvFilter ? ' active' : '');
+      chip.textContent = c;
+      chip.addEventListener('click', function() {
+        activeInvFilter = c;
+        buildInvChips();
+        buildInvGrid();
+      });
+      filterChips.appendChild(chip);
+    });
+  }
+
+  function buildInvGrid() {
+    var grid = document.getElementById('inv-grid');
+    grid.innerHTML = '';
+    var filtered = activeInvFilter === 'All' ? products : products.filter(function(p) { return p.category === activeInvFilter; });
+    filtered.forEach(function(p) {
+      var s = invStatus(p);
+      var card = document.createElement('div');
+      card.className = 'inv-card';
+      card.dataset.cat = p.category;
+      card.innerHTML =
+        '<div class="inv-card-top">' +
+          '<div><div class="inv-card-name">' + esc(p.name) + '</div><div class="inv-card-brand">' + esc(p.brand) + ' · ' + esc(p.category) + '</div></div>' +
+          '<span class="inv-status-badge ' + s.status + '">' + (s.status==='ok'?'OK':s.status==='low'?'LOW':'⚠ LOW') + '</span>' +
+        '</div>' +
+        '<div class="inv-card-bar">' +
+          '<div class="inv-bar-wrap"><div class="inv-bar-fill" style="width:' + s.pct + '%;background:' + (s.status==='ok'?'var(--grass)':s.status==='low'?'var(--status-low)':'var(--status-critical)') + '"></div></div>' +
+        '</div>' +
+        '<div class="inv-card-meta">' +
+          '<span>' + p.qtyRemaining + p.unit + ' remaining</span>' +
+          '<span>' + esc(p.ratePer100sqm) + ' / 100m²</span>' +
+        '</div>';
+      grid.appendChild(card);
+    });
+  }
+
+  buildInvChips();
+  buildInvGrid();
+}
+
+// ── ALERTS ──
+function renderAlerts() {
+  var list = document.getElementById('alerts-list');
+  var alerts = [];
+
+  state.inventory.products.forEach(function(p) {
+    var s = invStatus(p);
+    if (s.status === 'critical') {
+      alerts.push({type:'critical', icon:'⚠', title: p.name + ' — critically low', text: p.qtyRemaining + p.unit + ' remaining. Reorder soon. Required rate: ' + p.ratePer100sqm + '/' + (p.rateUnit||p.unit) + ' per 100m².'});
+    } else if (s.status === 'low') {
+      alerts.push({type:'warn', icon:'⊙', title: p.name + ' — running low', text: p.qtyRemaining + p.unit + ' remaining (' + s.pct + '% of estimated full stock).'});
+    }
+  });
+
+  state.inventory.compatibility.forEach(function(rule) {
+    if (rule.severity === 'critical') {
+      alerts.push({type:'critical', icon:'⛔', title: 'Compatibility rule', text: rule.rule});
+    }
+  });
+
+  var mn = currentMonthNum();
+  var c = countDone(mn);
+  if (c.total > 0 && c.done === 0) {
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    alerts.push({type:'info', icon:'📋', title: months[mn-1] + ' program not started', text: c.total + ' tasks scheduled this month, none completed yet.'});
+  }
+
+  if (state.program.meta && state.program.meta.notes) {
+    state.program.meta.notes.forEach(function(note) {
+      if (note.toLowerCase().indexOf('critical') >= 0 || note.toLowerCase().indexOf('never') >= 0 || note.toLowerCase().indexOf('must') >= 0) {
+        alerts.push({type:'warn', icon:'ℹ', title: 'Program rule', text: note});
+      }
+    });
+  }
+
+  if (alerts.length === 0) {
+    list.innerHTML = '<div class="no-alerts">No alerts — everything looks good.</div>';
+    return;
+  }
+
+  list.innerHTML = '';
+  alerts.forEach(function(a) {
+    var item = document.createElement('div');
+    item.className = 'alert-item ' + a.type;
+    item.innerHTML = '<div class="alert-icon">' + a.icon + '</div><div class="alert-body"><div class="alert-title">' + esc(a.title) + '</div><div class="alert-text">' + esc(a.text) + '</div></div>';
+    list.appendChild(item);
+  });
+
+  var alertTab = document.querySelector('[data-tab="alerts"]');
+  if (alertTab) alertTab.textContent = 'Alerts (' + alerts.length + ')';
+}
+
+// ── ZONES ──
+function renderZones() {
+  var grid = document.getElementById('zone-summary-grid');
+  grid.innerHTML = '';
+  var mn = currentMonthNum();
+  var m = getMonthData(mn);
+
+  state.inventory.zones.forEach(function(z) {
+    var taskCount = 0;
+    if (m) {
+      m.weeks.forEach(function(w) {
+        (w.tasks||[]).forEach(function(t) {
+          if ((t.zones||[]).indexOf(z.id) >= 0) taskCount++;
+        });
+      });
+    }
+
+    var card = document.createElement('div');
+    card.className = 'zone-card';
+    card.innerHTML =
+      '<div class="zone-area-big">' + z.areaSqm + 'm²</div>' +
+      '<div class="zone-card-name">' + esc(z.name) + '</div>' +
+      '<div class="zone-card-grass ' + z.grass + '">' + z.grass.toUpperCase() + '</div>' +
+      '<div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;">' +
+        '<div class="zone-stat-row"><span class="zone-stat-label">Tasks this month</span><span class="zone-stat-val">' + taskCount + '</span></div>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+
+  var totalCard = document.createElement('div');
+  totalCard.className = 'zone-card';
+  totalCard.innerHTML =
+    '<div class="zone-area-big">140.15m²</div>' +
+    '<div class="zone-card-name">Total lawn area</div>' +
+    '<div class="zone-card-grass" style="color:var(--ink-light);">ALL ZONES</div>' +
+    '<div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;">' +
+      '<div class="zone-stat-row"><span class="zone-stat-label">Kikuyu</span><span class="zone-stat-val">68.2m²</span></div>' +
+      '<div class="zone-stat-row"><span class="zone-stat-label">Zoysia</span><span class="zone-stat-val">35.0m²</span></div>' +
+      '<div class="zone-stat-row"><span class="zone-stat-label">Couch</span><span class="zone-stat-val">36.95m²</span></div>' +
+    '</div>';
+  grid.appendChild(totalCard);
+
+  var compatList = document.getElementById('compat-list');
+  compatList.innerHTML = '';
+  state.inventory.compatibility.forEach(function(rule) {
+    var item = document.createElement('div');
+    item.className = 'alert-item ' + (rule.severity === 'critical' ? 'critical' : 'warn');
+    item.style.marginBottom = '8px';
+    item.innerHTML =
+      '<div class="alert-icon">' + (rule.severity === 'critical' ? '⛔' : '⚠') + '</div>' +
+      '<div class="alert-body">' +
+        '<div class="alert-title">' + esc(rule.products.join(', ')) + '</div>' +
+        '<div class="alert-text">' + esc(rule.rule) + '</div>' +
+      '</div>';
+    compatList.appendChild(item);
+  });
+}
+
+init();
+</script>
+</body>
+</html>
