@@ -121,11 +121,15 @@ main { max-width: 900px; margin: 0 auto; padding: 24px; }
 .products-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ink-light); margin-bottom: 8px; margin-top: 12px; }
 .product-name { font-size: 12px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
 .product-note { font-size: 11px; color: var(--soil); font-style: italic; margin-top: 4px; }
-.product-zones { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.product-zones { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; align-items: flex-start; }
 .zone-qty { background: white; border: 1px solid var(--border); border-radius: 4px; padding: 4px 8px; font-size: 11px; display: flex; flex-direction: column; align-items: center; min-width: 80px; }
 .zone-qty-label { font-size: 9px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.5px; }
 .zone-qty-grass { font-size: 9px; color: var(--grass); margin-bottom: 2px; }
 .zone-qty-amount { font-weight: 500; color: var(--ink); font-size: 13px; }
+.zone-qty-divider { width: 1px; background: var(--border); align-self: stretch; margin: 0 2px; }
+.zone-qty.combined { background: var(--grass-pale); border-color: var(--grass-light); }
+.zone-qty.combined .zone-qty-label { color: var(--grass); }
+.zone-qty.combined .zone-qty-amount { color: var(--grass); }
 
 .notes-section { margin-top: 10px; }
 .task-notes-text { font-size: 11px; color: var(--ink-mid); line-height: 1.6; padding: 8px 10px; background: white; border-radius: 4px; border: 1px solid var(--border); }
@@ -398,7 +402,7 @@ async function toggleTask(taskId, checkEl, cardEl) {
     checkEl.classList.remove('saving');
     if (ok) showToast(isCompleted ? 'Marked incomplete' : 'Task completed', 'success');
   } else {
-    showToast('Not saved — connect GitHub to persist', 'error');
+    showToast('Not saved \u2014 connect GitHub to persist', 'error');
   }
 }
 
@@ -448,6 +452,11 @@ function renderMonth(monthNum) {
     main.appendChild(weekBlock);
   });
   updateProgress(monthNum);
+}
+
+function roundQty(val) {
+  // Round to max 2 decimal places, trim trailing zeros
+  return parseFloat(val.toFixed(2));
 }
 
 function renderTaskCard(task) {
@@ -507,17 +516,49 @@ function renderTaskCard(task) {
       var zw = document.createElement('div');
       zw.className = 'product-zones';
       var zones = task.zones || Object.keys(prod.quantities || {});
+
+      // Track which of front/strip1/strip2 are present and their quantities
+      var frontQty = null, strip1Qty = null, strip2Qty = null;
+
       zones.forEach(function(zid) {
         if (!prod.quantities || prod.quantities[zid] === undefined) return;
         var info = ZONE_LABELS[zid];
         if (!info) return;
+        var qty = prod.quantities[zid];
+        if (zid === 'front')  frontQty  = qty;
+        if (zid === 'strip1') strip1Qty = qty;
+        if (zid === 'strip2') strip2Qty = qty;
         var chip = document.createElement('div');
         chip.className = 'zone-qty';
         chip.innerHTML = '<div class="zone-qty-label">' + info.name + '</div>' +
           '<div class="zone-qty-grass">' + info.grass + ' \u00B7 ' + info.area + 'm\u00B2</div>' +
-          '<div class="zone-qty-amount">' + prod.quantities[zid] + prod.rateUnit + '</div>';
+          '<div class="zone-qty-amount">' + qty + prod.rateUnit + '</div>';
         zw.appendChild(chip);
       });
+
+      // Add combined front + strips chip if at least 2 of the 3 front zones are present
+      var presentFront = [frontQty, strip1Qty, strip2Qty].filter(function(v) { return v !== null; });
+      if (presentFront.length >= 2) {
+        var combinedTotal = (frontQty || 0) + (strip1Qty || 0) + (strip2Qty || 0);
+        var combinedArea = 0;
+        if (frontQty  !== null) combinedArea += 35.0;
+        if (strip1Qty !== null) combinedArea += 20.8;
+        if (strip2Qty !== null) combinedArea += 16.15;
+
+        // Divider
+        var divider = document.createElement('div');
+        divider.className = 'zone-qty-divider';
+        zw.appendChild(divider);
+
+        var combined = document.createElement('div');
+        combined.className = 'zone-qty combined';
+        combined.innerHTML =
+          '<div class="zone-qty-label">Front + Strips</div>' +
+          '<div class="zone-qty-grass">Combined \u00B7 ' + combinedArea + 'm\u00B2</div>' +
+          '<div class="zone-qty-amount">' + roundQty(combinedTotal) + prod.rateUnit + '</div>';
+        zw.appendChild(combined);
+      }
+
       pr.appendChild(zw);
       detail.appendChild(pr);
     });
