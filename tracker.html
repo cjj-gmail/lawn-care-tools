@@ -127,9 +127,11 @@ main { max-width: 900px; margin: 0 auto; padding: 24px; }
 .zone-qty-grass { font-size: 9px; color: var(--grass); margin-bottom: 2px; }
 .zone-qty-amount { font-weight: 500; color: var(--ink); font-size: 13px; }
 .zone-qty-divider { width: 1px; background: var(--border); align-self: stretch; margin: 0 2px; }
-.zone-qty.combined { background: var(--grass-pale); border-color: var(--grass-light); }
-.zone-qty.combined .zone-qty-label { color: var(--grass); }
-.zone-qty.combined .zone-qty-amount { color: var(--grass); }
+/* Combined chip — solid grass background, white text for strong contrast */
+.zone-qty.combined { background: var(--grass); border-color: var(--grass); }
+.zone-qty.combined .zone-qty-label { color: rgba(255,255,255,0.75); }
+.zone-qty.combined .zone-qty-grass { color: rgba(255,255,255,0.65); }
+.zone-qty.combined .zone-qty-amount { color: white; }
 
 .notes-section { margin-top: 10px; }
 .task-notes-text { font-size: 11px; color: var(--ink-mid); line-height: 1.6; padding: 8px 10px; background: white; border-radius: 4px; border: 1px solid var(--border); }
@@ -454,9 +456,10 @@ function renderMonth(monthNum) {
   updateProgress(monthNum);
 }
 
-function roundQty(val) {
-  // Round to max 2 decimal places, trim trailing zeros
-  return parseFloat(val.toFixed(2));
+function fmt(val) {
+  // Round to 1 decimal place, strip trailing .0
+  var r = Math.round(val * 10) / 10;
+  return r % 1 === 0 ? r.toString() : r.toFixed(1);
 }
 
 function renderTaskCard(task) {
@@ -517,7 +520,6 @@ function renderTaskCard(task) {
       zw.className = 'product-zones';
       var zones = task.zones || Object.keys(prod.quantities || {});
 
-      // Track which of front/strip1/strip2 are present and their quantities
       var frontQty = null, strip1Qty = null, strip2Qty = null;
 
       zones.forEach(function(zid) {
@@ -536,7 +538,7 @@ function renderTaskCard(task) {
         zw.appendChild(chip);
       });
 
-      // Add combined front + strips chip if at least 2 of the 3 front zones are present
+      // Combined front+strips chip — show if at least 2 of the 3 front zones are present
       var presentFront = [frontQty, strip1Qty, strip2Qty].filter(function(v) { return v !== null; });
       if (presentFront.length >= 2) {
         var combinedTotal = (frontQty || 0) + (strip1Qty || 0) + (strip2Qty || 0);
@@ -545,7 +547,6 @@ function renderTaskCard(task) {
         if (strip1Qty !== null) combinedArea += 20.8;
         if (strip2Qty !== null) combinedArea += 16.15;
 
-        // Divider
         var divider = document.createElement('div');
         divider.className = 'zone-qty-divider';
         zw.appendChild(divider);
@@ -554,8 +555,8 @@ function renderTaskCard(task) {
         combined.className = 'zone-qty combined';
         combined.innerHTML =
           '<div class="zone-qty-label">Front + Strips</div>' +
-          '<div class="zone-qty-grass">Combined \u00B7 ' + combinedArea + 'm\u00B2</div>' +
-          '<div class="zone-qty-amount">' + roundQty(combinedTotal) + prod.rateUnit + '</div>';
+          '<div class="zone-qty-grass">Combined \u00B7 ' + fmt(combinedArea) + 'm\u00B2</div>' +
+          '<div class="zone-qty-amount">' + fmt(combinedTotal) + prod.rateUnit + '</div>';
         zw.appendChild(combined);
       }
 
