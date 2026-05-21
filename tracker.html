@@ -37,7 +37,7 @@ header {
   box-shadow: 0 2px 12px rgba(0,0,0,0.25);
 }
 .header-title { font-family: 'Fraunces', serif; font-size: 23px; font-weight: 600; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
-.header-right { display: flex; align-items: center; gap: 16px; }
+.header-right { display: flex; align-items: center; gap: 12px; }
 #auth-status { font-size: 14px; opacity: 0.8; display: flex; align-items: center; gap: 6px; }
 .auth-dot { width: 7px; height: 7px; border-radius: 50%; background: #ff6b6b; flex-shrink: 0; }
 .auth-dot.connected { background: #6bff8a; }
@@ -48,6 +48,13 @@ header {
 }
 #login-btn:hover { background: rgba(255,255,255,0.25); }
 #login-btn.hidden { display: none; }
+.header-dash-link {
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+  color: var(--cream); padding: 5px 14px; border-radius: 4px;
+  font-family: 'DM Mono', monospace; font-size: 13px; text-decoration: none;
+  transition: background 0.15s; letter-spacing: 0.5px;
+}
+.header-dash-link:hover { background: rgba(255,255,255,0.25); }
 
 .month-nav {
   background: var(--cream); border-bottom: 1px solid var(--border);
@@ -205,6 +212,7 @@ main { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
       <span id="auth-status-text">Not connected</span>
     </div>
     <button id="login-btn" onclick="startLogin()">Connect GitHub</button>
+    <a class="header-dash-link" href="dashboard.html">← Dashboard</a>
   </div>
 </header>
 
@@ -284,9 +292,10 @@ async function init() {
   showScreen('loading');
   var urlParams = new URLSearchParams(window.location.search);
   var code = urlParams.get('code');
+  var monthParam = parseInt(urlParams.get('month'), 10);
   if (code) {
     await handleOAuthCallback(code);
-    window.history.replaceState({}, '', window.location.pathname);
+    window.history.replaceState({}, '', window.location.pathname + (monthParam ? '?month=' + monthParam : ''));
   }
   var savedToken = sessionStorage.getItem('gh_token');
   if (savedToken) state.token = savedToken;
@@ -302,12 +311,22 @@ async function init() {
   }
 
   var now = new Date();
-  state.currentMonth = now.getMonth() + 1;
+  // Use ?month= param if valid (1–12), otherwise default to current calendar month
+  if (monthParam >= 1 && monthParam <= 12) {
+    state.currentMonth = monthParam;
+  } else {
+    state.currentMonth = now.getMonth() + 1;
+  }
+
   await loadCompletions();
   renderMonthNav();
   renderMonth(state.currentMonth);
   updateAuthUI();
   showScreen('app');
+
+  // Scroll active month tab into view
+  var activeBtn = document.querySelector('.month-btn.active');
+  if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 }
 
 function startLogin() {
