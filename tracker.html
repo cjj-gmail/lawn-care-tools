@@ -16,7 +16,6 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'DM Mono', monospace; background: var(--paper); color: var(--ink); min-height: 100vh; font-size: 17px; line-height: 1.6; }
-
 header { background: var(--grass); color: var(--cream); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.25); }
 .header-title { font-family: 'Fraunces', serif; font-size: 23px; font-weight: 600; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
 .header-right { display: flex; align-items: center; gap: 12px; }
@@ -28,55 +27,42 @@ header { background: var(--grass); color: var(--cream); padding: 0 24px; display
 #login-btn.hidden { display: none; }
 .header-dash-link { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: var(--cream); padding: 5px 14px; border-radius: 4px; font-family: 'DM Mono', monospace; font-size: 13px; text-decoration: none; transition: background 0.15s; letter-spacing: 0.5px; }
 .header-dash-link:hover { background: rgba(255,255,255,0.25); }
-
 .month-nav { background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; overflow-x: auto; scrollbar-width: none; }
 .month-nav::-webkit-scrollbar { display: none; }
 .month-btn { padding: 13px 17px; border: none; background: none; font-family: 'DM Mono', monospace; font-size: 14px; color: var(--ink-light); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.8px; position: relative; }
 .month-btn:hover { color: var(--grass); }
 .month-btn.active { color: var(--grass); border-bottom-color: var(--grass); font-weight: 500; }
 .month-btn.current-month::after { content: ''; width: 4px; height: 4px; background: var(--grass-light); border-radius: 50%; position: absolute; top: 8px; right: 6px; }
-
 .month-progress { background: var(--cream); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; gap: 16px; }
 .progress-label { font-size: 14px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; }
 .progress-bar-wrap { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
 .progress-bar-fill { height: 100%; background: var(--grass); border-radius: 3px; transition: width 0.4s ease; }
 .progress-count { font-size: 14px; color: var(--ink-mid); white-space: nowrap; min-width: 65px; text-align: right; }
-
 main { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
 .week-block { margin-bottom: 32px; }
 .week-heading { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 .week-num { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 300; font-style: italic; color: var(--grass); line-height: 1; }
 .week-label-text { font-size: 15px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.8px; }
-
 .task-card { background: white; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; transition: box-shadow 0.15s; }
 .task-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
 .task-card.completed { opacity: 0.6; }
 .task-card.completed .task-label { text-decoration: line-through; color: var(--ink-light); }
 .task-card.conditional { border-left: 3px solid var(--soil-light); }
-
 .task-header { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px; }
 .task-check { width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 3px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; cursor: pointer; }
 .task-check.checked { background: var(--grass); border-color: var(--grass); }
 .task-check.checked::after { content: '\2713'; color: white; font-size: 14px; font-weight: bold; }
 .task-check.saving { border-color: var(--soil-light); animation: pulse 0.8s infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-
 .task-body { flex: 1; min-width: 0; }
 .task-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
 .task-label { font-size: 17px; font-weight: 500; color: var(--ink); }
 .type-tag { font-size: 13px; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; color: white; flex-shrink: 0; }
-.type-tag.fertilise    { background: var(--tag-fertilise); }
-.type-tag.biostimulant { background: var(--tag-biostimulant); }
-.type-tag.herbicide    { background: var(--tag-herbicide); }
-.type-tag.fungicide    { background: var(--tag-fungicide); }
-.type-tag.insecticide  { background: var(--tag-insecticide); }
-.type-tag.soilwetter   { background: var(--tag-soilwetter); }
-.type-tag.renovation   { background: var(--tag-renovation); }
+.type-tag.fertilise{background:var(--tag-fertilise);}.type-tag.biostimulant{background:var(--tag-biostimulant);}.type-tag.herbicide{background:var(--tag-herbicide);}.type-tag.fungicide{background:var(--tag-fungicide);}.type-tag.insecticide{background:var(--tag-insecticide);}.type-tag.soilwetter{background:var(--tag-soilwetter);}.type-tag.renovation{background:var(--tag-renovation);}
 .conditional-flag { font-size: 13px; padding: 2px 8px; border-radius: 3px; background: var(--cream); border: 1px solid var(--soil-light); color: var(--soil); }
 .task-method { font-size: 15px; color: var(--ink-light); margin-top: 2px; }
 .expand-btn { font-size: 15px; color: var(--grass); background: none; border: none; cursor: pointer; padding: 2px 0; margin-top: 5px; font-family: 'DM Mono', monospace; display: flex; align-items: center; gap: 4px; }
 .expand-btn:hover { text-decoration: underline; }
-
 .task-detail { display: none; padding: 0 18px 16px 52px; border-top: 1px solid var(--grass-pale); background: var(--grass-pale); }
 .task-detail.open { display: block; }
 .products-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ink-light); margin-bottom: 8px; margin-top: 14px; }
@@ -92,25 +78,23 @@ main { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
 .zone-qty.combined .zone-qty-label { color: rgba(255,255,255,0.75); }
 .zone-qty.combined .zone-qty-grass { color: rgba(255,255,255,0.65); }
 .zone-qty.combined .zone-qty-amount { color: white; }
-
 .notes-section { margin-top: 12px; }
 .task-notes-text { font-size: 15px; color: var(--ink-mid); line-height: 1.6; padding: 9px 12px; background: white; border-radius: 4px; border: 1px solid var(--border); }
 .cautions-wrap { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 6px; }
 .caution-chip { font-size: 14px; padding: 4px 10px; border-radius: 12px; border: 1px solid; display: flex; align-items: center; gap: 4px; cursor: help; position: relative; }
-.caution-chip[data-caution="iron-overload"]       { color: #8a5a00; border-color: #d4a017; background: #fff9e8; }
-.caution-chip[data-caution="kelpxtra-solo"]       { color: #8a1a00; border-color: #c0401a; background: #fff5f2; }
-.caution-chip[data-caution="fungicide-rotation"]  { color: #4a1a6a; border-color: #8a4a9a; background: #faf0ff; }
-.caution-chip[data-caution="staining"]            { color: #8a3a00; border-color: #c07030; background: #fff3ee; }
-.caution-chip[data-caution="water-in"]            { color: #0a3a6a; border-color: #2a6a9a; background: #eef5ff; }
-.caution-chip[data-caution="no-backpack-sprayer"] { color: #8a0000; border-color: #c04040; background: #fff0f0; }
-.caution-chip[data-caution="low-stock"]           { color: #8a0000; border-color: #c04040; background: #fff0f0; }
-.caution-chip[data-caution="pre-emergent-weed-free-first"] { color: #1a5a0a; border-color: #3a8a3a; background: #f0fff0; }
-.caution-chip[data-caution="tank-mix-dilute-first"] { color: #5a4a00; border-color: #8a7a2a; background: #fffaee; }
+.caution-chip[data-caution="iron-overload"]{color:#8a5a00;border-color:#d4a017;background:#fff9e8;}
+.caution-chip[data-caution="kelpxtra-solo"]{color:#8a1a00;border-color:#c0401a;background:#fff5f2;}
+.caution-chip[data-caution="fungicide-rotation"]{color:#4a1a6a;border-color:#8a4a9a;background:#faf0ff;}
+.caution-chip[data-caution="staining"]{color:#8a3a00;border-color:#c07030;background:#fff3ee;}
+.caution-chip[data-caution="water-in"]{color:#0a3a6a;border-color:#2a6a9a;background:#eef5ff;}
+.caution-chip[data-caution="no-backpack-sprayer"]{color:#8a0000;border-color:#c04040;background:#fff0f0;}
+.caution-chip[data-caution="low-stock"]{color:#8a0000;border-color:#c04040;background:#fff0f0;}
+.caution-chip[data-caution="pre-emergent-weed-free-first"]{color:#1a5a0a;border-color:#3a8a3a;background:#f0fff0;}
+.caution-chip[data-caution="tank-mix-dilute-first"]{color:#5a4a00;border-color:#8a7a2a;background:#fffaee;}
 .caution-tooltip { display: none; position: absolute; bottom: calc(100% + 6px); left: 0; background: var(--ink); color: var(--cream); padding: 7px 11px; border-radius: 4px; font-size: 14px; white-space: normal; max-width: 300px; z-index: 200; line-height: 1.5; pointer-events: none; }
 .caution-chip:hover .caution-tooltip { display: block; }
 .completion-info { margin-top: 9px; font-size: 14px; color: var(--ink-light); font-style: italic; }
 .condition-banner { margin: 0 18px 10px 52px; padding: 7px 11px; background: #fff8f0; border: 1px solid var(--soil-light); border-radius: 4px; font-size: 15px; color: var(--soil); }
-
 #loading-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: calc(100vh - 60px); gap: 16px; color: var(--ink-light); }
 .spinner { width: 28px; height: 28px; border: 2px solid var(--border); border-top-color: var(--grass); border-radius: 50%; animation: spin 0.7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -126,20 +110,17 @@ main { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
 #github-login-btn { background: var(--grass); color: white; border: none; padding: 12px 28px; border-radius: 5px; font-family: 'DM Mono', monospace; font-size: 16px; cursor: pointer; transition: background 0.15s; }
 #github-login-btn:hover { background: var(--grass-light); }
 #app { display: none; }
-
 #toast { position: fixed; bottom: 24px; right: 24px; background: var(--ink); color: var(--cream); padding: 10px 18px; border-radius: 5px; font-size: 15px; opacity: 0; transform: translateY(8px); transition: all 0.25s; pointer-events: none; z-index: 500; max-width: 320px; }
 #toast.show { opacity: 1; transform: translateY(0); }
 #toast.error { background: #8a2020; }
 #toast.success { background: var(--grass); }
-
 .season-badge { display: inline-block; font-size: 13px; padding: 2px 9px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.6px; margin-left: 8px; vertical-align: middle; }
-.season-badge.summer { background: #fff0cc; color: #8a5a00; border: 1px solid #d4a017; }
-.season-badge.autumn { background: #ffe8d0; color: #8a3a00; border: 1px solid #d47030; }
-.season-badge.winter { background: #d8eeff; color: #0a3a6a; border: 1px solid #4a80b0; }
-.season-badge.spring { background: #e0f5d0; color: #1a5a0a; border: 1px solid #5a9448; }
+.season-badge.summer{background:#fff0cc;color:#8a5a00;border:1px solid #d4a017;}
+.season-badge.autumn{background:#ffe8d0;color:#8a3a00;border:1px solid #d47030;}
+.season-badge.winter{background:#d8eeff;color:#0a3a6a;border:1px solid #4a80b0;}
+.season-badge.spring{background:#e0f5d0;color:#1a5a0a;border:1px solid #5a9448;}
 .month-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 22px; }
 .month-title { font-family: 'Fraunces', serif; font-weight: 300; font-size: 32px; color: var(--ink); letter-spacing: -0.5px; }
-
 /* ── MODALS ── */
 .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 400; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.open { display: flex; }
@@ -177,17 +158,11 @@ main { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
 .modal-btn.secondary { background: white; color: var(--ink-mid); border-color: var(--border); }
 .modal-btn.secondary:hover { border-color: var(--ink-mid); }
 .modal-saving { text-align: center; padding: 6px; font-size: 13px; color: var(--ink-light); display: none; }
-
 @media (max-width: 600px) {
-  main { padding: 16px; }
-  header { padding: 0 16px; }
-  .month-nav { padding: 0 12px; }
-  .month-progress { padding: 10px 16px; }
-  .month-btn { padding: 10px 10px; font-size: 13px; }
-  .task-detail { padding-left: 16px; }
-  .zone-qty { min-width: 80px; }
-  .modal-footer { flex-direction: column; }
-  .modal-btn { flex: none; width: 100%; }
+  main{padding:16px;}header{padding:0 16px;}.month-nav{padding:0 12px;}
+  .month-progress{padding:10px 16px;}.month-btn{padding:10px 10px;font-size:13px;}
+  .task-detail{padding-left:16px;}.zone-qty{min-width:80px;}
+  .modal-footer{flex-direction:column;}.modal-btn{flex:none;width:100%;}
 }
 </style>
 </head>
@@ -203,18 +178,15 @@ main { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
 </header>
 
 <div id="loading-screen"><div class="spinner"></div><div class="loading-text">Loading program data...</div></div>
-
 <div id="error-screen">
-  <div class="error-icon">&#x26A0;</div>
-  <div class="error-title">Could not load program</div>
+  <div class="error-icon">&#x26A0;</div><div class="error-title">Could not load program</div>
   <div class="error-msg" id="error-msg-text">Unable to fetch program data from GitHub.</div>
   <button onclick="init()" style="margin-top:12px;background:var(--grass);color:white;border:none;padding:8px 20px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;font-size:15px;">Retry</button>
 </div>
-
 <div id="auth-gate">
   <div class="auth-gate-icon">&#x1F510;</div>
   <div class="auth-gate-title">Connect to save completions</div>
-  <div class="auth-gate-msg">Connect your GitHub account to save task completions. You can also browse the program without logging in.</div>
+  <div class="auth-gate-msg">Connect your GitHub account to save task completions. You can also browse without logging in.</div>
   <button id="github-login-btn" onclick="startLogin()">Connect GitHub</button>
   <button onclick="loadWithoutAuth()" style="background:none;border:none;color:var(--ink-light);font-family:'DM Mono',monospace;font-size:15px;cursor:pointer;text-decoration:underline;margin-top:4px;">Browse without saving</button>
 </div>
@@ -234,10 +206,7 @@ main { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
   <div class="modal">
     <div class="modal-header">
       <div class="modal-header-top">
-        <div>
-          <div class="modal-title" id="deduct-task-name">Task complete</div>
-          <div class="modal-subtitle" id="deduct-task-sub"></div>
-        </div>
+        <div><div class="modal-title" id="deduct-task-name">Task complete</div><div class="modal-subtitle" id="deduct-task-sub"></div></div>
         <button class="modal-close" id="deduct-close-btn">×</button>
       </div>
     </div>
@@ -268,8 +237,7 @@ main { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
       <div class="modal-warn-box">
         <strong>⚠ This task is already marked complete</strong>
         Unchecking will remove the completion record from your program history. This does <em>not</em> reverse any inventory deductions that were made when the task was completed.
-        <br><br>
-        Only uncheck if this task was marked done by mistake.
+        <br><br>Only uncheck if this task was marked done by mistake.
       </div>
     </div>
     <div class="modal-footer">
@@ -283,469 +251,303 @@ main { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
 
 <script>
 var CONFIG = {
-  owner: 'cjj-gmail', repo: 'lawn-care-tools', branch: 'main',
-  programUrl: 'https://raw.githubusercontent.com/cjj-gmail/lawn-care-tools/main/data/program.json',
-  completionsPath: 'data/completions.json',
-  inventoryPath: 'data/inventory.json',
-  appLogPath: 'data/applications.json',
-  workerUrl: 'https://lawn-care-tools.cameronjude1.workers.dev'
+  owner:'cjj-gmail', repo:'lawn-care-tools', branch:'main',
+  programUrl:'https://raw.githubusercontent.com/cjj-gmail/lawn-care-tools/main/data/program.json',
+  completionsPath:'data/completions.json',
+  inventoryPath:'data/inventory.json',
+  appLogPath:'data/applications.json',
+  workerUrl:'https://lawn-care-tools.cameronjude1.workers.dev'
 };
-
 var state = {
-  program: null, completions: {}, completionsSha: null,
-  inventory: null, inventorySha: null,
-  appLog: null, appLogSha: null,
-  token: null, currentMonth: null, readOnly: false,
-  pendingDeduction: null,
-  pendingUncheck: null
+  program:null, completions:{}, completionsSha:null,
+  inventory:null, inventorySha:null,
+  appLog:null, appLogSha:null,
+  token:null, currentMonth:null, readOnly:false,
+  pendingDeduction:null, pendingUncheck:null
 };
-
 var ZONE_LABELS = {
-  back:   { name: 'Back Lawn',    grass: 'Kikuyu', area: 68.2 },
-  front:  { name: 'Front Lawn',   grass: 'Zoysia', area: 35.0 },
-  strip1: { name: 'Nature Strip', grass: 'Couch',  area: 20.8 },
-  strip2: { name: 'Left Strip',   grass: 'Couch',  area: 16.15 }
+  back:{name:'Back Lawn',grass:'Kikuyu',area:68.2},front:{name:'Front Lawn',grass:'Zoysia',area:35.0},
+  strip1:{name:'Nature Strip',grass:'Couch',area:20.8},strip2:{name:'Left Strip',grass:'Couch',area:16.15}
 };
-var CAUTION_ICONS = { 'iron-overload':'Fe','kelpxtra-solo':'SOLO','fungicide-rotation':'ROT','staining':'STAIN','water-in':'H2O','no-backpack-sprayer':'NO BP','low-stock':'LOW','pre-emergent-weed-free-first':'WF1st','tank-mix-dilute-first':'DIL' };
+var CAUTION_ICONS = {'iron-overload':'Fe','kelpxtra-solo':'SOLO','fungicide-rotation':'ROT','staining':'STAIN','water-in':'H2O','no-backpack-sprayer':'NO BP','low-stock':'LOW','pre-emergent-weed-free-first':'WF1st','tank-mix-dilute-first':'DIL'};
 
 async function init() {
   showScreen('loading');
-  var urlParams = new URLSearchParams(window.location.search);
-  var code = urlParams.get('code');
-  var monthParam = parseInt(urlParams.get('month'), 10);
-  if (code) { await handleOAuthCallback(code); window.history.replaceState({}, '', window.location.pathname + (monthParam ? '?month=' + monthParam : '')); }
-  var savedToken = sessionStorage.getItem('gh_token');
-  if (savedToken) state.token = savedToken;
-  try {
-    var resp = await fetch(CONFIG.programUrl + '?t=' + Date.now());
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    state.program = await resp.json();
-  } catch(e) { document.getElementById('error-msg-text').textContent = 'Could not load program.json: ' + e.message; showScreen('error'); return; }
-  state.currentMonth = (monthParam >= 1 && monthParam <= 12) ? monthParam : new Date().getMonth() + 1;
-  await loadCompletions();
-  await loadInventory();
-  await loadAppLog();
-  renderMonthNav();
-  renderMonth(state.currentMonth);
-  updateAuthUI();
-  showScreen('app');
-  var activeBtn = document.querySelector('.month-btn.active');
-  if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-
-  document.getElementById('deduct-close-btn').addEventListener('click', cancelDeduction);
-  document.getElementById('deduct-cancel-btn').addEventListener('click', cancelDeduction);
-  document.getElementById('deduct-skip-btn').addEventListener('click', skipDeduction);
-  document.getElementById('deduct-confirm-btn').addEventListener('click', confirmDeduction);
-  document.getElementById('deduct-modal').addEventListener('click', function(e) { if (e.target === this) cancelDeduction(); });
-  document.getElementById('uncheck-modal').addEventListener('click', function(e) { if (e.target === this) closeUncheckModal(); });
+  var up=new URLSearchParams(window.location.search),code=up.get('code'),mp=parseInt(up.get('month'),10);
+  if(code){await handleOAuthCallback(code);window.history.replaceState({},'',window.location.pathname+(mp?'?month='+mp:''));}
+  var st=sessionStorage.getItem('gh_token');if(st)state.token=st;
+  try{var r=await fetch(CONFIG.programUrl+'?t='+Date.now());if(!r.ok)throw new Error('HTTP '+r.status);state.program=await r.json();}
+  catch(e){document.getElementById('error-msg-text').textContent='Could not load program.json: '+e.message;showScreen('error');return;}
+  state.currentMonth=(mp>=1&&mp<=12)?mp:new Date().getMonth()+1;
+  await Promise.all([loadCompletions(),loadInventory(),loadAppLog()]);
+  renderMonthNav();renderMonth(state.currentMonth);updateAuthUI();showScreen('app');
+  var ab=document.querySelector('.month-btn.active');if(ab)ab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  document.getElementById('deduct-close-btn').addEventListener('click',cancelDeduction);
+  document.getElementById('deduct-cancel-btn').addEventListener('click',cancelDeduction);
+  document.getElementById('deduct-skip-btn').addEventListener('click',skipDeduction);
+  document.getElementById('deduct-confirm-btn').addEventListener('click',confirmDeduction);
+  document.getElementById('deduct-modal').addEventListener('click',function(e){if(e.target===this)cancelDeduction();});
+  document.getElementById('uncheck-modal').addEventListener('click',function(e){if(e.target===this)closeUncheckModal();});
 }
 
-function startLogin() { window.location.href = CONFIG.workerUrl + '/login?redirect=' + encodeURIComponent(window.location.href); }
-async function handleOAuthCallback(code) {
-  try { var r = await fetch(CONFIG.workerUrl + '/callback?code=' + code); var d = await r.json(); if (d.access_token) { state.token = d.access_token; sessionStorage.setItem('gh_token', d.access_token); } } catch(e) {}
-}
-function loadWithoutAuth() { state.readOnly = true; renderMonthNav(); renderMonth(state.currentMonth); updateAuthUI(); showScreen('app'); }
-function updateAuthUI() {
-  var dot = document.getElementById('auth-dot'), txt = document.getElementById('auth-status-text'), btn = document.getElementById('login-btn');
-  if (state.token) { dot.classList.add('connected'); txt.textContent = 'GitHub connected'; btn.classList.add('hidden'); }
-  else { dot.classList.remove('connected'); txt.textContent = state.readOnly ? 'Read-only mode' : 'Not connected'; btn.classList.remove('hidden'); }
+function startLogin(){window.location.href=CONFIG.workerUrl+'/login?redirect='+encodeURIComponent(window.location.href);}
+async function handleOAuthCallback(code){try{var r=await fetch(CONFIG.workerUrl+'/callback?code='+code);var d=await r.json();if(d.access_token){state.token=d.access_token;sessionStorage.setItem('gh_token',d.access_token);}}catch(e){}}
+function loadWithoutAuth(){state.readOnly=true;renderMonthNav();renderMonth(state.currentMonth);updateAuthUI();showScreen('app');}
+function updateAuthUI(){
+  var dot=document.getElementById('auth-dot'),txt=document.getElementById('auth-status-text'),btn=document.getElementById('login-btn');
+  if(state.token){dot.classList.add('connected');txt.textContent='GitHub connected';btn.classList.add('hidden');}
+  else{dot.classList.remove('connected');txt.textContent=state.readOnly?'Read-only mode':'Not connected';btn.classList.remove('hidden');}
 }
 
-async function loadCompletions() {
-  try {
-    var url = 'https://api.github.com/repos/' + CONFIG.owner + '/' + CONFIG.repo + '/contents/' + CONFIG.completionsPath;
-    var h = { 'Accept': 'application/vnd.github.v3+json' };
-    if (state.token) h['Authorization'] = 'token ' + state.token;
-    var r = await fetch(url, { headers: h });
-    if (r.status === 404) { state.completions = {}; state.completionsSha = null; return; }
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    var d = await r.json(); state.completionsSha = d.sha;
-    state.completions = JSON.parse(atob(d.content.replace(/\n/g, '')));
-  } catch(e) { state.completions = {}; }
+async function ghFetch(path){
+  var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+path;
+  var h={'Accept':'application/vnd.github.v3+json'};if(state.token)h['Authorization']='token '+state.token;
+  return fetch(url,{headers:h});
+}
+async function ghPut(path,obj,sha,msg){
+  var content=btoa(unescape(encodeURIComponent(JSON.stringify(obj,null,2))));
+  var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+path;
+  var body={message:msg,content:content,branch:CONFIG.branch};if(sha)body.sha=sha;
+  return fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});
+}
+function b64dec(str){return JSON.parse(atob(str.replace(/\n/g,'')));}
+
+async function loadCompletions(){
+  try{var r=await ghFetch(CONFIG.completionsPath);if(r.status===404){state.completions={};state.completionsSha=null;return;}if(!r.ok)return;var d=await r.json();state.completionsSha=d.sha;state.completions=b64dec(d.content);}catch(e){state.completions={};}
+}
+async function loadInventory(){
+  try{var r=await ghFetch(CONFIG.inventoryPath);if(!r.ok)return;var d=await r.json();state.inventorySha=d.sha;state.inventory=b64dec(d.content);var seen={};state.inventory.products=state.inventory.products.filter(function(p){if(seen[p.name])return false;seen[p.name]=true;return true;});}catch(e){state.inventory=null;}
+}
+async function loadAppLog(){
+  try{var r=await ghFetch(CONFIG.appLogPath);if(r.status===404){state.appLog={entries:[]};state.appLogSha=null;return;}if(!r.ok)return;var d=await r.json();state.appLogSha=d.sha;state.appLog=b64dec(d.content);}catch(e){state.appLog={entries:[]};}
 }
 
-async function loadInventory() {
-  try {
-    var url = 'https://api.github.com/repos/' + CONFIG.owner + '/' + CONFIG.repo + '/contents/' + CONFIG.inventoryPath;
-    var h = { 'Accept': 'application/vnd.github.v3+json' };
-    if (state.token) h['Authorization'] = 'token ' + state.token;
-    var r = await fetch(url, { headers: h });
-    if (!r.ok) return;
-    var d = await r.json(); state.inventorySha = d.sha;
-    state.inventory = JSON.parse(atob(d.content.replace(/\n/g, '')));
-    var seen = {};
-    state.inventory.products = state.inventory.products.filter(function(p) { if (seen[p.name]) return false; seen[p.name] = true; return true; });
-  } catch(e) { state.inventory = null; }
+async function saveCompletions(){
+  if(!state.token)return false;
+  try{var r=await ghPut(CONFIG.completionsPath,state.completions,state.completionsSha,'Update task completions');if(!r.ok){var e=await r.json();throw new Error(e.message||'Save failed');}var d=await r.json();state.completionsSha=d.content.sha;return true;}
+  catch(e){showToast('Save failed: '+e.message,'error');return false;}
 }
-
-async function loadAppLog() {
-  try {
-    var url = 'https://api.github.com/repos/' + CONFIG.owner + '/' + CONFIG.repo + '/contents/' + CONFIG.appLogPath;
-    var h = { 'Accept': 'application/vnd.github.v3+json' };
-    if (state.token) h['Authorization'] = 'token ' + state.token;
-    var r = await fetch(url, { headers: h });
-    if (r.status === 404) { state.appLog = { entries: [] }; state.appLogSha = null; return; }
-    if (!r.ok) return;
-    var d = await r.json(); state.appLogSha = d.sha;
-    state.appLog = JSON.parse(atob(d.content.replace(/\n/g, '')));
-  } catch(e) { state.appLog = { entries: [] }; }
+async function saveInventory(){
+  if(!state.token||!state.inventory)return false;
+  var inv=JSON.parse(JSON.stringify(state.inventory));inv.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});
+  try{var r=await ghPut(CONFIG.inventoryPath,inv,state.inventorySha,'Deduct inventory after task completion');if(!r.ok){var e=await r.json();throw new Error(e.message||'Failed');}var d=await r.json();state.inventorySha=d.content.sha;state.inventory.lastUpdated=inv.lastUpdated;return true;}
+  catch(e){showToast('Inventory save failed: '+e.message,'error');return false;}
 }
-
-async function saveCompletions() {
-  if (!state.token) return false;
-  var content = btoa(unescape(encodeURIComponent(JSON.stringify(state.completions, null, 2))));
-  var url = 'https://api.github.com/repos/' + CONFIG.owner + '/' + CONFIG.repo + '/contents/' + CONFIG.completionsPath;
-  var body = { message: 'Update task completions', content: content, branch: CONFIG.branch };
-  if (state.completionsSha) body.sha = state.completionsSha;
-  try {
-    var r = await fetch(url, { method: 'PUT', headers: { 'Authorization': 'token ' + state.token, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-    if (!r.ok) { var err = await r.json(); throw new Error(err.message || 'Save failed'); }
-    var d = await r.json(); state.completionsSha = d.content.sha; return true;
-  } catch(e) { showToast('Save failed: ' + e.message, 'error'); return false; }
-}
-
-async function saveInventory() {
-  if (!state.token || !state.inventory) return false;
-  var inv = JSON.parse(JSON.stringify(state.inventory));
-  inv.lastUpdated = new Date().toLocaleDateString('en-AU', { day:'2-digit', month:'2-digit', year:'numeric' });
-  var content = btoa(unescape(encodeURIComponent(JSON.stringify(inv, null, 2))));
-  var url = 'https://api.github.com/repos/' + CONFIG.owner + '/' + CONFIG.repo + '/contents/' + CONFIG.inventoryPath;
-  var body = { message: 'Deduct inventory after task completion', content: content, branch: CONFIG.branch };
-  if (state.inventorySha) body.sha = state.inventorySha;
-  try {
-    var r = await fetch(url, { method: 'PUT', headers: { 'Authorization': 'token ' + state.token, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-    if (!r.ok) { var err = await r.json(); throw new Error(err.message || 'Inventory save failed'); }
-    var d = await r.json(); state.inventorySha = d.content.sha; state.inventory.lastUpdated = inv.lastUpdated; return true;
-  } catch(e) { showToast('Inventory save failed: ' + e.message, 'error'); return false; }
-}
-
-async function appendApplicationEntry(task, deductions, inventoryDeducted) {
-  if (!state.token) return;
-  if (!state.appLog) state.appLog = { entries: [] };
-  var now = new Date();
-  var products = deductions
-    .filter(function(d) { return d.amount > 0; })
-    .map(function(d) { return { name: d.name, amount: d.amount, unit: d.unit, deducted: !!(inventoryDeducted && d.invProd) }; });
-  var entry = {
-    id: 'app_' + now.getTime(),
-    date: now.toLocaleDateString('en-AU', { day:'2-digit', month:'2-digit', year:'numeric' }),
-    dateISO: now.toISOString().slice(0,10),
-    taskId: task.id,
-    taskLabel: task.label,
-    taskType: task.taskType,
-    products: products,
-    zones: task.zones || [],
-    inventoryDeducted: !!inventoryDeducted
+async function writeAppLog(task,deductions,inventoryDeducted){
+  if(!state.token)return;
+  if(!state.appLog)state.appLog={entries:[]};
+  var now=new Date();
+  var entry={
+    id:'app_'+now.getTime(),
+    date:now.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),
+    dateISO:now.toISOString().slice(0,10),
+    taskId:task.id, taskLabel:task.label, taskType:task.taskType,
+    zones:task.zones||[],
+    products:deductions.filter(function(d){return d.amount>0;}).map(function(d){return{name:d.name,amount:d.amount,unit:d.unit,deducted:!!(inventoryDeducted&&d.invProd)};}),
+    inventoryDeducted:!!inventoryDeducted
   };
-  state.appLog.entries.unshift(entry); // newest first
-  var content = btoa(unescape(encodeURIComponent(JSON.stringify(state.appLog, null, 2))));
-  var url = 'https://api.github.com/repos/' + CONFIG.owner + '/' + CONFIG.repo + '/contents/' + CONFIG.appLogPath;
-  var body = { message: 'Log application: ' + task.label, content: content, branch: CONFIG.branch };
-  if (state.appLogSha) body.sha = state.appLogSha;
-  try {
-    var r = await fetch(url, { method: 'PUT', headers: { 'Authorization': 'token ' + state.token, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-    if (r.ok) { var d = await r.json(); state.appLogSha = d.content.sha; }
-  } catch(e) { console.warn('App log save failed:', e); }
+  state.appLog.entries.unshift(entry);
+  try{var r=await ghPut(CONFIG.appLogPath,state.appLog,state.appLogSha,'Log application: '+task.label);if(r.ok){var d=await r.json();state.appLogSha=d.content.sha;}}catch(e){console.warn('App log save failed:',e);}
 }
 
 // ── TASK TOGGLE ──
-async function toggleTask(taskId, checkEl, cardEl, task) {
-  var isCompleted = !!state.completions[taskId];
-
-  if (isCompleted) {
-    state.pendingUncheck = { taskId: taskId, checkEl: checkEl, cardEl: cardEl };
-    document.getElementById('uncheck-task-name').textContent = 'Uncheck "' + task.label + '"?';
-    document.getElementById('uncheck-confirm-btn').onclick = doUncheck;
+async function toggleTask(taskId,checkEl,cardEl,task){
+  var isCompleted=!!state.completions[taskId];
+  if(isCompleted){
+    state.pendingUncheck={taskId:taskId,checkEl:checkEl,cardEl:cardEl};
+    document.getElementById('uncheck-task-name').textContent='Uncheck "'+task.label+'"?';
+    document.getElementById('uncheck-confirm-btn').onclick=doUncheck;
     document.getElementById('uncheck-modal').classList.add('open');
     return;
   }
-
-  state.completions[taskId] = { completedAt: new Date().toLocaleDateString('en-AU'), completedTime: new Date().toISOString() };
-  checkEl.classList.add('checked'); cardEl.classList.add('completed');
-  var infoEl = cardEl.querySelector('.completion-info');
-  if (infoEl) infoEl.textContent = 'Completed ' + state.completions[taskId].completedAt;
+  state.completions[taskId]={completedAt:new Date().toLocaleDateString('en-AU'),completedTime:new Date().toISOString()};
+  checkEl.classList.add('checked');cardEl.classList.add('completed');
+  var infoEl=cardEl.querySelector('.completion-info');if(infoEl)infoEl.textContent='Completed '+state.completions[taskId].completedAt;
   updateProgress(state.currentMonth);
-
-  if (state.token) {
-    checkEl.classList.add('saving');
-    var saved = await saveCompletions();
-    checkEl.classList.remove('saving');
-    if (!saved) {
-      delete state.completions[taskId];
-      checkEl.classList.remove('checked'); cardEl.classList.remove('completed');
-      if (infoEl) infoEl.textContent = '';
-      updateProgress(state.currentMonth);
-      return;
-    }
+  if(state.token){
+    checkEl.classList.add('saving');var saved=await saveCompletions();checkEl.classList.remove('saving');
+    if(!saved){delete state.completions[taskId];checkEl.classList.remove('checked');cardEl.classList.remove('completed');if(infoEl)infoEl.textContent='';updateProgress(state.currentMonth);return;}
+  } else showToast('Not saved — connect GitHub to persist','error');
+  if(state.inventory&&task.products&&task.products.length>0&&state.token){
+    openDeductionModal(task,checkEl,cardEl);
   } else {
-    showToast('Not saved — connect GitHub to persist', 'error');
-  }
-
-  if (state.inventory && task.products && task.products.length > 0 && state.token) {
-    openDeductionModal(task, checkEl, cardEl);
-  } else {
-    // Log with no products
-    if (state.token) appendApplicationEntry(task, [], false);
-    showToast('Task completed ✓', 'success');
+    if(state.token) writeAppLog(task,[],false);
+    showToast('Task completed ✓','success');
   }
 }
 
-// ── UNCHECK WARNING ──
-function closeUncheckModal() {
-  document.getElementById('uncheck-modal').classList.remove('open');
-  state.pendingUncheck = null;
-}
-async function doUncheck() {
-  var p = state.pendingUncheck; if (!p) return;
-  closeUncheckModal();
-  delete state.completions[p.taskId];
-  p.checkEl.classList.remove('checked'); p.cardEl.classList.remove('completed');
-  var infoEl = p.cardEl.querySelector('.completion-info');
-  if (infoEl) infoEl.textContent = '';
+// ── UNCHECK ──
+function closeUncheckModal(){document.getElementById('uncheck-modal').classList.remove('open');state.pendingUncheck=null;}
+async function doUncheck(){
+  var p=state.pendingUncheck;if(!p)return;closeUncheckModal();
+  delete state.completions[p.taskId];p.checkEl.classList.remove('checked');p.cardEl.classList.remove('completed');
+  var ie=p.cardEl.querySelector('.completion-info');if(ie)ie.textContent='';
   updateProgress(state.currentMonth);
-  if (state.token) {
-    p.checkEl.classList.add('saving');
-    var ok = await saveCompletions();
-    p.checkEl.classList.remove('saving');
-    if (ok) showToast('Task unmarked — completion removed', 'error');
-  } else { showToast('Not saved — connect GitHub to persist', 'error'); }
+  if(state.token){p.checkEl.classList.add('saving');var ok=await saveCompletions();p.checkEl.classList.remove('saving');if(ok)showToast('Task unmarked — completion removed','error');}
+  else showToast('Not saved — connect GitHub to persist','error');
 }
 
-// ── DEDUCTION MODAL ──
-function calcDeductions(task) {
-  var result = [];
-  if (!task.products) return result;
-  task.products.forEach(function(prod) {
-    if (!prod.quantities) return;
-    var total = 0;
-    Object.values(prod.quantities).forEach(function(qty) { total += (parseFloat(qty) || 0); });
-    total = Math.round(total * 100) / 100;
-    if (total <= 0) return;
-    var invProd = state.inventory ? state.inventory.products.find(function(p) {
-      return p.name.toLowerCase() === prod.name.toLowerCase() ||
-             p.name.toLowerCase().indexOf(prod.name.toLowerCase()) >= 0 ||
-             prod.name.toLowerCase().indexOf(p.name.toLowerCase()) >= 0;
-    }) : null;
-    var newLevel = invProd ? Math.max(0, Math.round((invProd.qtyRemaining - total) * 100) / 100) : null;
-    var newStatus = null;
-    if (invProd && newLevel !== null) {
-      var fm = {'TX10 (5-2-8)':25,'Maintain (26-1-9)':20};
-      var full = fm[invProd.name] || (invProd.unit === 'kg' ? 20 : 5);
-      var pct = Math.min(100, Math.round((newLevel / full) * 100));
-      newStatus = pct > 40 ? 'ok' : pct > 15 ? 'low' : 'critical';
-    }
-    result.push({ name: prod.name, amount: total, unit: prod.rateUnit || 'mL', invProd: invProd, newLevel: newLevel, newStatus: newStatus });
+// ── DEDUCTION ──
+function calcDeductions(task){
+  var result=[];if(!task.products)return result;
+  task.products.forEach(function(prod){
+    if(!prod.quantities)return;
+    var total=0;Object.values(prod.quantities).forEach(function(q){total+=(parseFloat(q)||0);});total=Math.round(total*100)/100;
+    if(total<=0)return;
+    var invProd=state.inventory?state.inventory.products.find(function(p){return p.name.toLowerCase()===prod.name.toLowerCase()||p.name.toLowerCase().indexOf(prod.name.toLowerCase())>=0||prod.name.toLowerCase().indexOf(p.name.toLowerCase())>=0;}):null;
+    var newLevel=invProd?Math.max(0,Math.round((invProd.qtyRemaining-total)*100)/100):null;
+    var newStatus=null;
+    if(invProd&&newLevel!==null){var fm={'TX10 (5-2-8)':25,'Maintain (26-1-9)':20};var full=fm[invProd.name]||(invProd.unit==='kg'?20:5);var pct=Math.min(100,Math.round((newLevel/full)*100));newStatus=pct>40?'ok':pct>15?'low':'critical';}
+    result.push({name:prod.name,amount:total,unit:prod.rateUnit||'mL',invProd:invProd,newLevel:newLevel,newStatus:newStatus});
   });
   return result;
 }
-
-function openDeductionModal(task, checkEl, cardEl) {
-  var deductions = calcDeductions(task);
-  if (deductions.length === 0) {
-    if (state.token) appendApplicationEntry(task, [], false);
-    showToast('Task completed ✓', 'success'); return;
-  }
-  state.pendingDeduction = { task: task, deductions: deductions, checkEl: checkEl, cardEl: cardEl };
-  document.getElementById('deduct-task-name').textContent = task.label;
-  document.getElementById('deduct-task-sub').textContent = task.taskType.replace('soilwetter','soil wetter') + ' · ' + task.applicationMethod;
-  var cn = document.getElementById('deduct-conditional-note');
-  if (task.conditional) { cn.style.display = 'block'; cn.textContent = '⚠ Conditional task — only deduct if you actually applied these products.'; }
-  else { cn.style.display = 'none'; }
-  var list = document.getElementById('deduct-list'); list.innerHTML = '';
-  deductions.forEach(function(d) {
-    var row = document.createElement('div'); row.className = 'deduct-row' + (d.invProd ? '' : ' no-match');
-    var nlHtml = d.invProd && d.newLevel !== null ?
-      '<div class="deduct-new-level ' + (d.newStatus !== 'ok' ? d.newStatus : '') + '">After: ' + d.newLevel + d.invProd.unit + ' remaining' + (d.newStatus === 'low' ? ' ⚠ running low' : d.newStatus === 'critical' ? ' ⚠ critically low' : '') + '</div>' : '';
-    row.innerHTML = '<div class="deduct-product"><div class="deduct-product-name">' + escHtml(d.name) + '</div><div class="deduct-product-meta">' + (d.invProd ? 'Currently ' + d.invProd.qtyRemaining + d.invProd.unit : 'Not found in inventory') + '</div>' + nlHtml + '</div>' + (d.invProd ? '<div class="deduct-amount">−' + d.amount + d.unit + '</div>' : '<div class="deduct-no-match-label">skip</div>');
+function openDeductionModal(task,checkEl,cardEl){
+  var deductions=calcDeductions(task);
+  if(deductions.length===0){writeAppLog(task,[],false);showToast('Task completed ✓','success');return;}
+  state.pendingDeduction={task:task,deductions:deductions,checkEl:checkEl,cardEl:cardEl};
+  document.getElementById('deduct-task-name').textContent=task.label;
+  document.getElementById('deduct-task-sub').textContent=task.taskType.replace('soilwetter','soil wetter')+' · '+task.applicationMethod;
+  var cn=document.getElementById('deduct-conditional-note');
+  if(task.conditional){cn.style.display='block';cn.textContent='⚠ Conditional task — only deduct if you actually applied these products.';}else cn.style.display='none';
+  var list=document.getElementById('deduct-list');list.innerHTML='';
+  deductions.forEach(function(d){
+    var row=document.createElement('div');row.className='deduct-row'+(d.invProd?'':' no-match');
+    var nl=d.invProd&&d.newLevel!==null?'<div class="deduct-new-level '+(d.newStatus!=='ok'?d.newStatus:'')+'">After: '+d.newLevel+d.invProd.unit+' remaining'+(d.newStatus==='low'?' ⚠ running low':d.newStatus==='critical'?' ⚠ critically low':'')+'</div>':'';
+    row.innerHTML='<div class="deduct-product"><div class="deduct-product-name">'+escHtml(d.name)+'</div><div class="deduct-product-meta">'+(d.invProd?'Currently '+d.invProd.qtyRemaining+d.invProd.unit:'Not found in inventory')+'</div>'+nl+'</div>'+(d.invProd?'<div class="deduct-amount">−'+d.amount+d.unit+'</div>':'<div class="deduct-no-match-label">skip</div>');
     list.appendChild(row);
   });
-  document.getElementById('deduct-saving').style.display = 'none';
-  document.getElementById('deduct-confirm-btn').disabled = false;
+  document.getElementById('deduct-saving').style.display='none';
+  document.getElementById('deduct-confirm-btn').disabled=false;
   document.getElementById('deduct-modal').classList.add('open');
 }
-
-async function cancelDeduction() {
-  var p = state.pendingDeduction;
-  document.getElementById('deduct-modal').classList.remove('open');
-  state.pendingDeduction = null;
-  if (!p) return;
-  delete state.completions[p.task.id];
-  p.checkEl.classList.remove('checked'); p.cardEl.classList.remove('completed');
-  var infoEl = p.cardEl.querySelector('.completion-info');
-  if (infoEl) infoEl.textContent = '';
+async function cancelDeduction(){
+  var p=state.pendingDeduction;document.getElementById('deduct-modal').classList.remove('open');state.pendingDeduction=null;
+  if(!p)return;
+  delete state.completions[p.task.id];p.checkEl.classList.remove('checked');p.cardEl.classList.remove('completed');
+  var ie=p.cardEl.querySelector('.completion-info');if(ie)ie.textContent='';
   updateProgress(state.currentMonth);
-  if (state.token) {
-    p.checkEl.classList.add('saving');
-    var ok = await saveCompletions();
-    p.checkEl.classList.remove('saving');
-    if (ok) showToast('Cancelled — task unchecked', 'error');
-  } else { showToast('Cancelled — task unchecked', 'error'); }
+  if(state.token){p.checkEl.classList.add('saving');var ok=await saveCompletions();p.checkEl.classList.remove('saving');if(ok)showToast('Cancelled — task unchecked','error');}
+  else showToast('Cancelled — task unchecked','error');
 }
-
-async function skipDeduction() {
-  var p = state.pendingDeduction;
-  document.getElementById('deduct-modal').classList.remove('open');
-  state.pendingDeduction = null;
-  // Log the application but mark inventoryDeducted = false
-  if (p && state.token) await appendApplicationEntry(p.task, p.deductions, false);
-  showToast('Task completed ✓ — inventory not updated', 'success');
+async function skipDeduction(){
+  var p=state.pendingDeduction;document.getElementById('deduct-modal').classList.remove('open');state.pendingDeduction=null;
+  if(p&&state.token) await writeAppLog(p.task,p.deductions,false);
+  showToast('Task completed ✓ — inventory not updated','success');
 }
-
-async function confirmDeduction() {
-  var p = state.pendingDeduction; if (!p || !state.inventory) return;
-  document.getElementById('deduct-confirm-btn').disabled = true;
-  document.getElementById('deduct-saving').style.display = 'block';
-  p.deductions.forEach(function(d) {
-    if (!d.invProd) return;
-    var prod = state.inventory.products.find(function(x) { return x.name === d.invProd.name; });
-    if (prod) prod.qtyRemaining = Math.max(0, Math.round((prod.qtyRemaining - d.amount) * 100) / 100);
+async function confirmDeduction(){
+  var p=state.pendingDeduction;if(!p||!state.inventory)return;
+  document.getElementById('deduct-confirm-btn').disabled=true;
+  document.getElementById('deduct-saving').style.display='block';
+  p.deductions.forEach(function(d){
+    if(!d.invProd)return;
+    var prod=state.inventory.products.find(function(x){return x.name===d.invProd.name;});
+    if(prod)prod.qtyRemaining=Math.max(0,Math.round((prod.qtyRemaining-d.amount)*100)/100);
   });
-  var invOk = await saveInventory();
-  // Log the application
-  if (invOk) await appendApplicationEntry(p.task, p.deductions, true);
-  document.getElementById('deduct-modal').classList.remove('open');
-  state.pendingDeduction = null;
-  if (invOk) {
-    var n = p.deductions.filter(function(d) { return d.invProd; }).length;
-    showToast('Task done · ' + n + ' product' + (n !== 1 ? 's' : '') + ' deducted & logged', 'success');
-  }
+  var ok=await saveInventory();
+  if(ok) await writeAppLog(p.task,p.deductions,true);
+  document.getElementById('deduct-modal').classList.remove('open');state.pendingDeduction=null;
+  if(ok){var n=p.deductions.filter(function(d){return d.invProd;}).length;showToast('Task done · '+n+' product'+(n!==1?'s':'')+' deducted & logged','success');}
 }
 
 // ── RENDER ──
-function renderMonthNav() {
-  var nav = document.getElementById('month-nav'); nav.innerHTML = '';
-  var thisMonth = new Date().getMonth() + 1;
-  state.program.months.forEach(function(m) {
-    var btn = document.createElement('button');
-    btn.className = 'month-btn' + (m.monthNum === state.currentMonth ? ' active' : '') + (m.monthNum === thisMonth ? ' current-month' : '');
-    btn.textContent = m.month.slice(0,3).toUpperCase();
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.month-btn').forEach(function(b) { b.classList.remove('active'); });
-      btn.classList.add('active'); state.currentMonth = m.monthNum; renderMonth(m.monthNum);
-    });
+function renderMonthNav(){
+  var nav=document.getElementById('month-nav');nav.innerHTML='';
+  var tm=new Date().getMonth()+1;
+  state.program.months.forEach(function(m){
+    var btn=document.createElement('button');
+    btn.className='month-btn'+(m.monthNum===state.currentMonth?' active':'')+(m.monthNum===tm?' current-month':'');
+    btn.textContent=m.month.slice(0,3).toUpperCase();
+    btn.addEventListener('click',function(){document.querySelectorAll('.month-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');state.currentMonth=m.monthNum;renderMonth(m.monthNum);});
     nav.appendChild(btn);
   });
 }
-
-function renderMonth(monthNum) {
-  var monthData = state.program.months.find(function(m) { return m.monthNum === monthNum; });
-  if (!monthData) return;
-  var main = document.getElementById('main-content'); main.innerHTML = '';
-  var hdr = document.createElement('div'); hdr.className = 'month-header-row';
-  hdr.innerHTML = '<div class="month-title">' + monthData.month + ' <span class="season-badge ' + monthData.season + '">' + monthData.season + '</span></div>';
+function renderMonth(monthNum){
+  var md=state.program.months.find(function(m){return m.monthNum===monthNum;});if(!md)return;
+  var main=document.getElementById('main-content');main.innerHTML='';
+  var hdr=document.createElement('div');hdr.className='month-header-row';
+  hdr.innerHTML='<div class="month-title">'+md.month+' <span class="season-badge '+md.season+'">'+md.season+'</span></div>';
   main.appendChild(hdr);
-  monthData.weeks.forEach(function(week) {
-    var wb = document.createElement('div'); wb.className = 'week-block';
-    var wl = week.label.replace(/^Week \d+ \u2014 /, '').replace(/^Week \d+ - /, '');
-    wb.innerHTML = '<div class="week-heading"><span class="week-num">W' + week.week + '</span><span class="week-label-text">' + wl + '</span></div>';
-    if (!week.tasks || week.tasks.length === 0) {
-      wb.innerHTML += '<div style="padding:16px;text-align:center;color:var(--ink-light);font-size:15px;font-style:italic;">No tasks scheduled.</div>';
-    } else { week.tasks.forEach(function(task) { wb.appendChild(renderTaskCard(task)); }); }
+  md.weeks.forEach(function(week){
+    var wb=document.createElement('div');wb.className='week-block';
+    var wl=week.label.replace(/^Week \d+ \u2014 /,'').replace(/^Week \d+ - /,'');
+    wb.innerHTML='<div class="week-heading"><span class="week-num">W'+week.week+'</span><span class="week-label-text">'+wl+'</span></div>';
+    if(!week.tasks||week.tasks.length===0){wb.innerHTML+='<div style="padding:16px;text-align:center;color:var(--ink-light);font-size:15px;font-style:italic;">No tasks scheduled.</div>';}
+    else{week.tasks.forEach(function(task){wb.appendChild(renderTaskCard(task));});}
     main.appendChild(wb);
   });
   updateProgress(monthNum);
 }
-
-function fmt(val) { var r = Math.round(val * 10) / 10; return r % 1 === 0 ? r.toString() : r.toFixed(1); }
-
-function renderTaskCard(task) {
-  var isCompleted = !!state.completions[task.id];
-  var card = document.createElement('div');
-  card.className = 'task-card' + (isCompleted ? ' completed' : '') + (task.conditional ? ' conditional' : '');
-  var checkEl = document.createElement('div');
-  checkEl.className = 'task-check' + (isCompleted ? ' checked' : '');
-  checkEl.addEventListener('click', function(e) { e.stopPropagation(); toggleTask(task.id, checkEl, card, task); });
-  var typeLabel = task.taskType === 'soilwetter' ? 'soil wetter' : task.taskType;
-  var waterHint = task.waterIn ? ' · H₂O water in' : (task.foliarOrIrrigate === 'Foliar' ? ' · foliar — allow to dry' : '');
-  var taskBody = document.createElement('div'); taskBody.className = 'task-body';
-  taskBody.innerHTML = '<div class="task-top"><span class="task-label">' + escHtml(task.label) + '</span><span class="type-tag ' + task.taskType + '">' + typeLabel + '</span>' + (task.conditional ? '<span class="conditional-flag">if required</span>' : '') + '</div><div class="task-method">' + escHtml(task.applicationMethod) + waterHint + '</div><button class="expand-btn">&#x25B8; Rates &amp; details</button>';
-  var header = document.createElement('div'); header.className = 'task-header';
-  header.appendChild(checkEl); header.appendChild(taskBody);
-  card.appendChild(header);
-  taskBody.querySelector('.expand-btn').addEventListener('click', function(e) {
-    e.stopPropagation();
-    var detail = card.querySelector('.task-detail');
-    var open = detail.classList.toggle('open');
-    this.innerHTML = (open ? '&#x25BE;' : '&#x25B8;') + ' Rates &amp; details';
-  });
-  if (task.conditional && task.condition) {
-    var banner = document.createElement('div'); banner.className = 'condition-banner';
-    banner.textContent = '⚠ ' + task.condition; card.appendChild(banner);
-  }
-  var detail = document.createElement('div'); detail.className = 'task-detail';
-  if (task.products && task.products.length > 0) {
-    var pt = document.createElement('div'); pt.className = 'products-title'; pt.textContent = 'Product quantities by zone';
-    detail.appendChild(pt);
-    task.products.forEach(function(prod) {
-      var pr = document.createElement('div'); pr.style.cssText = 'padding:9px 0;border-top:1px solid var(--border);';
-      pr.innerHTML = '<div class="product-name">' + escHtml(prod.name) + ' — ' + prod.ratePer100sqm + prod.rateUnit + '/100m²</div>';
-      if (prod.note) pr.innerHTML += '<div class="product-note">' + escHtml(prod.note) + '</div>';
-      var zw = document.createElement('div'); zw.className = 'product-zones';
-      var zones = task.zones || Object.keys(prod.quantities || {});
-      var fQ = null, s1Q = null, s2Q = null;
-      zones.forEach(function(zid) {
-        if (!prod.quantities || prod.quantities[zid] === undefined) return;
-        var info = ZONE_LABELS[zid]; if (!info) return;
-        var qty = prod.quantities[zid];
-        if (zid === 'front') fQ = qty;
-        if (zid === 'strip1') s1Q = qty;
-        if (zid === 'strip2') s2Q = qty;
-        var chip = document.createElement('div'); chip.className = 'zone-qty';
-        chip.innerHTML = '<div class="zone-qty-label">' + info.name + '</div><div class="zone-qty-grass">' + info.grass + ' · ' + info.area + 'm²</div><div class="zone-qty-amount">' + qty + prod.rateUnit + '</div>';
+function fmt(val){var r=Math.round(val*10)/10;return r%1===0?r.toString():r.toFixed(1);}
+function renderTaskCard(task){
+  var ic=!!state.completions[task.id];
+  var card=document.createElement('div');card.className='task-card'+(ic?' completed':'')+(task.conditional?' conditional':'');
+  var checkEl=document.createElement('div');checkEl.className='task-check'+(ic?' checked':'');
+  checkEl.addEventListener('click',function(e){e.stopPropagation();toggleTask(task.id,checkEl,card,task);});
+  var tl=task.taskType==='soilwetter'?'soil wetter':task.taskType;
+  var wh=task.waterIn?' · H₂O water in':(task.foliarOrIrrigate==='Foliar'?' · foliar — allow to dry':'');
+  var tb=document.createElement('div');tb.className='task-body';
+  tb.innerHTML='<div class="task-top"><span class="task-label">'+escHtml(task.label)+'</span><span class="type-tag '+task.taskType+'">'+tl+'</span>'+(task.conditional?'<span class="conditional-flag">if required</span>':'')+'</div><div class="task-method">'+escHtml(task.applicationMethod)+wh+'</div><button class="expand-btn">&#x25B8; Rates &amp; details</button>';
+  var header=document.createElement('div');header.className='task-header';header.appendChild(checkEl);header.appendChild(tb);card.appendChild(header);
+  tb.querySelector('.expand-btn').addEventListener('click',function(e){e.stopPropagation();var det=card.querySelector('.task-detail');var op=det.classList.toggle('open');this.innerHTML=(op?'&#x25BE;':'&#x25B8;')+' Rates &amp; details';});
+  if(task.conditional&&task.condition){var ban=document.createElement('div');ban.className='condition-banner';ban.textContent='⚠ '+task.condition;card.appendChild(ban);}
+  var det=document.createElement('div');det.className='task-detail';
+  if(task.products&&task.products.length>0){
+    var pt=document.createElement('div');pt.className='products-title';pt.textContent='Product quantities by zone';det.appendChild(pt);
+    task.products.forEach(function(prod){
+      var pr=document.createElement('div');pr.style.cssText='padding:9px 0;border-top:1px solid var(--border);';
+      pr.innerHTML='<div class="product-name">'+escHtml(prod.name)+' — '+prod.ratePer100sqm+prod.rateUnit+'/100m²</div>';
+      if(prod.note)pr.innerHTML+='<div class="product-note">'+escHtml(prod.note)+'</div>';
+      var zw=document.createElement('div');zw.className='product-zones';
+      var zones=task.zones||Object.keys(prod.quantities||{});var fQ=null,s1=null,s2=null;
+      zones.forEach(function(zid){
+        if(!prod.quantities||prod.quantities[zid]===undefined)return;
+        var info=ZONE_LABELS[zid];if(!info)return;var qty=prod.quantities[zid];
+        if(zid==='front')fQ=qty;if(zid==='strip1')s1=qty;if(zid==='strip2')s2=qty;
+        var chip=document.createElement('div');chip.className='zone-qty';
+        chip.innerHTML='<div class="zone-qty-label">'+info.name+'</div><div class="zone-qty-grass">'+info.grass+' · '+info.area+'m²</div><div class="zone-qty-amount">'+qty+prod.rateUnit+'</div>';
         zw.appendChild(chip);
       });
-      if ([fQ,s1Q,s2Q].filter(function(v){return v!==null;}).length >= 2) {
-        var ct=(fQ||0)+(s1Q||0)+(s2Q||0), ca=(fQ!==null?35.0:0)+(s1Q!==null?20.8:0)+(s2Q!==null?16.15:0);
+      if([fQ,s1,s2].filter(function(v){return v!==null;}).length>=2){
+        var ct=(fQ||0)+(s1||0)+(s2||0),ca=(fQ!==null?35.0:0)+(s1!==null?20.8:0)+(s2!==null?16.15:0);
         zw.appendChild(Object.assign(document.createElement('div'),{className:'zone-qty-divider'}));
-        var cb=document.createElement('div'); cb.className='zone-qty combined';
+        var cb=document.createElement('div');cb.className='zone-qty combined';
         cb.innerHTML='<div class="zone-qty-label">Front + Strips</div><div class="zone-qty-grass">Combined · '+fmt(ca)+'m²</div><div class="zone-qty-amount">'+fmt(ct)+prod.rateUnit+'</div>';
         zw.appendChild(cb);
       }
-      pr.appendChild(zw); detail.appendChild(pr);
+      pr.appendChild(zw);det.appendChild(pr);
     });
   }
-  if (task.notes) {
-    var ns = document.createElement('div'); ns.className = 'notes-section';
-    ns.innerHTML = '<div class="task-notes-text">' + escHtml(task.notes) + '</div>';
-    if (task.cautions && task.cautions.length > 0) {
-      var cw = document.createElement('div'); cw.className = 'cautions-wrap';
-      task.cautions.forEach(function(cKey) {
-        var desc=(state.program.cautions&&state.program.cautions[cKey])||cKey;
-        var icon=CAUTION_ICONS[cKey]||'!';
-        var chip=document.createElement('div'); chip.className='caution-chip'; chip.dataset.caution=cKey;
-        chip.innerHTML='<span>'+icon+'</span> '+cKey.replace(/-/g,' ')+'<span class="caution-tooltip">'+escHtml(desc)+'</span>';
-        cw.appendChild(chip);
-      });
+  if(task.notes){
+    var ns=document.createElement('div');ns.className='notes-section';ns.innerHTML='<div class="task-notes-text">'+escHtml(task.notes)+'</div>';
+    if(task.cautions&&task.cautions.length>0){
+      var cw=document.createElement('div');cw.className='cautions-wrap';
+      task.cautions.forEach(function(cKey){var desc=(state.program.cautions&&state.program.cautions[cKey])||cKey;var icon=CAUTION_ICONS[cKey]||'!';var chip=document.createElement('div');chip.className='caution-chip';chip.dataset.caution=cKey;chip.innerHTML='<span>'+icon+'</span> '+cKey.replace(/-/g,' ')+'<span class="caution-tooltip">'+escHtml(desc)+'</span>';cw.appendChild(chip);});
       ns.appendChild(cw);
     }
-    detail.appendChild(ns);
+    det.appendChild(ns);
   }
-  var ci = document.createElement('div'); ci.className = 'completion-info';
-  if (state.completions[task.id]) ci.textContent = 'Completed ' + state.completions[task.id].completedAt;
-  detail.appendChild(ci); card.appendChild(detail);
+  var ci=document.createElement('div');ci.className='completion-info';
+  if(state.completions[task.id])ci.textContent='Completed '+state.completions[task.id].completedAt;
+  det.appendChild(ci);card.appendChild(det);
   return card;
 }
-
-function updateProgress(monthNum) {
-  var md = state.program.months.find(function(m){return m.monthNum===monthNum;}); if(!md) return;
-  var total=0,done=0;
-  md.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){total++;if(state.completions[t.id])done++;});});
+function updateProgress(mn){
+  var md=state.program.months.find(function(m){return m.monthNum===mn;});if(!md)return;
+  var total=0,done=0;md.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){total++;if(state.completions[t.id])done++;});});
   var pct=total>0?Math.round((done/total)*100):0;
   document.getElementById('progress-fill').style.width=pct+'%';
   document.getElementById('progress-count').textContent=done+' / '+total+' tasks';
 }
-
-function showScreen(name) {
-  document.getElementById('loading-screen').style.display=name==='loading'?'flex':'none';
-  document.getElementById('error-screen').style.display=name==='error'?'flex':'none';
-  document.getElementById('auth-gate').style.display=name==='auth-gate'?'flex':'none';
-  document.getElementById('app').style.display=name==='app'?'block':'none';
+function showScreen(n){
+  document.getElementById('loading-screen').style.display=n==='loading'?'flex':'none';
+  document.getElementById('error-screen').style.display=n==='error'?'flex':'none';
+  document.getElementById('auth-gate').style.display=n==='auth-gate'?'flex':'none';
+  document.getElementById('app').style.display=n==='app'?'block':'none';
 }
-
 var toastTimer;
 function showToast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='show'+(type?' '+type:'');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.className='';},3500);}
-function escHtml(str){if(!str)return'';return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
+function escHtml(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 init();
 </script>
 </body>
