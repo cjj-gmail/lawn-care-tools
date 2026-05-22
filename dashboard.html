@@ -142,7 +142,6 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .zone-stat-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;}
 .zone-stat-label{color:var(--ink-light);}.zone-stat-val{color:var(--ink-mid);font-weight:500;}
 .zone-area-big{font-family:'Fraunces',serif;font-size:28px;font-weight:200;color:var(--grass);letter-spacing:-1px;margin-bottom:8px;}
-
 /* ── LOG TAB ── */
 .log-table-wrap{overflow-x:auto;}
 .log-table{width:100%;border-collapse:collapse;font-size:13px;}
@@ -164,8 +163,7 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .last-applied-date{font-size:12px;color:var(--ink-light);}
 .last-applied-days{font-family:'Fraunces',serif;font-size:22px;font-weight:300;color:var(--grass);letter-spacing:-0.5px;}
 .last-applied-days.stale{color:var(--status-low);}
-
-/* ── MOWING SECTION ── */
+/* ── MOWING ── */
 .mow-zone-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:8px;}
 .mow-zone-card{background:white;border:1px solid var(--border);border-radius:6px;padding:14px 16px;}
 .mow-zone-card.overdue{border-color:var(--status-low);background:#fffaf0;}
@@ -175,14 +173,12 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .mow-zone-days.overdue{color:var(--status-low);}
 .mow-zone-sub{font-size:12px;color:var(--ink-light);margin-top:4px;}
 .mow-zone-card.never .mow-zone-days{color:var(--ink-light);font-size:18px;}
-
 #loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:calc(100vh - 60px);gap:16px;color:var(--ink-light);}
 .spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--grass);border-radius:50%;animation:spin 0.7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-text{font-size:14px;}
 #error-screen{display:none;flex-direction:column;align-items:center;justify-content:center;height:calc(100vh - 60px);gap:12px;color:var(--ink-mid);text-align:center;padding:24px;}
-.error-icon{font-size:38px;}
-.error-title{font-family:'Fraunces',serif;font-size:24px;color:var(--ink);}
+.error-icon{font-size:38px;}.error-title{font-family:'Fraunces',serif;font-size:24px;color:var(--ink);}
 .error-msg{font-size:15px;color:var(--ink-light);max-width:420px;line-height:1.6;}
 #dashboard{display:none;}
 .season-band{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-bottom:20px;}
@@ -299,8 +295,6 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
     <!-- LOG -->
     <div class="section" id="tab-log">
       <div class="section-heading"><div class="section-title">Log</div><div class="section-sub" id="log-section-sub">Applications &amp; mowing history</div></div>
-
-      <!-- MOWING SECTION -->
       <div class="panel">
         <div class="panel-title">✂ Mowing — days since last mow per zone</div>
         <div class="mow-zone-grid" id="mow-zone-grid"></div>
@@ -315,8 +309,6 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
           </table>
         </div>
       </div>
-
-      <!-- APPLICATION SECTION -->
       <div class="panel" style="margin-top:8px;">
         <div class="panel-title">💧 Applications — stat summary</div>
         <div class="stat-grid" id="log-stat-grid" style="margin-bottom:0;"></div>
@@ -339,7 +331,7 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 
     <!-- ALERTS -->
     <div class="section" id="tab-alerts">
-      <div class="section-heading"><div class="section-title">Alerts</div><div class="section-sub">Inventory warnings &amp; program notes</div></div>
+      <div class="section-heading"><div class="section-title">Alerts</div><div class="section-sub">Inventory, mowing &amp; program warnings</div></div>
       <div class="alerts-list" id="alerts-list"></div>
     </div>
 
@@ -442,11 +434,20 @@ function invStatus(p){var rem=p.qtyRemaining,unit=p.unit;var fm={'TX10 (5-2-8)':
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function daysSince(dateISO){var d=new Date(dateISO+'T00:00:00');return Math.floor((now()-d)/86400000);}
 
-// Season-aware mowing threshold
 function mowThreshold(){
-  var mn=currentMonthNum();
-  var summer=[12,1,2],autumn=[3,4,5];
+  var mn=currentMonthNum(),summer=[12,1,2],autumn=[3,4,5];
   return(summer.indexOf(mn)>=0||autumn.indexOf(mn)>=0)?14:21;
+}
+
+// Returns last mow entry for a zone (or null)
+function lastMowForZone(zid){
+  var entries=state.mowLog?state.mowLog.entries:[];
+  var last=null;
+  for(var i=0;i<entries.length;i++){
+    var e=entries[i];
+    if(e.zone===zid||e.zone==='all'){if(!last||e.dateISO>last.dateISO)last=e;}
+  }
+  return last;
 }
 
 function renderOverview(){
@@ -500,47 +501,21 @@ function renderLog(){
   var threshold=mowThreshold();
   var entries=state.appLog?state.appLog.entries:[];
   var mowEntries=state.mowLog?state.mowLog.entries:[];
-
-  // ── Mowing zone cards ──
+  // Mowing zone cards
   var mzg=document.getElementById('mow-zone-grid');mzg.innerHTML='';
   ['back','front','strip1','strip2'].forEach(function(zid){
-    var zoneName=ZONE_NAMES[zid]||zid;
-    var grass=ZONE_GRASS[zid]||'';
-    // find most recent mow for this zone
-    var last=null;
-    for(var i=0;i<mowEntries.length;i++){
-      var e=mowEntries[i];
-      if(e.zone===zid||e.zone==='all'){if(!last||e.dateISO>last.dateISO)last=e;}
-    }
+    var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';
+    var last=lastMowForZone(zid);
     var card=document.createElement('div');
-    if(!last){
-      card.className='mow-zone-card never';
-      card.innerHTML='<div class="mow-zone-name">'+esc(zoneName)+'</div><div class="mow-zone-grass">'+esc(grass)+'</div><div class="mow-zone-days">No record</div><div class="mow-zone-sub">Not yet logged</div>';
-    } else {
-      var days=daysSince(last.dateISO);
-      var overdue=days>=threshold;
-      card.className='mow-zone-card'+(overdue?' overdue':'');
-      card.innerHTML='<div class="mow-zone-name">'+esc(zoneName)+'</div><div class="mow-zone-grass">'+esc(grass)+' · '+esc(last.mower.split(' ').slice(0,2).join(' '))+'</div><div class="mow-zone-days'+(overdue?' overdue':'')+'">'+days+'d ago</div><div class="mow-zone-sub">'+esc(last.date)+' · '+last.heightMm+'mm'+(last.notes?' · '+esc(last.notes.slice(0,30)):'')+'</div>';
-    }
+    if(!last){card.className='mow-zone-card never';card.innerHTML='<div class="mow-zone-name">'+esc(zoneName)+'</div><div class="mow-zone-grass">'+esc(grass)+'</div><div class="mow-zone-days">No record</div><div class="mow-zone-sub">Not yet logged</div>';}
+    else{var days=daysSince(last.dateISO),overdue=days>=threshold;card.className='mow-zone-card'+(overdue?' overdue':'');card.innerHTML='<div class="mow-zone-name">'+esc(zoneName)+'</div><div class="mow-zone-grass">'+esc(grass)+' · '+esc(last.mower.split(' ').slice(0,2).join(' '))+'</div><div class="mow-zone-days'+(overdue?' overdue':'')+'">'+days+'d ago</div><div class="mow-zone-sub">'+esc(last.date)+' · '+last.heightMm+'mm'+(last.notes?' · '+esc(last.notes.slice(0,30)):'')+'</div>';}
     mzg.appendChild(card);
   });
-
-  // ── Mowing history table ──
+  // Mowing history
   var mtb=document.getElementById('mow-tbody');mtb.innerHTML='';
   if(mowEntries.length===0){mtb.innerHTML='<tr><td colspan="5" class="log-empty">No mowing sessions logged yet. Use the ✂ Log a mow button in the Tracker header.</td></tr>';}
-  else{
-    mowEntries.forEach(function(e){
-      var tr=document.createElement('tr');
-      tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td>'+
-        '<td><div class="log-task">'+esc(e.zoneName||e.zone)+'</div><div style="font-size:12px;color:var(--ink-light);">'+esc(e.grass||'')+'</div></td>'+
-        '<td style="font-size:13px;color:var(--ink-mid);">'+esc(e.mower||'—')+'</td>'+
-        '<td style="font-size:13px;font-weight:500;color:var(--grass);">'+esc(e.heightMm+'mm')+'</td>'+
-        '<td style="font-size:12px;color:var(--ink-light);">'+esc(e.notes||'—')+'</td>';
-      mtb.appendChild(tr);
-    });
-  }
-
-  // ── Application stats ──
+  else{mowEntries.forEach(function(e){var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td><div class="log-task">'+esc(e.zoneName||e.zone)+'</div><div style="font-size:12px;color:var(--ink-light);">'+esc(e.grass||'')+'</div></td><td style="font-size:13px;color:var(--ink-mid);">'+esc(e.mower||'—')+'</td><td style="font-size:13px;font-weight:500;color:var(--grass);">'+esc(e.heightMm+'mm')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(e.notes||'—')+'</td>';mtb.appendChild(tr);});}
+  // App stats
   var thisMonth=currentMonthNum(),thisYear=now().getFullYear();
   var monthEntries=entries.filter(function(e){if(!e.dateISO)return false;var d=new Date(e.dateISO);return d.getMonth()+1===thisMonth&&d.getFullYear()===thisYear;});
   var deductedCount=entries.filter(function(e){return e.inventoryDeducted;}).length;
@@ -550,16 +525,13 @@ function renderLog(){
     {val:deductedCount,label:'Inventory deducted',sub:deductedCount+' of '+entries.length+' entries'},
     {val:mowEntries.length,label:'Mowing sessions',sub:'all time'},
   ].map(function(s){return '<div class="stat-tile"><div class="stat-value">'+s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
-
-  // ── Last applied per product ──
-  var lastApplied={};
-  entries.forEach(function(e){(e.products||[]).forEach(function(p){if(!lastApplied[p.name]||e.dateISO>lastApplied[p.name])lastApplied[p.name]=e.dateISO;});});
+  // Last applied
+  var lastApplied={};entries.forEach(function(e){(e.products||[]).forEach(function(p){if(!lastApplied[p.name]||e.dateISO>lastApplied[p.name])lastApplied[p.name]=e.dateISO;});});
   var lag=document.getElementById('last-applied-grid');lag.innerHTML='';
   var prodNames=Object.keys(lastApplied).sort();
   if(prodNames.length===0){lag.innerHTML='<div style="color:var(--ink-light);font-size:13px;font-style:italic;padding:8px 0;">No applications logged yet.</div>';}
   else{prodNames.forEach(function(name){var days=daysSince(lastApplied[name]);var stale=days>28;var card=document.createElement('div');card.className='last-applied-card';card.innerHTML='<div class="last-applied-name">'+esc(name)+'</div><div class="last-applied-days'+(stale?' stale':'')+'">'+days+' days ago</div><div class="last-applied-date">'+lastApplied[name].split('-').reverse().join('/')+'</div>';lag.appendChild(card);});}
-
-  // ── Application filter/table ──
+  // App table
   document.getElementById('log-section-sub').textContent=entries.length+' application'+(entries.length!==1?'s':'')+' · '+mowEntries.length+' mow'+(mowEntries.length!==1?'s':'')+' recorded';
   var taskTypes=['All'];entries.forEach(function(e){if(e.taskType&&taskTypes.indexOf(e.taskType)<0)taskTypes.push(e.taskType);});
   var af='All',lfc=document.getElementById('log-filter-chips');
@@ -574,7 +546,64 @@ document.getElementById('stock-modal').addEventListener('click',function(e){if(e
 
 async function saveStock(){var p=state.modalProduct;if(!p)return;var newQty=parseFloat(document.getElementById('modal-qty-input').value);if(isNaN(newQty)||newQty<0){showToast('Please enter a valid quantity','error');return;}var prod=state.inventory.products.find(function(x){return x.name===p.name;});if(prod)prod.qtyRemaining=newQty;state.inventory.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});document.getElementById('modal-current-qty').textContent=newQty;if(!state.token){closeModal();renderInventory();renderAlerts();renderOverview();showToast('Updated (session only — connect GitHub to save permanently)','error');return;}document.getElementById('modal-saving').style.display='block';document.getElementById('modal-save-btn').disabled=true;try{if(!state.invSha)await fetchInvSha();var inv=JSON.parse(JSON.stringify(state.inventory));var rp=inv.products.find(function(x){return x.name===p.name;});if(rp)rp.qtyRemaining=newQty;inv.lastUpdated=state.inventory.lastUpdated;var content=btoa(unescape(encodeURIComponent(JSON.stringify(inv,null,2))));var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;var body={message:'Update stock: '+p.name+' → '+newQty+p.unit,content:content,branch:CONFIG.branch};if(state.invSha)body.sha=state.invSha;var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}var data=await resp.json();state.invSha=data.content.sha;closeModal();renderInventory();renderAlerts();renderOverview();showToast(p.name+' updated to '+newQty+p.unit,'success');}catch(e){document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}}
 
-function renderAlerts(){var list=document.getElementById('alerts-list'),alerts=[];state.inventory.products.forEach(function(p){var s=invStatus(p);if(s.status==='critical')alerts.push({type:'critical',icon:'⚠',title:p.name+' — critically low',text:p.qtyRemaining+p.unit+' remaining. Reorder soon.'});else if(s.status==='low')alerts.push({type:'warn',icon:'⊙',title:p.name+' — running low',text:p.qtyRemaining+p.unit+' remaining ('+s.pct+'% of estimated full stock).'});});state.inventory.compatibility.forEach(function(rule){if(rule.severity==='critical')alerts.push({type:'critical',icon:'⛔',title:'Compatibility rule',text:rule.rule});});var mn=currentMonthNum(),c=countDone(mn);if(c.total>0&&c.done===0){var MN=['January','February','March','April','May','June','July','August','September','October','November','December'];alerts.push({type:'info',icon:'📋',title:MN[mn-1]+' program not started',text:c.total+' tasks scheduled this month, none completed yet.'});}if(state.program.meta&&state.program.meta.notes){state.program.meta.notes.forEach(function(note){if(note.toLowerCase().indexOf('critical')>=0||note.toLowerCase().indexOf('never')>=0||note.toLowerCase().indexOf('must')>=0)alerts.push({type:'warn',icon:'ℹ',title:'Program rule',text:note});});}if(alerts.length===0){list.innerHTML='<div class="no-alerts">No alerts — everything looks good.</div>';return;}list.innerHTML='';alerts.forEach(function(a){var item=document.createElement('div');item.className='alert-item '+a.type;item.innerHTML='<div class="alert-icon">'+a.icon+'</div><div class="alert-body"><div class="alert-title">'+esc(a.title)+'</div><div class="alert-text">'+esc(a.text)+'</div></div>';list.appendChild(item);});var at=document.querySelector('[data-tab="alerts"]');if(at)at.textContent='Alerts ('+alerts.length+')';}
+// ── ALERTS (includes mowing overdue) ──
+function renderAlerts(){
+  var list=document.getElementById('alerts-list'),alerts=[];
+  var threshold=mowThreshold();
+  var seasonLabel=(['12','1','2'].indexOf(String(currentMonthNum()))>=0)?'summer':(['3','4','5'].indexOf(String(currentMonthNum()))>=0)?'autumn':(['6','7','8'].indexOf(String(currentMonthNum()))>=0)?'winter':'spring';
+
+  // ── Mowing overdue alerts ──
+  ['back','front','strip1','strip2'].forEach(function(zid){
+    var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';
+    var last=lastMowForZone(zid);
+    if(!last){
+      // No mowing record at all — info level
+      alerts.push({type:'info',icon:'✂',title:zoneName+' — no mowing record',text:'No mowing sessions have been logged for this zone yet. Use ✂ Log a mow in the Tracker header.'});
+    } else {
+      var days=daysSince(last.dateISO);
+      if(days>=threshold){
+        alerts.push({type:'warn',icon:'✂',title:zoneName+' — mowing overdue',text:days+' days since last mow ('+last.date+' · '+last.heightMm+'mm). Threshold is '+threshold+'d in '+seasonLabel+'. Grass: '+grass+'.'});
+      }
+    }
+  });
+
+  // ── Inventory alerts ──
+  state.inventory.products.forEach(function(p){
+    var s=invStatus(p);
+    if(s.status==='critical')alerts.push({type:'critical',icon:'⚠',title:p.name+' — critically low',text:p.qtyRemaining+p.unit+' remaining. Reorder soon.'});
+    else if(s.status==='low')alerts.push({type:'warn',icon:'⊙',title:p.name+' — running low',text:p.qtyRemaining+p.unit+' remaining ('+s.pct+'% of estimated full stock).'});
+  });
+
+  // ── Compatibility rules ──
+  state.inventory.compatibility.forEach(function(rule){
+    if(rule.severity==='critical')alerts.push({type:'critical',icon:'⛔',title:'Compatibility rule',text:rule.rule});
+  });
+
+  // ── Month not started ──
+  var mn=currentMonthNum(),c=countDone(mn);
+  if(c.total>0&&c.done===0){
+    var MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    alerts.push({type:'info',icon:'📋',title:MN[mn-1]+' program not started',text:c.total+' tasks scheduled this month, none completed yet.'});
+  }
+
+  // ── Program meta notes ──
+  if(state.program.meta&&state.program.meta.notes){
+    state.program.meta.notes.forEach(function(note){
+      if(note.toLowerCase().indexOf('critical')>=0||note.toLowerCase().indexOf('never')>=0||note.toLowerCase().indexOf('must')>=0)
+        alerts.push({type:'warn',icon:'ℹ',title:'Program rule',text:note});
+    });
+  }
+
+  if(alerts.length===0){list.innerHTML='<div class="no-alerts">No alerts — everything looks good.</div>';return;}
+  list.innerHTML='';
+  alerts.forEach(function(a){
+    var item=document.createElement('div');item.className='alert-item '+a.type;
+    item.innerHTML='<div class="alert-icon">'+a.icon+'</div><div class="alert-body"><div class="alert-title">'+esc(a.title)+'</div><div class="alert-text">'+esc(a.text)+'</div></div>';
+    list.appendChild(item);
+  });
+  var at=document.querySelector('[data-tab="alerts"]');
+  if(at)at.textContent='Alerts ('+alerts.length+')';
+}
 
 function renderZones(){var grid=document.getElementById('zone-summary-grid');grid.innerHTML='';var mn=currentMonthNum(),m=getMonthData(mn);state.inventory.zones.forEach(function(z){var tc=0;if(m)m.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){if((t.zones||[]).indexOf(z.id)>=0)tc++;});});var card=document.createElement('div');card.className='zone-card';card.innerHTML='<div class="zone-area-big">'+z.areaSqm+'m²</div><div class="zone-card-name">'+esc(z.name)+'</div><div class="zone-card-grass '+z.grass+'">'+z.grass.toUpperCase()+'</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Tasks this month</span><span class="zone-stat-val">'+tc+'</span></div></div>';grid.appendChild(card);});var tc=document.createElement('div');tc.className='zone-card';tc.innerHTML='<div class="zone-area-big">140.15m²</div><div class="zone-card-name">Total lawn area</div><div class="zone-card-grass" style="color:var(--ink-light);">ALL ZONES</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Kikuyu</span><span class="zone-stat-val">68.2m²</span></div><div class="zone-stat-row"><span class="zone-stat-label">Zoysia</span><span class="zone-stat-val">35.0m²</span></div><div class="zone-stat-row"><span class="zone-stat-label">Couch</span><span class="zone-stat-val">36.95m²</span></div></div>';grid.appendChild(tc);var cl=document.getElementById('compat-list');cl.innerHTML='';state.inventory.compatibility.forEach(function(rule){var item=document.createElement('div');item.className='alert-item '+(rule.severity==='critical'?'critical':'warn');item.style.marginBottom='8px';item.innerHTML='<div class="alert-icon">'+(rule.severity==='critical'?'⛔':'⚠')+'</div><div class="alert-body"><div class="alert-title">'+esc(rule.products.join(', '))+'</div><div class="alert-text">'+esc(rule.rule)+'</div></div>';cl.appendChild(item);});}
 
