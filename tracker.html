@@ -98,6 +98,29 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
 .caution-chip:hover .caution-tooltip{display:block;}
 .completion-info{margin-top:9px;font-size:14px;color:var(--ink-light);font-style:italic;}
 .condition-banner{margin:0 18px 10px 52px;padding:7px 11px;background:#fff8f0;border:1px solid var(--soil-light);border-radius:4px;font-size:15px;color:var(--soil);}
+
+/* ── HEIGHT REFERENCE CARD ── */
+.height-ref{background:white;border:1px solid var(--border);border-radius:6px;margin-bottom:22px;overflow:hidden;}
+.height-ref-toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;user-select:none;gap:12px;}
+.height-ref-toggle:hover{background:var(--paper);}
+.height-ref-label{font-size:13px;text-transform:uppercase;letter-spacing:0.8px;color:var(--ink-light);}
+.height-ref-chevron{font-size:11px;color:var(--grass);transition:transform 0.2s;flex-shrink:0;}
+.height-ref-chevron.open{transform:rotate(180deg);}
+.height-ref-body{display:none;border-top:1px solid var(--border);}
+.height-ref-body.open{display:block;}
+.height-ref-table{width:100%;border-collapse:collapse;font-size:13px;}
+.height-ref-table th{text-align:left;padding:8px 12px;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);background:var(--paper);border-bottom:1px solid var(--border);white-space:nowrap;}
+.height-ref-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+.height-ref-table tr:last-child td{border-bottom:none;}
+.height-ref-table tr:hover td{background:var(--grass-pale);}
+.height-grass{font-weight:500;color:var(--ink);}
+.height-grass-sub{font-size:12px;color:var(--ink-light);margin-top:1px;}
+.height-chips{display:flex;gap:5px;flex-wrap:wrap;}
+.height-chip{font-size:12px;padding:2px 8px;border-radius:3px;border:1px solid var(--border);background:var(--paper);color:var(--ink-mid);white-space:nowrap;}
+.height-chip.recommended{background:var(--grass);border-color:var(--grass);color:white;font-weight:500;}
+.height-chip.season{background:var(--grass-pale);border-color:var(--grass-pale);color:var(--grass);}
+.height-note{font-size:12px;color:var(--ink-light);margin-top:5px;font-style:italic;}
+
 #loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:calc(100vh - 60px);gap:16px;color:var(--ink-light);}
 .spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--grass);border-radius:50%;animation:spin 0.7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -122,7 +145,7 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
 .season-badge.autumn{background:#ffe8d0;color:#8a3a00;border:1px solid #d47030;}
 .season-badge.winter{background:#d8eeff;color:#0a3a6a;border:1px solid #4a80b0;}
 .season-badge.spring{background:#e0f5d0;color:#1a5a0a;border:1px solid #5a9448;}
-.month-header-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:22px;}
+.month-header-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;}
 .month-title{font-family:'Fraunces',serif;font-weight:300;font-size:32px;color:var(--ink);letter-spacing:-0.5px;}
 
 /* ── MODALS ── */
@@ -162,8 +185,7 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
 .modal-btn.secondary{background:white;color:var(--ink-mid);border-color:var(--border);}
 .modal-btn.secondary:hover{border-color:var(--ink-mid);}
 .modal-saving{text-align:center;padding:6px;font-size:13px;color:var(--ink-light);display:none;}
-
-/* ── MOW MODAL FORM ── */
+/* ── MOW MODAL ── */
 .mow-form{display:flex;flex-direction:column;gap:14px;}
 .mow-field-label{font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);margin-bottom:5px;}
 .mow-select,.mow-input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:5px;font-family:'DM Mono',monospace;font-size:15px;color:var(--ink);background:white;outline:none;appearance:none;}
@@ -173,7 +195,6 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
 .mow-height-btn:hover{border-color:var(--grass);color:var(--grass);}
 .mow-height-btn.active{background:var(--grass);border-color:var(--grass);color:white;font-weight:500;}
 .mow-auth-notice{background:#fff9e8;border:1px solid #d4a017;border-radius:5px;padding:10px 12px;font-size:13px;color:#8a5a00;display:flex;gap:7px;}
-
 @media(max-width:600px){
   main{padding:16px;}header{padding:0 16px;}.month-nav{padding:0 12px;}
   .month-progress{padding:10px 16px;}.month-btn{padding:10px 10px;font-size:13px;}
@@ -270,10 +291,7 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
   <div class="modal" style="max-width:440px;">
     <div class="modal-header">
       <div class="modal-header-top">
-        <div>
-          <div class="modal-title">Log a mow</div>
-          <div class="modal-subtitle" id="mow-modal-date"></div>
-        </div>
+        <div><div class="modal-title">Log a mow</div><div class="modal-subtitle" id="mow-modal-date"></div></div>
         <button class="modal-close" onclick="closeMowModal()">×</button>
       </div>
     </div>
@@ -333,6 +351,49 @@ var MOWER_HEIGHTS = {
   'Ozito PXC':         [14,23,32,38]
 };
 
+// Height reference data: recommended range per grass per mower, with season notes
+var HEIGHT_REF = [
+  {
+    grass:'Kikuyu', zone:'Back Lawn', zones:['back'],
+    mowers:[
+      {name:'Honda HRN216', type:'Rotary',
+       summer:'39–51mm', winter:'51–64mm', recommended:'51mm',
+       note:'Kikuyu handles low rotary cuts. Avoid scalping in winter.'},
+      {name:'Allett Stirling 43', type:'Cylinder',
+       summer:'15–25mm', winter:'25–35mm', recommended:'20mm',
+       note:'Cylinder gives a premium finish on Kikuyu.'},
+    ]
+  },
+  {
+    grass:'Zoysia', zone:'Front Lawn', zones:['front'],
+    mowers:[
+      {name:'Honda HRN216', type:'Rotary',
+       summer:'27–39mm', winter:'39–51mm', recommended:'39mm',
+       note:'Zoysia is slow-growing — don\'t cut too low.'},
+      {name:'Allett Stirling 43', type:'Cylinder',
+       summer:'10–20mm', winter:'20–30mm', recommended:'15mm',
+       note:'Cylinder ideal for Zoysia fine-leaf finish.'},
+      {name:'Ozito PXC', type:'Cylinder',
+       summer:'14–23mm', winter:'23mm', recommended:'14mm',
+       note:'Lowest setting gives fine-leaf Zoysia a tight finish.'},
+    ]
+  },
+  {
+    grass:'Couch', zone:'Nature Strips', zones:['strip1','strip2'],
+    mowers:[
+      {name:'Honda HRN216', type:'Rotary',
+       summer:'27–39mm', winter:'39–51mm', recommended:'39mm',
+       note:'Couch is hardy — tolerates lower cuts in warm months.'},
+      {name:'Allett Stirling 43', type:'Cylinder',
+       summer:'10–20mm', winter:'20–30mm', recommended:'15mm',
+       note:'Cylinder gives premium stripe finish on Couch.'},
+      {name:'Ozito PXC', type:'Cylinder',
+       summer:'14–23mm', winter:'23–32mm', recommended:'14mm',
+       note:'Good for strips where maneuverability matters.'},
+    ]
+  }
+];
+
 var state = {
   program:null, completions:{}, completionsSha:null,
   inventory:null, inventorySha:null,
@@ -340,7 +401,8 @@ var state = {
   mowLog:null, mowLogSha:null,
   token:null, currentMonth:null, readOnly:false,
   pendingDeduction:null, pendingUncheck:null,
-  selectedMowHeight: null
+  selectedMowHeight:null,
+  heightRefOpen:false
 };
 
 var ZONE_LABELS = {
@@ -392,94 +454,46 @@ async function saveCompletions(){if(!state.token)return false;try{var r=await gh
 async function saveInventory(){if(!state.token||!state.inventory)return false;var inv=JSON.parse(JSON.stringify(state.inventory));inv.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});try{var r=await ghPut(CONFIG.inventoryPath,inv,state.inventorySha,'Deduct inventory after task completion');if(!r.ok){var e=await r.json();throw new Error(e.message||'Failed');}var d=await r.json();state.inventorySha=d.content.sha;state.inventory.lastUpdated=inv.lastUpdated;return true;}catch(e){showToast('Inventory save failed: '+e.message,'error');return false;}}
 async function writeAppLog(task,deductions,inventoryDeducted){if(!state.token)return;if(!state.appLog)state.appLog={entries:[]};var now=new Date();var entry={id:'app_'+now.getTime(),date:now.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),dateISO:now.toISOString().slice(0,10),taskId:task.id,taskLabel:task.label,taskType:task.taskType,zones:task.zones||[],products:deductions.filter(function(d){return d.amount>0;}).map(function(d){return{name:d.name,amount:d.amount,unit:d.unit,deducted:!!(inventoryDeducted&&d.invProd)};}),inventoryDeducted:!!inventoryDeducted};state.appLog.entries.unshift(entry);try{var r=await ghPut(CONFIG.appLogPath,state.appLog,state.appLogSha,'Log application: '+task.label);if(r.ok){var d=await r.json();state.appLogSha=d.content.sha;}}catch(e){}}
 
-// ── MOW MODAL ──
-function openMowModal(){
-  var now=new Date();
-  document.getElementById('mow-modal-date').textContent=now.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  document.getElementById('mow-auth-notice').style.display=state.token?'none':'flex';
-  document.getElementById('mow-notes').value='';
-  document.getElementById('mow-saving').style.display='none';
-  document.getElementById('mow-save-btn').disabled=false;
-  state.selectedMowHeight=null;
-  renderMowHeights();
-  document.getElementById('mow-modal').classList.add('open');
-}
-function closeMowModal(){document.getElementById('mow-modal').classList.remove('open');}
-
-function renderMowHeights(){
-  var mower=document.getElementById('mow-mower').value;
-  var heights=MOWER_HEIGHTS[mower]||[];
-  var grid=document.getElementById('mow-height-grid');grid.innerHTML='';
-  state.selectedMowHeight=null;
-  document.getElementById('mow-height-display').textContent='select below';
-  heights.forEach(function(h){
-    var btn=document.createElement('button');btn.className='mow-height-btn';btn.textContent=h+'mm';
-    btn.addEventListener('click',function(){
-      document.querySelectorAll('.mow-height-btn').forEach(function(b){b.classList.remove('active');});
-      btn.classList.add('active');state.selectedMowHeight=h;
-      document.getElementById('mow-height-display').textContent=h+'mm';
+// ── HEIGHT REFERENCE CARD ──
+function buildHeightRefCard(season){
+  var card=document.createElement('div');card.className='height-ref';
+  var toggle=document.createElement('div');toggle.className='height-ref-toggle';
+  toggle.innerHTML='<span class="height-ref-label">✂ Mowing height reference</span><span class="height-ref-chevron" id="height-ref-chevron">▼</span>';
+  var body=document.createElement('div');body.className='height-ref-body'+(state.heightRefOpen?' open':'');
+  // Table
+  var tbl=document.createElement('table');tbl.className='height-ref-table';
+  tbl.innerHTML='<thead><tr><th>Grass</th><th>Mower</th><th>Summer/Autumn</th><th>Winter/Spring</th><th>Notes</th></tr></thead>';
+  var tbody=document.createElement('tbody');
+  HEIGHT_REF.forEach(function(gr){
+    gr.mowers.forEach(function(m,mi){
+      var tr=document.createElement('tr');
+      var grassCell=mi===0?'<td rowspan="'+gr.mowers.length+'" style="vertical-align:middle;"><div class="height-grass">'+gr.grass+'</div><div class="height-grass-sub">'+gr.zone+'</div></td>':'';
+      tr.innerHTML=grassCell+
+        '<td style="white-space:nowrap;"><div style="font-size:13px;color:var(--ink);">'+m.name+'</div><div style="font-size:11px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.4px;">'+m.type+'</div></td>'+
+        '<td><span class="height-chip'+(season==='summer'||season==='autumn'?' recommended':'')+'">'+m.summer+'</span></td>'+
+        '<td><span class="height-chip'+(season==='winter'||season==='spring'?' recommended':'')+'">'+m.winter+'</span></td>'+
+        '<td class="height-note">'+escHtml(m.note)+'</td>';
+      tbody.appendChild(tr);
     });
-    grid.appendChild(btn);
   });
+  tbl.appendChild(tbody);body.appendChild(tbl);
+  card.appendChild(toggle);card.appendChild(body);
+  toggle.addEventListener('click',function(){
+    state.heightRefOpen=!state.heightRefOpen;
+    body.classList.toggle('open',state.heightRefOpen);
+    document.getElementById('height-ref-chevron').classList.toggle('open',state.heightRefOpen);
+  });
+  return card;
 }
 
-async function saveMow(){
-  if(!state.selectedMowHeight){showToast('Please select a height setting','error');return;}
-  var now=new Date();
-  var zone=document.getElementById('mow-zone').value;
-  var mower=document.getElementById('mow-mower').value;
-  var notes=document.getElementById('mow-notes').value.trim();
-  var zoneInfo=ZONE_LABELS[zone];
-  var entry={
-    id:'mow_'+now.getTime(),
-    date:now.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),
-    dateISO:now.toISOString().slice(0,10),
-    zone:zone,
-    zoneName:zoneInfo?zoneInfo.name:(zone==='all'?'All zones':zone),
-    grass:zoneInfo?zoneInfo.grass:(zone==='all'?'Mixed':'—'),
-    mower:mower,
-    heightMm:state.selectedMowHeight,
-    notes:notes
-  };
-
-  if(!state.mowLog)state.mowLog={entries:[]};
-  state.mowLog.entries.unshift(entry);
-
-  if(!state.token){
-    closeMowModal();
-    showToast('Mow logged (session only — connect GitHub to save permanently)','error');
-    return;
-  }
-
-  document.getElementById('mow-saving').style.display='block';
-  document.getElementById('mow-save-btn').disabled=true;
-
-  try{
-    var r=await ghPut(CONFIG.mowLogPath,state.mowLog,state.mowLogSha,'Log mow: '+entry.zoneName+' @ '+entry.heightMm+'mm');
-    if(!r.ok){var err=await r.json();throw new Error(err.message||'Save failed');}
-    var d=await r.json();state.mowLogSha=d.content.sha;
-    closeMowModal();
-    showToast('Mow logged — '+entry.zoneName+' @ '+entry.heightMm+'mm','success');
-  }catch(e){
-    document.getElementById('mow-saving').style.display='none';
-    document.getElementById('mow-save-btn').disabled=false;
-    showToast('Save failed: '+e.message,'error');
-  }
-}
+// ── MOW MODAL ──
+function openMowModal(){var now=new Date();document.getElementById('mow-modal-date').textContent=now.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});document.getElementById('mow-auth-notice').style.display=state.token?'none':'flex';document.getElementById('mow-notes').value='';document.getElementById('mow-saving').style.display='none';document.getElementById('mow-save-btn').disabled=false;state.selectedMowHeight=null;renderMowHeights();document.getElementById('mow-modal').classList.add('open');}
+function closeMowModal(){document.getElementById('mow-modal').classList.remove('open');}
+function renderMowHeights(){var mower=document.getElementById('mow-mower').value;var heights=MOWER_HEIGHTS[mower]||[];var grid=document.getElementById('mow-height-grid');grid.innerHTML='';state.selectedMowHeight=null;document.getElementById('mow-height-display').textContent='select below';heights.forEach(function(h){var btn=document.createElement('button');btn.className='mow-height-btn';btn.textContent=h+'mm';btn.addEventListener('click',function(){document.querySelectorAll('.mow-height-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');state.selectedMowHeight=h;document.getElementById('mow-height-display').textContent=h+'mm';});grid.appendChild(btn);});}
+async function saveMow(){if(!state.selectedMowHeight){showToast('Please select a height setting','error');return;}var now=new Date();var zone=document.getElementById('mow-zone').value;var mower=document.getElementById('mow-mower').value;var notes=document.getElementById('mow-notes').value.trim();var zoneInfo=ZONE_LABELS[zone];var entry={id:'mow_'+now.getTime(),date:now.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),dateISO:now.toISOString().slice(0,10),zone:zone,zoneName:zoneInfo?zoneInfo.name:(zone==='all'?'All zones':zone),grass:zoneInfo?zoneInfo.grass:(zone==='all'?'Mixed':'—'),mower:mower,heightMm:state.selectedMowHeight,notes:notes};if(!state.mowLog)state.mowLog={entries:[]};state.mowLog.entries.unshift(entry);if(!state.token){closeMowModal();showToast('Mow logged (session only — connect GitHub to save permanently)','error');return;}document.getElementById('mow-saving').style.display='block';document.getElementById('mow-save-btn').disabled=true;try{var r=await ghPut(CONFIG.mowLogPath,state.mowLog,state.mowLogSha,'Log mow: '+entry.zoneName+' @ '+entry.heightMm+'mm');if(!r.ok){var err=await r.json();throw new Error(err.message||'Save failed');}var d=await r.json();state.mowLogSha=d.content.sha;closeMowModal();showToast('Mow logged — '+entry.zoneName+' @ '+entry.heightMm+'mm','success');}catch(e){document.getElementById('mow-saving').style.display='none';document.getElementById('mow-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}}
 
 // ── TASK TOGGLE ──
-async function toggleTask(taskId,checkEl,cardEl,task){
-  var isCompleted=!!state.completions[taskId];
-  if(isCompleted){state.pendingUncheck={taskId:taskId,checkEl:checkEl,cardEl:cardEl};document.getElementById('uncheck-task-name').textContent='Uncheck "'+task.label+'"?';document.getElementById('uncheck-confirm-btn').onclick=doUncheck;document.getElementById('uncheck-modal').classList.add('open');return;}
-  state.completions[taskId]={completedAt:new Date().toLocaleDateString('en-AU'),completedTime:new Date().toISOString()};
-  checkEl.classList.add('checked');cardEl.classList.add('completed');
-  var infoEl=cardEl.querySelector('.completion-info');if(infoEl)infoEl.textContent='Completed '+state.completions[taskId].completedAt;
-  updateProgress(state.currentMonth);
-  if(state.token){checkEl.classList.add('saving');var saved=await saveCompletions();checkEl.classList.remove('saving');if(!saved){delete state.completions[taskId];checkEl.classList.remove('checked');cardEl.classList.remove('completed');if(infoEl)infoEl.textContent='';updateProgress(state.currentMonth);return;}}
-  else showToast('Not saved — connect GitHub to persist','error');
-  if(state.inventory&&task.products&&task.products.length>0&&state.token){openDeductionModal(task,checkEl,cardEl);}
-  else{if(state.token)writeAppLog(task,[],false);showToast('Task completed ✓','success');}
-}
+async function toggleTask(taskId,checkEl,cardEl,task){var isCompleted=!!state.completions[taskId];if(isCompleted){state.pendingUncheck={taskId:taskId,checkEl:checkEl,cardEl:cardEl};document.getElementById('uncheck-task-name').textContent='Uncheck "'+task.label+'"?';document.getElementById('uncheck-confirm-btn').onclick=doUncheck;document.getElementById('uncheck-modal').classList.add('open');return;}state.completions[taskId]={completedAt:new Date().toLocaleDateString('en-AU'),completedTime:new Date().toISOString()};checkEl.classList.add('checked');cardEl.classList.add('completed');var infoEl=cardEl.querySelector('.completion-info');if(infoEl)infoEl.textContent='Completed '+state.completions[taskId].completedAt;updateProgress(state.currentMonth);if(state.token){checkEl.classList.add('saving');var saved=await saveCompletions();checkEl.classList.remove('saving');if(!saved){delete state.completions[taskId];checkEl.classList.remove('checked');cardEl.classList.remove('completed');if(infoEl)infoEl.textContent='';updateProgress(state.currentMonth);return;}}else showToast('Not saved — connect GitHub to persist','error');if(state.inventory&&task.products&&task.products.length>0&&state.token){openDeductionModal(task,checkEl,cardEl);}else{if(state.token)writeAppLog(task,[],false);showToast('Task completed ✓','success');}}
 
 // ── UNCHECK ──
 function closeUncheckModal(){document.getElementById('uncheck-modal').classList.remove('open');state.pendingUncheck=null;}
@@ -494,7 +508,31 @@ async function confirmDeduction(){var p=state.pendingDeduction;if(!p||!state.inv
 
 // ── RENDER ──
 function renderMonthNav(){var nav=document.getElementById('month-nav');nav.innerHTML='';var tm=new Date().getMonth()+1;state.program.months.forEach(function(m){var btn=document.createElement('button');btn.className='month-btn'+(m.monthNum===state.currentMonth?' active':'')+(m.monthNum===tm?' current-month':'');btn.textContent=m.month.slice(0,3).toUpperCase();btn.addEventListener('click',function(){document.querySelectorAll('.month-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');state.currentMonth=m.monthNum;renderMonth(m.monthNum);});nav.appendChild(btn);});}
-function renderMonth(monthNum){var md=state.program.months.find(function(m){return m.monthNum===monthNum;});if(!md)return;var main=document.getElementById('main-content');main.innerHTML='';var hdr=document.createElement('div');hdr.className='month-header-row';hdr.innerHTML='<div class="month-title">'+md.month+' <span class="season-badge '+md.season+'">'+md.season+'</span></div>';main.appendChild(hdr);md.weeks.forEach(function(week){var wb=document.createElement('div');wb.className='week-block';var wl=week.label.replace(/^Week \d+ \u2014 /,'').replace(/^Week \d+ - /,'');wb.innerHTML='<div class="week-heading"><span class="week-num">W'+week.week+'</span><span class="week-label-text">'+wl+'</span></div>';if(!week.tasks||week.tasks.length===0){wb.innerHTML+='<div style="padding:16px;text-align:center;color:var(--ink-light);font-size:15px;font-style:italic;">No tasks scheduled.</div>';}else{week.tasks.forEach(function(task){wb.appendChild(renderTaskCard(task));});}main.appendChild(wb);});updateProgress(monthNum);}
+
+function renderMonth(monthNum){
+  var md=state.program.months.find(function(m){return m.monthNum===monthNum;});if(!md)return;
+  var main=document.getElementById('main-content');main.innerHTML='';
+
+  // Month heading
+  var hdr=document.createElement('div');hdr.className='month-header-row';
+  hdr.innerHTML='<div class="month-title">'+md.month+' <span class="season-badge '+md.season+'">'+md.season+'</span></div>';
+  main.appendChild(hdr);
+
+  // Height reference card (collapsible)
+  main.appendChild(buildHeightRefCard(md.season));
+
+  // Week blocks
+  md.weeks.forEach(function(week){
+    var wb=document.createElement('div');wb.className='week-block';
+    var wl=week.label.replace(/^Week \d+ \u2014 /,'').replace(/^Week \d+ - /,'');
+    wb.innerHTML='<div class="week-heading"><span class="week-num">W'+week.week+'</span><span class="week-label-text">'+wl+'</span></div>';
+    if(!week.tasks||week.tasks.length===0){wb.innerHTML+='<div style="padding:16px;text-align:center;color:var(--ink-light);font-size:15px;font-style:italic;">No tasks scheduled.</div>';}
+    else{week.tasks.forEach(function(task){wb.appendChild(renderTaskCard(task));});}
+    main.appendChild(wb);
+  });
+  updateProgress(monthNum);
+}
+
 function fmt(val){var r=Math.round(val*10)/10;return r%1===0?r.toString():r.toFixed(1);}
 function renderTaskCard(task){var ic=!!state.completions[task.id];var card=document.createElement('div');card.className='task-card'+(ic?' completed':'')+(task.conditional?' conditional':'');var checkEl=document.createElement('div');checkEl.className='task-check'+(ic?' checked':'');checkEl.addEventListener('click',function(e){e.stopPropagation();toggleTask(task.id,checkEl,card,task);});var tl=task.taskType==='soilwetter'?'soil wetter':task.taskType;var wh=task.waterIn?' · H₂O water in':(task.foliarOrIrrigate==='Foliar'?' · foliar — allow to dry':'');var tb=document.createElement('div');tb.className='task-body';tb.innerHTML='<div class="task-top"><span class="task-label">'+escHtml(task.label)+'</span><span class="type-tag '+task.taskType+'">'+tl+'</span>'+(task.conditional?'<span class="conditional-flag">if required</span>':'')+'</div><div class="task-method">'+escHtml(task.applicationMethod)+wh+'</div><button class="expand-btn">&#x25B8; Rates &amp; details</button>';var header=document.createElement('div');header.className='task-header';header.appendChild(checkEl);header.appendChild(tb);card.appendChild(header);tb.querySelector('.expand-btn').addEventListener('click',function(e){e.stopPropagation();var det=card.querySelector('.task-detail');var op=det.classList.toggle('open');this.innerHTML=(op?'&#x25BE;':'&#x25B8;')+' Rates &amp; details';});if(task.conditional&&task.condition){var ban=document.createElement('div');ban.className='condition-banner';ban.textContent='⚠ '+task.condition;card.appendChild(ban);}var det=document.createElement('div');det.className='task-detail';if(task.products&&task.products.length>0){var pt=document.createElement('div');pt.className='products-title';pt.textContent='Product quantities by zone';det.appendChild(pt);task.products.forEach(function(prod){var pr=document.createElement('div');pr.style.cssText='padding:9px 0;border-top:1px solid var(--border);';pr.innerHTML='<div class="product-name">'+escHtml(prod.name)+' — '+prod.ratePer100sqm+prod.rateUnit+'/100m²</div>';if(prod.note)pr.innerHTML+='<div class="product-note">'+escHtml(prod.note)+'</div>';var zw=document.createElement('div');zw.className='product-zones';var zones=task.zones||Object.keys(prod.quantities||{});var fQ=null,s1=null,s2=null;zones.forEach(function(zid){if(!prod.quantities||prod.quantities[zid]===undefined)return;var info=ZONE_LABELS[zid];if(!info)return;var qty=prod.quantities[zid];if(zid==='front')fQ=qty;if(zid==='strip1')s1=qty;if(zid==='strip2')s2=qty;var chip=document.createElement('div');chip.className='zone-qty';chip.innerHTML='<div class="zone-qty-label">'+info.name+'</div><div class="zone-qty-grass">'+info.grass+' · '+info.area+'m²</div><div class="zone-qty-amount">'+qty+prod.rateUnit+'</div>';zw.appendChild(chip);});if([fQ,s1,s2].filter(function(v){return v!==null;}).length>=2){var ct=(fQ||0)+(s1||0)+(s2||0),ca=(fQ!==null?35.0:0)+(s1!==null?20.8:0)+(s2!==null?16.15:0);zw.appendChild(Object.assign(document.createElement('div'),{className:'zone-qty-divider'}));var cb=document.createElement('div');cb.className='zone-qty combined';cb.innerHTML='<div class="zone-qty-label">Front + Strips</div><div class="zone-qty-grass">Combined · '+fmt(ca)+'m²</div><div class="zone-qty-amount">'+fmt(ct)+prod.rateUnit+'</div>';zw.appendChild(cb);}pr.appendChild(zw);det.appendChild(pr);});}if(task.notes){var ns=document.createElement('div');ns.className='notes-section';ns.innerHTML='<div class="task-notes-text">'+escHtml(task.notes)+'</div>';if(task.cautions&&task.cautions.length>0){var cw=document.createElement('div');cw.className='cautions-wrap';task.cautions.forEach(function(cKey){var desc=(state.program.cautions&&state.program.cautions[cKey])||cKey;var icon=CAUTION_ICONS[cKey]||'!';var chip=document.createElement('div');chip.className='caution-chip';chip.dataset.caution=cKey;chip.innerHTML='<span>'+icon+'</span> '+cKey.replace(/-/g,' ')+'<span class="caution-tooltip">'+escHtml(desc)+'</span>';cw.appendChild(chip);});ns.appendChild(cw);}det.appendChild(ns);}var ci=document.createElement('div');ci.className='completion-info';if(state.completions[task.id])ci.textContent='Completed '+state.completions[task.id].completedAt;det.appendChild(ci);card.appendChild(det);return card;}
 function updateProgress(mn){var md=state.program.months.find(function(m){return m.monthNum===mn;});if(!md)return;var total=0,done=0;md.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){total++;if(state.completions[t.id])done++;});});var pct=total>0?Math.round((done/total)*100):0;document.getElementById('progress-fill').style.width=pct+'%';document.getElementById('progress-count').textContent=done+' / '+total+' tasks';}
