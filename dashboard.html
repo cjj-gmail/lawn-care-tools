@@ -157,6 +157,29 @@ header { background: var(--grass); color: var(--cream); padding: 0 28px; display
 .zone-stat-label { color: var(--ink-light); } .zone-stat-val { color: var(--ink-mid); font-weight: 500; }
 .zone-area-big { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 200; color: var(--grass); letter-spacing: -1px; margin-bottom: 8px; }
 
+/* ── APPLICATION LOG ── */
+.log-table-wrap { overflow-x: auto; }
+.log-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.log-table th { text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--border); font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-light); background: var(--cream); white-space: nowrap; }
+.log-table td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+.log-table tr:hover td { background: var(--grass-faint); }
+.log-date { font-size: 13px; color: var(--ink); white-space: nowrap; }
+.log-task { font-size: 13px; color: var(--ink); font-weight: 500; }
+.log-type-pip { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+.log-products { font-size: 12px; color: var(--ink-mid); margin-top: 2px; line-height: 1.6; }
+.log-zones { font-size: 12px; color: var(--ink-light); white-space: nowrap; }
+.log-deducted-badge { font-size: 11px; padding: 2px 7px; border-radius: 8px; white-space: nowrap; }
+.log-deducted-badge.yes { background: var(--grass-pale); color: var(--grass); }
+.log-deducted-badge.no { background: var(--border-light); color: var(--ink-light); }
+.log-empty { padding: 40px; text-align: center; color: var(--ink-light); font-size: 14px; font-style: italic; }
+
+.last-applied-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.last-applied-card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; }
+.last-applied-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.last-applied-date { font-size: 12px; color: var(--ink-light); }
+.last-applied-days { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 300; color: var(--grass); letter-spacing: -0.5px; }
+.last-applied-days.stale { color: var(--status-low); }
+
 #loading-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: calc(100vh - 60px); gap: 16px; color: var(--ink-light); }
 .spinner { width: 28px; height: 28px; border: 2px solid var(--border); border-top-color: var(--grass); border-radius: 50%; animation: spin 0.7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -242,6 +265,7 @@ header { background: var(--grass); color: var(--cream); padding: 0 28px; display
     <button class="nav-tab" data-tab="overview">Overview</button>
     <button class="nav-tab" data-tab="program">Program</button>
     <button class="nav-tab" data-tab="inventory">Inventory</button>
+    <button class="nav-tab" data-tab="log">Log</button>
     <button class="nav-tab" data-tab="alerts">Alerts</button>
     <button class="nav-tab" data-tab="zones">Zones</button>
   </nav>
@@ -284,6 +308,25 @@ header { background: var(--grass); color: var(--cream); padding: 0 28px; display
       <div class="stat-grid" id="inv-stat-grid"></div>
       <div class="filter-chips" id="inv-filter-chips"></div>
       <div class="inv-grid" id="inv-grid"></div>
+    </div>
+
+    <div class="section" id="tab-log">
+      <div class="section-heading"><div class="section-title">Application Log</div><div class="section-sub" id="log-section-sub">Complete history</div></div>
+      <div class="stat-grid" id="log-stat-grid"></div>
+      <div class="panel">
+        <div class="panel-title">Days since last application — by product</div>
+        <div class="last-applied-grid" id="last-applied-grid"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">All applications</div>
+        <div class="filter-chips" id="log-filter-chips"></div>
+        <div class="log-table-wrap">
+          <table class="log-table">
+            <thead><tr><th>Date</th><th>Task</th><th>Products used</th><th>Zones</th><th>Inv. deducted</th></tr></thead>
+            <tbody id="log-tbody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <div class="section" id="tab-alerts">
@@ -337,8 +380,9 @@ var CONFIG = {
   workerUrl:'https://lawn-care-tools.cameronjude1.workers.dev',
   invPath:'data/inventory.json'
 };
-var state = { program:null, inventory:null, completions:{}, invSha:null, token:null, modalProduct:null };
+var state = { program:null, inventory:null, completions:{}, appLog:null, invSha:null, token:null, modalProduct:null };
 var TYPE_COLORS = { fertilise:'#4a7c3f', biostimulant:'#7b5ea7', herbicide:'#c0692a', fungicide:'#c0882a', insecticide:'#2a7aa0', soilwetter:'#3a7a8a', renovation:'#6b4c2a' };
+var ZONE_NAMES = { back:'Back Lawn', front:'Front Lawn', strip1:'Nature Strip', strip2:'Left Strip' };
 
 function startLogin() { sessionStorage.setItem('dash_return','true'); window.location.href=CONFIG.workerUrl+'/login?redirect='+encodeURIComponent(window.location.href); }
 async function handleOAuthCallback(code) {
@@ -350,9 +394,8 @@ function updateAuthUI() {
   else{dot.classList.remove('connected');txt.textContent='Not connected';btn.classList.remove('hidden');}
 }
 
-// ── NAV with ?tab= param ──
 function setupNav(initialTab) {
-  var valid = ['overview','program','inventory','alerts','zones'];
+  var valid = ['overview','program','inventory','log','alerts','zones'];
   var start = (initialTab && valid.indexOf(initialTab)>=0) ? initialTab : 'overview';
   document.querySelectorAll('.nav-tab').forEach(function(btn) {
     btn.classList.toggle('active', btn.dataset.tab === start);
@@ -383,12 +426,13 @@ async function init() {
     document.getElementById('loading-screen').style.display='none'; return;
   }
   try { var cR=await fetch(CONFIG.base+'completions.json?t='+Date.now()); if(cR.ok) state.completions=await cR.json(); } catch(e){}
+  try { var aR=await fetch(CONFIG.base+'applications.json?t='+Date.now()); if(aR.ok) state.appLog=await aR.json(); else state.appLog={entries:[]}; } catch(e){ state.appLog={entries:[]}; }
   fetchInvSha();
   var seen={}; state.inventory.products=state.inventory.products.filter(function(p){if(seen[p.name])return false;seen[p.name]=true;return true;});
   document.getElementById('loading-screen').style.display='none';
   document.getElementById('dashboard').style.display='block';
   updateAuthUI(); setupNav(tabParam);
-  renderOverview(); renderProgram(); renderInventory(); renderAlerts(); renderZones();
+  renderOverview(); renderProgram(); renderInventory(); renderLog(); renderAlerts(); renderZones();
 }
 
 async function fetchInvSha() {
@@ -408,23 +452,29 @@ function totalTaskCount(){var t=0;state.program.months.forEach(function(m){m.wee
 function totalDoneCount(){return Object.keys(state.completions).length;}
 function invStatus(p){var rem=p.qtyRemaining,unit=p.unit;var fm={'TX10 (5-2-8)':25,'Maintain (26-1-9)':20,default_kg:20,default_L:5};var full=fm[p.name]||(unit==='kg'?fm.default_kg:fm.default_L);var pct=Math.min(100,Math.round((rem/full)*100));return{pct:pct,status:pct>40?'ok':pct>15?'low':'critical'};}
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function daysSince(dateISO){
+  var d = new Date(dateISO + 'T00:00:00');
+  var diff = Math.floor((now() - d) / 86400000);
+  return diff;
+}
 
 function renderOverview(){
   var d=now(),MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
   document.getElementById('overview-date').textContent=d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   var mn=currentMonthNum(),tm=countDone(mn),td=totalDoneCount(),tt=totalTaskCount(),yp=tt>0?Math.round(td/tt*100):0;
   var lc=0; state.inventory.products.forEach(function(p){if(invStatus(p).status!=='ok')lc++;});
+  var logCount = state.appLog ? state.appLog.entries.length : 0;
   document.getElementById('stat-grid').innerHTML=[
     {val:MN[mn-1],label:'Current month',sub:state.program.months[mn-1]?state.program.months[mn-1].season:''},
     {val:tm.done+'/'+tm.total,label:'Tasks done this month',sub:tm.total>0?Math.round(tm.done/tm.total*100)+'% complete':'No tasks logged'},
     {val:yp+'%',label:'Year completion',sub:td+' of '+tt+' tasks done'},
-    {val:state.inventory.products.length,label:'Products in inventory',sub:lc>0?lc+' needing attention':'All well stocked'},
+    {val:logCount,label:'Applications logged',sub:lc>0?lc+' products needing attention':'Inventory all well stocked'},
   ].map(function(s){return '<div class="stat-tile"><div class="stat-value">'+esc(s.val.toString())+'</div><div class="stat-label">'+s.label+'</div>'+(s.sub?'<div class="stat-sub">'+esc(s.sub)+'</div>':'')+'</div>';}).join('');
   var mpb=document.getElementById('monthly-progress-bars');mpb.innerHTML='';
   state.program.months.forEach(function(m){
     var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0,isThis=m.monthNum===mn;
     var row=document.createElement('div');row.className='progress-row';
-    row.innerHTML='<div class="progress-row-label" style="'+(isThis?'color:var(--grass);font-weight:500;':'')+'">'+m.month.slice(0,3)+(isThis?' ◄':'')+'</div><div class="progress-bar-wrap"><div class="progress-bar-fill ok" style="width:'+pct+'%"></div></div><div class="progress-row-num">'+c.done+'/'+c.total+'</div>';
+    row.innerHTML='<div class="progress-row-label" style="'+(isThis?'color:var(--grass);font-weight:500;':'')+'">'+ m.month.slice(0,3)+(isThis?' ◄':'')+'</div><div class="progress-bar-wrap"><div class="progress-bar-fill ok" style="width:'+pct+'%"></div></div><div class="progress-row-num">'+c.done+'/'+c.total+'</div>';
     mpb.appendChild(row);
   });
   var ul=document.getElementById('upcoming-list');ul.innerHTML='';
@@ -458,12 +508,97 @@ function renderInventory(){
   document.getElementById('inv-section-sub').textContent=products.length+' products · updated '+state.inventory.lastUpdated+' · click a card to update stock';
   var total=products.length,ok=0,low=0,crit=0;
   products.forEach(function(p){var s=invStatus(p).status;if(s==='ok')ok++;else if(s==='low')low++;else crit++;});
-  document.getElementById('inv-stat-grid').innerHTML=[{val:total,label:'Products',sub:'in inventory'},{val:ok,label:'Well stocked',sub:'>40% remaining'},{val:low,label:'Running low',sub:'15–40% remaining'},{val:crit,label:'Critical',sub:'<15% remaining'}].map(function(s){return '<div class="stat-tile"><div class="stat-value" style="'+(s.label==='Critical'&&crit>0?'color:var(--status-critical);':'')+(s.label==='Running low'&&low>0?'color:var(--status-low);':'')+'">'+s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
+  document.getElementById('inv-stat-grid').innerHTML=[{val:total,label:'Products',sub:'in inventory'},{val:ok,label:'Well stocked',sub:'>40% remaining'},{val:low,label:'Running low',sub:'15–40% remaining'},{val:crit,label:'Critical',sub:'<15% remaining'}].map(function(s){return '<div class="stat-tile"><div class="stat-value" style="'+(s.label==='Critical'&&crit>0?'color:var(--status-critical);':'')+(s.label==='Running low'&&low>0?'color:var(--status-low);':'')+'">'+ s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
   var cats=['All'];products.forEach(function(p){if(cats.indexOf(p.category)<0)cats.push(p.category);});
   var af='All',fc=document.getElementById('inv-filter-chips');
   function bic(){fc.innerHTML='';cats.forEach(function(c){var ch=document.createElement('button');ch.className='filter-chip'+(c===af?' active':'');ch.textContent=c;ch.addEventListener('click',function(){af=c;bic();big();});fc.appendChild(ch);});}
   function big(){var grid=document.getElementById('inv-grid');grid.innerHTML='';var filtered=af==='All'?products:products.filter(function(p){return p.category===af;});filtered.forEach(function(p){var s=invStatus(p),card=document.createElement('div');card.className='inv-card';card.dataset.cat=p.category;card.innerHTML='<div class="inv-card-top"><div><div class="inv-card-name">'+esc(p.name)+'</div><div class="inv-card-brand">'+esc(p.brand)+' · '+esc(p.category)+'</div></div><span class="inv-status-badge '+s.status+'">'+(s.status==='ok'?'OK':s.status==='low'?'LOW':'⚠ LOW')+'</span></div><div class="inv-bar-wrap"><div class="inv-bar-fill" style="width:'+s.pct+'%;background:'+(s.status==='ok'?'var(--grass)':s.status==='low'?'var(--status-low)':'var(--status-critical)')+';"></div></div><div class="inv-card-meta"><span>'+p.qtyRemaining+p.unit+' remaining</span><span>'+esc(p.ratePer100sqm)+' / 100m²</span></div><div class="inv-card-edit-hint">✏ Click to update stock</div>';card.addEventListener('click',function(){openModal(p);});grid.appendChild(card);});}
   bic();big();
+}
+
+// ── APPLICATION LOG ──
+function renderLog(){
+  var entries = state.appLog ? state.appLog.entries : [];
+  var sub = document.getElementById('log-section-sub');
+  sub.textContent = entries.length + ' application' + (entries.length !== 1 ? 's' : '') + ' recorded';
+
+  // Stat tiles
+  var thisMonth = currentMonthNum();
+  var thisYear = now().getFullYear();
+  var monthEntries = entries.filter(function(e) {
+    if (!e.dateISO) return false;
+    var d = new Date(e.dateISO);
+    return d.getMonth()+1 === thisMonth && d.getFullYear() === thisYear;
+  });
+  var deductedCount = entries.filter(function(e) { return e.inventoryDeducted; }).length;
+  document.getElementById('log-stat-grid').innerHTML = [
+    {val: entries.length, label: 'Total applications', sub: 'all time'},
+    {val: monthEntries.length, label: 'This month', sub: 'applications logged'},
+    {val: deductedCount, label: 'Inventory deducted', sub: deductedCount + ' of ' + entries.length + ' entries'},
+  ].map(function(s){return '<div class="stat-tile"><div class="stat-value">'+s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
+
+  // Last applied per product — find most recent entry mentioning each product
+  var lastApplied = {};
+  entries.forEach(function(e) {
+    (e.products||[]).forEach(function(p) {
+      if (!lastApplied[p.name] || e.dateISO > lastApplied[p.name]) lastApplied[p.name] = e.dateISO;
+    });
+  });
+  var lag = document.getElementById('last-applied-grid'); lag.innerHTML = '';
+  var prodNames = Object.keys(lastApplied).sort();
+  if (prodNames.length === 0) {
+    lag.innerHTML = '<div style="color:var(--ink-light);font-size:13px;font-style:italic;padding:8px 0;">No applications logged yet — complete tasks in the tracker to build history.</div>';
+  } else {
+    prodNames.forEach(function(name) {
+      var days = daysSince(lastApplied[name]);
+      var stale = days > 28;
+      var card = document.createElement('div'); card.className = 'last-applied-card';
+      card.innerHTML = '<div class="last-applied-name">' + esc(name) + '</div>' +
+        '<div class="last-applied-days' + (stale ? ' stale' : '') + '">' + days + ' days ago</div>' +
+        '<div class="last-applied-date">' + lastApplied[name].split('-').reverse().join('/') + '</div>';
+      lag.appendChild(card);
+    });
+  }
+
+  // Filter chips
+  var taskTypes = ['All'];
+  entries.forEach(function(e) { if (e.taskType && taskTypes.indexOf(e.taskType) < 0) taskTypes.push(e.taskType); });
+  var af = 'All', lfc = document.getElementById('log-filter-chips');
+  function buildLogChips() {
+    lfc.innerHTML = '';
+    taskTypes.forEach(function(t) {
+      var chip = document.createElement('button'); chip.className = 'filter-chip' + (t === af ? ' active' : '');
+      chip.textContent = t === 'All' ? 'All' : t.replace('soilwetter','soil wetter');
+      chip.addEventListener('click', function() { af = t; buildLogChips(); buildLogTable(); });
+      lfc.appendChild(chip);
+    });
+  }
+
+  function buildLogTable() {
+    var tb = document.getElementById('log-tbody'); tb.innerHTML = '';
+    var filtered = af === 'All' ? entries : entries.filter(function(e) { return e.taskType === af; });
+    if (filtered.length === 0) {
+      tb.innerHTML = '<tr><td colspan="5" class="log-empty">No applications logged yet. Complete tasks in the Tracker to build history.</td></tr>';
+      return;
+    }
+    filtered.forEach(function(e) {
+      var color = TYPE_COLORS[e.taskType] || '#888';
+      var prodText = (e.products||[]).map(function(p) {
+        return p.name + ' ' + p.amount + p.unit + (p.deducted ? ' ✓' : '');
+      }).join('<br>');
+      var zoneText = (e.zones||[]).map(function(z) { return ZONE_NAMES[z] || z; }).join(', ');
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td class="log-date">' + esc(e.date||'') + '</td>' +
+        '<td><div class="log-task"><span class="log-type-pip" style="background:' + color + '"></span>' + esc(e.taskLabel||'') + '</div></td>' +
+        '<td class="log-products">' + (prodText || '<span style="color:var(--ink-light);font-style:italic;">No products</span>') + '</td>' +
+        '<td class="log-zones">' + esc(zoneText||'—') + '</td>' +
+        '<td><span class="log-deducted-badge ' + (e.inventoryDeducted ? 'yes' : 'no') + '">' + (e.inventoryDeducted ? '✓ yes' : 'skipped') + '</span></td>';
+      tb.appendChild(tr);
+    });
+  }
+
+  buildLogChips(); buildLogTable();
 }
 
 function openModal(product){

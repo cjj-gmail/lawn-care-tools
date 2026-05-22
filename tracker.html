@@ -245,7 +245,7 @@ main { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
       <div class="modal-intro">Deduct the quantities used from your inventory?</div>
       <div id="deduct-conditional-note" class="modal-conditional-note" style="display:none;"></div>
       <div class="deduct-list" id="deduct-list"></div>
-      <div class="modal-saving" id="deduct-saving">Saving inventory…</div>
+      <div class="modal-saving" id="deduct-saving">Saving…</div>
     </div>
     <div class="modal-footer">
       <button class="modal-btn secondary" id="deduct-cancel-btn">Cancel — uncheck task</button>
@@ -287,12 +287,14 @@ var CONFIG = {
   programUrl: 'https://raw.githubusercontent.com/cjj-gmail/lawn-care-tools/main/data/program.json',
   completionsPath: 'data/completions.json',
   inventoryPath: 'data/inventory.json',
+  appLogPath: 'data/applications.json',
   workerUrl: 'https://lawn-care-tools.cameronjude1.workers.dev'
 };
 
 var state = {
   program: null, completions: {}, completionsSha: null,
   inventory: null, inventorySha: null,
+  appLog: null, appLogSha: null,
   token: null, currentMonth: null, readOnly: false,
   pendingDeduction: null,
   pendingUncheck: null
@@ -322,6 +324,7 @@ async function init() {
   state.currentMonth = (monthParam >= 1 && monthParam <= 12) ? monthParam : new Date().getMonth() + 1;
   await loadCompletions();
   await loadInventory();
+  await loadAppLog();
   renderMonthNav();
   renderMonth(state.currentMonth);
   updateAuthUI();
@@ -329,7 +332,6 @@ async function init() {
   var activeBtn = document.querySelector('.month-btn.active');
   if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 
-  // Wire modal buttons once after DOM ready
   document.getElementById('deduct-close-btn').addEventListener('click', cancelDeduction);
   document.getElementById('deduct-cancel-btn').addEventListener('click', cancelDeduction);
   document.getElementById('deduct-skip-btn').addEventListener('click', skipDeduction);
@@ -376,6 +378,19 @@ async function loadInventory() {
   } catch(e) { state.inventory = null; }
 }
 
+async function loadAppLog() {
+  try {
+    var url = 'https://api.github.com/repos/' + CONFIG.owner + '/' + CONFIG.repo + '/contents/' + CONFIG.appLogPath;
+    var h = { 'Accept': 'application/vnd.github.v3+json' };
+    if (state.token) h['Authorization'] = 'token ' + state.token;
+    var r = await fetch(url, { headers: h });
+    if (r.status === 404) { state.appLog = { entries: [] }; state.appLogSha = null; return; }
+    if (!r.ok) return;
+    var d = await r.json(); state.appLogSha = d.sha;
+    state.appLog = JSON.parse(atob(d.content.replace(/\n/g, '')));
+  } catch(e) { state.appLog = { entries: [] }; }
+}
+
 async function saveCompletions() {
   if (!state.token) return false;
   var content = btoa(unescape(encodeURIComponent(JSON.stringify(state.completions, null, 2))));
@@ -404,12 +419,40 @@ async function saveInventory() {
   } catch(e) { showToast('Inventory save failed: ' + e.message, 'error'); return false; }
 }
 
+async function appendApplicationEntry(task, deductions, inventoryDeducted) {
+  if (!state.token) return;
+  if (!state.appLog) state.appLog = { entries: [] };
+  var now = new Date();
+  var products = deductions
+    .filter(function(d) { return d.amount > 0; })
+    .map(function(d) { return { name: d.name, amount: d.amount, unit: d.unit, deducted: !!(inventoryDeducted && d.invProd) }; });
+  var entry = {
+    id: 'app_' + now.getTime(),
+    date: now.toLocaleDateString('en-AU', { day:'2-digit', month:'2-digit', year:'numeric' }),
+    dateISO: now.toISOString().slice(0,10),
+    taskId: task.id,
+    taskLabel: task.label,
+    taskType: task.taskType,
+    products: products,
+    zones: task.zones || [],
+    inventoryDeducted: !!inventoryDeducted
+  };
+  state.appLog.entries.unshift(entry); // newest first
+  var content = btoa(unescape(encodeURIComponent(JSON.stringify(state.appLog, null, 2))));
+  var url = 'https://api.github.com/repos/' + CONFIG.owner + '/' + CONFIG.repo + '/contents/' + CONFIG.appLogPath;
+  var body = { message: 'Log application: ' + task.label, content: content, branch: CONFIG.branch };
+  if (state.appLogSha) body.sha = state.appLogSha;
+  try {
+    var r = await fetch(url, { method: 'PUT', headers: { 'Authorization': 'token ' + state.token, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    if (r.ok) { var d = await r.json(); state.appLogSha = d.content.sha; }
+  } catch(e) { console.warn('App log save failed:', e); }
+}
+
 // ── TASK TOGGLE ──
 async function toggleTask(taskId, checkEl, cardEl, task) {
   var isCompleted = !!state.completions[taskId];
 
   if (isCompleted) {
-    // Show warning — do NOT change state yet
     state.pendingUncheck = { taskId: taskId, checkEl: checkEl, cardEl: cardEl };
     document.getElementById('uncheck-task-name').textContent = 'Uncheck "' + task.label + '"?';
     document.getElementById('uncheck-confirm-btn').onclick = doUncheck;
@@ -417,7 +460,6 @@ async function toggleTask(taskId, checkEl, cardEl, task) {
     return;
   }
 
-  // Mark complete
   state.completions[taskId] = { completedAt: new Date().toLocaleDateString('en-AU'), completedTime: new Date().toISOString() };
   checkEl.classList.add('checked'); cardEl.classList.add('completed');
   var infoEl = cardEl.querySelector('.completion-info');
@@ -429,7 +471,6 @@ async function toggleTask(taskId, checkEl, cardEl, task) {
     var saved = await saveCompletions();
     checkEl.classList.remove('saving');
     if (!saved) {
-      // Roll back
       delete state.completions[taskId];
       checkEl.classList.remove('checked'); cardEl.classList.remove('completed');
       if (infoEl) infoEl.textContent = '';
@@ -443,6 +484,8 @@ async function toggleTask(taskId, checkEl, cardEl, task) {
   if (state.inventory && task.products && task.products.length > 0 && state.token) {
     openDeductionModal(task, checkEl, cardEl);
   } else {
+    // Log with no products
+    if (state.token) appendApplicationEntry(task, [], false);
     showToast('Task completed ✓', 'success');
   }
 }
@@ -452,7 +495,6 @@ function closeUncheckModal() {
   document.getElementById('uncheck-modal').classList.remove('open');
   state.pendingUncheck = null;
 }
-
 async function doUncheck() {
   var p = state.pendingUncheck; if (!p) return;
   closeUncheckModal();
@@ -466,9 +508,7 @@ async function doUncheck() {
     var ok = await saveCompletions();
     p.checkEl.classList.remove('saving');
     if (ok) showToast('Task unmarked — completion removed', 'error');
-  } else {
-    showToast('Not saved — connect GitHub to persist', 'error');
-  }
+  } else { showToast('Not saved — connect GitHub to persist', 'error'); }
 }
 
 // ── DEDUCTION MODAL ──
@@ -501,7 +541,10 @@ function calcDeductions(task) {
 
 function openDeductionModal(task, checkEl, cardEl) {
   var deductions = calcDeductions(task);
-  if (deductions.length === 0) { showToast('Task completed ✓', 'success'); return; }
+  if (deductions.length === 0) {
+    if (state.token) appendApplicationEntry(task, [], false);
+    showToast('Task completed ✓', 'success'); return;
+  }
   state.pendingDeduction = { task: task, deductions: deductions, checkEl: checkEl, cardEl: cardEl };
   document.getElementById('deduct-task-name').textContent = task.label;
   document.getElementById('deduct-task-sub').textContent = task.taskType.replace('soilwetter','soil wetter') + ' · ' + task.applicationMethod;
@@ -521,13 +564,11 @@ function openDeductionModal(task, checkEl, cardEl) {
   document.getElementById('deduct-modal').classList.add('open');
 }
 
-// Cancel: undo the completion entirely and uncheck
 async function cancelDeduction() {
   var p = state.pendingDeduction;
   document.getElementById('deduct-modal').classList.remove('open');
   state.pendingDeduction = null;
   if (!p) return;
-  // Roll back completion
   delete state.completions[p.task.id];
   p.checkEl.classList.remove('checked'); p.cardEl.classList.remove('completed');
   var infoEl = p.cardEl.querySelector('.completion-info');
@@ -538,19 +579,18 @@ async function cancelDeduction() {
     var ok = await saveCompletions();
     p.checkEl.classList.remove('saving');
     if (ok) showToast('Cancelled — task unchecked', 'error');
-  } else {
-    showToast('Cancelled — task unchecked', 'error');
-  }
+  } else { showToast('Cancelled — task unchecked', 'error'); }
 }
 
-// Skip: keep the completion, skip inventory update
-function skipDeduction() {
+async function skipDeduction() {
+  var p = state.pendingDeduction;
   document.getElementById('deduct-modal').classList.remove('open');
   state.pendingDeduction = null;
+  // Log the application but mark inventoryDeducted = false
+  if (p && state.token) await appendApplicationEntry(p.task, p.deductions, false);
   showToast('Task completed ✓ — inventory not updated', 'success');
 }
 
-// Confirm: deduct inventory
 async function confirmDeduction() {
   var p = state.pendingDeduction; if (!p || !state.inventory) return;
   document.getElementById('deduct-confirm-btn').disabled = true;
@@ -560,12 +600,14 @@ async function confirmDeduction() {
     var prod = state.inventory.products.find(function(x) { return x.name === d.invProd.name; });
     if (prod) prod.qtyRemaining = Math.max(0, Math.round((prod.qtyRemaining - d.amount) * 100) / 100);
   });
-  var ok = await saveInventory();
+  var invOk = await saveInventory();
+  // Log the application
+  if (invOk) await appendApplicationEntry(p.task, p.deductions, true);
   document.getElementById('deduct-modal').classList.remove('open');
   state.pendingDeduction = null;
-  if (ok) {
+  if (invOk) {
     var n = p.deductions.filter(function(d) { return d.invProd; }).length;
-    showToast('Task done · ' + n + ' product' + (n !== 1 ? 's' : '') + ' deducted from inventory', 'success');
+    showToast('Task done · ' + n + ' product' + (n !== 1 ? 's' : '') + ' deducted & logged', 'success');
   }
 }
 
