@@ -8,24 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,600;1,9..144,200;1,9..144,300&display=swap" rel="stylesheet">
 <style>
 :root {
-  --grass: #3d6b35;
-  --grass-light: #5a9448;
-  --grass-pale: #e8f0e4;
-  --grass-faint: #f2f7f0;
-  --soil: #6b4c2a;
-  --soil-light: #c49a6c;
-  --cream: #f5f0e8;
-  --paper: #faf8f3;
-  --ink: #1a1a18;
-  --ink-mid: #4a4a42;
-  --ink-light: #8a8a7a;
-  --border: #d8d0c0;
-  --border-light: #ede8de;
+  --grass: #3d6b35; --grass-light: #5a9448; --grass-pale: #e8f0e4; --grass-faint: #f2f7f0;
+  --soil: #6b4c2a; --soil-light: #c49a6c; --cream: #f5f0e8; --paper: #faf8f3;
+  --ink: #1a1a18; --ink-mid: #4a4a42; --ink-light: #8a8a7a; --border: #d8d0c0; --border-light: #ede8de;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { font-family: 'DM Mono', monospace; background: var(--paper); color: var(--ink); min-height: 100vh; display: flex; flex-direction: column; }
-
 .hero { background: var(--grass); color: var(--cream); padding: 64px 32px 56px; text-align: center; position: relative; overflow: hidden; }
 .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.025) 28px, rgba(255,255,255,0.025) 29px); pointer-events: none; }
 .hero-eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.65; margin-bottom: 18px; }
@@ -38,20 +27,14 @@ body { font-family: 'DM Mono', monospace; background: var(--paper); color: var(-
 .hero-meta-dot.kikuyu { background: #a8cc8a; }
 .hero-meta-dot.zoysia { background: #c8a8e8; }
 .hero-meta-dot.couch  { background: #8accc8; }
-
 .season-strip { display: flex; height: 5px; }
 .season-seg { flex: 1; }
-.season-seg.summer { background: #d4a017; }
-.season-seg.autumn { background: #c07030; }
-.season-seg.winter { background: #4a80b0; }
-.season-seg.spring { background: #5a9448; }
-
+.season-seg.summer { background: #d4a017; } .season-seg.autumn { background: #c07030; }
+.season-seg.winter { background: #4a80b0; } .season-seg.spring { background: #5a9448; }
 .main { max-width: 800px; margin: 0 auto; padding: 52px 24px 64px; width: 100%; flex: 1; }
 .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--ink-light); margin-bottom: 20px; }
-
 .tool-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 @media (max-width: 540px) { .tool-cards { grid-template-columns: 1fr; } }
-
 .tool-card { display: block; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 26px 24px; text-decoration: none; color: inherit; transition: box-shadow 0.18s, transform 0.12s, border-color 0.18s; position: relative; overflow: hidden; }
 .tool-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--grass); transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease; }
 .tool-card:hover { box-shadow: 0 6px 28px rgba(61,107,53,0.14); transform: translateY(-2px); border-color: var(--grass-light); }
@@ -65,19 +48,17 @@ body { font-family: 'DM Mono', monospace; background: var(--paper); color: var(-
 .tool-card-cta { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--grass); font-weight: 500; letter-spacing: 0.3px; }
 .tool-card-cta-arrow { transition: transform 0.15s; }
 .tool-card:hover .tool-card-cta-arrow { transform: translateX(4px); }
-
-/* ── QUICK LINKS ── */
 .quick-links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px; padding: 14px 18px; background: white; border: 1px solid var(--border); border-radius: 8px; align-items: center; }
 .quick-links-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink-light); margin-right: 4px; flex-shrink: 0; }
 .quick-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border); background: var(--paper); color: var(--ink-mid); text-decoration: none; transition: all 0.15s; white-space: nowrap; }
 .quick-link:hover { border-color: var(--grass); color: var(--grass); background: var(--grass-faint); }
 .quick-link-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.quick-link-dot.tracker  { background: var(--grass); }
+.quick-link-dot.tracker   { background: var(--grass); }
 .quick-link-dot.inventory { background: #4a7c3f; }
-.quick-link-dot.alerts   { background: #c04040; }
-.quick-link-dot.program  { background: #c07030; }
-.quick-link-dot.zones    { background: #4a80b0; }
-
+.quick-link-dot.log       { background: #7b5ea7; }
+.quick-link-dot.alerts    { background: #c04040; }
+.quick-link-dot.program   { background: #c07030; }
+.quick-link-dot.zones     { background: #4a80b0; }
 .lawn-summary { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin-bottom: 52px; }
 .lawn-summary-title { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--ink-light); margin-bottom: 18px; }
 .zones-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
@@ -88,23 +69,19 @@ body { font-family: 'DM Mono', monospace; background: var(--paper); color: var(-
 .zone-pill-grass.Kikuyu { color: #4a7c3f; }
 .zone-pill-grass.Zoysia { color: #7b5ea7; }
 .zone-pill-grass.Couch  { color: #3a7a8a; }
-
 .quick-stats { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: white; margin-bottom: 52px; }
 .quick-stat { flex: 1; padding: 18px 16px; text-align: center; border-right: 1px solid var(--border-light); }
 .quick-stat:last-child { border-right: none; }
 .quick-stat-val { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 300; color: var(--grass); letter-spacing: -0.5px; line-height: 1; margin-bottom: 4px; }
 .quick-stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ink-light); }
-
 footer { border-top: 1px solid var(--border-light); padding: 20px 24px; text-align: center; font-size: 12px; color: var(--ink-light); background: var(--cream); letter-spacing: 0.3px; }
 footer a { color: var(--grass); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
-
 .current-month-banner { background: var(--grass-faint); border: 1px solid var(--grass-pale); border-radius: 6px; padding: 12px 16px; margin-bottom: 32px; display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--ink-mid); }
 .current-month-badge { background: var(--grass); color: white; font-size: 11px; padding: 3px 9px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; flex-shrink: 0; }
 .current-month-text { flex: 1; }
 .current-month-link { color: var(--grass); text-decoration: none; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
 .current-month-link:hover { text-decoration: underline; }
-
 @media (max-width: 480px) {
   .quick-stats { flex-wrap: wrap; }
   .quick-stat { flex: 1 1 40%; border-right: none; border-bottom: 1px solid var(--border-light); }
@@ -162,12 +139,12 @@ footer a:hover { text-decoration: underline; }
     <a class="tool-card" href="dashboard.html?tab=inventory">
       <span class="tool-card-icon">📊</span>
       <div class="tool-card-title">Dashboard</div>
-      <div class="tool-card-desc">Program progress, inventory stock levels, alerts and zone details. Opens straight to Inventory.</div>
+      <div class="tool-card-desc">Program progress, inventory stock levels, application log, alerts and zone details.</div>
       <div class="tool-card-features">
         <div class="tool-card-feature">Inventory stock levels &amp; updates</div>
-        <div class="tool-card-feature">Year-at-a-glance progress</div>
+        <div class="tool-card-feature">Application log &amp; history</div>
         <div class="tool-card-feature">Low stock &amp; compatibility alerts</div>
-        <div class="tool-card-feature">Lawn zone details</div>
+        <div class="tool-card-feature">Year-at-a-glance progress</div>
       </div>
       <div class="tool-card-cta">Open Inventory <span class="tool-card-cta-arrow">→</span></div>
     </a>
@@ -179,6 +156,7 @@ footer a:hover { text-decoration: underline; }
     <a class="quick-link" id="ql-tracker" href="tracker.html"><div class="quick-link-dot tracker"></div>This month's tasks</a>
     <a class="quick-link" href="dashboard.html"><div class="quick-link-dot program"></div>Dashboard overview</a>
     <a class="quick-link" href="dashboard.html?tab=inventory"><div class="quick-link-dot inventory"></div>Inventory</a>
+    <a class="quick-link" href="dashboard.html?tab=log"><div class="quick-link-dot log"></div>Application log</a>
     <a class="quick-link" href="dashboard.html?tab=alerts"><div class="quick-link-dot alerts"></div>Alerts</a>
     <a class="quick-link" href="dashboard.html?tab=program"><div class="quick-link-dot program"></div>Program</a>
     <a class="quick-link" href="dashboard.html?tab=zones"><div class="quick-link-dot zones"></div>Zones</a>
@@ -189,26 +167,10 @@ footer a:hover { text-decoration: underline; }
   <div class="lawn-summary" style="margin-bottom:20px;">
     <div class="lawn-summary-title">4 zones · 140.15 m² total</div>
     <div class="zones-grid">
-      <div class="zone-pill">
-        <div class="zone-pill-area">68.2m²</div>
-        <div class="zone-pill-name">Back Lawn</div>
-        <div class="zone-pill-grass Kikuyu">Kikuyu</div>
-      </div>
-      <div class="zone-pill">
-        <div class="zone-pill-area">35.0m²</div>
-        <div class="zone-pill-name">Front Lawn</div>
-        <div class="zone-pill-grass Zoysia">Zoysia</div>
-      </div>
-      <div class="zone-pill">
-        <div class="zone-pill-area">20.8m²</div>
-        <div class="zone-pill-name">Front Nature Strip</div>
-        <div class="zone-pill-grass Couch">Couch</div>
-      </div>
-      <div class="zone-pill">
-        <div class="zone-pill-area">16.15m²</div>
-        <div class="zone-pill-name">Front Left Strip</div>
-        <div class="zone-pill-grass Couch">Couch</div>
-      </div>
+      <div class="zone-pill"><div class="zone-pill-area">68.2m²</div><div class="zone-pill-name">Back Lawn</div><div class="zone-pill-grass Kikuyu">Kikuyu</div></div>
+      <div class="zone-pill"><div class="zone-pill-area">35.0m²</div><div class="zone-pill-name">Front Lawn</div><div class="zone-pill-grass Zoysia">Zoysia</div></div>
+      <div class="zone-pill"><div class="zone-pill-area">20.8m²</div><div class="zone-pill-name">Front Nature Strip</div><div class="zone-pill-grass Couch">Couch</div></div>
+      <div class="zone-pill"><div class="zone-pill-area">16.15m²</div><div class="zone-pill-name">Front Left Strip</div><div class="zone-pill-grass Couch">Couch</div></div>
     </div>
   </div>
 
@@ -265,7 +227,7 @@ footer a:hover { text-decoration: underline; }
           var pct = total > 0 ? Math.round(done / total * 100) : 0;
           document.getElementById('month-text').textContent = monthName + ' — ' + done + ' of ' + total + ' tasks done (' + pct + '%) · ' + season;
         })
-        .catch(function() { document.getElementById('month-text').textContent = monthName + ' — ' + total + ' tasks scheduled · ' + season; });
+        .catch(function() { document.getElementById('month-text').text = monthName + ' — ' + total + ' tasks scheduled · ' + season; });
     })
     .catch(function() { document.getElementById('month-text').textContent = monthName + ' · ' + season; });
 })();
