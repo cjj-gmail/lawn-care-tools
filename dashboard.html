@@ -8,235 +8,220 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,600;1,9..144,300;1,9..144,200&display=swap" rel="stylesheet">
 <style>
 :root {
-  --grass: #3d6b35; --grass-light: #5a9448; --grass-pale: #e8f0e4; --grass-faint: #f2f7f0;
-  --soil: #6b4c2a; --soil-light: #c49a6c; --cream: #f5f0e8; --paper: #faf8f3;
-  --ink: #1a1a18; --ink-mid: #4a4a42; --ink-light: #8a8a7a; --border: #d8d0c0; --border-light: #ede8de;
-  --cat-fertilise: #4a7c3f; --cat-biostimulant: #7b5ea7; --cat-herbicide: #c0692a;
-  --cat-fungicide: #c0882a; --cat-insecticide: #2a7aa0; --cat-soilwetter: #3a7a8a; --cat-renovation: #6b4c2a;
-  --status-low: #c0882a; --status-critical: #c04040;
+  --grass:#3d6b35;--grass-light:#5a9448;--grass-pale:#e8f0e4;--grass-faint:#f2f7f0;
+  --soil:#6b4c2a;--soil-light:#c49a6c;--cream:#f5f0e8;--paper:#faf8f3;
+  --ink:#1a1a18;--ink-mid:#4a4a42;--ink-light:#8a8a7a;--border:#d8d0c0;--border-light:#ede8de;
+  --cat-fertilise:#4a7c3f;--cat-biostimulant:#7b5ea7;--cat-herbicide:#c0692a;
+  --cat-fungicide:#c0882a;--cat-insecticide:#2a7aa0;--cat-soilwetter:#3a7a8a;--cat-renovation:#6b4c2a;
+  --status-low:#c0882a;--status-critical:#c04040;
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: 'DM Mono', monospace; background: var(--paper); color: var(--ink); min-height: 100vh; font-size: 15px; line-height: 1.6; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Mono',monospace;background:var(--paper);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.6;}
+header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.25);}
+.header-title{font-family:'Fraunces',serif;font-size:22px;font-weight:600;letter-spacing:-0.5px;}
+.header-right{display:flex;align-items:center;gap:10px;}
+.header-link{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:var(--cream);padding:5px 14px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:0.5px;text-decoration:none;transition:background 0.15s;}
+.header-link:hover{background:rgba(255,255,255,0.25);}
+#auth-status{font-size:13px;opacity:0.8;display:flex;align-items:center;gap:6px;}
+.auth-dot{width:7px;height:7px;border-radius:50%;background:#ff6b6b;flex-shrink:0;}
+.auth-dot.connected{background:#6bff8a;}
+#login-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:var(--cream);padding:5px 14px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;font-size:13px;transition:background 0.15s;}
+#login-btn:hover{background:rgba(255,255,255,0.25);}
+#login-btn.hidden{display:none;}
+.dash-nav{background:var(--cream);border-bottom:1px solid var(--border);padding:0 28px;display:flex;overflow-x:auto;scrollbar-width:none;}
+.dash-nav::-webkit-scrollbar{display:none;}
+.nav-tab{padding:12px 18px;border:none;background:none;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink-light);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.15s;text-transform:uppercase;letter-spacing:0.8px;}
+.nav-tab:hover{color:var(--grass);}
+.nav-tab.active{color:var(--grass);border-bottom-color:var(--grass);font-weight:500;}
+.dash-body{max-width:1100px;margin:0 auto;padding:28px 24px 60px;}
+.section{display:none;}
+.section.active{display:block;}
+.section-heading{display:flex;align-items:baseline;gap:14px;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.section-title{font-family:'Fraunces',serif;font-size:30px;font-weight:300;color:var(--ink);letter-spacing:-0.5px;}
+.section-sub{font-size:13px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.8px;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:32px;}
+.stat-tile{background:white;border:1px solid var(--border);border-radius:6px;padding:18px 20px;}
+.stat-value{font-family:'Fraunces',serif;font-size:36px;font-weight:300;color:var(--grass);line-height:1.1;letter-spacing:-1px;}
+.stat-label{font-size:12px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px;}
+.stat-sub{font-size:13px;color:var(--ink-mid);margin-top:6px;}
+.panel{background:white;border:1px solid var(--border);border-radius:6px;padding:22px 24px;margin-bottom:20px;}
+.panel-title{font-size:13px;text-transform:uppercase;letter-spacing:0.8px;color:var(--ink-light);margin-bottom:16px;}
+.progress-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
+.progress-row-label{font-size:14px;color:var(--ink-mid);min-width:130px;flex-shrink:0;}
+.progress-bar-wrap{flex:1;height:8px;background:var(--border-light);border-radius:4px;overflow:hidden;}
+.progress-bar-fill{height:100%;border-radius:4px;transition:width 0.5s ease;}
+.progress-bar-fill.ok{background:var(--grass);}
+.progress-bar-fill.low{background:var(--status-low);}
+.progress-bar-fill.critical{background:var(--status-critical);}
+.progress-row-num{font-size:13px;color:var(--ink-light);min-width:80px;text-align:right;flex-shrink:0;}
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:24px;}
+.inv-card{background:white;border:1px solid var(--border);border-left:3px solid var(--border);border-radius:6px;padding:14px 16px;cursor:pointer;transition:box-shadow 0.15s,border-color 0.15s;}
+.inv-card:hover{box-shadow:0 2px 12px rgba(0,0,0,0.10);border-top-color:var(--grass);}
+.inv-card[data-cat="Fertiliser"]{border-left-color:var(--cat-fertilise);}
+.inv-card[data-cat="Biostimulant"]{border-left-color:var(--cat-biostimulant);}
+.inv-card[data-cat="Soil Wetter"]{border-left-color:var(--cat-soilwetter);}
+.inv-card[data-cat="Fungicide"]{border-left-color:var(--cat-fungicide);}
+.inv-card[data-cat="Herbicide"]{border-left-color:var(--cat-herbicide);}
+.inv-card[data-cat="Insecticide"]{border-left-color:var(--cat-insecticide);}
+.inv-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px;}
+.inv-card-name{font-size:14px;font-weight:500;color:var(--ink);line-height:1.3;}
+.inv-card-brand{font-size:12px;color:var(--ink-light);margin-top:2px;}
+.inv-bar-wrap{height:5px;background:var(--border-light);border-radius:3px;overflow:hidden;margin-bottom:6px;}
+.inv-bar-fill{height:100%;border-radius:3px;transition:width 0.5s ease;}
+.inv-card-meta{font-size:12px;color:var(--ink-light);display:flex;justify-content:space-between;}
+.inv-card-edit-hint{font-size:11px;color:var(--grass);margin-top:6px;opacity:0;transition:opacity 0.15s;}
+.inv-card:hover .inv-card-edit-hint{opacity:1;}
+.inv-status-badge{font-size:11px;padding:2px 7px;border-radius:10px;font-weight:500;flex-shrink:0;align-self:flex-start;}
+.inv-status-badge.ok{background:var(--grass-pale);color:var(--grass);}
+.inv-status-badge.low{background:#fff5e0;color:#8a5a00;}
+.inv-status-badge.critical{background:#fff0f0;color:var(--status-critical);}
+.filter-chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
+.filter-chip{font-size:12px;padding:4px 12px;border-radius:12px;border:1px solid var(--border);background:white;color:var(--ink-mid);cursor:pointer;transition:all 0.12s;font-family:'DM Mono',monospace;}
+.filter-chip:hover{border-color:var(--grass);color:var(--grass);}
+.filter-chip.active{background:var(--grass);border-color:var(--grass);color:white;}
+.month-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px;}
+@media(max-width:700px){.month-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.month-grid{grid-template-columns:repeat(2,1fr);}}
+.month-tile{background:white;border:1px solid var(--border);border-radius:6px;padding:12px 14px;cursor:pointer;transition:box-shadow 0.15s,border-color 0.15s,transform 0.1s;text-decoration:none;display:block;color:inherit;}
+.month-tile:hover{box-shadow:0 3px 14px rgba(61,107,53,0.15);border-color:var(--grass-light);transform:translateY(-1px);}
+.month-tile.current{border-color:var(--grass);box-shadow:0 0 0 2px var(--grass-pale);}
+.month-tile-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.month-tile-name{font-family:'Fraunces',serif;font-size:17px;font-weight:300;color:var(--ink);}
+.month-tile-arrow{font-size:11px;color:var(--grass);opacity:0;transition:opacity 0.15s;}
+.month-tile:hover .month-tile-arrow{opacity:1;}
+.season-dot{width:8px;height:8px;border-radius:50%;}
+.season-dot.summer{background:#d4a017;}.season-dot.autumn{background:#c07030;}.season-dot.winter{background:#4a80b0;}.season-dot.spring{background:#5a9448;}
+.month-tile-bar{height:4px;background:var(--border-light);border-radius:2px;overflow:hidden;margin-bottom:5px;}
+.month-tile-fill{height:100%;background:var(--grass);border-radius:2px;}
+.month-tile-count{font-size:12px;color:var(--ink-light);}
+.month-tile-count .done{color:var(--grass);font-weight:500;}
+.upcoming-list{display:flex;flex-direction:column;gap:8px;}
+.upcoming-item{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--paper);border:1px solid var(--border-light);border-radius:5px;font-size:14px;}
+.upcoming-week{font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);min-width:55px;flex-shrink:0;}
+.upcoming-label{color:var(--ink);flex:1;}
+.upcoming-type-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.upcoming-type-dot.fertilise{background:var(--cat-fertilise);}.upcoming-type-dot.biostimulant{background:var(--cat-biostimulant);}
+.upcoming-type-dot.herbicide{background:var(--cat-herbicide);}.upcoming-type-dot.fungicide{background:var(--cat-fungicide);}
+.upcoming-type-dot.insecticide{background:var(--cat-insecticide);}.upcoming-type-dot.soilwetter{background:var(--cat-soilwetter);}
+.upcoming-type-dot.renovation{background:var(--cat-renovation);}
+.task-type-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink-mid);}
+.legend-dot{width:9px;height:9px;border-radius:50%;}
+.prog-table-wrap{overflow-x:auto;}
+.prog-table{width:100%;border-collapse:collapse;font-size:13px;}
+.prog-table th{text-align:left;padding:8px 12px;border-bottom:2px solid var(--border);font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);background:var(--cream);white-space:nowrap;}
+.prog-table td{padding:9px 12px;border-bottom:1px solid var(--border-light);vertical-align:middle;}
+.prog-table tr:hover td{background:var(--grass-faint);}
+.prog-table tr.completed-row td{opacity:0.55;}
+.prog-table tr.completed-row .task-name-cell{text-decoration:line-through;}
+.type-pip{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;}
+.task-name-cell{display:flex;align-items:center;}
+.cond-flag{font-size:11px;padding:1px 6px;border-radius:8px;background:var(--cream);border:1px solid var(--soil-light);color:var(--soil);margin-left:7px;white-space:nowrap;}
+.done-check{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:3px;font-size:12px;}
+.done-check.yes{background:var(--grass);color:white;}
+.done-check.no{background:var(--border-light);color:transparent;}
+.alerts-list{display:flex;flex-direction:column;gap:10px;}
+.alert-item{display:flex;gap:14px;padding:14px 16px;border-radius:6px;border:1px solid;align-items:flex-start;}
+.alert-item.warn{background:#fff9e8;border-color:#d4a017;}
+.alert-item.critical{background:#fff0f0;border-color:#c04040;}
+.alert-item.info{background:#eef5ff;border-color:#4a80b0;}
+.alert-icon{font-size:18px;line-height:1.3;flex-shrink:0;}
+.alert-body{flex:1;}
+.alert-title{font-size:14px;font-weight:500;margin-bottom:2px;}
+.alert-item.warn .alert-title{color:#8a5a00;}
+.alert-item.critical .alert-title{color:#8a0000;}
+.alert-item.info .alert-title{color:#0a3a6a;}
+.alert-text{font-size:13px;color:var(--ink-mid);}
+.no-alerts{padding:28px;text-align:center;color:var(--ink-light);font-size:14px;font-style:italic;}
+.zone-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;}
+.zone-card{background:white;border:1px solid var(--border);border-radius:6px;padding:16px 18px;}
+.zone-card-name{font-size:14px;font-weight:500;margin-bottom:2px;}
+.zone-card-grass{font-size:12px;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px;}
+.zone-card-grass.Kikuyu{color:var(--cat-fertilise);}.zone-card-grass.Zoysia{color:var(--cat-biostimulant);}.zone-card-grass.Couch{color:var(--cat-soilwetter);}
+.zone-stat-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;}
+.zone-stat-label{color:var(--ink-light);}.zone-stat-val{color:var(--ink-mid);font-weight:500;}
+.zone-area-big{font-family:'Fraunces',serif;font-size:28px;font-weight:200;color:var(--grass);letter-spacing:-1px;margin-bottom:8px;}
 
-header { background: var(--grass); color: var(--cream); padding: 0 28px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.25); }
-.header-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
-.header-right { display: flex; align-items: center; gap: 10px; }
-.header-link { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: var(--cream); padding: 5px 14px; border-radius: 4px; cursor: pointer; font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.5px; text-decoration: none; transition: background 0.15s; }
-.header-link:hover { background: rgba(255,255,255,0.25); }
-#auth-status { font-size: 13px; opacity: 0.8; display: flex; align-items: center; gap: 6px; }
-.auth-dot { width: 7px; height: 7px; border-radius: 50%; background: #ff6b6b; flex-shrink: 0; }
-.auth-dot.connected { background: #6bff8a; }
-#login-btn { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: var(--cream); padding: 5px 14px; border-radius: 4px; cursor: pointer; font-family: 'DM Mono', monospace; font-size: 13px; transition: background 0.15s; }
-#login-btn:hover { background: rgba(255,255,255,0.25); }
-#login-btn.hidden { display: none; }
+/* ── LOG TAB ── */
+.log-table-wrap{overflow-x:auto;}
+.log-table{width:100%;border-collapse:collapse;font-size:13px;}
+.log-table th{text-align:left;padding:8px 12px;border-bottom:2px solid var(--border);font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);background:var(--cream);white-space:nowrap;}
+.log-table td{padding:10px 12px;border-bottom:1px solid var(--border-light);vertical-align:top;}
+.log-table tr:hover td{background:var(--grass-faint);}
+.log-date{font-size:13px;color:var(--ink);white-space:nowrap;}
+.log-task{font-size:13px;color:var(--ink);font-weight:500;}
+.log-type-pip{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle;}
+.log-products{font-size:12px;color:var(--ink-mid);margin-top:2px;line-height:1.6;}
+.log-zones{font-size:12px;color:var(--ink-light);white-space:nowrap;}
+.log-deducted-badge{font-size:11px;padding:2px 7px;border-radius:8px;white-space:nowrap;}
+.log-deducted-badge.yes{background:var(--grass-pale);color:var(--grass);}
+.log-deducted-badge.no{background:var(--border-light);color:var(--ink-light);}
+.log-empty{padding:40px;text-align:center;color:var(--ink-light);font-size:14px;font-style:italic;}
+.last-applied-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:24px;}
+.last-applied-card{background:white;border:1px solid var(--border);border-radius:6px;padding:12px 14px;}
+.last-applied-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.last-applied-date{font-size:12px;color:var(--ink-light);}
+.last-applied-days{font-family:'Fraunces',serif;font-size:22px;font-weight:300;color:var(--grass);letter-spacing:-0.5px;}
+.last-applied-days.stale{color:var(--status-low);}
 
-.dash-nav { background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 28px; display: flex; overflow-x: auto; scrollbar-width: none; }
-.dash-nav::-webkit-scrollbar { display: none; }
-.nav-tab { padding: 12px 18px; border: none; background: none; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--ink-light); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.8px; }
-.nav-tab:hover { color: var(--grass); }
-.nav-tab.active { color: var(--grass); border-bottom-color: var(--grass); font-weight: 500; }
+/* ── MOWING SECTION ── */
+.mow-zone-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:8px;}
+.mow-zone-card{background:white;border:1px solid var(--border);border-radius:6px;padding:14px 16px;}
+.mow-zone-card.overdue{border-color:var(--status-low);background:#fffaf0;}
+.mow-zone-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.mow-zone-grass{font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);margin-bottom:8px;}
+.mow-zone-days{font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:var(--grass);letter-spacing:-0.5px;line-height:1;}
+.mow-zone-days.overdue{color:var(--status-low);}
+.mow-zone-sub{font-size:12px;color:var(--ink-light);margin-top:4px;}
+.mow-zone-card.never .mow-zone-days{color:var(--ink-light);font-size:18px;}
 
-.dash-body { max-width: 1100px; margin: 0 auto; padding: 28px 24px 60px; }
-.section { display: none; }
-.section.active { display: block; }
-.section-heading { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-.section-title { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 300; color: var(--ink); letter-spacing: -0.5px; }
-.section-sub { font-size: 13px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.8px; }
-
-.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 32px; }
-.stat-tile { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 18px 20px; }
-.stat-value { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 300; color: var(--grass); line-height: 1.1; letter-spacing: -1px; }
-.stat-label { font-size: 12px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px; }
-.stat-sub { font-size: 13px; color: var(--ink-mid); margin-top: 6px; }
-
-.panel { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; margin-bottom: 20px; }
-.panel-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ink-light); margin-bottom: 16px; }
-
-.progress-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
-.progress-row-label { font-size: 14px; color: var(--ink-mid); min-width: 130px; flex-shrink: 0; }
-.progress-bar-wrap { flex: 1; height: 8px; background: var(--border-light); border-radius: 4px; overflow: hidden; }
-.progress-bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
-.progress-bar-fill.ok { background: var(--grass); }
-.progress-bar-fill.low { background: var(--status-low); }
-.progress-bar-fill.critical { background: var(--status-critical); }
-.progress-row-num { font-size: 13px; color: var(--ink-light); min-width: 80px; text-align: right; flex-shrink: 0; }
-
-.inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-bottom: 24px; }
-.inv-card { background: white; border: 1px solid var(--border); border-left: 3px solid var(--border); border-radius: 6px; padding: 14px 16px; cursor: pointer; transition: box-shadow 0.15s, border-color 0.15s; }
-.inv-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.10); border-top-color: var(--grass); }
-.inv-card[data-cat="Fertiliser"] { border-left-color: var(--cat-fertilise); }
-.inv-card[data-cat="Biostimulant"] { border-left-color: var(--cat-biostimulant); }
-.inv-card[data-cat="Soil Wetter"] { border-left-color: var(--cat-soilwetter); }
-.inv-card[data-cat="Fungicide"] { border-left-color: var(--cat-fungicide); }
-.inv-card[data-cat="Herbicide"] { border-left-color: var(--cat-herbicide); }
-.inv-card[data-cat="Insecticide"] { border-left-color: var(--cat-insecticide); }
-.inv-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
-.inv-card-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; }
-.inv-card-brand { font-size: 12px; color: var(--ink-light); margin-top: 2px; }
-.inv-bar-wrap { height: 5px; background: var(--border-light); border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
-.inv-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
-.inv-card-meta { font-size: 12px; color: var(--ink-light); display: flex; justify-content: space-between; }
-.inv-card-edit-hint { font-size: 11px; color: var(--grass); margin-top: 6px; opacity: 0; transition: opacity 0.15s; }
-.inv-card:hover .inv-card-edit-hint { opacity: 1; }
-.inv-status-badge { font-size: 11px; padding: 2px 7px; border-radius: 10px; font-weight: 500; flex-shrink: 0; align-self: flex-start; }
-.inv-status-badge.ok { background: var(--grass-pale); color: var(--grass); }
-.inv-status-badge.low { background: #fff5e0; color: #8a5a00; }
-.inv-status-badge.critical { background: #fff0f0; color: var(--status-critical); }
-
-.filter-chips { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 18px; }
-.filter-chip { font-size: 12px; padding: 4px 12px; border-radius: 12px; border: 1px solid var(--border); background: white; color: var(--ink-mid); cursor: pointer; transition: all 0.12s; font-family: 'DM Mono', monospace; }
-.filter-chip:hover { border-color: var(--grass); color: var(--grass); }
-.filter-chip.active { background: var(--grass); border-color: var(--grass); color: white; }
-
-.month-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 28px; }
-@media (max-width: 700px) { .month-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 480px) { .month-grid { grid-template-columns: repeat(2, 1fr); } }
-.month-tile { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; cursor: pointer; transition: box-shadow 0.15s, border-color 0.15s, transform 0.1s; text-decoration: none; display: block; color: inherit; }
-.month-tile:hover { box-shadow: 0 3px 14px rgba(61,107,53,0.15); border-color: var(--grass-light); transform: translateY(-1px); }
-.month-tile.current { border-color: var(--grass); box-shadow: 0 0 0 2px var(--grass-pale); }
-.month-tile-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.month-tile-name { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 300; color: var(--ink); }
-.month-tile-arrow { font-size: 11px; color: var(--grass); opacity: 0; transition: opacity 0.15s; }
-.month-tile:hover .month-tile-arrow { opacity: 1; }
-.season-dot { width: 8px; height: 8px; border-radius: 50%; }
-.season-dot.summer { background: #d4a017; } .season-dot.autumn { background: #c07030; }
-.season-dot.winter { background: #4a80b0; } .season-dot.spring { background: #5a9448; }
-.month-tile-bar { height: 4px; background: var(--border-light); border-radius: 2px; overflow: hidden; margin-bottom: 5px; }
-.month-tile-fill { height: 100%; background: var(--grass); border-radius: 2px; }
-.month-tile-count { font-size: 12px; color: var(--ink-light); }
-.month-tile-count .done { color: var(--grass); font-weight: 500; }
-
-.upcoming-list { display: flex; flex-direction: column; gap: 8px; }
-.upcoming-item { display: flex; align-items: center; gap: 12px; padding: 11px 14px; background: var(--paper); border: 1px solid var(--border-light); border-radius: 5px; font-size: 14px; }
-.upcoming-week { font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-light); min-width: 55px; flex-shrink: 0; }
-.upcoming-label { color: var(--ink); flex: 1; }
-.upcoming-type-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.upcoming-type-dot.fertilise { background: var(--cat-fertilise); } .upcoming-type-dot.biostimulant { background: var(--cat-biostimulant); }
-.upcoming-type-dot.herbicide { background: var(--cat-herbicide); } .upcoming-type-dot.fungicide { background: var(--cat-fungicide); }
-.upcoming-type-dot.insecticide { background: var(--cat-insecticide); } .upcoming-type-dot.soilwetter { background: var(--cat-soilwetter); }
-.upcoming-type-dot.renovation { background: var(--cat-renovation); }
-
-.task-type-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
-.legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--ink-mid); }
-.legend-dot { width: 9px; height: 9px; border-radius: 50%; }
-.prog-table-wrap { overflow-x: auto; }
-.prog-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.prog-table th { text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--border); font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-light); background: var(--cream); white-space: nowrap; }
-.prog-table td { padding: 9px 12px; border-bottom: 1px solid var(--border-light); vertical-align: middle; }
-.prog-table tr:hover td { background: var(--grass-faint); }
-.prog-table tr.completed-row td { opacity: 0.55; }
-.prog-table tr.completed-row .task-name-cell { text-decoration: line-through; }
-.type-pip { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; }
-.task-name-cell { display: flex; align-items: center; }
-.cond-flag { font-size: 11px; padding: 1px 6px; border-radius: 8px; background: var(--cream); border: 1px solid var(--soil-light); color: var(--soil); margin-left: 7px; white-space: nowrap; }
-.done-check { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 3px; font-size: 12px; }
-.done-check.yes { background: var(--grass); color: white; }
-.done-check.no { background: var(--border-light); color: transparent; }
-
-.alerts-list { display: flex; flex-direction: column; gap: 10px; }
-.alert-item { display: flex; gap: 14px; padding: 14px 16px; border-radius: 6px; border: 1px solid; align-items: flex-start; }
-.alert-item.warn { background: #fff9e8; border-color: #d4a017; }
-.alert-item.critical { background: #fff0f0; border-color: #c04040; }
-.alert-item.info { background: #eef5ff; border-color: #4a80b0; }
-.alert-icon { font-size: 18px; line-height: 1.3; flex-shrink: 0; }
-.alert-body { flex: 1; }
-.alert-title { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
-.alert-item.warn .alert-title { color: #8a5a00; }
-.alert-item.critical .alert-title { color: #8a0000; }
-.alert-item.info .alert-title { color: #0a3a6a; }
-.alert-text { font-size: 13px; color: var(--ink-mid); }
-.no-alerts { padding: 28px; text-align: center; color: var(--ink-light); font-size: 14px; font-style: italic; }
-
-.zone-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
-.zone-card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 16px 18px; }
-.zone-card-name { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
-.zone-card-grass { font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
-.zone-card-grass.Kikuyu { color: var(--cat-fertilise); } .zone-card-grass.Zoysia { color: var(--cat-biostimulant); } .zone-card-grass.Couch { color: var(--cat-soilwetter); }
-.zone-stat-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
-.zone-stat-label { color: var(--ink-light); } .zone-stat-val { color: var(--ink-mid); font-weight: 500; }
-.zone-area-big { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 200; color: var(--grass); letter-spacing: -1px; margin-bottom: 8px; }
-
-/* ── APPLICATION LOG ── */
-.log-table-wrap { overflow-x: auto; }
-.log-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.log-table th { text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--border); font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-light); background: var(--cream); white-space: nowrap; }
-.log-table td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
-.log-table tr:hover td { background: var(--grass-faint); }
-.log-date { font-size: 13px; color: var(--ink); white-space: nowrap; }
-.log-task { font-size: 13px; color: var(--ink); font-weight: 500; }
-.log-type-pip { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
-.log-products { font-size: 12px; color: var(--ink-mid); margin-top: 2px; line-height: 1.6; }
-.log-zones { font-size: 12px; color: var(--ink-light); white-space: nowrap; }
-.log-deducted-badge { font-size: 11px; padding: 2px 7px; border-radius: 8px; white-space: nowrap; }
-.log-deducted-badge.yes { background: var(--grass-pale); color: var(--grass); }
-.log-deducted-badge.no { background: var(--border-light); color: var(--ink-light); }
-.log-empty { padding: 40px; text-align: center; color: var(--ink-light); font-size: 14px; font-style: italic; }
-
-.last-applied-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 24px; }
-.last-applied-card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; }
-.last-applied-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
-.last-applied-date { font-size: 12px; color: var(--ink-light); }
-.last-applied-days { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 300; color: var(--grass); letter-spacing: -0.5px; }
-.last-applied-days.stale { color: var(--status-low); }
-
-#loading-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: calc(100vh - 60px); gap: 16px; color: var(--ink-light); }
-.spinner { width: 28px; height: 28px; border: 2px solid var(--border); border-top-color: var(--grass); border-radius: 50%; animation: spin 0.7s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.loading-text { font-size: 14px; }
-#error-screen { display: none; flex-direction: column; align-items: center; justify-content: center; height: calc(100vh - 60px); gap: 12px; color: var(--ink-mid); text-align: center; padding: 24px; }
-.error-icon { font-size: 38px; }
-.error-title { font-family: 'Fraunces', serif; font-size: 24px; color: var(--ink); }
-.error-msg { font-size: 15px; color: var(--ink-light); max-width: 420px; line-height: 1.6; }
-#dashboard { display: none; }
-
-.season-band { display: flex; height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 20px; }
-.season-band-seg { flex: 1; }
-.season-band-seg.summer { background: #d4a017; } .season-band-seg.autumn { background: #c07030; }
-.season-band-seg.winter { background: #4a80b0; } .season-band-seg.spring { background: #5a9448; }
-
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
-
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 500; align-items: center; justify-content: center; padding: 20px; }
-.modal-overlay.open { display: flex; }
-.modal { background: white; border-radius: 8px; width: 100%; max-width: 420px; box-shadow: 0 8px 40px rgba(0,0,0,0.2); overflow: hidden; }
-.modal-header { background: var(--grass); color: var(--cream); padding: 18px 22px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-.modal-title { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 300; }
-.modal-subtitle { font-size: 12px; opacity: 0.75; margin-top: 2px; }
-.modal-close { background: none; border: none; color: var(--cream); font-size: 22px; cursor: pointer; opacity: 0.7; line-height: 1; padding: 0; }
-.modal-close:hover { opacity: 1; }
-.modal-body { padding: 22px; }
-.modal-current { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding: 12px 14px; background: var(--paper); border-radius: 5px; border: 1px solid var(--border-light); }
-.modal-current-label { font-size: 13px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.6px; flex: 1; }
-.modal-current-val { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 300; color: var(--grass); }
-.modal-current-unit { font-size: 14px; color: var(--ink-light); }
-.modal-field-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-light); margin-bottom: 7px; }
-.modal-input-row { display: flex; gap: 8px; align-items: center; margin-bottom: 16px; }
-.modal-input { flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: 5px; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--ink); background: white; outline: none; }
-.modal-input:focus { border-color: var(--grass); box-shadow: 0 0 0 2px var(--grass-pale); }
-.modal-unit-label { font-size: 14px; color: var(--ink-mid); min-width: 24px; }
-.modal-actions { display: flex; gap: 10px; }
-.modal-btn { flex: 1; padding: 11px; border-radius: 5px; font-family: 'DM Mono', monospace; font-size: 14px; cursor: pointer; border: 1px solid; transition: all 0.15s; }
-.modal-btn.primary { background: var(--grass); color: white; border-color: var(--grass); }
-.modal-btn.primary:hover { background: var(--grass-light); }
-.modal-btn.primary:disabled { opacity: 0.5; cursor: not-allowed; }
-.modal-btn.secondary { background: white; color: var(--ink-mid); border-color: var(--border); }
-.modal-btn.secondary:hover { border-color: var(--ink-mid); }
-.modal-auth-notice { background: #fff9e8; border: 1px solid #d4a017; border-radius: 5px; padding: 12px 14px; font-size: 13px; color: #8a5a00; margin-bottom: 16px; display: flex; gap: 8px; }
-.modal-saving { text-align: center; padding: 8px; font-size: 13px; color: var(--ink-light); display: none; }
-
-#toast { position: fixed; bottom: 24px; right: 24px; background: var(--ink); color: var(--cream); padding: 10px 18px; border-radius: 5px; font-size: 14px; opacity: 0; transform: translateY(8px); transition: all 0.25s; pointer-events: none; z-index: 600; max-width: 320px; }
-#toast.show { opacity: 1; transform: translateY(0); }
-#toast.error { background: #8a2020; }
-#toast.success { background: var(--grass); }
-
-@media (max-width: 600px) {
-  header { padding: 0 16px; }
-  .dash-nav { padding: 0 12px; }
-  .dash-body { padding: 16px 14px 40px; }
-  .nav-tab { padding: 10px 12px; font-size: 12px; }
-}
+#loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:calc(100vh - 60px);gap:16px;color:var(--ink-light);}
+.spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--grass);border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-size:14px;}
+#error-screen{display:none;flex-direction:column;align-items:center;justify-content:center;height:calc(100vh - 60px);gap:12px;color:var(--ink-mid);text-align:center;padding:24px;}
+.error-icon{font-size:38px;}
+.error-title{font-family:'Fraunces',serif;font-size:24px;color:var(--ink);}
+.error-msg{font-size:15px;color:var(--ink-light);max-width:420px;line-height:1.6;}
+#dashboard{display:none;}
+.season-band{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-bottom:20px;}
+.season-band-seg{flex:1;}
+.season-band-seg.summer{background:#d4a017;}.season-band-seg.autumn{background:#c07030;}.season-band-seg.winter{background:#4a80b0;}.season-band-seg.spring{background:#5a9448;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:700px){.two-col{grid-template-columns:1fr;}}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:500;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:white;border-radius:8px;width:100%;max-width:420px;box-shadow:0 8px 40px rgba(0,0,0,0.2);overflow:hidden;}
+.modal-header{background:var(--grass);color:var(--cream);padding:18px 22px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.modal-title{font-family:'Fraunces',serif;font-size:20px;font-weight:300;}
+.modal-subtitle{font-size:12px;opacity:0.75;margin-top:2px;}
+.modal-close{background:none;border:none;color:var(--cream);font-size:22px;cursor:pointer;opacity:0.7;line-height:1;padding:0;}
+.modal-close:hover{opacity:1;}
+.modal-body{padding:22px;}
+.modal-current{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding:12px 14px;background:var(--paper);border-radius:5px;border:1px solid var(--border-light);}
+.modal-current-label{font-size:13px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.6px;flex:1;}
+.modal-current-val{font-family:'Fraunces',serif;font-size:24px;font-weight:300;color:var(--grass);}
+.modal-current-unit{font-size:14px;color:var(--ink-light);}
+.modal-field-label{font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);margin-bottom:7px;}
+.modal-input-row{display:flex;gap:8px;align-items:center;margin-bottom:16px;}
+.modal-input{flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:5px;font-family:'DM Mono',monospace;font-size:16px;color:var(--ink);background:white;outline:none;}
+.modal-input:focus{border-color:var(--grass);box-shadow:0 0 0 2px var(--grass-pale);}
+.modal-unit-label{font-size:14px;color:var(--ink-mid);min-width:24px;}
+.modal-actions{display:flex;gap:10px;}
+.modal-btn{flex:1;padding:11px;border-radius:5px;font-family:'DM Mono',monospace;font-size:14px;cursor:pointer;border:1px solid;transition:all 0.15s;}
+.modal-btn.primary{background:var(--grass);color:white;border-color:var(--grass);}
+.modal-btn.primary:hover{background:var(--grass-light);}
+.modal-btn.primary:disabled{opacity:0.5;cursor:not-allowed;}
+.modal-btn.secondary{background:white;color:var(--ink-mid);border-color:var(--border);}
+.modal-btn.secondary:hover{border-color:var(--ink-mid);}
+.modal-auth-notice{background:#fff9e8;border:1px solid #d4a017;border-radius:5px;padding:12px 14px;font-size:13px;color:#8a5a00;margin-bottom:16px;display:flex;gap:8px;}
+.modal-saving{text-align:center;padding:8px;font-size:13px;color:var(--ink-light);display:none;}
+#toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:var(--cream);padding:10px 18px;border-radius:5px;font-size:14px;opacity:0;transform:translateY(8px);transition:all 0.25s;pointer-events:none;z-index:600;max-width:320px;}
+#toast.show{opacity:1;transform:translateY(0);}
+#toast.error{background:#8a2020;}
+#toast.success{background:var(--grass);}
+@media(max-width:600px){header{padding:0 16px;}.dash-nav{padding:0 12px;}.dash-body{padding:16px 14px 40px;}.nav-tab{padding:10px 12px;font-size:12px;}}
 </style>
 </head>
 <body>
@@ -252,10 +237,8 @@ header { background: var(--grass); color: var(--cream); padding: 0 28px; display
 </header>
 
 <div id="loading-screen"><div class="spinner"></div><div class="loading-text">Loading lawn data...</div></div>
-
 <div id="error-screen">
-  <div class="error-icon">⚠</div>
-  <div class="error-title">Could not load data</div>
+  <div class="error-icon">⚠</div><div class="error-title">Could not load data</div>
   <div class="error-msg" id="error-msg-text">Unable to fetch data files from GitHub.</div>
   <button onclick="init()" style="margin-top:12px;background:var(--grass);color:white;border:none;padding:8px 20px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;font-size:14px;">Retry</button>
 </div>
@@ -271,6 +254,7 @@ header { background: var(--grass); color: var(--cream); padding: 0 28px; display
   </nav>
   <div class="dash-body">
 
+    <!-- OVERVIEW -->
     <div class="section" id="tab-overview">
       <div class="section-heading"><div class="section-title">Overview</div><div class="section-sub" id="overview-date"></div></div>
       <div class="stat-grid" id="stat-grid"></div>
@@ -281,6 +265,7 @@ header { background: var(--grass); color: var(--cream); padding: 0 28px; display
       <div class="panel"><div class="panel-title">Inventory — Stock levels at a glance</div><div id="inv-summary-bars"></div></div>
     </div>
 
+    <!-- PROGRAM -->
     <div class="section" id="tab-program">
       <div class="section-heading"><div class="section-title">12-Month Program</div><div class="section-sub">Click a month to open in Tracker</div></div>
       <div class="season-band">
@@ -303,6 +288,7 @@ header { background: var(--grass); color: var(--cream); padding: 0 28px; display
       </div>
     </div>
 
+    <!-- INVENTORY -->
     <div class="section" id="tab-inventory">
       <div class="section-heading"><div class="section-title">Product Inventory</div><div class="section-sub" id="inv-section-sub"></div></div>
       <div class="stat-grid" id="inv-stat-grid"></div>
@@ -310,9 +296,31 @@ header { background: var(--grass); color: var(--cream); padding: 0 28px; display
       <div class="inv-grid" id="inv-grid"></div>
     </div>
 
+    <!-- LOG -->
     <div class="section" id="tab-log">
-      <div class="section-heading"><div class="section-title">Application Log</div><div class="section-sub" id="log-section-sub">Complete history</div></div>
-      <div class="stat-grid" id="log-stat-grid"></div>
+      <div class="section-heading"><div class="section-title">Log</div><div class="section-sub" id="log-section-sub">Applications &amp; mowing history</div></div>
+
+      <!-- MOWING SECTION -->
+      <div class="panel">
+        <div class="panel-title">✂ Mowing — days since last mow per zone</div>
+        <div class="mow-zone-grid" id="mow-zone-grid"></div>
+        <div style="font-size:12px;color:var(--ink-light);margin-top:4px;">Amber = overdue (>14d summer/autumn · >21d winter/spring). Log mows via the Tracker header.</div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Mowing history</div>
+        <div class="log-table-wrap">
+          <table class="log-table">
+            <thead><tr><th>Date</th><th>Zone</th><th>Mower</th><th>Height</th><th>Notes</th></tr></thead>
+            <tbody id="mow-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- APPLICATION SECTION -->
+      <div class="panel" style="margin-top:8px;">
+        <div class="panel-title">💧 Applications — stat summary</div>
+        <div class="stat-grid" id="log-stat-grid" style="margin-bottom:0;"></div>
+      </div>
       <div class="panel">
         <div class="panel-title">Days since last application — by product</div>
         <div class="last-applied-grid" id="last-applied-grid"></div>
@@ -329,11 +337,13 @@ header { background: var(--grass); color: var(--cream); padding: 0 28px; display
       </div>
     </div>
 
+    <!-- ALERTS -->
     <div class="section" id="tab-alerts">
       <div class="section-heading"><div class="section-title">Alerts</div><div class="section-sub">Inventory warnings &amp; program notes</div></div>
       <div class="alerts-list" id="alerts-list"></div>
     </div>
 
+    <!-- ZONES -->
     <div class="section" id="tab-zones">
       <div class="section-heading"><div class="section-title">Lawn Zones</div><div class="section-sub">4 zones · 140.15 m²</div></div>
       <div class="zone-summary-grid" id="zone-summary-grid"></div>
@@ -343,6 +353,7 @@ header { background: var(--grass); color: var(--cream); padding: 0 28px; display
   </div>
 </div>
 
+<!-- STOCK MODAL -->
 <div class="modal-overlay" id="stock-modal">
   <div class="modal">
     <div class="modal-header">
@@ -374,74 +385,51 @@ header { background: var(--grass); color: var(--cream); padding: 0 28px; display
 <div id="toast"></div>
 
 <script>
-var CONFIG = {
-  owner:'cjj-gmail', repo:'lawn-care-tools', branch:'main',
-  base:'https://raw.githubusercontent.com/cjj-gmail/lawn-care-tools/main/data/',
-  workerUrl:'https://lawn-care-tools.cameronjude1.workers.dev',
-  invPath:'data/inventory.json'
-};
-var state = { program:null, inventory:null, completions:{}, appLog:null, invSha:null, token:null, modalProduct:null };
-var TYPE_COLORS = { fertilise:'#4a7c3f', biostimulant:'#7b5ea7', herbicide:'#c0692a', fungicide:'#c0882a', insecticide:'#2a7aa0', soilwetter:'#3a7a8a', renovation:'#6b4c2a' };
-var ZONE_NAMES = { back:'Back Lawn', front:'Front Lawn', strip1:'Nature Strip', strip2:'Left Strip' };
+var CONFIG={owner:'cjj-gmail',repo:'lawn-care-tools',branch:'main',base:'https://raw.githubusercontent.com/cjj-gmail/lawn-care-tools/main/data/',workerUrl:'https://lawn-care-tools.cameronjude1.workers.dev',invPath:'data/inventory.json'};
+var state={program:null,inventory:null,completions:{},appLog:null,mowLog:null,invSha:null,token:null,modalProduct:null};
+var TYPE_COLORS={fertilise:'#4a7c3f',biostimulant:'#7b5ea7',herbicide:'#c0692a',fungicide:'#c0882a',insecticide:'#2a7aa0',soilwetter:'#3a7a8a',renovation:'#6b4c2a'};
+var ZONE_NAMES={back:'Back Lawn',front:'Front Lawn',strip1:'Nature Strip',strip2:'Left Strip'};
+var ZONE_GRASS={back:'Kikuyu',front:'Zoysia',strip1:'Couch',strip2:'Couch'};
 
-function startLogin() { sessionStorage.setItem('dash_return','true'); window.location.href=CONFIG.workerUrl+'/login?redirect='+encodeURIComponent(window.location.href); }
-async function handleOAuthCallback(code) {
-  try { var r=await fetch(CONFIG.workerUrl+'/callback?code='+code); var d=await r.json(); if(d.access_token){state.token=d.access_token;sessionStorage.setItem('gh_token',d.access_token);} } catch(e){}
-}
-function updateAuthUI() {
-  var dot=document.getElementById('auth-dot'),txt=document.getElementById('auth-status-text'),btn=document.getElementById('login-btn');
-  if(state.token){dot.classList.add('connected');txt.textContent='GitHub connected';btn.classList.add('hidden');}
-  else{dot.classList.remove('connected');txt.textContent='Not connected';btn.classList.remove('hidden');}
-}
+function startLogin(){sessionStorage.setItem('dash_return','true');window.location.href=CONFIG.workerUrl+'/login?redirect='+encodeURIComponent(window.location.href);}
+async function handleOAuthCallback(code){try{var r=await fetch(CONFIG.workerUrl+'/callback?code='+code);var d=await r.json();if(d.access_token){state.token=d.access_token;sessionStorage.setItem('gh_token',d.access_token);}}catch(e){}}
+function updateAuthUI(){var dot=document.getElementById('auth-dot'),txt=document.getElementById('auth-status-text'),btn=document.getElementById('login-btn');if(state.token){dot.classList.add('connected');txt.textContent='GitHub connected';btn.classList.add('hidden');}else{dot.classList.remove('connected');txt.textContent='Not connected';btn.classList.remove('hidden');}}
 
-function setupNav(initialTab) {
-  var valid = ['overview','program','inventory','log','alerts','zones'];
-  var start = (initialTab && valid.indexOf(initialTab)>=0) ? initialTab : 'overview';
-  document.querySelectorAll('.nav-tab').forEach(function(btn) {
-    btn.classList.toggle('active', btn.dataset.tab === start);
-    btn.addEventListener('click', function() {
+function setupNav(initialTab){
+  var valid=['overview','program','inventory','log','alerts','zones'];
+  var start=(initialTab&&valid.indexOf(initialTab)>=0)?initialTab:'overview';
+  document.querySelectorAll('.nav-tab').forEach(function(btn){
+    btn.classList.toggle('active',btn.dataset.tab===start);
+    btn.addEventListener('click',function(){
       document.querySelectorAll('.nav-tab').forEach(function(b){b.classList.remove('active');});
       document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
-      btn.classList.add('active');
-      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+      btn.classList.add('active');document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
     });
   });
   document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
   document.getElementById('tab-'+start).classList.add('active');
 }
 
-async function init() {
-  var params = new URLSearchParams(window.location.search);
-  var code = params.get('code'), tabParam = params.get('tab');
-  if (code) { await handleOAuthCallback(code); window.history.replaceState({}, '', window.location.pathname+(tabParam?'?tab='+tabParam:'')); }
-  var saved = sessionStorage.getItem('gh_token'); if(saved) state.token=saved;
-  try {
-    var [pR,iR] = await Promise.all([fetch(CONFIG.base+'program.json?t='+Date.now()), fetch(CONFIG.base+'inventory.json?t='+Date.now())]);
-    if(!pR.ok) throw new Error('program.json: HTTP '+pR.status);
-    if(!iR.ok) throw new Error('inventory.json: HTTP '+iR.status);
-    state.program=await pR.json(); state.inventory=await iR.json();
-  } catch(e) {
-    document.getElementById('error-msg-text').textContent=e.message;
-    document.getElementById('error-screen').style.display='flex';
-    document.getElementById('loading-screen').style.display='none'; return;
-  }
-  try { var cR=await fetch(CONFIG.base+'completions.json?t='+Date.now()); if(cR.ok) state.completions=await cR.json(); } catch(e){}
-  try { var aR=await fetch(CONFIG.base+'applications.json?t='+Date.now()); if(aR.ok) state.appLog=await aR.json(); else state.appLog={entries:[]}; } catch(e){ state.appLog={entries:[]}; }
+async function init(){
+  var params=new URLSearchParams(window.location.search),code=params.get('code'),tabParam=params.get('tab');
+  if(code){await handleOAuthCallback(code);window.history.replaceState({},'',window.location.pathname+(tabParam?'?tab='+tabParam:''));}
+  var saved=sessionStorage.getItem('gh_token');if(saved)state.token=saved;
+  try{
+    var [pR,iR]=await Promise.all([fetch(CONFIG.base+'program.json?t='+Date.now()),fetch(CONFIG.base+'inventory.json?t='+Date.now())]);
+    if(!pR.ok)throw new Error('program.json: HTTP '+pR.status);if(!iR.ok)throw new Error('inventory.json: HTTP '+iR.status);
+    state.program=await pR.json();state.inventory=await iR.json();
+  }catch(e){document.getElementById('error-msg-text').textContent=e.message;document.getElementById('error-screen').style.display='flex';document.getElementById('loading-screen').style.display='none';return;}
+  try{var cR=await fetch(CONFIG.base+'completions.json?t='+Date.now());if(cR.ok)state.completions=await cR.json();}catch(e){}
+  try{var aR=await fetch(CONFIG.base+'applications.json?t='+Date.now());if(aR.ok)state.appLog=await aR.json();else state.appLog={entries:[]};}catch(e){state.appLog={entries:[]};}
+  try{var mR=await fetch(CONFIG.base+'mowing.json?t='+Date.now());if(mR.ok)state.mowLog=await mR.json();else state.mowLog={entries:[]};}catch(e){state.mowLog={entries:[]};}
   fetchInvSha();
-  var seen={}; state.inventory.products=state.inventory.products.filter(function(p){if(seen[p.name])return false;seen[p.name]=true;return true;});
-  document.getElementById('loading-screen').style.display='none';
-  document.getElementById('dashboard').style.display='block';
-  updateAuthUI(); setupNav(tabParam);
-  renderOverview(); renderProgram(); renderInventory(); renderLog(); renderAlerts(); renderZones();
+  var seen={};state.inventory.products=state.inventory.products.filter(function(p){if(seen[p.name])return false;seen[p.name]=true;return true;});
+  document.getElementById('loading-screen').style.display='none';document.getElementById('dashboard').style.display='block';
+  updateAuthUI();setupNav(tabParam);
+  renderOverview();renderProgram();renderInventory();renderLog();renderAlerts();renderZones();
 }
 
-async function fetchInvSha() {
-  try {
-    var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;
-    var h={'Accept':'application/vnd.github.v3+json'}; if(state.token) h['Authorization']='token '+state.token;
-    var r=await fetch(url,{headers:h}); if(r.ok){var d=await r.json();state.invSha=d.sha;}
-  } catch(e){}
-}
+async function fetchInvSha(){try{var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;var h={'Accept':'application/vnd.github.v3+json'};if(state.token)h['Authorization']='token '+state.token;var r=await fetch(url,{headers:h});if(r.ok){var d=await r.json();state.invSha=d.sha;}}catch(e){}}
 
 function now(){return new Date();}
 function currentMonthNum(){return now().getMonth()+1;}
@@ -452,50 +440,41 @@ function totalTaskCount(){var t=0;state.program.months.forEach(function(m){m.wee
 function totalDoneCount(){return Object.keys(state.completions).length;}
 function invStatus(p){var rem=p.qtyRemaining,unit=p.unit;var fm={'TX10 (5-2-8)':25,'Maintain (26-1-9)':20,default_kg:20,default_L:5};var full=fm[p.name]||(unit==='kg'?fm.default_kg:fm.default_L);var pct=Math.min(100,Math.round((rem/full)*100));return{pct:pct,status:pct>40?'ok':pct>15?'low':'critical'};}
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function daysSince(dateISO){
-  var d = new Date(dateISO + 'T00:00:00');
-  var diff = Math.floor((now() - d) / 86400000);
-  return diff;
+function daysSince(dateISO){var d=new Date(dateISO+'T00:00:00');return Math.floor((now()-d)/86400000);}
+
+// Season-aware mowing threshold
+function mowThreshold(){
+  var mn=currentMonthNum();
+  var summer=[12,1,2],autumn=[3,4,5];
+  return(summer.indexOf(mn)>=0||autumn.indexOf(mn)>=0)?14:21;
 }
 
 function renderOverview(){
   var d=now(),MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
   document.getElementById('overview-date').textContent=d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   var mn=currentMonthNum(),tm=countDone(mn),td=totalDoneCount(),tt=totalTaskCount(),yp=tt>0?Math.round(td/tt*100):0;
-  var lc=0; state.inventory.products.forEach(function(p){if(invStatus(p).status!=='ok')lc++;});
-  var logCount = state.appLog ? state.appLog.entries.length : 0;
+  var lc=0;state.inventory.products.forEach(function(p){if(invStatus(p).status!=='ok')lc++;});
+  var logCount=state.appLog?state.appLog.entries.length:0;
+  var mowCount=state.mowLog?state.mowLog.entries.length:0;
   document.getElementById('stat-grid').innerHTML=[
     {val:MN[mn-1],label:'Current month',sub:state.program.months[mn-1]?state.program.months[mn-1].season:''},
     {val:tm.done+'/'+tm.total,label:'Tasks done this month',sub:tm.total>0?Math.round(tm.done/tm.total*100)+'% complete':'No tasks logged'},
     {val:yp+'%',label:'Year completion',sub:td+' of '+tt+' tasks done'},
-    {val:logCount,label:'Applications logged',sub:lc>0?lc+' products needing attention':'Inventory all well stocked'},
+    {val:logCount+' / '+mowCount,label:'Apps / mows logged',sub:lc>0?lc+' products needing attention':'Inventory all well stocked'},
   ].map(function(s){return '<div class="stat-tile"><div class="stat-value">'+esc(s.val.toString())+'</div><div class="stat-label">'+s.label+'</div>'+(s.sub?'<div class="stat-sub">'+esc(s.sub)+'</div>':'')+'</div>';}).join('');
   var mpb=document.getElementById('monthly-progress-bars');mpb.innerHTML='';
-  state.program.months.forEach(function(m){
-    var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0,isThis=m.monthNum===mn;
-    var row=document.createElement('div');row.className='progress-row';
-    row.innerHTML='<div class="progress-row-label" style="'+(isThis?'color:var(--grass);font-weight:500;':'')+'">'+ m.month.slice(0,3)+(isThis?' ◄':'')+'</div><div class="progress-bar-wrap"><div class="progress-bar-fill ok" style="width:'+pct+'%"></div></div><div class="progress-row-num">'+c.done+'/'+c.total+'</div>';
-    mpb.appendChild(row);
-  });
+  state.program.months.forEach(function(m){var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0,isThis=m.monthNum===mn;var row=document.createElement('div');row.className='progress-row';row.innerHTML='<div class="progress-row-label" style="'+(isThis?'color:var(--grass);font-weight:500;':'')+'">'+m.month.slice(0,3)+(isThis?' ◄':'')+'</div><div class="progress-bar-wrap"><div class="progress-bar-fill ok" style="width:'+pct+'%"></div></div><div class="progress-row-num">'+c.done+'/'+c.total+'</div>';mpb.appendChild(row);});
   var ul=document.getElementById('upcoming-list');ul.innerHTML='';
   var rem=allTasks(mn).filter(function(t){return !state.completions[t.task.id];});
   if(rem.length===0){ul.innerHTML='<div style="padding:16px;text-align:center;color:var(--ink-light);font-size:13px;font-style:italic;">All tasks done for this month ✓</div>';}
-  else{
-    rem.slice(0,8).forEach(function(t){var item=document.createElement('div');item.className='upcoming-item';item.innerHTML='<span class="upcoming-type-dot '+t.task.taskType+'"></span><span class="upcoming-week">W'+t.week+'</span><span class="upcoming-label">'+esc(t.task.label)+'</span>'+(t.task.conditional?'<span class="cond-flag">if req.</span>':'');ul.appendChild(item);});
-    if(rem.length>8)ul.innerHTML+='<div style="padding:8px;text-align:center;color:var(--ink-light);font-size:12px;">+ '+(rem.length-8)+' more</div>';
-  }
+  else{rem.slice(0,8).forEach(function(t){var item=document.createElement('div');item.className='upcoming-item';item.innerHTML='<span class="upcoming-type-dot '+t.task.taskType+'"></span><span class="upcoming-week">W'+t.week+'</span><span class="upcoming-label">'+esc(t.task.label)+'</span>'+(t.task.conditional?'<span class="cond-flag" style="font-size:11px;padding:1px 6px;border-radius:8px;background:var(--cream);border:1px solid var(--soil-light);color:var(--soil);">if req.</span>':'');ul.appendChild(item);});if(rem.length>8)ul.innerHTML+='<div style="padding:8px;text-align:center;color:var(--ink-light);font-size:12px;">+ '+(rem.length-8)+' more</div>';}
   var isb=document.getElementById('inv-summary-bars');isb.innerHTML='';
   state.inventory.products.forEach(function(p){var s=invStatus(p),row=document.createElement('div');row.className='progress-row';row.style.marginBottom='7px';row.innerHTML='<div class="progress-row-label" style="font-size:13px;">'+esc(p.name)+'</div><div class="progress-bar-wrap" style="height:6px;"><div class="progress-bar-fill '+s.status+'" style="width:'+s.pct+'%"></div></div><div class="progress-row-num" style="font-size:12px;">'+p.qtyRemaining+p.unit+'</div>';isb.appendChild(row);});
 }
 
 function renderProgram(){
   var mn=currentMonthNum(),grid=document.getElementById('month-grid');grid.innerHTML='';
-  state.program.months.forEach(function(m){
-    var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0;
-    var tile=document.createElement('a');tile.className='month-tile'+(m.monthNum===mn?' current':'');tile.href='tracker.html?month='+m.monthNum;tile.title='Open '+m.month+' in Tracker';
-    tile.innerHTML='<div class="month-tile-top"><div class="month-tile-name">'+m.month.slice(0,3)+'</div><div style="display:flex;align-items:center;gap:6px;"><div class="season-dot '+m.season+'"></div><span class="month-tile-arrow">→</span></div></div><div class="month-tile-bar"><div class="month-tile-fill" style="width:'+pct+'%"></div></div><div class="month-tile-count"><span class="done">'+c.done+'</span> / '+c.total+' tasks</div>';
-    grid.appendChild(tile);
-  });
+  state.program.months.forEach(function(m){var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0;var tile=document.createElement('a');tile.className='month-tile'+(m.monthNum===mn?' current':'');tile.href='tracker.html?month='+m.monthNum;tile.title='Open '+m.month+' in Tracker';tile.innerHTML='<div class="month-tile-top"><div class="month-tile-name">'+m.month.slice(0,3)+'</div><div style="display:flex;align-items:center;gap:6px;"><div class="season-dot '+m.season+'"></div><span class="month-tile-arrow">→</span></div></div><div class="month-tile-bar"><div class="month-tile-fill" style="width:'+pct+'%"></div></div><div class="month-tile-count"><span class="done">'+c.done+'</span> / '+c.total+' tasks</div>';grid.appendChild(tile);});
   document.getElementById('type-legend').innerHTML=Object.entries(TYPE_COLORS).map(function(e){return '<div class="legend-item"><div class="legend-dot" style="background:'+e[1]+'"></div>'+e[0].replace('soilwetter','soil wetter')+'</div>';}).join('');
   var chips=document.getElementById('program-filter-chips'),af='all';
   function bc(){chips.innerHTML='';['all','fertilise','biostimulant','herbicide','fungicide','insecticide','soilwetter','renovation'].forEach(function(f){var c=document.createElement('button');c.className='filter-chip'+(f===af?' active':'');c.textContent=f==='all'?'All':f.replace('soilwetter','soil wetter');c.addEventListener('click',function(){af=f;bc();bt();});chips.appendChild(c);});}
@@ -508,7 +487,7 @@ function renderInventory(){
   document.getElementById('inv-section-sub').textContent=products.length+' products · updated '+state.inventory.lastUpdated+' · click a card to update stock';
   var total=products.length,ok=0,low=0,crit=0;
   products.forEach(function(p){var s=invStatus(p).status;if(s==='ok')ok++;else if(s==='low')low++;else crit++;});
-  document.getElementById('inv-stat-grid').innerHTML=[{val:total,label:'Products',sub:'in inventory'},{val:ok,label:'Well stocked',sub:'>40% remaining'},{val:low,label:'Running low',sub:'15–40% remaining'},{val:crit,label:'Critical',sub:'<15% remaining'}].map(function(s){return '<div class="stat-tile"><div class="stat-value" style="'+(s.label==='Critical'&&crit>0?'color:var(--status-critical);':'')+(s.label==='Running low'&&low>0?'color:var(--status-low);':'')+'">'+ s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
+  document.getElementById('inv-stat-grid').innerHTML=[{val:total,label:'Products',sub:'in inventory'},{val:ok,label:'Well stocked',sub:'>40% remaining'},{val:low,label:'Running low',sub:'15–40% remaining'},{val:crit,label:'Critical',sub:'<15% remaining'}].map(function(s){return '<div class="stat-tile"><div class="stat-value" style="'+(s.label==='Critical'&&crit>0?'color:var(--status-critical);':'')+(s.label==='Running low'&&low>0?'color:var(--status-low);':'')+'">'+s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
   var cats=['All'];products.forEach(function(p){if(cats.indexOf(p.category)<0)cats.push(p.category);});
   var af='All',fc=document.getElementById('inv-filter-chips');
   function bic(){fc.innerHTML='';cats.forEach(function(c){var ch=document.createElement('button');ch.className='filter-chip'+(c===af?' active':'');ch.textContent=c;ch.addEventListener('click',function(){af=c;bic();big();});fc.appendChild(ch);});}
@@ -516,166 +495,91 @@ function renderInventory(){
   bic();big();
 }
 
-// ── APPLICATION LOG ──
+// ── LOG TAB ──
 function renderLog(){
-  var entries = state.appLog ? state.appLog.entries : [];
-  var sub = document.getElementById('log-section-sub');
-  sub.textContent = entries.length + ' application' + (entries.length !== 1 ? 's' : '') + ' recorded';
+  var threshold=mowThreshold();
+  var entries=state.appLog?state.appLog.entries:[];
+  var mowEntries=state.mowLog?state.mowLog.entries:[];
 
-  // Stat tiles
-  var thisMonth = currentMonthNum();
-  var thisYear = now().getFullYear();
-  var monthEntries = entries.filter(function(e) {
-    if (!e.dateISO) return false;
-    var d = new Date(e.dateISO);
-    return d.getMonth()+1 === thisMonth && d.getFullYear() === thisYear;
+  // ── Mowing zone cards ──
+  var mzg=document.getElementById('mow-zone-grid');mzg.innerHTML='';
+  ['back','front','strip1','strip2'].forEach(function(zid){
+    var zoneName=ZONE_NAMES[zid]||zid;
+    var grass=ZONE_GRASS[zid]||'';
+    // find most recent mow for this zone
+    var last=null;
+    for(var i=0;i<mowEntries.length;i++){
+      var e=mowEntries[i];
+      if(e.zone===zid||e.zone==='all'){if(!last||e.dateISO>last.dateISO)last=e;}
+    }
+    var card=document.createElement('div');
+    if(!last){
+      card.className='mow-zone-card never';
+      card.innerHTML='<div class="mow-zone-name">'+esc(zoneName)+'</div><div class="mow-zone-grass">'+esc(grass)+'</div><div class="mow-zone-days">No record</div><div class="mow-zone-sub">Not yet logged</div>';
+    } else {
+      var days=daysSince(last.dateISO);
+      var overdue=days>=threshold;
+      card.className='mow-zone-card'+(overdue?' overdue':'');
+      card.innerHTML='<div class="mow-zone-name">'+esc(zoneName)+'</div><div class="mow-zone-grass">'+esc(grass)+' · '+esc(last.mower.split(' ').slice(0,2).join(' '))+'</div><div class="mow-zone-days'+(overdue?' overdue':'')+'">'+days+'d ago</div><div class="mow-zone-sub">'+esc(last.date)+' · '+last.heightMm+'mm'+(last.notes?' · '+esc(last.notes.slice(0,30)):'')+'</div>';
+    }
+    mzg.appendChild(card);
   });
-  var deductedCount = entries.filter(function(e) { return e.inventoryDeducted; }).length;
-  document.getElementById('log-stat-grid').innerHTML = [
-    {val: entries.length, label: 'Total applications', sub: 'all time'},
-    {val: monthEntries.length, label: 'This month', sub: 'applications logged'},
-    {val: deductedCount, label: 'Inventory deducted', sub: deductedCount + ' of ' + entries.length + ' entries'},
+
+  // ── Mowing history table ──
+  var mtb=document.getElementById('mow-tbody');mtb.innerHTML='';
+  if(mowEntries.length===0){mtb.innerHTML='<tr><td colspan="5" class="log-empty">No mowing sessions logged yet. Use the ✂ Log a mow button in the Tracker header.</td></tr>';}
+  else{
+    mowEntries.forEach(function(e){
+      var tr=document.createElement('tr');
+      tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td>'+
+        '<td><div class="log-task">'+esc(e.zoneName||e.zone)+'</div><div style="font-size:12px;color:var(--ink-light);">'+esc(e.grass||'')+'</div></td>'+
+        '<td style="font-size:13px;color:var(--ink-mid);">'+esc(e.mower||'—')+'</td>'+
+        '<td style="font-size:13px;font-weight:500;color:var(--grass);">'+esc(e.heightMm+'mm')+'</td>'+
+        '<td style="font-size:12px;color:var(--ink-light);">'+esc(e.notes||'—')+'</td>';
+      mtb.appendChild(tr);
+    });
+  }
+
+  // ── Application stats ──
+  var thisMonth=currentMonthNum(),thisYear=now().getFullYear();
+  var monthEntries=entries.filter(function(e){if(!e.dateISO)return false;var d=new Date(e.dateISO);return d.getMonth()+1===thisMonth&&d.getFullYear()===thisYear;});
+  var deductedCount=entries.filter(function(e){return e.inventoryDeducted;}).length;
+  document.getElementById('log-stat-grid').innerHTML=[
+    {val:entries.length,label:'Total applications',sub:'all time'},
+    {val:monthEntries.length,label:'This month',sub:'applications logged'},
+    {val:deductedCount,label:'Inventory deducted',sub:deductedCount+' of '+entries.length+' entries'},
+    {val:mowEntries.length,label:'Mowing sessions',sub:'all time'},
   ].map(function(s){return '<div class="stat-tile"><div class="stat-value">'+s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
 
-  // Last applied per product — find most recent entry mentioning each product
-  var lastApplied = {};
-  entries.forEach(function(e) {
-    (e.products||[]).forEach(function(p) {
-      if (!lastApplied[p.name] || e.dateISO > lastApplied[p.name]) lastApplied[p.name] = e.dateISO;
-    });
-  });
-  var lag = document.getElementById('last-applied-grid'); lag.innerHTML = '';
-  var prodNames = Object.keys(lastApplied).sort();
-  if (prodNames.length === 0) {
-    lag.innerHTML = '<div style="color:var(--ink-light);font-size:13px;font-style:italic;padding:8px 0;">No applications logged yet — complete tasks in the tracker to build history.</div>';
-  } else {
-    prodNames.forEach(function(name) {
-      var days = daysSince(lastApplied[name]);
-      var stale = days > 28;
-      var card = document.createElement('div'); card.className = 'last-applied-card';
-      card.innerHTML = '<div class="last-applied-name">' + esc(name) + '</div>' +
-        '<div class="last-applied-days' + (stale ? ' stale' : '') + '">' + days + ' days ago</div>' +
-        '<div class="last-applied-date">' + lastApplied[name].split('-').reverse().join('/') + '</div>';
-      lag.appendChild(card);
-    });
-  }
+  // ── Last applied per product ──
+  var lastApplied={};
+  entries.forEach(function(e){(e.products||[]).forEach(function(p){if(!lastApplied[p.name]||e.dateISO>lastApplied[p.name])lastApplied[p.name]=e.dateISO;});});
+  var lag=document.getElementById('last-applied-grid');lag.innerHTML='';
+  var prodNames=Object.keys(lastApplied).sort();
+  if(prodNames.length===0){lag.innerHTML='<div style="color:var(--ink-light);font-size:13px;font-style:italic;padding:8px 0;">No applications logged yet.</div>';}
+  else{prodNames.forEach(function(name){var days=daysSince(lastApplied[name]);var stale=days>28;var card=document.createElement('div');card.className='last-applied-card';card.innerHTML='<div class="last-applied-name">'+esc(name)+'</div><div class="last-applied-days'+(stale?' stale':'')+'">'+days+' days ago</div><div class="last-applied-date">'+lastApplied[name].split('-').reverse().join('/')+'</div>';lag.appendChild(card);});}
 
-  // Filter chips
-  var taskTypes = ['All'];
-  entries.forEach(function(e) { if (e.taskType && taskTypes.indexOf(e.taskType) < 0) taskTypes.push(e.taskType); });
-  var af = 'All', lfc = document.getElementById('log-filter-chips');
-  function buildLogChips() {
-    lfc.innerHTML = '';
-    taskTypes.forEach(function(t) {
-      var chip = document.createElement('button'); chip.className = 'filter-chip' + (t === af ? ' active' : '');
-      chip.textContent = t === 'All' ? 'All' : t.replace('soilwetter','soil wetter');
-      chip.addEventListener('click', function() { af = t; buildLogChips(); buildLogTable(); });
-      lfc.appendChild(chip);
-    });
-  }
-
-  function buildLogTable() {
-    var tb = document.getElementById('log-tbody'); tb.innerHTML = '';
-    var filtered = af === 'All' ? entries : entries.filter(function(e) { return e.taskType === af; });
-    if (filtered.length === 0) {
-      tb.innerHTML = '<tr><td colspan="5" class="log-empty">No applications logged yet. Complete tasks in the Tracker to build history.</td></tr>';
-      return;
-    }
-    filtered.forEach(function(e) {
-      var color = TYPE_COLORS[e.taskType] || '#888';
-      var prodText = (e.products||[]).map(function(p) {
-        return p.name + ' ' + p.amount + p.unit + (p.deducted ? ' ✓' : '');
-      }).join('<br>');
-      var zoneText = (e.zones||[]).map(function(z) { return ZONE_NAMES[z] || z; }).join(', ');
-      var tr = document.createElement('tr');
-      tr.innerHTML =
-        '<td class="log-date">' + esc(e.date||'') + '</td>' +
-        '<td><div class="log-task"><span class="log-type-pip" style="background:' + color + '"></span>' + esc(e.taskLabel||'') + '</div></td>' +
-        '<td class="log-products">' + (prodText || '<span style="color:var(--ink-light);font-style:italic;">No products</span>') + '</td>' +
-        '<td class="log-zones">' + esc(zoneText||'—') + '</td>' +
-        '<td><span class="log-deducted-badge ' + (e.inventoryDeducted ? 'yes' : 'no') + '">' + (e.inventoryDeducted ? '✓ yes' : 'skipped') + '</span></td>';
-      tb.appendChild(tr);
-    });
-  }
-
-  buildLogChips(); buildLogTable();
+  // ── Application filter/table ──
+  document.getElementById('log-section-sub').textContent=entries.length+' application'+(entries.length!==1?'s':'')+' · '+mowEntries.length+' mow'+(mowEntries.length!==1?'s':'')+' recorded';
+  var taskTypes=['All'];entries.forEach(function(e){if(e.taskType&&taskTypes.indexOf(e.taskType)<0)taskTypes.push(e.taskType);});
+  var af='All',lfc=document.getElementById('log-filter-chips');
+  function buildLogChips(){lfc.innerHTML='';taskTypes.forEach(function(t){var chip=document.createElement('button');chip.className='filter-chip'+(t===af?' active':'');chip.textContent=t==='All'?'All':t.replace('soilwetter','soil wetter');chip.addEventListener('click',function(){af=t;buildLogChips();buildLogTable();});lfc.appendChild(chip);});}
+  function buildLogTable(){var tb=document.getElementById('log-tbody');tb.innerHTML='';var filtered=af==='All'?entries:entries.filter(function(e){return e.taskType===af;});if(filtered.length===0){tb.innerHTML='<tr><td colspan="5" class="log-empty">No applications logged yet.</td></tr>';return;}filtered.forEach(function(e){var color=TYPE_COLORS[e.taskType]||'#888';var prodText=(e.products||[]).map(function(p){return p.name+' '+p.amount+p.unit+(p.deducted?' ✓':'');}).join('<br>');var zoneText=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join(', ');var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td><div class="log-task"><span class="log-type-pip" style="background:'+color+'"></span>'+esc(e.taskLabel||'')+'</div></td><td class="log-products">'+(prodText||'<span style="color:var(--ink-light);font-style:italic;">No products</span>')+'</td><td class="log-zones">'+esc(zoneText||'—')+'</td><td><span class="log-deducted-badge '+(e.inventoryDeducted?'yes':'no')+'">'+(e.inventoryDeducted?'✓ yes':'skipped')+'</span></td>';tb.appendChild(tr);});}
+  buildLogChips();buildLogTable();
 }
 
-function openModal(product){
-  state.modalProduct=product;
-  document.getElementById('modal-product-name').textContent=product.name;
-  document.getElementById('modal-product-brand').textContent=product.brand+' · '+product.category;
-  document.getElementById('modal-current-qty').textContent=product.qtyRemaining;
-  document.getElementById('modal-current-unit').textContent=product.unit;
-  document.getElementById('modal-qty-input').value=product.qtyRemaining;
-  document.getElementById('modal-unit-label').textContent=product.unit;
-  document.getElementById('modal-auth-notice').style.display=state.token?'none':'flex';
-  document.getElementById('modal-saving').style.display='none';
-  document.getElementById('modal-save-btn').disabled=false;
-  var qa=document.getElementById('modal-quick-add');qa.innerHTML='';
-  (product.unit==='kg'?[5,10,20,25]:[0.5,1,2,5]).forEach(function(sz){var btn=document.createElement('button');btn.className='filter-chip';btn.textContent='+ '+sz+product.unit;btn.addEventListener('click',function(){var cur=parseFloat(document.getElementById('modal-qty-input').value)||0;document.getElementById('modal-qty-input').value=Math.round((cur+sz)*100)/100;});qa.appendChild(btn);});
-  document.getElementById('stock-modal').classList.add('open');
-  setTimeout(function(){document.getElementById('modal-qty-input').focus();document.getElementById('modal-qty-input').select();},100);
-}
+function openModal(product){state.modalProduct=product;document.getElementById('modal-product-name').textContent=product.name;document.getElementById('modal-product-brand').textContent=product.brand+' · '+product.category;document.getElementById('modal-current-qty').textContent=product.qtyRemaining;document.getElementById('modal-current-unit').textContent=product.unit;document.getElementById('modal-qty-input').value=product.qtyRemaining;document.getElementById('modal-unit-label').textContent=product.unit;document.getElementById('modal-auth-notice').style.display=state.token?'none':'flex';document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;var qa=document.getElementById('modal-quick-add');qa.innerHTML='';(product.unit==='kg'?[5,10,20,25]:[0.5,1,2,5]).forEach(function(sz){var btn=document.createElement('button');btn.className='filter-chip';btn.textContent='+ '+sz+product.unit;btn.addEventListener('click',function(){var cur=parseFloat(document.getElementById('modal-qty-input').value)||0;document.getElementById('modal-qty-input').value=Math.round((cur+sz)*100)/100;});qa.appendChild(btn);});document.getElementById('stock-modal').classList.add('open');setTimeout(function(){document.getElementById('modal-qty-input').focus();document.getElementById('modal-qty-input').select();},100);}
 function closeModal(){document.getElementById('stock-modal').classList.remove('open');state.modalProduct=null;}
 document.getElementById('stock-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
-async function saveStock(){
-  var p=state.modalProduct;if(!p)return;
-  var newQty=parseFloat(document.getElementById('modal-qty-input').value);
-  if(isNaN(newQty)||newQty<0){showToast('Please enter a valid quantity','error');return;}
-  var prod=state.inventory.products.find(function(x){return x.name===p.name;});if(prod)prod.qtyRemaining=newQty;
-  state.inventory.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});
-  document.getElementById('modal-current-qty').textContent=newQty;
-  if(!state.token){closeModal();renderInventory();renderAlerts();renderOverview();showToast('Updated (session only — connect GitHub to save permanently)','error');return;}
-  document.getElementById('modal-saving').style.display='block';
-  document.getElementById('modal-save-btn').disabled=true;
-  try{
-    if(!state.invSha)await fetchInvSha();
-    var inv=JSON.parse(JSON.stringify(state.inventory));
-    var rp=inv.products.find(function(x){return x.name===p.name;});if(rp)rp.qtyRemaining=newQty;
-    inv.lastUpdated=state.inventory.lastUpdated;
-    var content=btoa(unescape(encodeURIComponent(JSON.stringify(inv,null,2))));
-    var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;
-    var body={message:'Update stock: '+p.name+' → '+newQty+p.unit,content:content,branch:CONFIG.branch};
-    if(state.invSha)body.sha=state.invSha;
-    var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});
-    if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}
-    var data=await resp.json();state.invSha=data.content.sha;
-    closeModal();renderInventory();renderAlerts();renderOverview();
-    showToast(p.name+' updated to '+newQty+p.unit,'success');
-  }catch(e){document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}
-}
+async function saveStock(){var p=state.modalProduct;if(!p)return;var newQty=parseFloat(document.getElementById('modal-qty-input').value);if(isNaN(newQty)||newQty<0){showToast('Please enter a valid quantity','error');return;}var prod=state.inventory.products.find(function(x){return x.name===p.name;});if(prod)prod.qtyRemaining=newQty;state.inventory.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});document.getElementById('modal-current-qty').textContent=newQty;if(!state.token){closeModal();renderInventory();renderAlerts();renderOverview();showToast('Updated (session only — connect GitHub to save permanently)','error');return;}document.getElementById('modal-saving').style.display='block';document.getElementById('modal-save-btn').disabled=true;try{if(!state.invSha)await fetchInvSha();var inv=JSON.parse(JSON.stringify(state.inventory));var rp=inv.products.find(function(x){return x.name===p.name;});if(rp)rp.qtyRemaining=newQty;inv.lastUpdated=state.inventory.lastUpdated;var content=btoa(unescape(encodeURIComponent(JSON.stringify(inv,null,2))));var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;var body={message:'Update stock: '+p.name+' → '+newQty+p.unit,content:content,branch:CONFIG.branch};if(state.invSha)body.sha=state.invSha;var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}var data=await resp.json();state.invSha=data.content.sha;closeModal();renderInventory();renderAlerts();renderOverview();showToast(p.name+' updated to '+newQty+p.unit,'success');}catch(e){document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}}
 
-function renderAlerts(){
-  var list=document.getElementById('alerts-list'),alerts=[];
-  state.inventory.products.forEach(function(p){var s=invStatus(p);if(s.status==='critical')alerts.push({type:'critical',icon:'⚠',title:p.name+' — critically low',text:p.qtyRemaining+p.unit+' remaining. Reorder soon.'});else if(s.status==='low')alerts.push({type:'warn',icon:'⊙',title:p.name+' — running low',text:p.qtyRemaining+p.unit+' remaining ('+s.pct+'% of estimated full stock).'});});
-  state.inventory.compatibility.forEach(function(rule){if(rule.severity==='critical')alerts.push({type:'critical',icon:'⛔',title:'Compatibility rule',text:rule.rule});});
-  var mn=currentMonthNum(),c=countDone(mn);
-  if(c.total>0&&c.done===0){var MN=['January','February','March','April','May','June','July','August','September','October','November','December'];alerts.push({type:'info',icon:'📋',title:MN[mn-1]+' program not started',text:c.total+' tasks scheduled this month, none completed yet.'});}
-  if(state.program.meta&&state.program.meta.notes){state.program.meta.notes.forEach(function(note){if(note.toLowerCase().indexOf('critical')>=0||note.toLowerCase().indexOf('never')>=0||note.toLowerCase().indexOf('must')>=0)alerts.push({type:'warn',icon:'ℹ',title:'Program rule',text:note});});}
-  if(alerts.length===0){list.innerHTML='<div class="no-alerts">No alerts — everything looks good.</div>';return;}
-  list.innerHTML='';alerts.forEach(function(a){var item=document.createElement('div');item.className='alert-item '+a.type;item.innerHTML='<div class="alert-icon">'+a.icon+'</div><div class="alert-body"><div class="alert-title">'+esc(a.title)+'</div><div class="alert-text">'+esc(a.text)+'</div></div>';list.appendChild(item);});
-  var at=document.querySelector('[data-tab="alerts"]');if(at)at.textContent='Alerts ('+alerts.length+')';
-}
+function renderAlerts(){var list=document.getElementById('alerts-list'),alerts=[];state.inventory.products.forEach(function(p){var s=invStatus(p);if(s.status==='critical')alerts.push({type:'critical',icon:'⚠',title:p.name+' — critically low',text:p.qtyRemaining+p.unit+' remaining. Reorder soon.'});else if(s.status==='low')alerts.push({type:'warn',icon:'⊙',title:p.name+' — running low',text:p.qtyRemaining+p.unit+' remaining ('+s.pct+'% of estimated full stock).'});});state.inventory.compatibility.forEach(function(rule){if(rule.severity==='critical')alerts.push({type:'critical',icon:'⛔',title:'Compatibility rule',text:rule.rule});});var mn=currentMonthNum(),c=countDone(mn);if(c.total>0&&c.done===0){var MN=['January','February','March','April','May','June','July','August','September','October','November','December'];alerts.push({type:'info',icon:'📋',title:MN[mn-1]+' program not started',text:c.total+' tasks scheduled this month, none completed yet.'});}if(state.program.meta&&state.program.meta.notes){state.program.meta.notes.forEach(function(note){if(note.toLowerCase().indexOf('critical')>=0||note.toLowerCase().indexOf('never')>=0||note.toLowerCase().indexOf('must')>=0)alerts.push({type:'warn',icon:'ℹ',title:'Program rule',text:note});});}if(alerts.length===0){list.innerHTML='<div class="no-alerts">No alerts — everything looks good.</div>';return;}list.innerHTML='';alerts.forEach(function(a){var item=document.createElement('div');item.className='alert-item '+a.type;item.innerHTML='<div class="alert-icon">'+a.icon+'</div><div class="alert-body"><div class="alert-title">'+esc(a.title)+'</div><div class="alert-text">'+esc(a.text)+'</div></div>';list.appendChild(item);});var at=document.querySelector('[data-tab="alerts"]');if(at)at.textContent='Alerts ('+alerts.length+')';}
 
-function renderZones(){
-  var grid=document.getElementById('zone-summary-grid');grid.innerHTML='';
-  var mn=currentMonthNum(),m=getMonthData(mn);
-  state.inventory.zones.forEach(function(z){
-    var tc=0;if(m)m.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){if((t.zones||[]).indexOf(z.id)>=0)tc++;});});
-    var card=document.createElement('div');card.className='zone-card';
-    card.innerHTML='<div class="zone-area-big">'+z.areaSqm+'m²</div><div class="zone-card-name">'+esc(z.name)+'</div><div class="zone-card-grass '+z.grass+'">'+z.grass.toUpperCase()+'</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Tasks this month</span><span class="zone-stat-val">'+tc+'</span></div></div>';
-    grid.appendChild(card);
-  });
-  var tc=document.createElement('div');tc.className='zone-card';tc.innerHTML='<div class="zone-area-big">140.15m²</div><div class="zone-card-name">Total lawn area</div><div class="zone-card-grass" style="color:var(--ink-light);">ALL ZONES</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Kikuyu</span><span class="zone-stat-val">68.2m²</span></div><div class="zone-stat-row"><span class="zone-stat-label">Zoysia</span><span class="zone-stat-val">35.0m²</span></div><div class="zone-stat-row"><span class="zone-stat-label">Couch</span><span class="zone-stat-val">36.95m²</span></div></div>';grid.appendChild(tc);
-  var cl=document.getElementById('compat-list');cl.innerHTML='';
-  state.inventory.compatibility.forEach(function(rule){var item=document.createElement('div');item.className='alert-item '+(rule.severity==='critical'?'critical':'warn');item.style.marginBottom='8px';item.innerHTML='<div class="alert-icon">'+(rule.severity==='critical'?'⛔':'⚠')+'</div><div class="alert-body"><div class="alert-title">'+esc(rule.products.join(', '))+'</div><div class="alert-text">'+esc(rule.rule)+'</div></div>';cl.appendChild(item);});
-}
+function renderZones(){var grid=document.getElementById('zone-summary-grid');grid.innerHTML='';var mn=currentMonthNum(),m=getMonthData(mn);state.inventory.zones.forEach(function(z){var tc=0;if(m)m.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){if((t.zones||[]).indexOf(z.id)>=0)tc++;});});var card=document.createElement('div');card.className='zone-card';card.innerHTML='<div class="zone-area-big">'+z.areaSqm+'m²</div><div class="zone-card-name">'+esc(z.name)+'</div><div class="zone-card-grass '+z.grass+'">'+z.grass.toUpperCase()+'</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Tasks this month</span><span class="zone-stat-val">'+tc+'</span></div></div>';grid.appendChild(card);});var tc=document.createElement('div');tc.className='zone-card';tc.innerHTML='<div class="zone-area-big">140.15m²</div><div class="zone-card-name">Total lawn area</div><div class="zone-card-grass" style="color:var(--ink-light);">ALL ZONES</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Kikuyu</span><span class="zone-stat-val">68.2m²</span></div><div class="zone-stat-row"><span class="zone-stat-label">Zoysia</span><span class="zone-stat-val">35.0m²</span></div><div class="zone-stat-row"><span class="zone-stat-label">Couch</span><span class="zone-stat-val">36.95m²</span></div></div>';grid.appendChild(tc);var cl=document.getElementById('compat-list');cl.innerHTML='';state.inventory.compatibility.forEach(function(rule){var item=document.createElement('div');item.className='alert-item '+(rule.severity==='critical'?'critical':'warn');item.style.marginBottom='8px';item.innerHTML='<div class="alert-icon">'+(rule.severity==='critical'?'⛔':'⚠')+'</div><div class="alert-body"><div class="alert-title">'+esc(rule.products.join(', '))+'</div><div class="alert-text">'+esc(rule.rule)+'</div></div>';cl.appendChild(item);});}
 
 var toastTimer;
 function showToast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='show'+(type?' '+type:'');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.className='';},3500);}
-
 init();
 </script>
 </body>
