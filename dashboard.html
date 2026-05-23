@@ -35,8 +35,7 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .nav-tab:hover{color:var(--grass);}
 .nav-tab.active{color:var(--grass);border-bottom-color:var(--grass);font-weight:500;}
 .dash-body{max-width:1100px;margin:0 auto;padding:28px 24px 60px;}
-.section{display:none;}
-.section.active{display:block;}
+.section{display:none;}.section.active{display:block;}
 .section-heading{display:flex;align-items:baseline;gap:14px;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border);}
 .section-title{font-family:'Fraunces',serif;font-size:30px;font-weight:300;color:var(--ink);letter-spacing:-0.5px;}
 .section-sub{font-size:13px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.8px;}
@@ -47,13 +46,15 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .stat-sub{font-size:13px;color:var(--ink-mid);margin-top:6px;}
 .panel{background:white;border:1px solid var(--border);border-radius:6px;padding:22px 24px;margin-bottom:20px;}
 .panel-title{font-size:13px;text-transform:uppercase;letter-spacing:0.8px;color:var(--ink-light);margin-bottom:16px;}
+.panel-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.panel-title-row .panel-title{margin-bottom:0;}
+.panel-btn{font-size:12px;padding:5px 12px;border-radius:4px;border:1px solid var(--grass);background:white;color:var(--grass);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.15s;}
+.panel-btn:hover{background:var(--grass);color:white;}
 .progress-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
 .progress-row-label{font-size:14px;color:var(--ink-mid);min-width:130px;flex-shrink:0;}
 .progress-bar-wrap{flex:1;height:8px;background:var(--border-light);border-radius:4px;overflow:hidden;}
 .progress-bar-fill{height:100%;border-radius:4px;transition:width 0.5s ease;}
-.progress-bar-fill.ok{background:var(--grass);}
-.progress-bar-fill.low{background:var(--status-low);}
-.progress-bar-fill.critical{background:var(--status-critical);}
+.progress-bar-fill.ok{background:var(--grass);}.progress-bar-fill.low{background:var(--status-low);}.progress-bar-fill.critical{background:var(--status-critical);}
 .progress-row-num{font-size:13px;color:var(--ink-light);min-width:80px;text-align:right;flex-shrink:0;}
 .inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:24px;}
 .inv-card{background:white;border:1px solid var(--border);border-left:3px solid var(--border);border-radius:6px;padding:14px 16px;cursor:pointer;transition:box-shadow 0.15s,border-color 0.15s;}
@@ -119,8 +120,7 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .task-name-cell{display:flex;align-items:center;}
 .cond-flag{font-size:11px;padding:1px 6px;border-radius:8px;background:var(--cream);border:1px solid var(--soil-light);color:var(--soil);margin-left:7px;white-space:nowrap;}
 .done-check{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:3px;font-size:12px;}
-.done-check.yes{background:var(--grass);color:white;}
-.done-check.no{background:var(--border-light);color:transparent;}
+.done-check.yes{background:var(--grass);color:white;}.done-check.no{background:var(--border-light);color:transparent;}
 .alerts-list{display:flex;flex-direction:column;gap:10px;}
 .alert-item{display:flex;gap:14px;padding:14px 16px;border-radius:6px;border:1px solid;align-items:flex-start;}
 .alert-item.warn{background:#fff9e8;border-color:#d4a017;}
@@ -142,7 +142,7 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .zone-stat-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;}
 .zone-stat-label{color:var(--ink-light);}.zone-stat-val{color:var(--ink-mid);font-weight:500;}
 .zone-area-big{font-family:'Fraunces',serif;font-size:28px;font-weight:200;color:var(--grass);letter-spacing:-1px;margin-bottom:8px;}
-/* ── LOG TAB ── */
+/* ── LOG ── */
 .log-table-wrap{overflow-x:auto;}
 .log-table{width:100%;border-collapse:collapse;font-size:13px;}
 .log-table th{text-align:left;padding:8px 12px;border-bottom:2px solid var(--border);font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);background:var(--cream);white-space:nowrap;}
@@ -173,6 +173,20 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .mow-zone-days.overdue{color:var(--status-low);}
 .mow-zone-sub{font-size:12px;color:var(--ink-light);margin-top:4px;}
 .mow-zone-card.never .mow-zone-days{color:var(--ink-light);font-size:18px;}
+/* ── MANUAL LOG FORM ── */
+.man-form{display:flex;flex-direction:column;gap:14px;}
+.man-field-label{font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);margin-bottom:5px;}
+.man-select,.man-input,.man-textarea{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:5px;font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);background:white;outline:none;appearance:none;}
+.man-select:focus,.man-input:focus,.man-textarea:focus{border-color:var(--grass);box-shadow:0 0 0 2px var(--grass-pale);}
+.man-textarea{resize:vertical;min-height:72px;line-height:1.5;}
+.man-product-rows{display:flex;flex-direction:column;gap:8px;}
+.man-product-row{display:flex;gap:8px;align-items:center;}
+.man-product-row .man-input{flex:2;}
+.man-product-row .man-input.amount{flex:1;}
+.man-product-row .man-unit{font-size:13px;color:var(--ink-light);flex-shrink:0;min-width:28px;}
+.man-add-product{font-size:13px;color:var(--grass);background:none;border:none;cursor:pointer;padding:4px 0;font-family:'DM Mono',monospace;text-decoration:underline;}
+.man-remove-btn{background:none;border:none;color:var(--ink-light);cursor:pointer;font-size:18px;line-height:1;padding:0 2px;flex-shrink:0;}
+.man-remove-btn:hover{color:var(--status-critical);}
 #loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:calc(100vh - 60px);gap:16px;color:var(--ink-light);}
 .spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--grass);border-radius:50%;animation:spin 0.7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -186,15 +200,16 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .season-band-seg.summer{background:#d4a017;}.season-band-seg.autumn{background:#c07030;}.season-band-seg.winter{background:#4a80b0;}.season-band-seg.spring{background:#5a9448;}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 @media(max-width:700px){.two-col{grid-template-columns:1fr;}}
+/* ── MODALS ── */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:500;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
-.modal{background:white;border-radius:8px;width:100%;max-width:420px;box-shadow:0 8px 40px rgba(0,0,0,0.2);overflow:hidden;}
-.modal-header{background:var(--grass);color:var(--cream);padding:18px 22px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.modal{background:white;border-radius:8px;width:100%;max-width:460px;box-shadow:0 8px 40px rgba(0,0,0,0.2);overflow:hidden;max-height:90vh;display:flex;flex-direction:column;}
+.modal-header{background:var(--grass);color:var(--cream);padding:16px 20px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
 .modal-title{font-family:'Fraunces',serif;font-size:20px;font-weight:300;}
 .modal-subtitle{font-size:12px;opacity:0.75;margin-top:2px;}
-.modal-close{background:none;border:none;color:var(--cream);font-size:22px;cursor:pointer;opacity:0.7;line-height:1;padding:0;}
+.modal-close{background:none;border:none;color:var(--cream);font-size:22px;cursor:pointer;opacity:0.7;line-height:1;padding:0;flex-shrink:0;}
 .modal-close:hover{opacity:1;}
-.modal-body{padding:22px;}
+.modal-body{padding:20px;overflow-y:auto;flex:1;}
 .modal-current{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding:12px 14px;background:var(--paper);border-radius:5px;border:1px solid var(--border-light);}
 .modal-current-label{font-size:13px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.6px;flex:1;}
 .modal-current-val{font-family:'Fraunces',serif;font-size:24px;font-weight:300;color:var(--grass);}
@@ -204,7 +219,7 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .modal-input{flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:5px;font-family:'DM Mono',monospace;font-size:16px;color:var(--ink);background:white;outline:none;}
 .modal-input:focus{border-color:var(--grass);box-shadow:0 0 0 2px var(--grass-pale);}
 .modal-unit-label{font-size:14px;color:var(--ink-mid);min-width:24px;}
-.modal-actions{display:flex;gap:10px;}
+.modal-actions{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--border);flex-shrink:0;}
 .modal-btn{flex:1;padding:11px;border-radius:5px;font-family:'DM Mono',monospace;font-size:14px;cursor:pointer;border:1px solid;transition:all 0.15s;}
 .modal-btn.primary{background:var(--grass);color:white;border-color:var(--grass);}
 .modal-btn.primary:hover{background:var(--grass-light);}
@@ -240,7 +255,7 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 </div>
 
 <div id="dashboard">
-  <nav class="dash-nav" id="dash-nav">
+  <nav class="dash-nav">
     <button class="nav-tab" data-tab="overview">Overview</button>
     <button class="nav-tab" data-tab="program">Program</button>
     <button class="nav-tab" data-tab="inventory">Inventory</button>
@@ -303,10 +318,7 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
       <div class="panel">
         <div class="panel-title">Mowing history</div>
         <div class="log-table-wrap">
-          <table class="log-table">
-            <thead><tr><th>Date</th><th>Zone</th><th>Mower</th><th>Height</th><th>Notes</th></tr></thead>
-            <tbody id="mow-tbody"></tbody>
-          </table>
+          <table class="log-table"><thead><tr><th>Date</th><th>Zone</th><th>Mower</th><th>Height</th><th>Notes</th></tr></thead><tbody id="mow-tbody"></tbody></table>
         </div>
       </div>
       <div class="panel" style="margin-top:8px;">
@@ -318,13 +330,13 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
         <div class="last-applied-grid" id="last-applied-grid"></div>
       </div>
       <div class="panel">
-        <div class="panel-title">All applications</div>
+        <div class="panel-title-row">
+          <div class="panel-title">All applications</div>
+          <button class="panel-btn" onclick="openManualLogModal()">+ Log manual application</button>
+        </div>
         <div class="filter-chips" id="log-filter-chips"></div>
         <div class="log-table-wrap">
-          <table class="log-table">
-            <thead><tr><th>Date</th><th>Task</th><th>Products used</th><th>Zones</th><th>Inv. deducted</th></tr></thead>
-            <tbody id="log-tbody"></tbody>
-          </table>
+          <table class="log-table"><thead><tr><th>Date</th><th>Task / Label</th><th>Products used</th><th>Zones</th><th>Inv. deducted</th></tr></thead><tbody id="log-tbody"></tbody></table>
         </div>
       </div>
     </div>
@@ -350,7 +362,7 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
   <div class="modal">
     <div class="modal-header">
       <div><div class="modal-title" id="modal-product-name">Product</div><div class="modal-subtitle" id="modal-product-brand"></div></div>
-      <button class="modal-close" onclick="closeModal()">×</button>
+      <button class="modal-close" onclick="closeStockModal()">×</button>
     </div>
     <div class="modal-body">
       <div class="modal-current">
@@ -366,10 +378,59 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
       <div class="modal-field-label">Quick add</div>
       <div style="display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap;" id="modal-quick-add"></div>
       <div class="modal-saving" id="modal-saving">Saving to GitHub…</div>
-      <div class="modal-actions">
-        <button class="modal-btn secondary" onclick="closeModal()">Cancel</button>
-        <button class="modal-btn primary" id="modal-save-btn" onclick="saveStock()">Save</button>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeStockModal()">Cancel</button>
+      <button class="modal-btn primary" id="modal-save-btn" onclick="saveStock()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- MANUAL APPLICATION LOG MODAL -->
+<div class="modal-overlay" id="man-log-modal">
+  <div class="modal" style="max-width:500px;">
+    <div class="modal-header">
+      <div><div class="modal-title">Log a manual application</div><div class="modal-subtitle" id="man-log-date"></div></div>
+      <button class="modal-close" onclick="closeManualLogModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="man-auth-notice" class="modal-auth-notice" style="display:none;">⚠ Connect GitHub to save. This entry will be lost on refresh without auth.</div>
+      <div class="man-form">
+        <div>
+          <div class="man-field-label">Label / task description</div>
+          <input class="man-input" type="text" id="man-label" placeholder="e.g. Spot spray weeds, Liquid iron treatment…" maxlength="80">
+        </div>
+        <div>
+          <div class="man-field-label">Type</div>
+          <select class="man-select" id="man-type">
+            <option value="fertilise">Fertilise</option>
+            <option value="biostimulant">Biostimulant</option>
+            <option value="herbicide">Herbicide</option>
+            <option value="fungicide">Fungicide</option>
+            <option value="insecticide">Insecticide</option>
+            <option value="soilwetter">Soil Wetter</option>
+            <option value="renovation">Renovation</option>
+          </select>
+        </div>
+        <div>
+          <div class="man-field-label">Zones applied</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;" id="man-zone-checks"></div>
+        </div>
+        <div>
+          <div class="man-field-label">Products used <span style="font-weight:normal;text-transform:none;letter-spacing:0;color:var(--ink-light);">(name · amount · unit)</span></div>
+          <div class="man-product-rows" id="man-product-rows"></div>
+          <button class="man-add-product" onclick="addManProductRow()">+ Add product</button>
+        </div>
+        <div>
+          <div class="man-field-label">Notes (optional)</div>
+          <textarea class="man-textarea" id="man-notes" placeholder="Conditions, observations, dilution rate…" maxlength="200"></textarea>
+        </div>
       </div>
+      <div class="modal-saving" id="man-saving">Saving to GitHub…</div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeManualLogModal()">Cancel</button>
+      <button class="modal-btn primary" id="man-save-btn" onclick="saveManualLog()">Save entry</button>
     </div>
   </div>
 </div>
@@ -377,11 +438,12 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 <div id="toast"></div>
 
 <script>
-var CONFIG={owner:'cjj-gmail',repo:'lawn-care-tools',branch:'main',base:'https://raw.githubusercontent.com/cjj-gmail/lawn-care-tools/main/data/',workerUrl:'https://lawn-care-tools.cameronjude1.workers.dev',invPath:'data/inventory.json'};
-var state={program:null,inventory:null,completions:{},appLog:null,mowLog:null,invSha:null,token:null,modalProduct:null};
+var CONFIG={owner:'cjj-gmail',repo:'lawn-care-tools',branch:'main',base:'https://raw.githubusercontent.com/cjj-gmail/lawn-care-tools/main/data/',workerUrl:'https://lawn-care-tools.cameronjude1.workers.dev',invPath:'data/inventory.json',appLogPath:'data/applications.json'};
+var state={program:null,inventory:null,completions:{},appLog:null,mowLog:null,invSha:null,appLogSha:null,token:null,modalProduct:null};
 var TYPE_COLORS={fertilise:'#4a7c3f',biostimulant:'#7b5ea7',herbicide:'#c0692a',fungicide:'#c0882a',insecticide:'#2a7aa0',soilwetter:'#3a7a8a',renovation:'#6b4c2a'};
 var ZONE_NAMES={back:'Back Lawn',front:'Front Lawn',strip1:'Nature Strip',strip2:'Left Strip'};
 var ZONE_GRASS={back:'Kikuyu',front:'Zoysia',strip1:'Couch',strip2:'Couch'};
+var UNITS=['mL','L','g','kg'];
 
 function startLogin(){sessionStorage.setItem('dash_return','true');window.location.href=CONFIG.workerUrl+'/login?redirect='+encodeURIComponent(window.location.href);}
 async function handleOAuthCallback(code){try{var r=await fetch(CONFIG.workerUrl+'/callback?code='+code);var d=await r.json();if(d.access_token){state.token=d.access_token;sessionStorage.setItem('gh_token',d.access_token);}}catch(e){}}
@@ -412,13 +474,20 @@ async function init(){
     state.program=await pR.json();state.inventory=await iR.json();
   }catch(e){document.getElementById('error-msg-text').textContent=e.message;document.getElementById('error-screen').style.display='flex';document.getElementById('loading-screen').style.display='none';return;}
   try{var cR=await fetch(CONFIG.base+'completions.json?t='+Date.now());if(cR.ok)state.completions=await cR.json();}catch(e){}
-  try{var aR=await fetch(CONFIG.base+'applications.json?t='+Date.now());if(aR.ok)state.appLog=await aR.json();else state.appLog={entries:[]};}catch(e){state.appLog={entries:[]};}
+  try{
+    var aR=await fetch(CONFIG.base+'applications.json?t='+Date.now());
+    if(aR.ok){var aD=await aR.json();state.appLog=aD;// fetch SHA too
+      try{var aSha=await fetch('https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.appLogPath,{headers:state.token?{'Authorization':'token '+state.token,'Accept':'application/vnd.github.v3+json'}:{'Accept':'application/vnd.github.v3+json'}});if(aSha.ok){var aSD=await aSha.json();state.appLogSha=aSD.sha;}}catch(e){}
+    }else state.appLog={entries:[]};
+  }catch(e){state.appLog={entries:[]};}
   try{var mR=await fetch(CONFIG.base+'mowing.json?t='+Date.now());if(mR.ok)state.mowLog=await mR.json();else state.mowLog={entries:[]};}catch(e){state.mowLog={entries:[]};}
   fetchInvSha();
   var seen={};state.inventory.products=state.inventory.products.filter(function(p){if(seen[p.name])return false;seen[p.name]=true;return true;});
   document.getElementById('loading-screen').style.display='none';document.getElementById('dashboard').style.display='block';
   updateAuthUI();setupNav(tabParam);
   renderOverview();renderProgram();renderInventory();renderLog();renderAlerts();renderZones();
+  document.getElementById('stock-modal').addEventListener('click',function(e){if(e.target===this)closeStockModal();});
+  document.getElementById('man-log-modal').addEventListener('click',function(e){if(e.target===this)closeManualLogModal();});
 }
 
 async function fetchInvSha(){try{var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;var h={'Accept':'application/vnd.github.v3+json'};if(state.token)h['Authorization']='token '+state.token;var r=await fetch(url,{headers:h});if(r.ok){var d=await r.json();state.invSha=d.sha;}}catch(e){}}
@@ -433,21 +502,15 @@ function totalDoneCount(){return Object.keys(state.completions).length;}
 function invStatus(p){var rem=p.qtyRemaining,unit=p.unit;var fm={'TX10 (5-2-8)':25,'Maintain (26-1-9)':20,default_kg:20,default_L:5};var full=fm[p.name]||(unit==='kg'?fm.default_kg:fm.default_L);var pct=Math.min(100,Math.round((rem/full)*100));return{pct:pct,status:pct>40?'ok':pct>15?'low':'critical'};}
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function daysSince(dateISO){var d=new Date(dateISO+'T00:00:00');return Math.floor((now()-d)/86400000);}
+function mowThreshold(){var mn=currentMonthNum(),summer=[12,1,2],autumn=[3,4,5];return(summer.indexOf(mn)>=0||autumn.indexOf(mn)>=0)?14:21;}
+function lastMowForZone(zid){var entries=state.mowLog?state.mowLog.entries:[];var last=null;for(var i=0;i<entries.length;i++){var e=entries[i];if(e.zone===zid||e.zone==='all'){if(!last||e.dateISO>last.dateISO)last=e;}}return last;}
 
-function mowThreshold(){
-  var mn=currentMonthNum(),summer=[12,1,2],autumn=[3,4,5];
-  return(summer.indexOf(mn)>=0||autumn.indexOf(mn)>=0)?14:21;
-}
-
-// Returns last mow entry for a zone (or null)
-function lastMowForZone(zid){
-  var entries=state.mowLog?state.mowLog.entries:[];
-  var last=null;
-  for(var i=0;i<entries.length;i++){
-    var e=entries[i];
-    if(e.zone===zid||e.zone==='all'){if(!last||e.dateISO>last.dateISO)last=e;}
-  }
-  return last;
+// ── LAST APPLICATION helper ──
+function lastAppDate(){
+  var entries=state.appLog?state.appLog.entries:[];
+  if(!entries.length)return null;
+  // entries are newest-first
+  return entries[0];
 }
 
 function renderOverview(){
@@ -455,27 +518,28 @@ function renderOverview(){
   document.getElementById('overview-date').textContent=d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   var mn=currentMonthNum(),tm=countDone(mn),td=totalDoneCount(),tt=totalTaskCount(),yp=tt>0?Math.round(td/tt*100):0;
   var lc=0;state.inventory.products.forEach(function(p){if(invStatus(p).status!=='ok')lc++;});
-  var logCount=state.appLog?state.appLog.entries.length:0;
-  var mowCount=state.mowLog?state.mowLog.entries.length:0;
+  var la=lastAppDate();
+  var laVal=la?daysSince(la.dateISO)+'d ago':'—';
+  var laSub=la?'Last: '+la.date+' · '+esc(la.taskLabel||la.taskType||''):'No applications logged yet';
   document.getElementById('stat-grid').innerHTML=[
     {val:MN[mn-1],label:'Current month',sub:state.program.months[mn-1]?state.program.months[mn-1].season:''},
     {val:tm.done+'/'+tm.total,label:'Tasks done this month',sub:tm.total>0?Math.round(tm.done/tm.total*100)+'% complete':'No tasks logged'},
     {val:yp+'%',label:'Year completion',sub:td+' of '+tt+' tasks done'},
-    {val:logCount+' / '+mowCount,label:'Apps / mows logged',sub:lc>0?lc+' products needing attention':'Inventory all well stocked'},
+    {val:laVal,label:'Last application',sub:laSub},
   ].map(function(s){return '<div class="stat-tile"><div class="stat-value">'+esc(s.val.toString())+'</div><div class="stat-label">'+s.label+'</div>'+(s.sub?'<div class="stat-sub">'+esc(s.sub)+'</div>':'')+'</div>';}).join('');
   var mpb=document.getElementById('monthly-progress-bars');mpb.innerHTML='';
   state.program.months.forEach(function(m){var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0,isThis=m.monthNum===mn;var row=document.createElement('div');row.className='progress-row';row.innerHTML='<div class="progress-row-label" style="'+(isThis?'color:var(--grass);font-weight:500;':'')+'">'+m.month.slice(0,3)+(isThis?' ◄':'')+'</div><div class="progress-bar-wrap"><div class="progress-bar-fill ok" style="width:'+pct+'%"></div></div><div class="progress-row-num">'+c.done+'/'+c.total+'</div>';mpb.appendChild(row);});
   var ul=document.getElementById('upcoming-list');ul.innerHTML='';
   var rem=allTasks(mn).filter(function(t){return !state.completions[t.task.id];});
   if(rem.length===0){ul.innerHTML='<div style="padding:16px;text-align:center;color:var(--ink-light);font-size:13px;font-style:italic;">All tasks done for this month ✓</div>';}
-  else{rem.slice(0,8).forEach(function(t){var item=document.createElement('div');item.className='upcoming-item';item.innerHTML='<span class="upcoming-type-dot '+t.task.taskType+'"></span><span class="upcoming-week">W'+t.week+'</span><span class="upcoming-label">'+esc(t.task.label)+'</span>'+(t.task.conditional?'<span class="cond-flag" style="font-size:11px;padding:1px 6px;border-radius:8px;background:var(--cream);border:1px solid var(--soil-light);color:var(--soil);">if req.</span>':'');ul.appendChild(item);});if(rem.length>8)ul.innerHTML+='<div style="padding:8px;text-align:center;color:var(--ink-light);font-size:12px;">+ '+(rem.length-8)+' more</div>';}
+  else{rem.slice(0,8).forEach(function(t){var item=document.createElement('div');item.className='upcoming-item';item.innerHTML='<span class="upcoming-type-dot '+t.task.taskType+'"></span><span class="upcoming-week">W'+t.week+'</span><span class="upcoming-label">'+esc(t.task.label)+'</span>'+(t.task.conditional?'<span style="font-size:11px;padding:1px 6px;border-radius:8px;background:var(--cream);border:1px solid var(--soil-light);color:var(--soil);">if req.</span>':'');ul.appendChild(item);});if(rem.length>8)ul.innerHTML+='<div style="padding:8px;text-align:center;color:var(--ink-light);font-size:12px;">+ '+(rem.length-8)+' more</div>';}
   var isb=document.getElementById('inv-summary-bars');isb.innerHTML='';
   state.inventory.products.forEach(function(p){var s=invStatus(p),row=document.createElement('div');row.className='progress-row';row.style.marginBottom='7px';row.innerHTML='<div class="progress-row-label" style="font-size:13px;">'+esc(p.name)+'</div><div class="progress-bar-wrap" style="height:6px;"><div class="progress-bar-fill '+s.status+'" style="width:'+s.pct+'%"></div></div><div class="progress-row-num" style="font-size:12px;">'+p.qtyRemaining+p.unit+'</div>';isb.appendChild(row);});
 }
 
 function renderProgram(){
   var mn=currentMonthNum(),grid=document.getElementById('month-grid');grid.innerHTML='';
-  state.program.months.forEach(function(m){var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0;var tile=document.createElement('a');tile.className='month-tile'+(m.monthNum===mn?' current':'');tile.href='tracker.html?month='+m.monthNum;tile.title='Open '+m.month+' in Tracker';tile.innerHTML='<div class="month-tile-top"><div class="month-tile-name">'+m.month.slice(0,3)+'</div><div style="display:flex;align-items:center;gap:6px;"><div class="season-dot '+m.season+'"></div><span class="month-tile-arrow">→</span></div></div><div class="month-tile-bar"><div class="month-tile-fill" style="width:'+pct+'%"></div></div><div class="month-tile-count"><span class="done">'+c.done+'</span> / '+c.total+' tasks</div>';grid.appendChild(tile);});
+  state.program.months.forEach(function(m){var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0;var tile=document.createElement('a');tile.className='month-tile'+(m.monthNum===mn?' current':'');tile.href='tracker.html?month='+m.monthNum;tile.innerHTML='<div class="month-tile-top"><div class="month-tile-name">'+m.month.slice(0,3)+'</div><div style="display:flex;align-items:center;gap:6px;"><div class="season-dot '+m.season+'"></div><span class="month-tile-arrow">→</span></div></div><div class="month-tile-bar"><div class="month-tile-fill" style="width:'+pct+'%"></div></div><div class="month-tile-count"><span class="done">'+c.done+'</span> / '+c.total+' tasks</div>';grid.appendChild(tile);});
   document.getElementById('type-legend').innerHTML=Object.entries(TYPE_COLORS).map(function(e){return '<div class="legend-item"><div class="legend-dot" style="background:'+e[1]+'"></div>'+e[0].replace('soilwetter','soil wetter')+'</div>';}).join('');
   var chips=document.getElementById('program-filter-chips'),af='all';
   function bc(){chips.innerHTML='';['all','fertilise','biostimulant','herbicide','fungicide','insecticide','soilwetter','renovation'].forEach(function(f){var c=document.createElement('button');c.className='filter-chip'+(f===af?' active':'');c.textContent=f==='all'?'All':f.replace('soilwetter','soil wetter');c.addEventListener('click',function(){af=f;bc();bt();});chips.appendChild(c);});}
@@ -492,16 +556,14 @@ function renderInventory(){
   var cats=['All'];products.forEach(function(p){if(cats.indexOf(p.category)<0)cats.push(p.category);});
   var af='All',fc=document.getElementById('inv-filter-chips');
   function bic(){fc.innerHTML='';cats.forEach(function(c){var ch=document.createElement('button');ch.className='filter-chip'+(c===af?' active':'');ch.textContent=c;ch.addEventListener('click',function(){af=c;bic();big();});fc.appendChild(ch);});}
-  function big(){var grid=document.getElementById('inv-grid');grid.innerHTML='';var filtered=af==='All'?products:products.filter(function(p){return p.category===af;});filtered.forEach(function(p){var s=invStatus(p),card=document.createElement('div');card.className='inv-card';card.dataset.cat=p.category;card.innerHTML='<div class="inv-card-top"><div><div class="inv-card-name">'+esc(p.name)+'</div><div class="inv-card-brand">'+esc(p.brand)+' · '+esc(p.category)+'</div></div><span class="inv-status-badge '+s.status+'">'+(s.status==='ok'?'OK':s.status==='low'?'LOW':'⚠ LOW')+'</span></div><div class="inv-bar-wrap"><div class="inv-bar-fill" style="width:'+s.pct+'%;background:'+(s.status==='ok'?'var(--grass)':s.status==='low'?'var(--status-low)':'var(--status-critical)')+';"></div></div><div class="inv-card-meta"><span>'+p.qtyRemaining+p.unit+' remaining</span><span>'+esc(p.ratePer100sqm)+' / 100m²</span></div><div class="inv-card-edit-hint">✏ Click to update stock</div>';card.addEventListener('click',function(){openModal(p);});grid.appendChild(card);});}
+  function big(){var grid=document.getElementById('inv-grid');grid.innerHTML='';var filtered=af==='All'?products:products.filter(function(p){return p.category===af;});filtered.forEach(function(p){var s=invStatus(p),card=document.createElement('div');card.className='inv-card';card.dataset.cat=p.category;card.innerHTML='<div class="inv-card-top"><div><div class="inv-card-name">'+esc(p.name)+'</div><div class="inv-card-brand">'+esc(p.brand)+' · '+esc(p.category)+'</div></div><span class="inv-status-badge '+s.status+'">'+(s.status==='ok'?'OK':s.status==='low'?'LOW':'⚠ LOW')+'</span></div><div class="inv-bar-wrap"><div class="inv-bar-fill" style="width:'+s.pct+'%;background:'+(s.status==='ok'?'var(--grass)':s.status==='low'?'var(--status-low)':'var(--status-critical)')+';"></div></div><div class="inv-card-meta"><span>'+p.qtyRemaining+p.unit+' remaining</span><span>'+esc(p.ratePer100sqm)+' / 100m²</span></div><div class="inv-card-edit-hint">✏ Click to update stock</div>';card.addEventListener('click',function(){openStockModal(p);});grid.appendChild(card);});}
   bic();big();
 }
 
-// ── LOG TAB ──
 function renderLog(){
   var threshold=mowThreshold();
   var entries=state.appLog?state.appLog.entries:[];
   var mowEntries=state.mowLog?state.mowLog.entries:[];
-  // Mowing zone cards
   var mzg=document.getElementById('mow-zone-grid');mzg.innerHTML='';
   ['back','front','strip1','strip2'].forEach(function(zid){
     var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';
@@ -511,11 +573,9 @@ function renderLog(){
     else{var days=daysSince(last.dateISO),overdue=days>=threshold;card.className='mow-zone-card'+(overdue?' overdue':'');card.innerHTML='<div class="mow-zone-name">'+esc(zoneName)+'</div><div class="mow-zone-grass">'+esc(grass)+' · '+esc(last.mower.split(' ').slice(0,2).join(' '))+'</div><div class="mow-zone-days'+(overdue?' overdue':'')+'">'+days+'d ago</div><div class="mow-zone-sub">'+esc(last.date)+' · '+last.heightMm+'mm'+(last.notes?' · '+esc(last.notes.slice(0,30)):'')+'</div>';}
     mzg.appendChild(card);
   });
-  // Mowing history
   var mtb=document.getElementById('mow-tbody');mtb.innerHTML='';
   if(mowEntries.length===0){mtb.innerHTML='<tr><td colspan="5" class="log-empty">No mowing sessions logged yet. Use the ✂ Log a mow button in the Tracker header.</td></tr>';}
   else{mowEntries.forEach(function(e){var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td><div class="log-task">'+esc(e.zoneName||e.zone)+'</div><div style="font-size:12px;color:var(--ink-light);">'+esc(e.grass||'')+'</div></td><td style="font-size:13px;color:var(--ink-mid);">'+esc(e.mower||'—')+'</td><td style="font-size:13px;font-weight:500;color:var(--grass);">'+esc(e.heightMm+'mm')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(e.notes||'—')+'</td>';mtb.appendChild(tr);});}
-  // App stats
   var thisMonth=currentMonthNum(),thisYear=now().getFullYear();
   var monthEntries=entries.filter(function(e){if(!e.dateISO)return false;var d=new Date(e.dateISO);return d.getMonth()+1===thisMonth&&d.getFullYear()===thisYear;});
   var deductedCount=entries.filter(function(e){return e.inventoryDeducted;}).length;
@@ -525,84 +585,121 @@ function renderLog(){
     {val:deductedCount,label:'Inventory deducted',sub:deductedCount+' of '+entries.length+' entries'},
     {val:mowEntries.length,label:'Mowing sessions',sub:'all time'},
   ].map(function(s){return '<div class="stat-tile"><div class="stat-value">'+s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
-  // Last applied
   var lastApplied={};entries.forEach(function(e){(e.products||[]).forEach(function(p){if(!lastApplied[p.name]||e.dateISO>lastApplied[p.name])lastApplied[p.name]=e.dateISO;});});
   var lag=document.getElementById('last-applied-grid');lag.innerHTML='';
   var prodNames=Object.keys(lastApplied).sort();
   if(prodNames.length===0){lag.innerHTML='<div style="color:var(--ink-light);font-size:13px;font-style:italic;padding:8px 0;">No applications logged yet.</div>';}
   else{prodNames.forEach(function(name){var days=daysSince(lastApplied[name]);var stale=days>28;var card=document.createElement('div');card.className='last-applied-card';card.innerHTML='<div class="last-applied-name">'+esc(name)+'</div><div class="last-applied-days'+(stale?' stale':'')+'">'+days+' days ago</div><div class="last-applied-date">'+lastApplied[name].split('-').reverse().join('/')+'</div>';lag.appendChild(card);});}
-  // App table
   document.getElementById('log-section-sub').textContent=entries.length+' application'+(entries.length!==1?'s':'')+' · '+mowEntries.length+' mow'+(mowEntries.length!==1?'s':'')+' recorded';
   var taskTypes=['All'];entries.forEach(function(e){if(e.taskType&&taskTypes.indexOf(e.taskType)<0)taskTypes.push(e.taskType);});
   var af='All',lfc=document.getElementById('log-filter-chips');
   function buildLogChips(){lfc.innerHTML='';taskTypes.forEach(function(t){var chip=document.createElement('button');chip.className='filter-chip'+(t===af?' active':'');chip.textContent=t==='All'?'All':t.replace('soilwetter','soil wetter');chip.addEventListener('click',function(){af=t;buildLogChips();buildLogTable();});lfc.appendChild(chip);});}
-  function buildLogTable(){var tb=document.getElementById('log-tbody');tb.innerHTML='';var filtered=af==='All'?entries:entries.filter(function(e){return e.taskType===af;});if(filtered.length===0){tb.innerHTML='<tr><td colspan="5" class="log-empty">No applications logged yet.</td></tr>';return;}filtered.forEach(function(e){var color=TYPE_COLORS[e.taskType]||'#888';var prodText=(e.products||[]).map(function(p){return p.name+' '+p.amount+p.unit+(p.deducted?' ✓':'');}).join('<br>');var zoneText=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join(', ');var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td><div class="log-task"><span class="log-type-pip" style="background:'+color+'"></span>'+esc(e.taskLabel||'')+'</div></td><td class="log-products">'+(prodText||'<span style="color:var(--ink-light);font-style:italic;">No products</span>')+'</td><td class="log-zones">'+esc(zoneText||'—')+'</td><td><span class="log-deducted-badge '+(e.inventoryDeducted?'yes':'no')+'">'+(e.inventoryDeducted?'✓ yes':'skipped')+'</span></td>';tb.appendChild(tr);});}
+  function buildLogTable(){var tb=document.getElementById('log-tbody');tb.innerHTML='';var filtered=af==='All'?entries:entries.filter(function(e){return e.taskType===af;});if(filtered.length===0){tb.innerHTML='<tr><td colspan="5" class="log-empty">No applications logged yet. Use "+ Log manual application" above to add an entry.</td></tr>';return;}filtered.forEach(function(e){var color=TYPE_COLORS[e.taskType]||'#888';var prodText=(e.products||[]).map(function(p){return p.name+' '+p.amount+p.unit+(p.deducted?' ✓':'');}).join('<br>');var zoneText=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join(', ');var manBadge=e.manual?'<span style="font-size:10px;padding:1px 5px;border-radius:4px;background:#eef5ff;color:#4a80b0;border:1px solid #4a80b0;margin-left:5px;">manual</span>':'';var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td><div class="log-task"><span class="log-type-pip" style="background:'+color+'"></span>'+esc(e.taskLabel||e.taskType||'')+'</div>'+manBadge+'</td><td class="log-products">'+(prodText||'<span style="color:var(--ink-light);font-style:italic;">No products</span>')+'</td><td class="log-zones">'+esc(zoneText||'—')+'</td><td><span class="log-deducted-badge '+(e.inventoryDeducted?'yes':'no')+'">'+(e.inventoryDeducted?'✓ yes':'skipped')+'</span></td>';tb.appendChild(tr);});}
   buildLogChips();buildLogTable();
 }
 
-function openModal(product){state.modalProduct=product;document.getElementById('modal-product-name').textContent=product.name;document.getElementById('modal-product-brand').textContent=product.brand+' · '+product.category;document.getElementById('modal-current-qty').textContent=product.qtyRemaining;document.getElementById('modal-current-unit').textContent=product.unit;document.getElementById('modal-qty-input').value=product.qtyRemaining;document.getElementById('modal-unit-label').textContent=product.unit;document.getElementById('modal-auth-notice').style.display=state.token?'none':'flex';document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;var qa=document.getElementById('modal-quick-add');qa.innerHTML='';(product.unit==='kg'?[5,10,20,25]:[0.5,1,2,5]).forEach(function(sz){var btn=document.createElement('button');btn.className='filter-chip';btn.textContent='+ '+sz+product.unit;btn.addEventListener('click',function(){var cur=parseFloat(document.getElementById('modal-qty-input').value)||0;document.getElementById('modal-qty-input').value=Math.round((cur+sz)*100)/100;});qa.appendChild(btn);});document.getElementById('stock-modal').classList.add('open');setTimeout(function(){document.getElementById('modal-qty-input').focus();document.getElementById('modal-qty-input').select();},100);}
-function closeModal(){document.getElementById('stock-modal').classList.remove('open');state.modalProduct=null;}
-document.getElementById('stock-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+// ── STOCK MODAL ──
+function openStockModal(product){state.modalProduct=product;document.getElementById('modal-product-name').textContent=product.name;document.getElementById('modal-product-brand').textContent=product.brand+' · '+product.category;document.getElementById('modal-current-qty').textContent=product.qtyRemaining;document.getElementById('modal-current-unit').textContent=product.unit;document.getElementById('modal-qty-input').value=product.qtyRemaining;document.getElementById('modal-unit-label').textContent=product.unit;document.getElementById('modal-auth-notice').style.display=state.token?'none':'flex';document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;var qa=document.getElementById('modal-quick-add');qa.innerHTML='';(product.unit==='kg'?[5,10,20,25]:[0.5,1,2,5]).forEach(function(sz){var btn=document.createElement('button');btn.className='filter-chip';btn.textContent='+ '+sz+product.unit;btn.addEventListener('click',function(){var cur=parseFloat(document.getElementById('modal-qty-input').value)||0;document.getElementById('modal-qty-input').value=Math.round((cur+sz)*100)/100;});qa.appendChild(btn);});document.getElementById('stock-modal').classList.add('open');setTimeout(function(){document.getElementById('modal-qty-input').focus();document.getElementById('modal-qty-input').select();},100);}
+function closeStockModal(){document.getElementById('stock-modal').classList.remove('open');state.modalProduct=null;}
+async function saveStock(){var p=state.modalProduct;if(!p)return;var newQty=parseFloat(document.getElementById('modal-qty-input').value);if(isNaN(newQty)||newQty<0){showToast('Please enter a valid quantity','error');return;}var prod=state.inventory.products.find(function(x){return x.name===p.name;});if(prod)prod.qtyRemaining=newQty;state.inventory.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});document.getElementById('modal-current-qty').textContent=newQty;if(!state.token){closeStockModal();renderInventory();renderAlerts();renderOverview();showToast('Updated (session only — connect GitHub to save permanently)','error');return;}document.getElementById('modal-saving').style.display='block';document.getElementById('modal-save-btn').disabled=true;try{if(!state.invSha)await fetchInvSha();var inv=JSON.parse(JSON.stringify(state.inventory));var rp=inv.products.find(function(x){return x.name===p.name;});if(rp)rp.qtyRemaining=newQty;inv.lastUpdated=state.inventory.lastUpdated;var content=btoa(unescape(encodeURIComponent(JSON.stringify(inv,null,2))));var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;var body={message:'Update stock: '+p.name+' → '+newQty+p.unit,content:content,branch:CONFIG.branch};if(state.invSha)body.sha=state.invSha;var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}var data=await resp.json();state.invSha=data.content.sha;closeStockModal();renderInventory();renderAlerts();renderOverview();showToast(p.name+' updated to '+newQty+p.unit,'success');}catch(e){document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}}
 
-async function saveStock(){var p=state.modalProduct;if(!p)return;var newQty=parseFloat(document.getElementById('modal-qty-input').value);if(isNaN(newQty)||newQty<0){showToast('Please enter a valid quantity','error');return;}var prod=state.inventory.products.find(function(x){return x.name===p.name;});if(prod)prod.qtyRemaining=newQty;state.inventory.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});document.getElementById('modal-current-qty').textContent=newQty;if(!state.token){closeModal();renderInventory();renderAlerts();renderOverview();showToast('Updated (session only — connect GitHub to save permanently)','error');return;}document.getElementById('modal-saving').style.display='block';document.getElementById('modal-save-btn').disabled=true;try{if(!state.invSha)await fetchInvSha();var inv=JSON.parse(JSON.stringify(state.inventory));var rp=inv.products.find(function(x){return x.name===p.name;});if(rp)rp.qtyRemaining=newQty;inv.lastUpdated=state.inventory.lastUpdated;var content=btoa(unescape(encodeURIComponent(JSON.stringify(inv,null,2))));var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;var body={message:'Update stock: '+p.name+' → '+newQty+p.unit,content:content,branch:CONFIG.branch};if(state.invSha)body.sha=state.invSha;var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}var data=await resp.json();state.invSha=data.content.sha;closeModal();renderInventory();renderAlerts();renderOverview();showToast(p.name+' updated to '+newQty+p.unit,'success');}catch(e){document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}}
+// ── MANUAL APPLICATION LOG MODAL ──
+function openManualLogModal(){
+  var n=now();
+  document.getElementById('man-log-date').textContent=n.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('man-auth-notice').style.display=state.token?'none':'flex';
+  document.getElementById('man-label').value='';
+  document.getElementById('man-type').value='fertilise';
+  document.getElementById('man-notes').value='';
+  document.getElementById('man-saving').style.display='none';
+  document.getElementById('man-save-btn').disabled=false;
+  // Zone checkboxes
+  var zc=document.getElementById('man-zone-checks');zc.innerHTML='';
+  Object.keys(ZONE_NAMES).forEach(function(zid){
+    var lbl=document.createElement('label');lbl.style.cssText='display:flex;align-items:center;gap:5px;font-size:13px;color:var(--ink-mid);cursor:pointer;';
+    var cb=document.createElement('input');cb.type='checkbox';cb.value=zid;cb.style.accentColor='var(--grass)';
+    lbl.appendChild(cb);lbl.appendChild(document.createTextNode(ZONE_NAMES[zid]));
+    zc.appendChild(lbl);
+  });
+  // Product rows — start with one empty
+  document.getElementById('man-product-rows').innerHTML='';
+  addManProductRow();
+  document.getElementById('man-log-modal').classList.add('open');
+  setTimeout(function(){document.getElementById('man-label').focus();},100);
+}
+function closeManualLogModal(){document.getElementById('man-log-modal').classList.remove('open');}
 
-// ── ALERTS (includes mowing overdue) ──
+function addManProductRow(){
+  var rows=document.getElementById('man-product-rows');
+  var row=document.createElement('div');row.className='man-product-row';
+  var nameIn=document.createElement('input');nameIn.className='man-input';nameIn.type='text';nameIn.placeholder='Product name';
+  // Datalist of known products
+  var dlId='man-prod-list';
+  var dl=document.getElementById(dlId);
+  if(!dl){dl=document.createElement('datalist');dl.id=dlId;state.inventory.products.forEach(function(p){var opt=document.createElement('option');opt.value=p.name;dl.appendChild(opt);});document.body.appendChild(dl);}
+  nameIn.setAttribute('list',dlId);
+  var amtIn=document.createElement('input');amtIn.className='man-input amount';amtIn.type='number';amtIn.placeholder='Amount';amtIn.min='0';amtIn.step='0.01';
+  var unitSel=document.createElement('select');unitSel.className='man-select';unitSel.style.cssText='width:auto;flex-shrink:0;padding:9px 8px;';
+  UNITS.forEach(function(u){var opt=document.createElement('option');opt.value=u;opt.textContent=u;unitSel.appendChild(opt);});
+  var rmBtn=document.createElement('button');rmBtn.className='man-remove-btn';rmBtn.textContent='×';rmBtn.title='Remove';rmBtn.onclick=function(){rows.removeChild(row);};
+  row.appendChild(nameIn);row.appendChild(amtIn);row.appendChild(unitSel);row.appendChild(rmBtn);
+  rows.appendChild(row);
+}
+
+async function saveManualLog(){
+  var label=document.getElementById('man-label').value.trim();
+  if(!label){showToast('Please enter a label / description','error');return;}
+  var type=document.getElementById('man-type').value;
+  var notes=document.getElementById('man-notes').value.trim();
+  // Zones
+  var zones=[];document.querySelectorAll('#man-zone-checks input:checked').forEach(function(cb){zones.push(cb.value);});
+  // Products
+  var products=[];
+  document.querySelectorAll('#man-product-rows .man-product-row').forEach(function(row){
+    var inputs=row.querySelectorAll('input');var sel=row.querySelector('select');
+    var name=inputs[0].value.trim(),amt=parseFloat(inputs[1].value),unit=sel.value;
+    if(name&&!isNaN(amt)&&amt>0)products.push({name:name,amount:Math.round(amt*100)/100,unit:unit,deducted:false});
+  });
+  var n=now();
+  var entry={
+    id:'app_'+n.getTime(),
+    date:n.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),
+    dateISO:n.toISOString().slice(0,10),
+    taskId:'manual',taskLabel:label,taskType:type,
+    zones:zones,products:products,
+    inventoryDeducted:false,manual:true,
+    notes:notes||undefined
+  };
+  if(!state.appLog)state.appLog={entries:[]};
+  state.appLog.entries.unshift(entry);
+  if(!state.token){closeManualLogModal();renderLog();renderOverview();showToast('Entry added (session only — connect GitHub to save permanently)','error');return;}
+  document.getElementById('man-saving').style.display='block';document.getElementById('man-save-btn').disabled=true;
+  try{
+    var content=btoa(unescape(encodeURIComponent(JSON.stringify(state.appLog,null,2))));
+    var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.appLogPath;
+    var body={message:'Manual log: '+label,content:content,branch:CONFIG.branch};
+    if(state.appLogSha)body.sha=state.appLogSha;
+    var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}
+    var data=await resp.json();state.appLogSha=data.content.sha;
+    closeManualLogModal();renderLog();renderOverview();
+    showToast('Manual application logged','success');
+  }catch(e){document.getElementById('man-saving').style.display='none';document.getElementById('man-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}
+}
+
 function renderAlerts(){
   var list=document.getElementById('alerts-list'),alerts=[];
   var threshold=mowThreshold();
   var seasonLabel=(['12','1','2'].indexOf(String(currentMonthNum()))>=0)?'summer':(['3','4','5'].indexOf(String(currentMonthNum()))>=0)?'autumn':(['6','7','8'].indexOf(String(currentMonthNum()))>=0)?'winter':'spring';
-
-  // ── Mowing overdue alerts ──
-  ['back','front','strip1','strip2'].forEach(function(zid){
-    var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';
-    var last=lastMowForZone(zid);
-    if(!last){
-      // No mowing record at all — info level
-      alerts.push({type:'info',icon:'✂',title:zoneName+' — no mowing record',text:'No mowing sessions have been logged for this zone yet. Use ✂ Log a mow in the Tracker header.'});
-    } else {
-      var days=daysSince(last.dateISO);
-      if(days>=threshold){
-        alerts.push({type:'warn',icon:'✂',title:zoneName+' — mowing overdue',text:days+' days since last mow ('+last.date+' · '+last.heightMm+'mm). Threshold is '+threshold+'d in '+seasonLabel+'. Grass: '+grass+'.'});
-      }
-    }
-  });
-
-  // ── Inventory alerts ──
-  state.inventory.products.forEach(function(p){
-    var s=invStatus(p);
-    if(s.status==='critical')alerts.push({type:'critical',icon:'⚠',title:p.name+' — critically low',text:p.qtyRemaining+p.unit+' remaining. Reorder soon.'});
-    else if(s.status==='low')alerts.push({type:'warn',icon:'⊙',title:p.name+' — running low',text:p.qtyRemaining+p.unit+' remaining ('+s.pct+'% of estimated full stock).'});
-  });
-
-  // ── Compatibility rules ──
-  state.inventory.compatibility.forEach(function(rule){
-    if(rule.severity==='critical')alerts.push({type:'critical',icon:'⛔',title:'Compatibility rule',text:rule.rule});
-  });
-
-  // ── Month not started ──
+  ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';var last=lastMowForZone(zid);if(!last){alerts.push({type:'info',icon:'✂',title:zoneName+' — no mowing record',text:'No mowing sessions logged yet. Use ✂ Log a mow in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=threshold)alerts.push({type:'warn',icon:'✂',title:zoneName+' — mowing overdue',text:days+'d since last mow ('+last.date+' · '+last.heightMm+'mm). Threshold '+threshold+'d in '+seasonLabel+'. Grass: '+grass+'.'});}});
+  state.inventory.products.forEach(function(p){var s=invStatus(p);if(s.status==='critical')alerts.push({type:'critical',icon:'⚠',title:p.name+' — critically low',text:p.qtyRemaining+p.unit+' remaining. Reorder soon.'});else if(s.status==='low')alerts.push({type:'warn',icon:'⊙',title:p.name+' — running low',text:p.qtyRemaining+p.unit+' remaining ('+s.pct+'% of estimated full stock).'});});
+  state.inventory.compatibility.forEach(function(rule){if(rule.severity==='critical')alerts.push({type:'critical',icon:'⛔',title:'Compatibility rule',text:rule.rule});});
   var mn=currentMonthNum(),c=countDone(mn);
-  if(c.total>0&&c.done===0){
-    var MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
-    alerts.push({type:'info',icon:'📋',title:MN[mn-1]+' program not started',text:c.total+' tasks scheduled this month, none completed yet.'});
-  }
-
-  // ── Program meta notes ──
-  if(state.program.meta&&state.program.meta.notes){
-    state.program.meta.notes.forEach(function(note){
-      if(note.toLowerCase().indexOf('critical')>=0||note.toLowerCase().indexOf('never')>=0||note.toLowerCase().indexOf('must')>=0)
-        alerts.push({type:'warn',icon:'ℹ',title:'Program rule',text:note});
-    });
-  }
-
+  if(c.total>0&&c.done===0){var MN=['January','February','March','April','May','June','July','August','September','October','November','December'];alerts.push({type:'info',icon:'📋',title:MN[mn-1]+' program not started',text:c.total+' tasks scheduled this month, none completed yet.'});}
+  if(state.program.meta&&state.program.meta.notes){state.program.meta.notes.forEach(function(note){if(note.toLowerCase().indexOf('critical')>=0||note.toLowerCase().indexOf('never')>=0||note.toLowerCase().indexOf('must')>=0)alerts.push({type:'warn',icon:'ℹ',title:'Program rule',text:note});});}
   if(alerts.length===0){list.innerHTML='<div class="no-alerts">No alerts — everything looks good.</div>';return;}
-  list.innerHTML='';
-  alerts.forEach(function(a){
-    var item=document.createElement('div');item.className='alert-item '+a.type;
-    item.innerHTML='<div class="alert-icon">'+a.icon+'</div><div class="alert-body"><div class="alert-title">'+esc(a.title)+'</div><div class="alert-text">'+esc(a.text)+'</div></div>';
-    list.appendChild(item);
-  });
-  var at=document.querySelector('[data-tab="alerts"]');
-  if(at)at.textContent='Alerts ('+alerts.length+')';
+  list.innerHTML='';alerts.forEach(function(a){var item=document.createElement('div');item.className='alert-item '+a.type;item.innerHTML='<div class="alert-icon">'+a.icon+'</div><div class="alert-body"><div class="alert-title">'+esc(a.title)+'</div><div class="alert-text">'+esc(a.text)+'</div></div>';list.appendChild(item);});
+  var at=document.querySelector('[data-tab="alerts"]');if(at)at.textContent='Alerts ('+alerts.length+')';
 }
 
 function renderZones(){var grid=document.getElementById('zone-summary-grid');grid.innerHTML='';var mn=currentMonthNum(),m=getMonthData(mn);state.inventory.zones.forEach(function(z){var tc=0;if(m)m.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){if((t.zones||[]).indexOf(z.id)>=0)tc++;});});var card=document.createElement('div');card.className='zone-card';card.innerHTML='<div class="zone-area-big">'+z.areaSqm+'m²</div><div class="zone-card-name">'+esc(z.name)+'</div><div class="zone-card-grass '+z.grass+'">'+z.grass.toUpperCase()+'</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Tasks this month</span><span class="zone-stat-val">'+tc+'</span></div></div>';grid.appendChild(card);});var tc=document.createElement('div');tc.className='zone-card';tc.innerHTML='<div class="zone-area-big">140.15m²</div><div class="zone-card-name">Total lawn area</div><div class="zone-card-grass" style="color:var(--ink-light);">ALL ZONES</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Kikuyu</span><span class="zone-stat-val">68.2m²</span></div><div class="zone-stat-row"><span class="zone-stat-label">Zoysia</span><span class="zone-stat-val">35.0m²</span></div><div class="zone-stat-row"><span class="zone-stat-label">Couch</span><span class="zone-stat-val">36.95m²</span></div></div>';grid.appendChild(tc);var cl=document.getElementById('compat-list');cl.innerHTML='';state.inventory.compatibility.forEach(function(rule){var item=document.createElement('div');item.className='alert-item '+(rule.severity==='critical'?'critical':'warn');item.style.marginBottom='8px';item.innerHTML='<div class="alert-icon">'+(rule.severity==='critical'?'⛔':'⚠')+'</div><div class="alert-body"><div class="alert-title">'+esc(rule.products.join(', '))+'</div><div class="alert-text">'+esc(rule.rule)+'</div></div>';cl.appendChild(item);});}
