@@ -14,6 +14,8 @@
   --cat-fertilise:#4a7c3f;--cat-biostimulant:#7b5ea7;--cat-herbicide:#c0692a;
   --cat-fungicide:#c0882a;--cat-insecticide:#2a7aa0;--cat-soilwetter:#3a7a8a;--cat-renovation:#6b4c2a;
   --status-low:#c0882a;--status-critical:#c04040;
+  --weather-rain:#2a7aa0;--weather-heat:#c0882a;--weather-frost:#6aaed6;
+  --weather-drought:#c0692a;--weather-storm:#1a3a6a;--weather-observation:#4a7c3f;--weather-other:#8a8a7a;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -46,10 +48,11 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .stat-sub{font-size:13px;color:var(--ink-mid);margin-top:6px;}
 .panel{background:white;border:1px solid var(--border);border-radius:6px;padding:22px 24px;margin-bottom:20px;}
 .panel-title{font-size:13px;text-transform:uppercase;letter-spacing:0.8px;color:var(--ink-light);margin-bottom:16px;}
-.panel-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.panel-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
 .panel-title-row .panel-title{margin-bottom:0;}
 .panel-btn{font-size:12px;padding:5px 12px;border-radius:4px;border:1px solid var(--grass);background:white;color:var(--grass);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.15s;}
 .panel-btn:hover{background:var(--grass);color:white;}
+.panel-btn-row{display:flex;gap:7px;flex-wrap:wrap;}
 .progress-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
 .progress-row-label{font-size:14px;color:var(--ink-mid);min-width:130px;flex-shrink:0;}
 .progress-bar-wrap{flex:1;height:8px;background:var(--border-light);border-radius:4px;overflow:hidden;}
@@ -71,8 +74,11 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .inv-bar-wrap{height:5px;background:var(--border-light);border-radius:3px;overflow:hidden;margin-bottom:6px;}
 .inv-bar-fill{height:100%;border-radius:3px;transition:width 0.5s ease;}
 .inv-card-meta{font-size:12px;color:var(--ink-light);display:flex;justify-content:space-between;}
-.inv-card-edit-hint{font-size:11px;color:var(--grass);margin-top:6px;opacity:0;transition:opacity 0.15s;}
-.inv-card:hover .inv-card-edit-hint{opacity:1;}
+.inv-card-actions{display:flex;align-items:center;justify-content:space-between;margin-top:6px;opacity:0;transition:opacity 0.15s;}
+.inv-card:hover .inv-card-actions{opacity:1;}
+.inv-card-edit-hint{font-size:11px;color:var(--grass);}
+.inv-card-resupply{font-size:11px;padding:2px 8px;border-radius:8px;border:1px solid var(--grass);background:white;color:var(--grass);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.12s;}
+.inv-card-resupply:hover{background:var(--grass);color:white;}
 .inv-status-badge{font-size:11px;padding:2px 7px;border-radius:10px;font-weight:500;flex-shrink:0;align-self:flex-start;}
 .inv-status-badge.ok{background:var(--grass-pale);color:var(--grass);}
 .inv-status-badge.low{background:#fff5e0;color:#8a5a00;}
@@ -142,7 +148,6 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .zone-stat-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;}
 .zone-stat-label{color:var(--ink-light);}.zone-stat-val{color:var(--ink-mid);font-weight:500;}
 .zone-area-big{font-family:'Fraunces',serif;font-size:28px;font-weight:200;color:var(--grass);letter-spacing:-1px;margin-bottom:8px;}
-/* ── LOG ── */
 .log-table-wrap{overflow-x:auto;}
 .log-table{width:100%;border-collapse:collapse;font-size:13px;}
 .log-table th{text-align:left;padding:8px 12px;border-bottom:2px solid var(--border);font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);background:var(--cream);white-space:nowrap;}
@@ -163,7 +168,6 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .last-applied-date{font-size:12px;color:var(--ink-light);}
 .last-applied-days{font-family:'Fraunces',serif;font-size:22px;font-weight:300;color:var(--grass);letter-spacing:-0.5px;}
 .last-applied-days.stale{color:var(--status-low);}
-/* ── MOWING ── */
 .mow-zone-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:8px;}
 .mow-zone-card{background:white;border:1px solid var(--border);border-radius:6px;padding:14px 16px;}
 .mow-zone-card.overdue{border-color:var(--status-low);background:#fffaf0;}
@@ -173,7 +177,30 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .mow-zone-days.overdue{color:var(--status-low);}
 .mow-zone-sub{font-size:12px;color:var(--ink-light);margin-top:4px;}
 .mow-zone-card.never .mow-zone-days{color:var(--ink-light);font-size:18px;}
-/* ── MANUAL LOG FORM ── */
+.water-zone-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:8px;}
+.water-zone-card{background:white;border:1px solid var(--border);border-radius:6px;padding:14px 16px;}
+.water-zone-card.overdue{border-color:#c04040;background:#fff0f0;}
+.water-zone-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.water-zone-grass{font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);margin-bottom:8px;}
+.water-zone-days{font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:var(--weather-rain);letter-spacing:-0.5px;line-height:1;}
+.water-zone-days.overdue{color:var(--status-critical);}
+.water-zone-sub{font-size:12px;color:var(--ink-light);margin-top:4px;}
+.water-zone-card.never .water-zone-days{color:var(--ink-light);font-size:18px;}
+.weather-panel{margin-bottom:20px;}
+.weather-list{display:flex;flex-direction:column;gap:7px;}
+.weather-entry{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:5px;background:var(--paper);border:1px solid var(--border-light);}
+.weather-tag{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500;white-space:nowrap;flex-shrink:0;margin-top:1px;color:white;}
+.weather-tag.rain{background:var(--weather-rain);}
+.weather-tag.heat{background:var(--weather-heat);}
+.weather-tag.frost{background:var(--weather-frost);color:var(--ink);}
+.weather-tag.drought{background:var(--weather-drought);}
+.weather-tag.storm{background:var(--weather-storm);}
+.weather-tag.observation{background:var(--weather-observation);}
+.weather-tag.other{background:var(--weather-other);}
+.weather-date{font-size:12px;color:var(--ink-light);white-space:nowrap;flex-shrink:0;min-width:85px;padding-top:2px;}
+.weather-note{font-size:13px;color:var(--ink-mid);flex:1;line-height:1.5;}
+.weather-empty{font-size:13px;color:var(--ink-light);font-style:italic;padding:8px 0;}
+.weather-toggle{font-size:12px;color:var(--grass);background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;text-decoration:underline;padding:6px 0 0 0;}
 .man-form{display:flex;flex-direction:column;gap:14px;}
 .man-field-label{font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);margin-bottom:5px;}
 .man-select,.man-input,.man-textarea{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:5px;font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);background:white;outline:none;appearance:none;}
@@ -200,7 +227,6 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .season-band-seg.summer{background:#d4a017;}.season-band-seg.autumn{background:#c07030;}.season-band-seg.winter{background:#4a80b0;}.season-band-seg.spring{background:#5a9448;}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 @media(max-width:700px){.two-col{grid-template-columns:1fr;}}
-/* ── MODALS ── */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:500;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal{background:white;border-radius:8px;width:100%;max-width:460px;box-shadow:0 8px 40px rgba(0,0,0,0.2);overflow:hidden;max-height:90vh;display:flex;flex-direction:column;}
@@ -267,8 +293,21 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 
     <!-- OVERVIEW -->
     <div class="section" id="tab-overview">
-      <div class="section-heading"><div class="section-title">Overview</div><div class="section-sub" id="overview-date"></div></div>
+      <div class="section-heading">
+        <div class="section-title">Overview</div>
+        <div class="section-sub" id="overview-date"></div>
+        <div style="margin-left:auto;">
+          <button class="panel-btn" onclick="openWeatherModal()">🌤 Log observation</button>
+        </div>
+      </div>
       <div class="stat-grid" id="stat-grid"></div>
+      <div class="panel weather-panel" id="weather-panel">
+        <div class="panel-title-row">
+          <div class="panel-title">🌤 Weather &amp; Observations</div>
+          <button class="weather-toggle" id="weather-toggle-btn" onclick="toggleWeatherList()">Show all</button>
+        </div>
+        <div id="weather-list-container"></div>
+      </div>
       <div class="two-col">
         <div class="panel"><div class="panel-title">Monthly Progress — This Year</div><div id="monthly-progress-bars"></div></div>
         <div class="panel"><div class="panel-title">Upcoming this month</div><div class="upcoming-list" id="upcoming-list"></div></div>
@@ -309,11 +348,22 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 
     <!-- LOG -->
     <div class="section" id="tab-log">
-      <div class="section-heading"><div class="section-title">Log</div><div class="section-sub" id="log-section-sub">Applications &amp; mowing history</div></div>
+      <div class="section-heading"><div class="section-title">Log</div><div class="section-sub" id="log-section-sub">Applications, watering &amp; mowing history</div></div>
+      <div class="panel">
+        <div class="panel-title">💧 Watering — days since last water per zone</div>
+        <div class="water-zone-grid" id="water-zone-grid"></div>
+        <div style="font-size:12px;color:var(--ink-light);margin-top:4px;">Amber = overdue (&gt;3d summer · &gt;5d other seasons). Log watering via the 💧 button in the Tracker header.</div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Watering history</div>
+        <div class="log-table-wrap">
+          <table class="log-table"><thead><tr><th>Date</th><th>Zones</th><th>Method</th><th>Duration</th><th>Amount</th><th>Notes</th></tr></thead><tbody id="water-tbody"></tbody></table>
+        </div>
+      </div>
       <div class="panel">
         <div class="panel-title">✂ Mowing — days since last mow per zone</div>
         <div class="mow-zone-grid" id="mow-zone-grid"></div>
-        <div style="font-size:12px;color:var(--ink-light);margin-top:4px;">Amber = overdue (>14d summer/autumn · >21d winter/spring). Log mows via the Tracker header.</div>
+        <div style="font-size:12px;color:var(--ink-light);margin-top:4px;">Amber = overdue (&gt;14d summer/autumn · &gt;21d winter/spring). Log mows via the Tracker header.</div>
       </div>
       <div class="panel">
         <div class="panel-title">Mowing history</div>
@@ -332,7 +382,10 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
       <div class="panel">
         <div class="panel-title-row">
           <div class="panel-title">All applications</div>
-          <button class="panel-btn" onclick="openManualLogModal()">+ Log manual application</button>
+          <div class="panel-btn-row">
+            <button class="panel-btn" onclick="exportCSV()">↓ Export CSV</button>
+            <button class="panel-btn" onclick="openManualLogModal()">+ Log manual application</button>
+          </div>
         </div>
         <div class="filter-chips" id="log-filter-chips"></div>
         <div class="log-table-wrap">
@@ -343,7 +396,7 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 
     <!-- ALERTS -->
     <div class="section" id="tab-alerts">
-      <div class="section-heading"><div class="section-title">Alerts</div><div class="section-sub">Inventory, mowing &amp; program warnings</div></div>
+      <div class="section-heading"><div class="section-title">Alerts</div><div class="section-sub">Inventory, mowing, watering &amp; program warnings</div></div>
       <div class="alerts-list" id="alerts-list"></div>
     </div>
 
@@ -382,6 +435,34 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
     <div class="modal-actions">
       <button class="modal-btn secondary" onclick="closeStockModal()">Cancel</button>
       <button class="modal-btn primary" id="modal-save-btn" onclick="saveStock()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESUPPLY MODAL -->
+<div class="modal-overlay" id="resupply-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div><div class="modal-title" id="resupply-product-name">Resupply</div><div class="modal-subtitle">Add received stock to current quantity</div></div>
+      <button class="modal-close" onclick="closeResupplyModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-current">
+        <div class="modal-current-label">Current stock</div>
+        <div><span class="modal-current-val" id="resupply-current-qty">—</span><span class="modal-current-unit" id="resupply-current-unit"></span></div>
+      </div>
+      <div id="resupply-auth-notice" class="modal-auth-notice" style="display:none;">⚠ Connect GitHub to save changes permanently.</div>
+      <div class="modal-field-label">Amount received</div>
+      <div class="modal-input-row">
+        <input class="modal-input" type="number" id="resupply-amount-input" min="0.01" step="0.01" placeholder="0.00">
+        <span class="modal-unit-label" id="resupply-unit-label"></span>
+      </div>
+      <div style="font-size:12px;color:var(--ink-light);margin-top:-8px;margin-bottom:16px;">New total will be shown after saving.</div>
+      <div class="modal-saving" id="resupply-saving">Saving to GitHub…</div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeResupplyModal()">Cancel</button>
+      <button class="modal-btn primary" id="resupply-save-btn" onclick="saveResupply()">Add stock</button>
     </div>
   </div>
 </div>
@@ -435,15 +516,67 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
   </div>
 </div>
 
+<!-- WEATHER MODAL -->
+<div class="modal-overlay" id="weather-modal">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-header">
+      <div><div class="modal-title">Log observation</div><div class="modal-subtitle" id="weather-modal-date"></div></div>
+      <button class="modal-close" onclick="closeWeatherModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="weather-auth-notice" class="modal-auth-notice" style="display:none;">⚠ Connect GitHub to save. Entry will be lost on refresh without auth.</div>
+      <div class="man-form">
+        <div>
+          <div class="man-field-label">Date</div>
+          <input class="man-input" type="date" id="weather-date-input">
+        </div>
+        <div>
+          <div class="man-field-label">Type</div>
+          <select class="man-select" id="weather-type-input">
+            <option value="rain">🌧 Rain</option>
+            <option value="heat">🌡 Heat</option>
+            <option value="frost">❄ Frost</option>
+            <option value="drought">☀ Drought</option>
+            <option value="storm">⛈ Storm</option>
+            <option value="observation" selected>🔍 Observation</option>
+            <option value="other">📝 Other</option>
+          </select>
+        </div>
+        <div>
+          <div class="man-field-label">Note <span style="font-weight:normal;text-transform:none;letter-spacing:0;color:var(--ink-light);">(max 200 chars)</span></div>
+          <textarea class="man-textarea" id="weather-note-input" placeholder="e.g. 25mm overnight rain, temps reached 38°C, light frost on grass this morning…" maxlength="200"></textarea>
+          <div style="font-size:11px;color:var(--ink-light);margin-top:4px;text-align:right;"><span id="weather-note-counter">0</span>/200</div>
+        </div>
+      </div>
+      <div class="modal-saving" id="weather-saving">Saving to GitHub…</div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeWeatherModal()">Cancel</button>
+      <button class="modal-btn primary" id="weather-save-btn" onclick="saveWeather()">Save observation</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
-var CONFIG={owner:'cjj-gmail',repo:'lawn-care-tools',branch:'main',base:'https://raw.githubusercontent.com/cjj-gmail/lawn-care-tools/main/data/',workerUrl:'https://lawn-care-tools.cameronjude1.workers.dev',invPath:'data/inventory.json',appLogPath:'data/applications.json'};
-var state={program:null,inventory:null,completions:{},appLog:null,mowLog:null,invSha:null,appLogSha:null,token:null,modalProduct:null};
+var CONFIG={
+  owner:'cjj-gmail',repo:'lawn-care-tools',branch:'main',
+  base:'https://raw.githubusercontent.com/cjj-gmail/lawn-care-tools/main/data/',
+  workerUrl:'https://lawn-care-tools.cameronjude1.workers.dev',
+  invPath:'data/inventory.json',appLogPath:'data/applications.json',
+  mowPath:'data/mowing.json',waterPath:'data/watering.json',weatherPath:'data/weather.json'
+};
+var state={
+  program:null,inventory:null,completions:{},appLog:null,mowLog:null,waterLog:null,weatherLog:null,
+  invSha:null,appLogSha:null,weatherSha:null,token:null,modalProduct:null,resupplyProduct:null,
+  weatherExpanded:false
+};
 var TYPE_COLORS={fertilise:'#4a7c3f',biostimulant:'#7b5ea7',herbicide:'#c0692a',fungicide:'#c0882a',insecticide:'#2a7aa0',soilwetter:'#3a7a8a',renovation:'#6b4c2a'};
 var ZONE_NAMES={back:'Back Lawn',front:'Front Lawn',strip1:'Nature Strip',strip2:'Left Strip'};
 var ZONE_GRASS={back:'Kikuyu',front:'Zoysia',strip1:'Couch',strip2:'Couch'};
 var UNITS=['mL','L','g','kg'];
+var WATER_METHODS={sprinkler:'Sprinkler',hose:'Hose',drip:'Drip irrigation',manual:'Manual/watering can'};
 
 function startLogin(){sessionStorage.setItem('dash_return','true');window.location.href=CONFIG.workerUrl+'/login?redirect='+encodeURIComponent(window.location.href);}
 async function handleOAuthCallback(code){try{var r=await fetch(CONFIG.workerUrl+'/callback?code='+code);var d=await r.json();if(d.access_token){state.token=d.access_token;sessionStorage.setItem('gh_token',d.access_token);}}catch(e){}}
@@ -476,18 +609,26 @@ async function init(){
   try{var cR=await fetch(CONFIG.base+'completions.json?t='+Date.now());if(cR.ok)state.completions=await cR.json();}catch(e){}
   try{
     var aR=await fetch(CONFIG.base+'applications.json?t='+Date.now());
-    if(aR.ok){var aD=await aR.json();state.appLog=aD;// fetch SHA too
-      try{var aSha=await fetch('https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.appLogPath,{headers:state.token?{'Authorization':'token '+state.token,'Accept':'application/vnd.github.v3+json'}:{'Accept':'application/vnd.github.v3+json'}});if(aSha.ok){var aSD=await aSha.json();state.appLogSha=aSD.sha;}}catch(e){}
-    }else state.appLog={entries:[]};
+    if(aR.ok){state.appLog=await aR.json();try{var aSha=await fetch('https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.appLogPath,{headers:state.token?{'Authorization':'token '+state.token,'Accept':'application/vnd.github.v3+json'}:{'Accept':'application/vnd.github.v3+json'}});if(aSha.ok){var aSD=await aSha.json();state.appLogSha=aSD.sha;}}catch(e){}}
+    else state.appLog={entries:[]};
   }catch(e){state.appLog={entries:[]};}
   try{var mR=await fetch(CONFIG.base+'mowing.json?t='+Date.now());if(mR.ok)state.mowLog=await mR.json();else state.mowLog={entries:[]};}catch(e){state.mowLog={entries:[]};}
+  try{var wR=await fetch(CONFIG.base+'watering.json?t='+Date.now());if(wR.ok)state.waterLog=await wR.json();else state.waterLog={entries:[]};}catch(e){state.waterLog={entries:[]};}
+  try{
+    var weR=await fetch(CONFIG.base+'weather.json?t='+Date.now());
+    if(weR.ok){state.weatherLog=await weR.json();try{var weSha=await fetch('https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.weatherPath,{headers:state.token?{'Authorization':'token '+state.token,'Accept':'application/vnd.github.v3+json'}:{'Accept':'application/vnd.github.v3+json'}});if(weSha.ok){var weSD=await weSha.json();state.weatherSha=weSD.sha;}}catch(e){}}
+    else state.weatherLog={entries:[]};
+  }catch(e){state.weatherLog={entries:[]};}
   fetchInvSha();
   var seen={};state.inventory.products=state.inventory.products.filter(function(p){if(seen[p.name])return false;seen[p.name]=true;return true;});
   document.getElementById('loading-screen').style.display='none';document.getElementById('dashboard').style.display='block';
   updateAuthUI();setupNav(tabParam);
   renderOverview();renderProgram();renderInventory();renderLog();renderAlerts();renderZones();
   document.getElementById('stock-modal').addEventListener('click',function(e){if(e.target===this)closeStockModal();});
+  document.getElementById('resupply-modal').addEventListener('click',function(e){if(e.target===this)closeResupplyModal();});
   document.getElementById('man-log-modal').addEventListener('click',function(e){if(e.target===this)closeManualLogModal();});
+  document.getElementById('weather-modal').addEventListener('click',function(e){if(e.target===this)closeWeatherModal();});
+  document.getElementById('weather-note-input').addEventListener('input',function(){document.getElementById('weather-note-counter').textContent=this.value.length;});
 }
 
 async function fetchInvSha(){try{var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;var h={'Accept':'application/vnd.github.v3+json'};if(state.token)h['Authorization']='token '+state.token;var r=await fetch(url,{headers:h});if(r.ok){var d=await r.json();state.invSha=d.sha;}}catch(e){}}
@@ -503,21 +644,15 @@ function invStatus(p){var rem=p.qtyRemaining,unit=p.unit;var fm={'TX10 (5-2-8)':
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function daysSince(dateISO){var d=new Date(dateISO+'T00:00:00');return Math.floor((now()-d)/86400000);}
 function mowThreshold(){var mn=currentMonthNum(),summer=[12,1,2],autumn=[3,4,5];return(summer.indexOf(mn)>=0||autumn.indexOf(mn)>=0)?14:21;}
+function waterThreshold(){var mn=currentMonthNum(),summer=[12,1,2];return summer.indexOf(mn)>=0?3:5;}
 function lastMowForZone(zid){var entries=state.mowLog?state.mowLog.entries:[];var last=null;for(var i=0;i<entries.length;i++){var e=entries[i];if(e.zone===zid||e.zone==='all'){if(!last||e.dateISO>last.dateISO)last=e;}}return last;}
-
-// ── LAST APPLICATION helper ──
-function lastAppDate(){
-  var entries=state.appLog?state.appLog.entries:[];
-  if(!entries.length)return null;
-  // entries are newest-first
-  return entries[0];
-}
+function lastWaterForZone(zid){var entries=state.waterLog?state.waterLog.entries:[];var last=null;for(var i=0;i<entries.length;i++){var e=entries[i];if((e.zones||[]).indexOf(zid)>=0||(e.zones||[]).indexOf('all')>=0){if(!last||e.dateISO>last.dateISO)last=e;}}return last;}
+function lastAppDate(){var entries=state.appLog?state.appLog.entries:[];if(!entries.length)return null;return entries[0];}
 
 function renderOverview(){
   var d=now(),MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
   document.getElementById('overview-date').textContent=d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   var mn=currentMonthNum(),tm=countDone(mn),td=totalDoneCount(),tt=totalTaskCount(),yp=tt>0?Math.round(td/tt*100):0;
-  var lc=0;state.inventory.products.forEach(function(p){if(invStatus(p).status!=='ok')lc++;});
   var la=lastAppDate();
   var laVal=la?daysSince(la.dateISO)+'d ago':'—';
   var laSub=la?'Last: '+la.date+' · '+esc(la.taskLabel||la.taskType||''):'No applications logged yet';
@@ -527,6 +662,7 @@ function renderOverview(){
     {val:yp+'%',label:'Year completion',sub:td+' of '+tt+' tasks done'},
     {val:laVal,label:'Last application',sub:laSub},
   ].map(function(s){return '<div class="stat-tile"><div class="stat-value">'+esc(s.val.toString())+'</div><div class="stat-label">'+s.label+'</div>'+(s.sub?'<div class="stat-sub">'+esc(s.sub)+'</div>':'')+'</div>';}).join('');
+  renderWeatherPanel();
   var mpb=document.getElementById('monthly-progress-bars');mpb.innerHTML='';
   state.program.months.forEach(function(m){var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0,isThis=m.monthNum===mn;var row=document.createElement('div');row.className='progress-row';row.innerHTML='<div class="progress-row-label" style="'+(isThis?'color:var(--grass);font-weight:500;':'')+'">'+m.month.slice(0,3)+(isThis?' ◄':'')+'</div><div class="progress-bar-wrap"><div class="progress-bar-fill ok" style="width:'+pct+'%"></div></div><div class="progress-row-num">'+c.done+'/'+c.total+'</div>';mpb.appendChild(row);});
   var ul=document.getElementById('upcoming-list');ul.innerHTML='';
@@ -537,13 +673,30 @@ function renderOverview(){
   state.inventory.products.forEach(function(p){var s=invStatus(p),row=document.createElement('div');row.className='progress-row';row.style.marginBottom='7px';row.innerHTML='<div class="progress-row-label" style="font-size:13px;">'+esc(p.name)+'</div><div class="progress-bar-wrap" style="height:6px;"><div class="progress-bar-fill '+s.status+'" style="width:'+s.pct+'%"></div></div><div class="progress-row-num" style="font-size:12px;">'+p.qtyRemaining+p.unit+'</div>';isb.appendChild(row);});
 }
 
+function renderWeatherPanel(){
+  var entries=(state.weatherLog&&state.weatherLog.entries)||[];
+  var container=document.getElementById('weather-list-container');
+  var toggleBtn=document.getElementById('weather-toggle-btn');
+  if(entries.length===0){container.innerHTML='<div class="weather-empty">No observations logged yet. Use the 🌤 button above to add one.</div>';toggleBtn.style.display='none';return;}
+  toggleBtn.style.display='inline';
+  var displayCount=state.weatherExpanded?entries.length:Math.min(5,entries.length);
+  toggleBtn.textContent=state.weatherExpanded?'Show less':'Show all ('+entries.length+')';
+  var html='<div class="weather-list">';
+  entries.slice(0,displayCount).forEach(function(e){
+    html+='<div class="weather-entry"><span class="weather-date">'+esc(e.date)+'</span><span class="weather-tag '+esc(e.type)+'">'+esc(e.type)+'</span><span class="weather-note">'+esc(e.note)+'</span></div>';
+  });
+  html+='</div>';
+  container.innerHTML=html;
+}
+function toggleWeatherList(){state.weatherExpanded=!state.weatherExpanded;renderWeatherPanel();}
+
 function renderProgram(){
   var mn=currentMonthNum(),grid=document.getElementById('month-grid');grid.innerHTML='';
   state.program.months.forEach(function(m){var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0;var tile=document.createElement('a');tile.className='month-tile'+(m.monthNum===mn?' current':'');tile.href='tracker.html?month='+m.monthNum;tile.innerHTML='<div class="month-tile-top"><div class="month-tile-name">'+m.month.slice(0,3)+'</div><div style="display:flex;align-items:center;gap:6px;"><div class="season-dot '+m.season+'"></div><span class="month-tile-arrow">→</span></div></div><div class="month-tile-bar"><div class="month-tile-fill" style="width:'+pct+'%"></div></div><div class="month-tile-count"><span class="done">'+c.done+'</span> / '+c.total+' tasks</div>';grid.appendChild(tile);});
   document.getElementById('type-legend').innerHTML=Object.entries(TYPE_COLORS).map(function(e){return '<div class="legend-item"><div class="legend-dot" style="background:'+e[1]+'"></div>'+e[0].replace('soilwetter','soil wetter')+'</div>';}).join('');
   var chips=document.getElementById('program-filter-chips'),af='all';
   function bc(){chips.innerHTML='';['all','fertilise','biostimulant','herbicide','fungicide','insecticide','soilwetter','renovation'].forEach(function(f){var c=document.createElement('button');c.className='filter-chip'+(f===af?' active':'');c.textContent=f==='all'?'All':f.replace('soilwetter','soil wetter');c.addEventListener('click',function(){af=f;bc();bt();});chips.appendChild(c);});}
-  function bt(){var tb=document.getElementById('prog-tbody');tb.innerHTML='';state.program.months.forEach(function(m){m.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){if(af!=='all'&&t.taskType!==af)return;var id=!!state.completions[t.id],cl=TYPE_COLORS[t.taskType]||'#888';var tr=document.createElement('tr');tr.className=id?'completed-row':'';tr.innerHTML='<td>'+m.month.slice(0,3)+'</td><td>W'+w.week+'</td><td><div class="task-name-cell"><div class="type-pip" style="background:'+cl+'"></div>'+esc(t.label)+(t.conditional?'<span class="cond-flag">if req.</span>':'')+'</div></td><td>'+t.taskType.replace('soilwetter','soil wetter')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(t.applicationMethod).replace('Backpack or handheld sprayer','Sprayer').replace('Fertiliser spreader','Spreader')+'</td><td><div class="done-check '+(id?'yes':'no')+'">'+(id?'✓':'')+'</div></td>';tb.appendChild(tr);});});});}
+  function bt(){var tb=document.getElementById('prog-tbody');tb.innerHTML='';state.program.months.forEach(function(m){m.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){if(af!=='all'&&t.taskType!==af)return;var id=!!state.completions[t.id],cl=TYPE_COLORS[t.taskType]||'#888';var tr=document.createElement('tr');tr.className=id?'completed-row':'';tr.innerHTML='<td>'+m.month.slice(0,3)+'</td><td>W'+w.week+'</td><td><div class="task-name-cell"><div class="type-pip" style="background:'+cl+'"></div>'+esc(t.label)+(t.conditional?'<span class="cond-flag">if req.</span>':'')+'</div></td><td>'+t.taskType.replace('soilwetter','soil wetter')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(t.applicationMethod).replace('Backpack or handheld sprayer','Sprayer').replace('Fertiliser spreader','Spreader')+'</td><td><div class="done-check '+(id?'yes':'no')+'">'+( id?'✓':'')+'</div></td>';tb.appendChild(tr);});});});}
   bc();bt();
 }
 
@@ -552,18 +705,42 @@ function renderInventory(){
   document.getElementById('inv-section-sub').textContent=products.length+' products · updated '+state.inventory.lastUpdated+' · click a card to update stock';
   var total=products.length,ok=0,low=0,crit=0;
   products.forEach(function(p){var s=invStatus(p).status;if(s==='ok')ok++;else if(s==='low')low++;else crit++;});
-  document.getElementById('inv-stat-grid').innerHTML=[{val:total,label:'Products',sub:'in inventory'},{val:ok,label:'Well stocked',sub:'>40% remaining'},{val:low,label:'Running low',sub:'15–40% remaining'},{val:crit,label:'Critical',sub:'<15% remaining'}].map(function(s){return '<div class="stat-tile"><div class="stat-value" style="'+(s.label==='Critical'&&crit>0?'color:var(--status-critical);':'')+(s.label==='Running low'&&low>0?'color:var(--status-low);':'')+'">'+s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
+  document.getElementById('inv-stat-grid').innerHTML=[{val:total,label:'Products',sub:'in inventory'},{val:ok,label:'Well stocked',sub:'>40% remaining'},{val:low,label:'Running low',sub:'15–40% remaining'},{val:crit,label:'Critical',sub:'<15% remaining'}].map(function(s){return '<div class="stat-tile"><div class="stat-value" style="'+(s.label==='Critical'&&crit>0?'color:var(--status-critical);':'')+(s.label==='Running low'&&low>0?'color:var(--status-low);':'')+'">'+ s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
   var cats=['All'];products.forEach(function(p){if(cats.indexOf(p.category)<0)cats.push(p.category);});
   var af='All',fc=document.getElementById('inv-filter-chips');
   function bic(){fc.innerHTML='';cats.forEach(function(c){var ch=document.createElement('button');ch.className='filter-chip'+(c===af?' active':'');ch.textContent=c;ch.addEventListener('click',function(){af=c;bic();big();});fc.appendChild(ch);});}
-  function big(){var grid=document.getElementById('inv-grid');grid.innerHTML='';var filtered=af==='All'?products:products.filter(function(p){return p.category===af;});filtered.forEach(function(p){var s=invStatus(p),card=document.createElement('div');card.className='inv-card';card.dataset.cat=p.category;card.innerHTML='<div class="inv-card-top"><div><div class="inv-card-name">'+esc(p.name)+'</div><div class="inv-card-brand">'+esc(p.brand)+' · '+esc(p.category)+'</div></div><span class="inv-status-badge '+s.status+'">'+(s.status==='ok'?'OK':s.status==='low'?'LOW':'⚠ LOW')+'</span></div><div class="inv-bar-wrap"><div class="inv-bar-fill" style="width:'+s.pct+'%;background:'+(s.status==='ok'?'var(--grass)':s.status==='low'?'var(--status-low)':'var(--status-critical)')+';"></div></div><div class="inv-card-meta"><span>'+p.qtyRemaining+p.unit+' remaining</span><span>'+esc(p.ratePer100sqm)+' / 100m²</span></div><div class="inv-card-edit-hint">✏ Click to update stock</div>';card.addEventListener('click',function(){openStockModal(p);});grid.appendChild(card);});}
+  function big(){
+    var grid=document.getElementById('inv-grid');grid.innerHTML='';
+    var filtered=af==='All'?products:products.filter(function(p){return p.category===af;});
+    filtered.forEach(function(p){
+      var s=invStatus(p),card=document.createElement('div');
+      card.className='inv-card';card.dataset.cat=p.category;
+      card.innerHTML='<div class="inv-card-top"><div><div class="inv-card-name">'+esc(p.name)+'</div><div class="inv-card-brand">'+esc(p.brand)+' · '+esc(p.category)+'</div></div><span class="inv-status-badge '+s.status+'">'+(s.status==='ok'?'OK':s.status==='low'?'LOW':'⚠ LOW')+'</span></div><div class="inv-bar-wrap"><div class="inv-bar-fill" style="width:'+s.pct+'%;background:'+(s.status==='ok'?'var(--grass)':s.status==='low'?'var(--status-low)':'var(--status-critical)')+';" ></div></div><div class="inv-card-meta"><span>'+p.qtyRemaining+p.unit+' remaining</span><span>'+esc(p.ratePer100sqm)+' / 100m²</span></div><div class="inv-card-actions"><div class="inv-card-edit-hint">✏ Click to update stock</div><button class="inv-card-resupply" data-name="'+esc(p.name)+'">+ Resupply</button></div>';
+      card.addEventListener('click',function(evt){if(evt.target.classList.contains('inv-card-resupply')||evt.target.closest('.inv-card-resupply')){evt.stopPropagation();openResupplyModal(p);return;}openStockModal(p);});
+      grid.appendChild(card);
+    });
+  }
   bic();big();
 }
 
 function renderLog(){
   var threshold=mowThreshold();
+  var wThreshold=waterThreshold();
   var entries=state.appLog?state.appLog.entries:[];
   var mowEntries=state.mowLog?state.mowLog.entries:[];
+  var waterEntries=state.waterLog?state.waterLog.entries:[];
+  var wzg=document.getElementById('water-zone-grid');wzg.innerHTML='';
+  ['back','front','strip1','strip2'].forEach(function(zid){
+    var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';
+    var last=lastWaterForZone(zid);
+    var card=document.createElement('div');
+    if(!last){card.className='water-zone-card never';card.innerHTML='<div class="water-zone-name">'+esc(zoneName)+'</div><div class="water-zone-grass">'+esc(grass)+'</div><div class="water-zone-days">No record</div><div class="water-zone-sub">Not yet logged</div>';}
+    else{var days=daysSince(last.dateISO),overdue=days>=wThreshold;card.className='water-zone-card'+(overdue?' overdue':'');card.innerHTML='<div class="water-zone-name">'+esc(zoneName)+'</div><div class="water-zone-grass">'+esc(grass)+'</div><div class="water-zone-days'+(overdue?' overdue':'')+'">'+days+'d ago</div><div class="water-zone-sub">'+esc(last.date)+' · '+(WATER_METHODS[last.method]||last.method||'')+(last.durationMin?' · '+last.durationMin+'min':'')+'</div>';}
+    wzg.appendChild(card);
+  });
+  var wtb=document.getElementById('water-tbody');wtb.innerHTML='';
+  if(waterEntries.length===0){wtb.innerHTML='<tr><td colspan="6" class="log-empty">No watering sessions logged yet. Use the 💧 Log a water button in the Tracker header.</td></tr>';}
+  else{waterEntries.forEach(function(e){var zoneNames=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join(', ')||e.zoneNames||'—';var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td style="font-size:13px;color:var(--ink-mid);">'+esc(zoneNames)+'</td><td style="font-size:13px;">'+esc(WATER_METHODS[e.method]||e.method||'—')+'</td><td style="font-size:13px;font-weight:500;color:var(--weather-rain);">'+(e.durationMin?e.durationMin+'min':'—')+'</td><td style="font-size:13px;color:var(--ink-mid);">'+(e.amountL?e.amountL+'L':'—')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(e.notes||'—')+'</td>';wtb.appendChild(tr);});}
   var mzg=document.getElementById('mow-zone-grid');mzg.innerHTML='';
   ['back','front','strip1','strip2'].forEach(function(zid){
     var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';
@@ -590,20 +767,82 @@ function renderLog(){
   var prodNames=Object.keys(lastApplied).sort();
   if(prodNames.length===0){lag.innerHTML='<div style="color:var(--ink-light);font-size:13px;font-style:italic;padding:8px 0;">No applications logged yet.</div>';}
   else{prodNames.forEach(function(name){var days=daysSince(lastApplied[name]);var stale=days>28;var card=document.createElement('div');card.className='last-applied-card';card.innerHTML='<div class="last-applied-name">'+esc(name)+'</div><div class="last-applied-days'+(stale?' stale':'')+'">'+days+' days ago</div><div class="last-applied-date">'+lastApplied[name].split('-').reverse().join('/')+'</div>';lag.appendChild(card);});}
-  document.getElementById('log-section-sub').textContent=entries.length+' application'+(entries.length!==1?'s':'')+' · '+mowEntries.length+' mow'+(mowEntries.length!==1?'s':'')+' recorded';
+  document.getElementById('log-section-sub').textContent=entries.length+' application'+(entries.length!==1?'s':'')+' · '+mowEntries.length+' mow'+(mowEntries.length!==1?'s':'')+' · '+waterEntries.length+' watering'+(waterEntries.length!==1?'s':'')+' recorded';
   var taskTypes=['All'];entries.forEach(function(e){if(e.taskType&&taskTypes.indexOf(e.taskType)<0)taskTypes.push(e.taskType);});
   var af='All',lfc=document.getElementById('log-filter-chips');
   function buildLogChips(){lfc.innerHTML='';taskTypes.forEach(function(t){var chip=document.createElement('button');chip.className='filter-chip'+(t===af?' active':'');chip.textContent=t==='All'?'All':t.replace('soilwetter','soil wetter');chip.addEventListener('click',function(){af=t;buildLogChips();buildLogTable();});lfc.appendChild(chip);});}
-  function buildLogTable(){var tb=document.getElementById('log-tbody');tb.innerHTML='';var filtered=af==='All'?entries:entries.filter(function(e){return e.taskType===af;});if(filtered.length===0){tb.innerHTML='<tr><td colspan="5" class="log-empty">No applications logged yet. Use "+ Log manual application" above to add an entry.</td></tr>';return;}filtered.forEach(function(e){var color=TYPE_COLORS[e.taskType]||'#888';var prodText=(e.products||[]).map(function(p){return p.name+' '+p.amount+p.unit+(p.deducted?' ✓':'');}).join('<br>');var zoneText=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join(', ');var manBadge=e.manual?'<span style="font-size:10px;padding:1px 5px;border-radius:4px;background:#eef5ff;color:#4a80b0;border:1px solid #4a80b0;margin-left:5px;">manual</span>':'';var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td><div class="log-task"><span class="log-type-pip" style="background:'+color+'"></span>'+esc(e.taskLabel||e.taskType||'')+'</div>'+manBadge+'</td><td class="log-products">'+(prodText||'<span style="color:var(--ink-light);font-style:italic;">No products</span>')+'</td><td class="log-zones">'+esc(zoneText||'—')+'</td><td><span class="log-deducted-badge '+(e.inventoryDeducted?'yes':'no')+'">'+(e.inventoryDeducted?'✓ yes':'skipped')+'</span></td>';tb.appendChild(tr);});}
+  function buildLogTable(){var tb=document.getElementById('log-tbody');tb.innerHTML='';var filtered=af==='All'?entries:entries.filter(function(e){return e.taskType===af;});if(filtered.length===0){tb.innerHTML='<tr><td colspan="5" class="log-empty">No applications logged yet. Use "+ Log manual application" above to add an entry.</td></tr>';return;}filtered.forEach(function(e){var color=TYPE_COLORS[e.taskType]||'#888';var prodText=(e.products||[]).map(function(p){return p.name+' '+p.amount+p.unit+(p.deducted?' ✓':'');}).join('<br>');var zoneText=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join(', ');var manBadge=e.manual?'<span style="font-size:10px;padding:1px 5px;border-radius:4px;background:#eef5ff;color:#4a80b0;border:1px solid #4a80b0;margin-left:5px;">manual</span>':'';var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td><div class="log-task"><span class="log-type-pip" style="background:'+color+'"></span>'+esc(e.taskLabel||e.taskType||'')+'</div>'+manBadge+'</td><td class="log-products">'+(prodText||'<span style="color:var(--ink-light);font-style:italic;">No products</span>')+'</td><td class="log-zones">'+esc(zoneText||'—')+'</td><td><span class="log-deducted-badge '+(e.inventoryDeducted?'yes':'no')+'">'+( e.inventoryDeducted?'✓ yes':'skipped')+'</span></td>';tb.appendChild(tr);});}
   buildLogChips();buildLogTable();
 }
 
-// ── STOCK MODAL ──
+function exportCSV(){
+  var entries=state.appLog?state.appLog.entries:[];
+  if(entries.length===0){showToast('No applications to export','error');return;}
+  var headers=['Date','Label','Type','Zones','Products','Amounts','Units','Inventory Deducted','Manual','Notes'];
+  var rows=[headers];
+  entries.forEach(function(e){
+    var zones=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join('; ');
+    var products=(e.products||[]).map(function(p){return p.name;}).join('; ');
+    var amounts=(e.products||[]).map(function(p){return p.amount||'';}).join('; ');
+    var units=(e.products||[]).map(function(p){return p.unit||'';}).join('; ');
+    rows.push([e.date||'',e.taskLabel||e.taskType||'',e.taskType||'',zones,products,amounts,units,e.inventoryDeducted?'Yes':'No',e.manual?'Yes':'No',e.notes||'']);
+  });
+  var csv=rows.map(function(row){return row.map(function(cell){var s=String(cell);if(s.indexOf(',')>=0||s.indexOf('"')>=0||s.indexOf('\n')>=0){s='"'+s.replace(/"/g,'""')+'"';}return s;}).join(',');}).join('\n');
+  var d=now().toISOString().slice(0,10);
+  var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.download='applications-'+d+'.csv';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  showToast('Exported '+entries.length+' applications to CSV','success');
+}
+
 function openStockModal(product){state.modalProduct=product;document.getElementById('modal-product-name').textContent=product.name;document.getElementById('modal-product-brand').textContent=product.brand+' · '+product.category;document.getElementById('modal-current-qty').textContent=product.qtyRemaining;document.getElementById('modal-current-unit').textContent=product.unit;document.getElementById('modal-qty-input').value=product.qtyRemaining;document.getElementById('modal-unit-label').textContent=product.unit;document.getElementById('modal-auth-notice').style.display=state.token?'none':'flex';document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;var qa=document.getElementById('modal-quick-add');qa.innerHTML='';(product.unit==='kg'?[5,10,20,25]:[0.5,1,2,5]).forEach(function(sz){var btn=document.createElement('button');btn.className='filter-chip';btn.textContent='+ '+sz+product.unit;btn.addEventListener('click',function(){var cur=parseFloat(document.getElementById('modal-qty-input').value)||0;document.getElementById('modal-qty-input').value=Math.round((cur+sz)*100)/100;});qa.appendChild(btn);});document.getElementById('stock-modal').classList.add('open');setTimeout(function(){document.getElementById('modal-qty-input').focus();document.getElementById('modal-qty-input').select();},100);}
 function closeStockModal(){document.getElementById('stock-modal').classList.remove('open');state.modalProduct=null;}
 async function saveStock(){var p=state.modalProduct;if(!p)return;var newQty=parseFloat(document.getElementById('modal-qty-input').value);if(isNaN(newQty)||newQty<0){showToast('Please enter a valid quantity','error');return;}var prod=state.inventory.products.find(function(x){return x.name===p.name;});if(prod)prod.qtyRemaining=newQty;state.inventory.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});document.getElementById('modal-current-qty').textContent=newQty;if(!state.token){closeStockModal();renderInventory();renderAlerts();renderOverview();showToast('Updated (session only — connect GitHub to save permanently)','error');return;}document.getElementById('modal-saving').style.display='block';document.getElementById('modal-save-btn').disabled=true;try{if(!state.invSha)await fetchInvSha();var inv=JSON.parse(JSON.stringify(state.inventory));var rp=inv.products.find(function(x){return x.name===p.name;});if(rp)rp.qtyRemaining=newQty;inv.lastUpdated=state.inventory.lastUpdated;var content=btoa(unescape(encodeURIComponent(JSON.stringify(inv,null,2))));var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;var body={message:'Update stock: '+p.name+' → '+newQty+p.unit,content:content,branch:CONFIG.branch};if(state.invSha)body.sha=state.invSha;var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}var data=await resp.json();state.invSha=data.content.sha;closeStockModal();renderInventory();renderAlerts();renderOverview();showToast(p.name+' updated to '+newQty+p.unit,'success');}catch(e){document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}}
 
-// ── MANUAL APPLICATION LOG MODAL ──
+function openResupplyModal(product){
+  state.resupplyProduct=product;
+  document.getElementById('resupply-product-name').textContent='+ Resupply — '+product.name;
+  document.getElementById('resupply-current-qty').textContent=product.qtyRemaining;
+  document.getElementById('resupply-current-unit').textContent=product.unit;
+  document.getElementById('resupply-unit-label').textContent=product.unit;
+  document.getElementById('resupply-amount-input').value='';
+  document.getElementById('resupply-auth-notice').style.display=state.token?'none':'flex';
+  document.getElementById('resupply-saving').style.display='none';
+  document.getElementById('resupply-save-btn').disabled=false;
+  document.getElementById('resupply-modal').classList.add('open');
+  setTimeout(function(){document.getElementById('resupply-amount-input').focus();},100);
+}
+function closeResupplyModal(){document.getElementById('resupply-modal').classList.remove('open');state.resupplyProduct=null;}
+async function saveResupply(){
+  var p=state.resupplyProduct;if(!p)return;
+  var added=parseFloat(document.getElementById('resupply-amount-input').value);
+  if(isNaN(added)||added<=0){showToast('Please enter an amount received','error');return;}
+  var oldQty=p.qtyRemaining;
+  var newQty=Math.round((oldQty+added)*100)/100;
+  var prod=state.inventory.products.find(function(x){return x.name===p.name;});
+  if(prod)prod.qtyRemaining=newQty;
+  state.inventory.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});
+  if(!state.token){closeResupplyModal();renderInventory();renderAlerts();renderOverview();showToast(p.name+' restocked: '+oldQty+p.unit+' → '+newQty+p.unit+' (session only)','error');return;}
+  document.getElementById('resupply-saving').style.display='block';
+  document.getElementById('resupply-save-btn').disabled=true;
+  try{
+    if(!state.invSha)await fetchInvSha();
+    var inv=JSON.parse(JSON.stringify(state.inventory));
+    var rp=inv.products.find(function(x){return x.name===p.name;});
+    if(rp)rp.qtyRemaining=newQty;
+    inv.lastUpdated=state.inventory.lastUpdated;
+    var content=btoa(unescape(encodeURIComponent(JSON.stringify(inv,null,2))));
+    var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;
+    var body={message:'Resupply: '+p.name+' +'+added+p.unit+' → '+newQty+p.unit,content:content,branch:CONFIG.branch};
+    if(state.invSha)body.sha=state.invSha;
+    var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}
+    var data=await resp.json();state.invSha=data.content.sha;
+    closeResupplyModal();renderInventory();renderAlerts();renderOverview();
+    showToast(p.name+' restocked: '+oldQty+p.unit+' → '+newQty+p.unit,'success');
+  }catch(e){document.getElementById('resupply-saving').style.display='none';document.getElementById('resupply-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}
+}
+
 function openManualLogModal(){
   var n=now();
   document.getElementById('man-log-date').textContent=n.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
@@ -613,63 +852,36 @@ function openManualLogModal(){
   document.getElementById('man-notes').value='';
   document.getElementById('man-saving').style.display='none';
   document.getElementById('man-save-btn').disabled=false;
-  // Zone checkboxes
   var zc=document.getElementById('man-zone-checks');zc.innerHTML='';
-  Object.keys(ZONE_NAMES).forEach(function(zid){
-    var lbl=document.createElement('label');lbl.style.cssText='display:flex;align-items:center;gap:5px;font-size:13px;color:var(--ink-mid);cursor:pointer;';
-    var cb=document.createElement('input');cb.type='checkbox';cb.value=zid;cb.style.accentColor='var(--grass)';
-    lbl.appendChild(cb);lbl.appendChild(document.createTextNode(ZONE_NAMES[zid]));
-    zc.appendChild(lbl);
-  });
-  // Product rows — start with one empty
+  Object.keys(ZONE_NAMES).forEach(function(zid){var lbl=document.createElement('label');lbl.style.cssText='display:flex;align-items:center;gap:5px;font-size:13px;color:var(--ink-mid);cursor:pointer;';var cb=document.createElement('input');cb.type='checkbox';cb.value=zid;cb.style.accentColor='var(--grass)';lbl.appendChild(cb);lbl.appendChild(document.createTextNode(ZONE_NAMES[zid]));zc.appendChild(lbl);});
   document.getElementById('man-product-rows').innerHTML='';
   addManProductRow();
   document.getElementById('man-log-modal').classList.add('open');
   setTimeout(function(){document.getElementById('man-label').focus();},100);
 }
 function closeManualLogModal(){document.getElementById('man-log-modal').classList.remove('open');}
-
 function addManProductRow(){
-  var rows=document.getElementById('man-product-rows');
-  var row=document.createElement('div');row.className='man-product-row';
+  var rows=document.getElementById('man-product-rows');var row=document.createElement('div');row.className='man-product-row';
   var nameIn=document.createElement('input');nameIn.className='man-input';nameIn.type='text';nameIn.placeholder='Product name';
-  // Datalist of known products
-  var dlId='man-prod-list';
-  var dl=document.getElementById(dlId);
+  var dlId='man-prod-list';var dl=document.getElementById(dlId);
   if(!dl){dl=document.createElement('datalist');dl.id=dlId;state.inventory.products.forEach(function(p){var opt=document.createElement('option');opt.value=p.name;dl.appendChild(opt);});document.body.appendChild(dl);}
   nameIn.setAttribute('list',dlId);
   var amtIn=document.createElement('input');amtIn.className='man-input amount';amtIn.type='number';amtIn.placeholder='Amount';amtIn.min='0';amtIn.step='0.01';
   var unitSel=document.createElement('select');unitSel.className='man-select';unitSel.style.cssText='width:auto;flex-shrink:0;padding:9px 8px;';
   UNITS.forEach(function(u){var opt=document.createElement('option');opt.value=u;opt.textContent=u;unitSel.appendChild(opt);});
   var rmBtn=document.createElement('button');rmBtn.className='man-remove-btn';rmBtn.textContent='×';rmBtn.title='Remove';rmBtn.onclick=function(){rows.removeChild(row);};
-  row.appendChild(nameIn);row.appendChild(amtIn);row.appendChild(unitSel);row.appendChild(rmBtn);
-  rows.appendChild(row);
+  row.appendChild(nameIn);row.appendChild(amtIn);row.appendChild(unitSel);row.appendChild(rmBtn);rows.appendChild(row);
 }
-
 async function saveManualLog(){
   var label=document.getElementById('man-label').value.trim();
   if(!label){showToast('Please enter a label / description','error');return;}
   var type=document.getElementById('man-type').value;
   var notes=document.getElementById('man-notes').value.trim();
-  // Zones
   var zones=[];document.querySelectorAll('#man-zone-checks input:checked').forEach(function(cb){zones.push(cb.value);});
-  // Products
   var products=[];
-  document.querySelectorAll('#man-product-rows .man-product-row').forEach(function(row){
-    var inputs=row.querySelectorAll('input');var sel=row.querySelector('select');
-    var name=inputs[0].value.trim(),amt=parseFloat(inputs[1].value),unit=sel.value;
-    if(name&&!isNaN(amt)&&amt>0)products.push({name:name,amount:Math.round(amt*100)/100,unit:unit,deducted:false});
-  });
+  document.querySelectorAll('#man-product-rows .man-product-row').forEach(function(row){var inputs=row.querySelectorAll('input');var sel=row.querySelector('select');var name=inputs[0].value.trim(),amt=parseFloat(inputs[1].value),unit=sel.value;if(name&&!isNaN(amt)&&amt>0)products.push({name:name,amount:Math.round(amt*100)/100,unit:unit,deducted:false});});
   var n=now();
-  var entry={
-    id:'app_'+n.getTime(),
-    date:n.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),
-    dateISO:n.toISOString().slice(0,10),
-    taskId:'manual',taskLabel:label,taskType:type,
-    zones:zones,products:products,
-    inventoryDeducted:false,manual:true,
-    notes:notes||undefined
-  };
+  var entry={id:'app_'+n.getTime(),date:n.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),dateISO:n.toISOString().slice(0,10),taskId:'manual',taskLabel:label,taskType:type,zones:zones,products:products,inventoryDeducted:false,manual:true,notes:notes||undefined};
   if(!state.appLog)state.appLog={entries:[]};
   state.appLog.entries.unshift(entry);
   if(!state.token){closeManualLogModal();renderLog();renderOverview();showToast('Entry added (session only — connect GitHub to save permanently)','error');return;}
@@ -682,16 +894,59 @@ async function saveManualLog(){
     var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});
     if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}
     var data=await resp.json();state.appLogSha=data.content.sha;
-    closeManualLogModal();renderLog();renderOverview();
-    showToast('Manual application logged','success');
+    closeManualLogModal();renderLog();renderOverview();showToast('Manual application logged','success');
   }catch(e){document.getElementById('man-saving').style.display='none';document.getElementById('man-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}
+}
+
+function openWeatherModal(){
+  var n=now();
+  document.getElementById('weather-modal-date').textContent=n.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('weather-auth-notice').style.display=state.token?'none':'flex';
+  document.getElementById('weather-date-input').value=n.toISOString().slice(0,10);
+  document.getElementById('weather-type-input').value='observation';
+  document.getElementById('weather-note-input').value='';
+  document.getElementById('weather-note-counter').textContent='0';
+  document.getElementById('weather-saving').style.display='none';
+  document.getElementById('weather-save-btn').disabled=false;
+  document.getElementById('weather-modal').classList.add('open');
+  setTimeout(function(){document.getElementById('weather-note-input').focus();},100);
+}
+function closeWeatherModal(){document.getElementById('weather-modal').classList.remove('open');}
+async function saveWeather(){
+  var note=document.getElementById('weather-note-input').value.trim();
+  if(!note){showToast('Please enter an observation note','error');return;}
+  var dateVal=document.getElementById('weather-date-input').value;
+  if(!dateVal){showToast('Please select a date','error');return;}
+  var type=document.getElementById('weather-type-input').value;
+  var d=new Date(dateVal);
+  var dateFormatted=d.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});
+  var entry={id:'wx_'+Date.now(),date:dateFormatted,dateISO:dateVal,type:type,note:note};
+  if(!state.weatherLog)state.weatherLog={entries:[]};
+  state.weatherLog.entries.unshift(entry);
+  state.weatherLog.entries.sort(function(a,b){return b.dateISO.localeCompare(a.dateISO);});
+  if(!state.token){closeWeatherModal();renderOverview();showToast('Observation saved (session only — connect GitHub to save permanently)','error');return;}
+  document.getElementById('weather-saving').style.display='block';
+  document.getElementById('weather-save-btn').disabled=true;
+  try{
+    var content=btoa(unescape(encodeURIComponent(JSON.stringify(state.weatherLog,null,2))));
+    var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.weatherPath;
+    var body={message:'Weather log: '+type+' — '+dateFormatted,content:content,branch:CONFIG.branch};
+    if(state.weatherSha)body.sha=state.weatherSha;
+    var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}
+    var data=await resp.json();state.weatherSha=data.content.sha;
+    closeWeatherModal();renderOverview();
+    showToast('Observation logged','success');
+  }catch(e){document.getElementById('weather-saving').style.display='none';document.getElementById('weather-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}
 }
 
 function renderAlerts(){
   var list=document.getElementById('alerts-list'),alerts=[];
-  var threshold=mowThreshold();
+  var mThreshold=mowThreshold();
+  var wThreshold=waterThreshold();
   var seasonLabel=(['12','1','2'].indexOf(String(currentMonthNum()))>=0)?'summer':(['3','4','5'].indexOf(String(currentMonthNum()))>=0)?'autumn':(['6','7','8'].indexOf(String(currentMonthNum()))>=0)?'winter':'spring';
-  ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';var last=lastMowForZone(zid);if(!last){alerts.push({type:'info',icon:'✂',title:zoneName+' — no mowing record',text:'No mowing sessions logged yet. Use ✂ Log a mow in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=threshold)alerts.push({type:'warn',icon:'✂',title:zoneName+' — mowing overdue',text:days+'d since last mow ('+last.date+' · '+last.heightMm+'mm). Threshold '+threshold+'d in '+seasonLabel+'. Grass: '+grass+'.'});}});
+  ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';var last=lastMowForZone(zid);if(!last){alerts.push({type:'info',icon:'✂',title:zoneName+' — no mowing record',text:'No mowing sessions logged yet. Use ✂ Log a mow in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=mThreshold)alerts.push({type:'warn',icon:'✂',title:zoneName+' — mowing overdue',text:days+'d since last mow ('+last.date+' · '+last.heightMm+'mm). Threshold '+mThreshold+'d in '+seasonLabel+'. Grass: '+grass+'.'});}});
+  ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid;var last=lastWaterForZone(zid);if(!last){alerts.push({type:'info',icon:'💧',title:zoneName+' — no watering record',text:'No watering logged. Use 💧 Log a water in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=wThreshold)alerts.push({type:'warn',icon:'💧',title:zoneName+' — watering overdue',text:days+'d since last water ('+last.date+'). Threshold '+wThreshold+'d in '+seasonLabel+'.'});}});
   state.inventory.products.forEach(function(p){var s=invStatus(p);if(s.status==='critical')alerts.push({type:'critical',icon:'⚠',title:p.name+' — critically low',text:p.qtyRemaining+p.unit+' remaining. Reorder soon.'});else if(s.status==='low')alerts.push({type:'warn',icon:'⊙',title:p.name+' — running low',text:p.qtyRemaining+p.unit+' remaining ('+s.pct+'% of estimated full stock).'});});
   state.inventory.compatibility.forEach(function(rule){if(rule.severity==='critical')alerts.push({type:'critical',icon:'⛔',title:'Compatibility rule',text:rule.rule});});
   var mn=currentMonthNum(),c=countDone(mn);
@@ -706,6 +961,7 @@ function renderZones(){var grid=document.getElementById('zone-summary-grid');gri
 
 var toastTimer;
 function showToast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='show'+(type?' '+type:'');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.className='';},3500);}
+
 init();
 </script>
 </body>
