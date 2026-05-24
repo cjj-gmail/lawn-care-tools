@@ -1,1 +1,396 @@
-IyBMQVdOIENBUkUgUFJPSkVDVCBCUklFRgpMYXN0IFVwZGF0ZWQ6IDI0IE1heSAyMDI2CgotLS0KCiMjIDEuIFBST0pFQ1QgT1ZFUlZJRVcKVGhyZWUtdG9vbCBpbnRlcmFjdGl2ZSBsYXduIGNhcmUgc3lzdGVtIGhvc3RlZCBvbiBHaXRIdWIgUGFnZXMuIEFsbCB0aHJlZSBwYWdlcyBhcmUgbGl2ZSBhbmQgZnVsbHkgaW50ZXJjb25uZWN0ZWQuCgpVUkxzOgotIExhbmRpbmcgcGFnZTogIGh0dHBzOi8vY2pqLWdtYWlsLmdpdGh1Yi5pby9sYXduLWNhcmUtdG9vbHMvCi0gVHJhY2tlcjogICAgICAgaHR0cHM6Ly9jamotZ21haWwuZ2l0aHViLmlvL2xhd24tY2FyZS10b29scy90cmFja2VyLmh0bWwKLSBEYXNoYm9hcmQ6ICAgICBodHRwczovL2Nqai1nbWFpbC5naXRodWIuaW8vbGF3bi1jYXJlLXRvb2xzL2Rhc2hib2FyZC5odG1sCgpOYXZpZ2F0aW9uOgotIGluZGV4IOKGkiB0cmFja2VyICsgZGFzaGJvYXJkICh0b29sIGNhcmRzICsgcXVpY2sgbGlua3Mgcm93KQotIHRyYWNrZXIgaGVhZGVyOiBDb25uZWN0IEdpdEh1YiDCtyDwn5KnIExvZyBhIHdhdGVyIMK3IOKcgiBMb2cgYSBtb3cgwrcg4oaQIERhc2hib2FyZAotIGRhc2hib2FyZCBoZWFkZXI6IOKGkiBUcmFja2VyIMK3IOKMgiBIb21lCi0gUXVpY2sgbGlua3Mgb24gaW5kZXg6IFRoaXMgbW9udGgncyB0YXNrcywgRGFzaGJvYXJkIG92ZXJ2aWV3LCBJbnZlbnRvcnksIEFwcGxpY2F0aW9uIGxvZywgQWxlcnRzLCBQcm9ncmFtLCBab25lcwoKCiMjIDIuIEdPT0dMRSBEUklWRSBSRUZFUkVOQ0VTCi0gTGF3biBDYXJlIEZvbGRlciBJRDogICAxY1JXaXh3bjlfQjYwbWN0MDZDZLV3Yi1XcEFLbmR1SmQKLSBNeSBMYXduIENhcmUgU2hlZXQgSUQ6IDF4RkdUTVloMGd4WVFiNzhZVFVWczJCd1c4amIyem5aeGJxOUVkM1pfNnhFCi0gUHJvamVjdCBCcmllZiAoYXJjaGl2ZWQpOiBHb29nbGUgRHJpdmUgZG9jIOKAlCBzdXBlcnNlZGVkIGJ5IHRoaXMgZmlsZSAoYnJpZWYubWQgaW4gR2l0SHViIHJlcG8pCgoKIyMgMy4gR0lUSFVCICYgSE9TVElORwotIFJlcG86ICAgICAgIGh0dHBzOi8vZ2l0aHViLmNvbS9jamotZ21haWwvbGF3bi1jYXJlLXRvb2xzCi0gUGFnZXMgVVJMOiAgaHR0cHM6Ly9jamotZ21haWwuZ2l0aHViLmlvL2xhd24tY2FyZS10b29scwotIFVzZXJuYW1lOiAgIGNqai1nbWFpbAotIERlcGxveW1lbnQ6IE1hbnVhbCB1cGxvYWQgKGRyYWcgYW5kIGRyb3AgdG8gR2l0SHViKQoKUmVwbyBTdHJ1Y3R1cmU6CmBgYApsYXduLWNhcmUtdG9vbHMvCuKUnOKUgOKUgCBicmllZi5tZCAgICAgICAgICAgICAgICDihpAgUHJvamVjdCBCcmllZiAoVEhJUyBGSUxFIOKAlCBjYW5vbmljYWwgc291cmNlKQrilJzilIDilIAgaW5kZXguaHRtbCAgICAgICAgICAgICAgIOKGkCBMYW5kaW5nIHBhZ2UgKExJVkUpCuKUnOKUgOKUgCB0cmFja2VyLmh0bWwgICAgICAgICAgICDihpAgVG9vbCAxIChMSVZFKQrilJzilIDilIAgZGFzaGJvYXJkLmh0bWwgICAgICAgICAgIOKGkCBUb29sIDIgKExJVkUpCuKUnOKUgOKUgCBzaGVldHMtYXV0aC10ZXN0Lmh0bWwK4pSc4pSA4pSAIGdpdGh1Yi1hdXRoLXRlc3QuaHRtbArilJzilIDilIAgYXV0aC1zdWNjZXNzLmh0bWwK4pSU4pSA4pSAIGRhdGEvCiAgICDilJzilIDilIAgcHJvZ3JhbS5qc29uICAgICAgICDihpAgMTItbW9udGggY3VzdG9tIHByb2dyYW0gKDkwS0IpCiAgICDilJzilIDilIAgaW52ZW50b3J5Lmpzb24gICAgICDihpAgMTkgcHJvZHVjdHMsIDQgem9uZXMsIDYgY29tcGF0IHJ1bGVzCiAgICDilJzilIDilIAgY29tcGxldGlvbnMuanNvbiAgICDihpAgVGFzayBjb21wbGV0aW9ucyAoY3JlYXRlZCBvbiBmaXJzdCBzYXZlKQogICAg4pSc4pSA4pSAIGFwcGxpY2F0aW9ucy5qc29uICAgaW5mbyBBcHBsaWNhdGlvbiBsb2cgKGNyZWF0ZWQgb24gZmlyc3QgdGFzayBjb21wbGV0ZSkKICAgIOKUnOKUgOKUgCBtb3dpbmcuanNvbiAgICAgICAgICDihpAgTW93aW5nIGxvZyAoY3JlYXRlZCBvbiBmaXJzdCBtb3cgc2F2ZSkKICAgIOKUnOKUgOKUgCB3YXRlcmluZy5qc29uICAgICAgICDihpAgV2F0ZXJpbmcgbG9nIChjcmVhdGVkIG9uIGZpcnN0IHdhdGVyIHNhdmUpCiAgICDilJzilIDilIAgd2VhdGhlci5qc29uICAgICAgICDihpAgV2VhdGhlci9vYnNlcnZhdGlvbnMgam91cm5hbAogICAg4pSU4pSA4pSAIGNvbm5lY3Rpb24tdGVzdC5qc29uCmBgYAoKCiMjIDQuIEFVVEhFTlRJQ0FUSU9OICYgSU5GUkFTVFJVQ1RVUkUKCkdpdEh1YiBPQXV0aCAocHJpbWFyeSDigJQgYWxsIHdyaXRlcyk6Ci0gQ2xpZW50IElEOiBPdjIzbGluSExzQW5VVDgxeVRlWQotIENsb3VkZmxhcmUgV29ya2VyOiBodHRwczovL2xhd24tY2FyZS10b29scy5jYW1lcm9uanVkZTEud29ya2Vycy5kZXYKLSBFbmRwb2ludHM6IC9sb2dpbiwgL2NhbGxiYWNrLCAvdmVyaWZ5Ci0gVG9rZW4gc3RvcmVkIGluIHNlc3Npb25TdG9yYWdlIChjbGVhcmVkIG9uIHRhYiBjbG9zZSkKLSBTdGF0dXM6IFdPUktJTkcKLSBVc2VkIGJ5OiB0cmFja2VyLmh0bWwgKGNvbXBsZXRpb25zLCBhcHAgbG9nLCBtb3cgbG9nLCB3YXRlciBsb2cpICsgZGFzaGJvYXJkLmh0bWwgKGludmVudG9yeSwgbWFudWFsIGFwcCBsb2csIHdlYXRoZXIgbG9nKQoKR29vZ2xlIE9BdXRoIChzZWNvbmRhcnkg4oCUIGRvcm1hbnQpOgotIENsaWVudCBJRDogNDE2NzY2MzIzMjk0LWUxY3BuaTU0NDBhaW8wcGpncXIyY2Q2Z2puMGx2b3JpLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tCi0gR29vZ2xlIENsb3VkIFByb2plY3Q6IGxhd24tY2FyZS10b29scwotIFN0YXR1czogV29ya2luZyBidXQgbm90IHVzZWQgYnkgYW55IGxpdmUgdG9vbAotIE9yaWdpbmFsbHkgZm9yIEdvb2dsZSBTaGVldHMgYWNjZXNzIOKAlCBzdXBlcnNlZGVkIGJ5IEdpdEh1YiBKU09OIHN0b3JhZ2UKCkNsYXVkZSBEZXNrdG9wICsgRG9ja2VyICsgbG9jYWwgR2l0SHViIE1DUDoKLSBTdGF0dXM6IEluc3RhbGxlZCBidXQgZG9ybWFudCDigJQgbm90IG5lZWRlZCBnaXZlbiBjdXJyZW50IGFyY2hpdGVjdHVyZQotIENsYXVkZS5haSBoYXMgbmF0aXZlIEdpdEh1YiBNQ1AgYWNjZXNzIHVzZWQgaW5zdGVhZAoKTm90ZTogVGhlIGNhbm9uaWNhbCBicmllZiBpcyBub3cgYnJpZWYubWQgaW4gdGhpcyByZXBvLiBDbGF1ZGUgcmVhZHMgYW5kIHdyaXRlcyBpdCBkaXJlY3RseSB2aWEgR2l0SHViIEFQSS4gR29vZ2xlIERyaXZlIGRvYyBpcyBhcmNoaXZlZC9pbmFjdGl2ZS4KCgojIyA1LiBMQVdOIFNQRUNTClRvdGFsIEFyZWE6IDE0MC4xNSBtwrIKCnwgWm9uZSAgICAgICAgICAgICAgICB8IEdyYXNzICAgfCBBcmVhICAgICB8IFpvbmUgSUQgfAp8LS0tLS0tLS0tLS0tLS0tLS0tLS0tfC0tLS0tLS0tLXwtLS0tLS0tLS0tfC0tLS0tLS0tLXwKfCBCYWNrIExhd24gICAgICAgICAgfCBLaWt1eXUgIHwgNjguMiBtwrIgIHwgYmFjayAgICB8CnwgRnJvbnQgTGF3biAgICAgICAgICB8IFpveXNpYSAgfCAzNS4wIG3CsiAgfCBmcm9udCAgIHwKfCBGcm9udCBOYXR1cmUgU3RyaXAgfCBDb3VjaCAgIHwgMjAuOCBtwrIgIHwgc3RyaXAxICB8CnwgRnJvbnQgTGVmdCBTdHJpcCAgIHwgQ291Y2ggICB8IDE2LjE1IG3CsiB8IHN0cmlwMiAgfAoKVG90YWwgQ291Y2g6IDM2Ljk1IG3CsgpMb2NhdGlvbjogT2FraHVyc3QgTlNXIDI3NjEg4oCUIEh1bWlkIHN1YnRyb3BpY2FsLCBob3Qgc3VtbWVycywgbWlsZCB3aW50ZXJzLCBvY2Nhc2lvbmFsIGZyb3N0LgoKCiMjIDYuIFBST0RVQ1QgSU5WRU5UT1JZICgxOSBwcm9kdWN0cyDigJQgTWF5IDIwMjYpCgp8IFByb2R1Y3QgICAgICAgICAgICAgIHwgQnJhbmQgICAgICAgICB8IFVuaXQgfCBSZW1haW5pbmcgfAp8LS0tLS0tLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS18LS0tLS18LS0tLS0tLS0tLS18CnwgVFgxMCAoNS0yLTgpICAgICAgICAgfCBQbGFudCBEb2N0b3IgIHwga2cgICB8IDE5LjI1ICAgICB8CnwgTWFpbnRhaW4gKDI2LTEtOSkgICAgfCBMYXduUHJpZGUgICAgIHwga2cgICB8IDE4ICAgICAgICB8CnwgTGlxdWlkIElyb24gKDclKSAgICAgfCBQbGFudCBEb2N0b3IgIHwgTCAgICB8IDEgICAgICAgICB8CnwgTmF0dXJlJ3MgU29pbCBXZXR0ZXIgfCBQbGFudCBEb2N0b3IgIHwgTCAgICB8IDMuNzUgICAgICB8CnwgVG9tYnN0b25lIER1byAgICAgICAgfCBJbmRpZ28gICAgICAgIHwgTCAgICB8IDAuNDQgICAgICB8CnwgSGVyaXRhZ2UgTWF4eCAgICAgICAgfCBTeW5nZW50YSAgICAgIHwgTCAgICB8IDEgICAgICAgICB8CnwgR3JlZW5YdHJhICAgICAgICAgICAgfCBMYXduUHJpZGUgICAgIHwgTCAgICB8IDQgICAgICAgICB8CnwgQWN0aXY4RVhUUkEgICAgICAgICAgfCBQbGFudCBEb2N0b3IgIHwgTCAgICB8IDMuNzIgICAgICB8CnwgS2VscHh0cmEgICAgICAgICAgICAgfCBMYXduUHJpZGUgICAgIHwgTCAgICB8IDMuODYgICAgICB8CnwgU2Vhd2VlZCBTZWNyZXRzICAgICAgfCBQbGFudCBEb2N0b3IgIHwgTCAgICB8IDQgICAgICAgICB8CnwgSHlkcmFtYXh4ICAgICAgICAgICAgfCBMYXduUHJpZGUgICAgIHwgTCAgICB8IDQgICAgICAgICB8CnwgVHJhY2VtYXh4ICAgICAgICAgICAgfCBMYXduUHJpZGUgICAgIHwgTCAgICB8IDQgICAgICAgICB8CnwgU3RpbXVsdXMgICAgICAgICAgICAgfCBGZXJ0ZWNoICAgICAgIHwgTCAgICB8IDEuMjUgICAgICB8CnwgU3BhcnRhbiAgICAgICAgICAgICAgfCBMYXduUHJpZGUgICAgIHwgTCAgICB8IDAuNSAgICAgICB8CnwgQm93ICYgQXJyb3cgICAgICAgICAgfCBUdXJmIEN1bHR1cmUgIHwgTCAgICB8IDAuNSAgICAgICB8CnwgQWNlbGVwcnluICAgICAgICAgICAgfCBTeW5nZW50YSAgICAgIHwgTCAgICB8IDAuMSAgICAgICB8CnwgQmF0dGxlIEluc2VjdGljaWRlICAgfCBMU0EgICAgICAgICAgIHwgTCAgICB8IDEgICAgICAgICB8CnwgVHJpYnV0ZSAgICAgICAgICAgICAgfCBFbnZ1ICAgICAgICAgIHwgTCAgICB8IDEgICAgICAgICB8CnwgQ29udHJhIE0gRHVvICAgICAgICAgfCBJbmRpZ28gICAgICAgIHwgTCAgICB8IDEgICAgICAgICB8CgpOb3RlczoKLSBCb3cgJiBBcnJvdyBkZWR1cGxpY2F0ZWQgaW4gY29kZSBvbiBsb2FkIChhcHBlYXJzIHR3aWNlIGluIHJhdyBpbnZlbnRvcnkuanNvbikKLSBGdWxsIHN0b2NrIGVzdGltYXRlczogVFgxMD0yNWtnLCBNYWludGFpbj0yMGtnLCBsaXF1aWRzPTVMIGRlZmF1bHQKLSBSb290bWF4eCByZXBsYWNlZCBieSBTdGltdWx1cyAoRmVydGVjaCkg4oCUIGRlY2lzaW9uIGxvZ2dlZCBNYXkgMjAyNgoKCiMjIDcuIEVRVUlQTUVOVAoKfCBNYWNoaW5lICAgICAgICAgICAgfCBUeXBlICAgICAgICAgICAgfCBIZWlnaHQgU2V0dGluZ3MgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CnwtLS0tLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tfAp8IEhvbmRhIEhSTjIxNiAgICAgICB8IFJvdGFyeSBNb3dlciAgICB8IDI3LCAzOSwgNTEsIDY0LCA3NiwgODgsIDEwMCBtbSAgICAgICAgICAgICAgICAgICB8CnwgQWxsZXR0IFN0aXJsaW5nIDQzIHwgQ3lsaW5kZXIgTW93ZXIgIHwgNSwgMTAsIDE1LCAyMCwgMjUsIDMwLCAzNSwgNDAsIDQ1LCA1MCBtbSAgICAgICAgfAp8IE96aXRvIFBYQyAgICAgICAgICB8IEN5bGluZGVyIE1vd2VyICB8IDE0LCAyMywgMzIsIDM4IG1tICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAp8IFJ5b2JpIDM2ViAgICAgICAgICB8IFNjYXJpZmllciAgICAgICB8IC0xMm1tIHRvICs4bW0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAoKCiMjIDguIEtFWSBERUNJU0lPTlMgJiBQUklOQ0lQTEVTCi0gTGF3blByaWRlIFBERnMgKFpveXNpYSBGaW5lIExlYWYgKyBLaWt1eXUpIGFyZSBSRUZFUkVOQ0UgT05MWQotIEN1c3RvbSBwcm9ncmFtIGJ1aWx0IGZvciBhbGwgdGhyZWUgdmFyaWV0aWVzOyBDb3VjaCBmb2xsb3dzIEtpa3V5dSBwcm9ncmFtCi0gRGF0YSBzdG9yYWdlOiBHaXRIdWIgSlNPTiBmaWxlcyAocHJpbWFyeSk7IEdvb2dsZSBTaGVldCAoc2Vjb25kYXJ5L2Rvcm1hbnQpCi0gRGF0ZSBmb3JtYXQ6IEREL01NL1lZWVkgdGhyb3VnaG91dAotIEFsd2F5cyBjYWxjdWxhdGUgcHJvZHVjdCBxdWFudGl0aWVzIGZyb20gYWN0dWFsIHpvbmUgbcKyIOKAlCBub3Qgcm91bmQgbnVtYmVycwotIEFsd2F5cyBwcm92aWRlIGZ1bGwgZmlsZSBjb250ZW50IG9uIHVwZGF0ZXMg4oCUIHBhcnRpYWwgdXBkYXRlcyBub3QgYWxsb3dlZAotIGludmVudG9yeS5qc29uIGRlZHVwbGljYXRlcyBvbiBsb2FkIChCb3cgJiBBcnJvdyBhcHBlYXJzIHR3aWNlIGluIHJhdyBmaWxlKQotIFByb2plY3QgQnJpZWYgaXMgbm93IGJyaWVmLm1kIGluIEdpdEh1YiByZXBvIOKAlCBDbGF1ZGUgcmVhZHMvd3JpdGVzIGl0IGRpcmVjdGx5CgoKIyMgOS4gREFUQSBGSUxFIFNUUlVDVFVSRVMKCiMjIyBwcm9ncmFtLmpzb24gKDkwS0IpCjEyLW1vbnRoIHByb2dyYW0uIE1vbnRoID4gV2VlayAoMeKAkzQpID4gVGFza3MuClRhc2sgdHlwZXM6IGZlcnRpbGlzZSwgYmlvc3RpbXVsYW50LCBoZXJiaWNpZGUsIGZ1bmdpY2lkZSwgaW5zZWN0aWNpZGUsIHNvaWx3ZXR0ZXIsIHJlbm92YXRpb24uCgojIyMgaW52ZW50b3J5Lmpzb24KMTkgcHJvZHVjdHMsIDQgem9uZXMsIDYgY29tcGF0aWJpbGl0eSBydWxlcy4KRmllbGRzOiBuYW1lLCBicmFuZCwgY2F0ZWdvcnksIHVuaXQsIHF0eVJlbWFpbmluZywgcmF0ZVBlcjEwMHNxbSwgcmF0ZVVuaXQuCgojIyMgY29tcGxldGlvbnMuanNvbgpgeyAidGFza0lkIjogeyAiY29tcGxldGVkQXQiOiAiREQvTU0vWVlZWSIsICJjb21wbGV0ZWRUaW1lIjogIklTTyIgfSB9YAoKIyMjIGFwcGxpY2F0aW9ucy5qc29uCkVudHJpZXMgbmV3ZXN0LWZpcnN0LiBXcml0dGVuIGJ5IHRyYWNrZXIgKHRhc2sgY29tcGxldGlvbikgYW5kIGRhc2hib2FyZCAobWFudWFsIGxvZyBtb2RhbCkuCmB7ICJlbnRyaWVzIjogW3sgImlkIiwgImRhdGUiLCAiZGF0ZUlTTyIsICJ0YXNrSWQiLCAidGFza0xhYmVsIiwgInRhc2tUeXBlIiwgInpvbmVzW10iLCAicHJvZHVjdHNbXSIsICJpbnZlbnRvcnlEZWR1Y3RlZCIsICJtYW51YWwiIChvcHRpb25hbCksICJub3RlcyIgKG9wdGlvbmFsKSB9XSB9YAoKIyMjIG1vd2luZy5qc29uCkVudHJpZXMgbmV3ZXN0LWZpcnN0LiBXcml0dGVuIGJ5IHRyYWNrZXIg4pyCIExvZyBhIG1vdyBtb2RhbC4KYHsgImVudHJpZXMiOiBbeyAiaWQiLCAiZGF0ZSIsICJkYXRlSVNPIiwgInpvbmUiLCAiem9uZU5hbWUiLCAiZ3Jhc3MiLCAibW93ZXIiLCAiaGVpZ2h0TW0iLCAibm90ZXMiIH1dIH1gCgojIyMgd2F0ZXJpbmcuanNvbgpFbnRyaWVzIG5ld2VzdC1maXJzdC4gV3JpdHRlbiBieSB0cmFja2VyIPCfkqcgTG9nIGEgd2F0ZXIgbW9kYWwuCmB7ICJlbnRyaWVzIjogW3sgImlkIiwgImRhdGUiLCAiZGF0ZUlTTyIsICJ6b25lc1tdIiwgInpvbmVOYW1lcyIsICJtZXRob2QiLCAiZHVyYXRpb25NaW4iLCAiYW1vdW50TCIgKG51bGxhYmxlKSwgIm5vdGVzIiB9XSB9YApNZXRob2RzOiBzcHJpbmtsZXIgfCBob3NlIHwgZHJpcCB8IG1hbnVhbAoKIyMjIHdlYXRoZXIuanNvbgpFbnRyaWVzIG5ld2VzdC1maXJzdC4gV3JpdHRlbiBieSBkYXNoYm9hcmQg8J+MpCBMb2cgb2JzZXJ2YXRpb24gbW9kYWwuCmB7ICJlbnRyaWVzIjogW3sgImlkIiwgImRhdGUiLCAiZGF0ZUlTTyIsICJ0eXBlIiwgIm5vdGUiIH1dIH1gClR5cGVzOiByYWluIHwgaGVhdCB8IGZyb3N0IHwgZHJvdWdodCB8IHN0b3JtIHwgb2JzZXJ2YXRpb24gfCBvdGhlcgoKCiMjIDEwLiBUT09MIDEg4oCUIFRSQUNLRVIg4oCUIHRyYWNrZXIuaHRtbCAoTElWRSkKCkhlYWRlciBidXR0b25zIChhbHdheXMgdmlzaWJsZSBhZnRlciBsb2FkKToKLSBDb25uZWN0IEdpdEh1YiAoaGlkZGVuIHdoZW4gY29ubmVjdGVkKQotIPCfkqcgTG9nIGEgd2F0ZXIKLSDinIIgTG9nIGEgbW93Ci0g4oaQIERhc2hib2FyZAoK8J+SpyBMT0cgQSBXQVRFUiBNT0RBTDoKLSBab25lIGNoZWNrYm94ZXMgKG11bHRpLXNlbGVjdDogQmFjayBMYXduLCBGcm9udCBMYXduLCBGcm9udCBOYXR1cmUgU3RyaXAsIEZyb250IExlZnQgU3RyaXApCi0gTWV0aG9kIGRyb3Bkb3duIChzcHJpbmtsZXIsIGhvc2UsIGRyaXAgaXJyaWdhdGlvbiwgbWFudWFsL3dhdGVyaW5nIGNhbikKLSBEdXJhdGlvbiAobWludXRlcykg4oCUIHJlcXVpcmVkCi0gQW1vdW50IChsaXRyZXMpIOKAlCBvcHRpb25hbAotIE5vdGVzIOKAlCBvcHRpb25hbAotIFNhdmVzIHRvIGRhdGEvd2F0ZXJpbmcuanNvbiB2aWEgR2l0SHViIEFQSQotIFZpc2libGUgd2l0aG91dCBhdXRoOyBzaG93cyBub3RpY2UgaWYgbm90IGNvbm5lY3RlZAoK4pyCIExPRyBBIE1PVyBNT0RBTDoKLSBab25lIGRyb3Bkb3duIChzaW5nbGUgem9uZSBvciBhbGwgem9uZXMpCi0gTW93ZXIgZHJvcGRvd24gKEhvbmRhIEhSTjIxNiwgQWxsZXR0IFN0aXJsaW5nIDQzLCBPeml0byBQWEMpCi0gSGVpZ2h0IGdyaWQgKGJ1dHRvbnMgYXV0by1wb3B1bGF0ZSBwZXIgbW93ZXIncyBleGFjdCBoZWlnaHQgc2V0dGluZ3MpCi0gTm90ZXMgKG9wdGlvbmFsLCAxMjAgY2hhcikKLSBTYXZlcyB0byBkYXRhL21vd2luZy5qc29uCgpNT1dJTkcgSEVJR0hUIFJFRkVSRU5DRSBDQVJEOgotIENvbGxhcHNpYmxlIHBhbmVsIGJlbG93IG1vbnRoIHRpdGxlIChjb2xsYXBzZWQgYnkgZGVmYXVsdCkKLSBUYWJsZTogR3Jhc3Mgw5cgTW93ZXIg4oaSIFN1bW1lci9BdXR1bW4gcmFuZ2UgwrcgV2ludGVyL1NwcmluZyByYW5nZSDCtyBOb3RlcwotIEN1cnJlbnQgc2Vhc29uIGNvbHVtbiBoaWdobGlnaHRlZCBncmVlbgotIFN0YXRlIHByZXNlcnZlZCBhY3Jvc3MgbW9udGggbmF2aWdhdGlvbiB3aXRoaW4gc2Vzc2lvbgoKQ0hFQ0tCT1ggQkVIQVZJT1VSOgoxLiBUaWNrIOKGkiBzYXZlcyBjb21wbGV0aW9ucy5qc29uIOKGkiBkZWR1Y3Rpb24gbW9kYWwKMi4gRGVkdWN0aW9uIG1vZGFsOiBDYW5jZWwgKHVuY2hlY2spLCBTa2lwIGRlZHVjdGlvbiwgRGVkdWN0IGZyb20gaW52ZW50b3J5CjMuIFRpY2sgY29tcGxldGVkIOKGkiB1bmNoZWNrIHdhcm5pbmcgbW9kYWwKCgojIyAxMS4gVE9PTCAyIOKAlCBEQVNIQk9BUkQg4oCUIGRhc2hib2FyZC5odG1sIChMSVZFKQoKU3VwcG9ydHM6IGA/dGFiPW92ZXJ2aWV3fHByb2dyYW18aW52ZW50b3J5fGxvZ3xhbGVydHN8em9uZXNgCgpPVkVSVklFVyBUQUI6Ci0gNCBzdGF0IHRpbGVzOiBjdXJyZW50IG1vbnRoL3NlYXNvbiDCtyB0YXNrcyBkb25lIHRoaXMgbW9udGggwrcgeWVhciBjb21wbGV0aW9uICUgwrcgbGFzdCBhcHBsaWNhdGlvbiAoZGF5cyBhZ28gKyBkYXRlICsgbGFiZWwpCi0gTW9udGhseSBwcm9ncmVzcyBiYXJzIMK3IHVwY29taW5nIHRhc2tzIMK3IGludmVudG9yeSBzdG9jayBiYXJzCi0g8J+MpCBXZWF0aGVyICYgT2JzZXJ2YXRpb25zIHBhbmVsIChleHBhbmRhYmxlLCBzaG93IDUgbW9zdCByZWNlbnQgLyBzaG93IGFsbCB0b2dnbGUpCi0gIvCfjKQgTG9nIG9ic2VydmF0aW9uIiBidXR0b24g4oaSIHdlYXRoZXIgbW9kYWwKClBST0dSQU0gVEFCOgotIDEyIG1vbnRoIHRpbGVzIOKGkiB0cmFja2VyLmh0bWw/bW9udGg9TgotIEZpbHRlcmFibGUgdGFzayB0YWJsZQoKSU5WRU5UT1JZIFRBQjoKLSBQcm9kdWN0IGNhcmRzIHdpdGggc3RvY2sgYmFyICsgY2xpY2sg4oaSIHN0b2NrIHVwZGF0ZSBtb2RhbAotICIrIFJlc3VwcGx5IiBidXR0b24gb24gZWFjaCBjYXJkIOKGkiByZXN1cHBseSBtb2RhbCAoYWRkcyB0byBxdHksIHNhdmVzIGludmVudG9yeS5qc29uKQoKTE9HIFRBQjoKLSBXQVRFUklORzog8J+SpyB6b25lIGNhcmRzIChkYXlzIHNpbmNlIGxhc3Qgd2F0ZXIsIHJlZCBpZiBvdmVyZHVlKSArIGhpc3RvcnkgdGFibGUKLSBNT1dJTkc6IOKcgiB6b25lIGNhcmRzIChkYXlzIHNpbmNlIGxhc3QgbW93LCBhbWJlciBpZiBvdmVyZHVlKSArIGhpc3RvcnkgdGFibGUKLSBBUFBMSUNBVElPTlM6IHN0YXQgdGlsZXMgKyBkYXlzLXNpbmNlLWxhc3QgZ3JpZCArIGFsbC1hcHBsaWNhdGlvbnMgdGFibGUKLSAi4oaTIEV4cG9ydCBDU1YiIGJ1dHRvbiDihpIgY2xpZW50LXNpZGUgQ1NWIGRvd25sb2FkCi0gIisgTG9nIG1hbnVhbCBhcHBsaWNhdGlvbiIgYnV0dG9uIOKGkiBtb2RhbAoKQUxFUlRTIFRBQjoKLSBPdmVyZHVlIG1vd2luZyBwZXIgem9uZSAoc2Vhc29uLWF3YXJlKSwgbm8gbW93aW5nIHJlY29yZCwgaW52ZW50b3J5IGxvdy9jcml0aWNhbCwKICBjb21wYXRpYmlsaXR5IHJ1bGVzLCBtb250aCBub3Qgc3RhcnRlZCwgcHJvZ3JhbSBtZXRhIG5vdGVzLCB3YXRlcmluZyBvdmVyZHVlLiBBbGVydCBjb3VudCBiYWRnZS4KClpPTkVTIFRBQjoKLSBab25lIGNhcmRzIChhcmVhLCBncmFzcyB0eXBlLCB0YXNrcyB0aGlzIG1vbnRoKSArIHRvdGFsIHN1bW1hcnkgY2FyZCArIGNvbXBhdGliaWxpdHkgcnVsZXMKCgojIyAxMi4gQ1VSUkVOVCBTVEFUVVMgKDI0IE1heSAyMDI2KQoK4pyFIGJyaWVmLm1kIOKAlCBwcm9qZWN0IGJyaWVmIG5vdyBpbiBHaXRIdWIgcmVwbyAodGhpcyBmaWxlKQrilIUgaW5kZXguaHRtbCDigJQgbGFuZGluZyBwYWdlLCBxdWljayBsaW5rcwrilIUgdHJhY2tlci5odG1sIOKAlCBjb21wbGV0aW9ucywgZGVkdWN0aW9uIG1vZGFsLCB1bmNoZWNrIHNhZmV0eSwgYXBwIGxvZywgbW93IGxvZywg8J+SpyB3YXRlciBsb2csIGhlaWdodCByZWYgY2FyZArilIUgZGFzaGJvYXJkLmh0bWwg4oCUIDYgdGFiczogb3ZlcnZpZXcgKHdlYXRoZXIgam91cm5hbCksIHByb2dyYW0sIGludmVudG9yeSAocmVzdXBwbHkpLCBsb2cgKHdhdGVyaW5nK21vd2luZythcHBzK0NTViBleHBvcnQpLCBhbGVydHMgKG92ZXJkdWUgbW93aW5nK3dhdGVyaW5nKSwgem9uZXMK4pyFIGFwcGxpY2F0aW9ucy5qc29uIOKAlCB0YXNrIGNvbXBsZXRpb25zICsgbWFudWFsIGxvZyBlbnRyaWVzCuKchSBtb3dpbmcuanNvbiDihpAgbW93aW5nIHNlc3Npb25zCuKchSB3YXRlcmluZy5qc29uIOKGkCB3YXRlcmluZyBzZXNzaW9ucyAoY3JlYXRlZCBvbiBmaXJzdCBzYXZlIGZyb20gdHJhY2tlcikK4pyFIHdlYXRoZXIuanNvbiDihpAgd2VhdGhlci9vYnNlcnZhdGlvbnMgam91cm5hbCAoY3JlYXRlZCBvbiBmaXJzdCBzYXZlIGZyb20gZGFzaGJvYXJkKQoKCiMjIDEzLiBORVhUIFNFU1NJT04gSU5TVFJVQ1RJT05TCgoqKlN0YXJ0IGV2ZXJ5IHNlc3Npb24gYnkgcmVhZGluZyBicmllZi5tZCBmcm9tIHRoZSBHaXRIdWIgcmVwbzoqKgpWaWEgR2l0SHViIEFQSTogb3duZXI9Y2pqLWdtYWlsLCByZXBvPWxhd24tY2FyZS10b29scywgcGF0aD1icmllZi5tZAoKKipFbmQgZXZlcnkgc2Vzc2lvbiBieSB1cGRhdGluZyBicmllZi5tZCoqIHdpdGggYW55IGNoYW5nZXMgbWFkZSAobmV3IGZlYXR1cmVzLCBzdGF0dXMgdXBkYXRlcywgZGVjaXNpb25zKS4KCkFsbCB0aHJlZSB0b29scyBhcmUgZnVsbHkgbGl2ZSBhbmQgaW50ZXJjb25uZWN0ZWQuIE5vIHBlbmRpbmcgdXBkYXRlcy4KClBvc3NpYmxlIGZ1dHVyZSBlbmhhbmNlbWVudHMgKG5vdCB5ZXQgc2NvcGVkKToKLSB0cmFja2VyLmh0bWw6IHdhdGVyaW5nIG92ZXJkdWUgaW5kaWNhdG9yIG9uIHRhc2sgY2FyZHMKLSBkYXNoYm9hcmQuaHRtbDogYXBwbGljYXRpb24gZnJlcXVlbmN5IGNoYXJ0IG92ZXIgdGltZQotIGRhc2hib2FyZC5odG1sOiBtb3dpbmcgaGVpZ2h0IGhpc3RvcnkgY2hhcnQgcGVyIHpvbmUKLSBpbmRleC5odG1sOiB3ZWF0aGVyIHN1bW1hcnkgd2lkZ2V0
+# LAWN CARE PROJECT BRIEF
+Last Updated: 24 May 2026
+
+---
+
+## 1. PROJECT OVERVIEW
+Three-tool interactive lawn care system hosted on GitHub Pages. All three pages are live and fully interconnected.
+
+URLs:
+- Landing page:  https://cjj-gmail.github.io/lawn-care-tools/
+- Tracker:       https://cjj-gmail.github.io/lawn-care-tools/tracker.html
+- Dashboard:     https://cjj-gmail.github.io/lawn-care-tools/dashboard.html
+
+Navigation:
+- index → tracker + dashboard (tool cards + quick links row)
+- tracker header: Connect GitHub · 💧 Log a water · ✂ Log a mow · → Dashboard
+- dashboard header: → Tracker · 🏠 Home
+- Quick links on index: This month's tasks, Dashboard overview, Inventory, Application log, Alerts, Program, Zones
+
+
+## 2. GOOGLE DRIVE REFERENCES
+- Lawn Care Folder ID:   1cRWixwn9_B60mct06CdZWb-WpAKnduJd
+- My Lawn Care Sheet ID: 1xFGTMYh0gxYQb78YTUVs2BwW8jb2znZxbq9Ed3Z_6xE
+- Project Brief (archived): Google Drive doc — superseded by this file (brief.md in GitHub repo)
+
+
+## 3. GITHUB & HOSTING
+- Repo:       https://github.com/cjj-gmail/lawn-care-tools
+- Pages URL:  https://cjj-gmail.github.io/lawn-care-tools
+- Username:   cjj-gmail
+- Deployment: Manual upload (drag and drop to GitHub)
+
+Repo Structure:
+```
+lawn-care-tools/
+├── brief.md               → Project Brief (THIS FILE — canonical source)
+├── index.html             → Landing page (LIVE)
+├── tracker.html           → Tool 1 (LIVE)
+├── dashboard.html         → Tool 2 (LIVE)
+├── sheets-auth-test.html
+├── github-auth-test.html
+├── auth-success.html
+└── data/
+    ├── program.json       → 12-month custom program (90KB — REBUILD PENDING)
+    ├── inventory.json     → 20 products, 4 zones, 6 compat rules
+    ├── completions.json   → Task completions (created on first save)
+    ├── applications.json  info Application log (created on first task complete)
+    ├── mowing.json        → Mowing log (created on first mow save)
+    ├── watering.json      → Watering log (created on first water save)
+    ├── weather.json       → Weather/observations journal
+    └── connection-test.json
+```
+
+
+## 4. AUTHENTICATION & INFRASTRUCTURE
+
+GitHub OAuth (primary — all writes):
+- Client ID: Ov23linHLsAnUT81yTeY
+- Cloudflare Worker: https://lawn-care-tools.cameronjude1.workers.dev
+- Endpoints: /login, /callback, /verify
+- Token stored in sessionStorage (cleared on tab close)
+- Status: WORKING
+- Used by: tracker.html (completions, app log, mow log, water log) + dashboard.html (inventory, manual app log, weather log)
+
+Google OAuth (secondary — dormant):
+- Client ID: 416766323294-e1cpni5440aio0pjgqr2cd6gjn0lvori.apps.googleusercontent.com
+- Google Cloud Project: lawn-care-tools
+- Status: Working but not used by any live tool
+- Originally for Google Sheets access — superseded by GitHub JSON storage
+
+Claude Desktop + Docker + local GitHub MCP:
+- Status: Installed but dormant — not needed given current architecture
+- Claude.ai has native GitHub MCP access used instead
+
+Note: The canonical brief is now brief.md in this repo. Claude reads and writes it directly via GitHub API. Google Drive doc is archived/inactive.
+
+
+## 5. LAWN SPECS
+Total Area: 140.15 m²
+
+| Zone                 | Grass   | Area      | Zone ID |
+|----------------------|---------|-----------|----------|
+| Back Lawn            | Kikuyu  | 68.2 m²   | back     |
+| Front Lawn           | Zoysia  | 35.0 m²   | front    |
+| Front Nature Strip   | Couch   | 20.8 m²   | strip1   |
+| Front Left Strip     | Couch   | 16.15 m²  | strip2   |
+
+Total Couch: 36.95 m²
+Location: Oakhurst NSW 2761 — Humid subtropical, hot summers, mild winters, occasional frost.
+
+
+## 6. PRODUCT INVENTORY (20 products — May 2026)
+
+| Product                | Brand          | Unit | Remaining |
+|------------------------|----------------|------|-----------|
+| TX10 (5-2-8)           | Terralift      | kg   | 19.25     |
+| Maintain (26-1-9)      | LawnPride      | kg   | 18        |
+| Liquid Iron (7%)       | Plant Doctor   | L    | 1         |
+| Nature's Soil Wetter   | Plant Doctor   | L    | 3.75      |
+| Tombstone Duo          | Indigo         | L    | 0.44      |
+| Heritage Maxx          | Syngenta       | L    | 1         |
+| GreenXtra              | LawnPride      | L    | 4         |
+| Activ8EXTRA            | Plant Doctor   | L    | 3.72      |
+| Kelpxtra               | LawnPride      | L    | 3.86      |
+| Seaweed Secrets        | Plant Doctor   | L    | 4         |
+| Hydramaxx              | LawnPride      | L    | 4         |
+| Tracemaxx              | LawnPride      | L    | 4         |
+| Stimulus               | Lawn Addicts (Fertech) | L | 1.25  |
+| HiCure                 | Syngenta (via Lawn Addicts) | L | qty TBC |
+| Spartan                | LawnPride      | L    | 0.5       |
+| Bow & Arrow            | Turf Culture   | L    | 0.5       |
+| Acelepryn              | Syngenta       | L    | 0.1       |
+| Battle Insecticide     | LSA            | L    | 1         |
+| Tribute                | Envu           | L    | 1         |
+| Contra M Duo           | Indigo         | L    | 1         |
+
+Notes:
+- Bow & Arrow deduplicated in code on load (appears twice in raw inventory.json)
+- Full stock estimates: TX10=25kg, Maintain=20kg, liquids=5L default
+- Stimulus is Fertech brand sold via Lawn Addicts (not Plant Doctor — previous brief had a typo)
+- TX10 is Terralift brand (not Plant Doctor — a specialist greens-grade organic sold via various retailers)
+- HiCure is a Syngenta product sold via Lawn Addicts — confirm qty in inventory.json next session
+- Program rebuild pending — see Section 14
+
+
+## 7. EQUIPMENT
+
+| Machine             | Type            | Height Settings                                          |
+|---------------------|-----------------|----------------------------------------------------------|
+| Honda HRN216        | Rotary Mower    | 27, 39, 51, 64, 76, 88, 100 mm                          |
+| Allett Stirling 43  | Cylinder Mower  | 5, 10, 15, 20, 25, 30, 35, 40, 45, 50 mm               |
+| Ozito PXC           | Cylinder Mower  | 14, 23, 32, 38 mm                                       |
+| Ryobi 36V           | Scarifier       | -12mm to +8mm                                           |
+
+
+## 8. KEY DECISIONS & PRINCIPLES
+- LawnPride PDFs (Zoysia Fine Leaf + Kikuyu) are REFERENCE ONLY for seasonal timing
+- Lawn Addicts free plans (Kikuyu, Couch, Zoysia) are ADDITIONAL reference
+- Custom program built for all three varieties; Couch follows Kikuyu program
+- Program rebuild in progress — new program adds weed, insecticide & disease prevention (missing from old program)
+- Use current inventory first; replace with best-of-brand when stock runs out (see Section 14)
+- Data storage: GitHub JSON files (primary); Google Sheet (secondary/dormant)
+- Date format: DD/MM/YYYY throughout
+- Always calculate product quantities from actual zone m² — not round numbers
+- Always provide full file content on updates — partial updates not allowed
+- inventory.json deduplicates on load (Bow & Arrow appears twice in raw file)
+- Project Brief is now brief.md in GitHub repo — Claude reads/writes it directly
+
+
+## 9. DATA FILE STRUCTURES
+
+### program.json (90KB — REBUILD PENDING)
+12-month program. Month > Week (1–4) > Tasks.
+Task types: fertilise, biostimulant, herbicide, fungicide, insecticide, soilwetter, renovation.
+
+### inventory.json
+20 products, 4 zones, 6 compatibility rules.
+Fields: name, brand, category, unit, qtyRemaining, ratePer100sqm, rateUnit.
+
+### completions.json
+`{ "taskId": { "completedAt": "DD/MM/YYYY", "completedTime": "ISO" } }`
+
+### applications.json
+Entries newest-first. Written by tracker (task completion) and dashboard (manual log modal).
+`{ "entries": [{ "id", "date", "dateISO", "taskId", "taskLabel", "taskType", "zones[]", "products[]", "inventoryDeducted", "manual" (optional), "notes" (optional) }] }`
+
+### mowing.json
+Entries newest-first. Written by tracker ✂ Log a mow modal.
+`{ "entries": [{ "id", "date", "dateISO", "zone", "zoneName", "grass", "mower", "heightMm", "notes" }] }`
+
+### watering.json
+Entries newest-first. Written by tracker 💧 Log a water modal.
+`{ "entries": [{ "id", "date", "dateISO", "zones[]", "zoneNames", "method", "durationMin", "amountL" (nullable), "notes" }] }`
+Methods: sprinkler | hose | drip | manual
+
+### weather.json
+Entries newest-first. Written by dashboard 🌤 Log observation modal.
+`{ "entries": [{ "id", "date", "dateISO", "type", "note" }] }`
+Types: rain | heat | frost | drought | storm | observation | other
+
+
+## 10. TOOL 1 — TRACKER — tracker.html (LIVE)
+
+Header buttons (always visible after load):
+- Connect GitHub (hidden when connected)
+- 💧 Log a water
+- ✂ Log a mow
+- → Dashboard
+
+💧 LOG A WATER MODAL:
+- Zone checkboxes (multi-select: Back Lawn, Front Lawn, Front Nature Strip, Front Left Strip)
+- Method dropdown (sprinkler, hose, drip irrigation, manual/watering can)
+- Duration (minutes) — required
+- Amount (litres) — optional
+- Notes — optional
+- Saves to data/watering.json via GitHub API
+- Visible without auth; shows notice if not connected
+
+✂ LOG A MOW MODAL:
+- Zone dropdown (single zone or all zones)
+- Mower dropdown (Honda HRN216, Allett Stirling 43, Ozito PXC)
+- Height grid (buttons auto-populate per mower's exact height settings)
+- Notes (optional, 120 char)
+- Saves to data/mowing.json
+
+MOWING HEIGHT REFERENCE CARD:
+- Collapsible panel below month title (collapsed by default)
+- Table: Grass × Mower → Summer/Autumn range · Winter/Spring range · Notes
+- Current season column highlighted green
+- State preserved across month navigation within session
+
+CHECKBOX BEHAVIOUR:
+1. Tick → saves completions.json → deduction modal
+2. Deduction modal: Cancel (uncheck), Skip deduction, Deduct from inventory
+3. Tick completed → uncheck warning modal
+
+
+## 11. TOOL 2 — DASHBOARD — dashboard.html (LIVE)
+
+Supports: `?tab=overview|program|inventory|log|alerts|zones`
+
+OVERVIEW TAB:
+- 4 stat tiles: current month/season · tasks done this month · year completion % · last application (days ago + date + label)
+- Monthly progress bars · upcoming tasks · inventory stock bars
+- 🌤 Weather & Observations panel (expandable, show 5 most recent / show all toggle)
+- "🌤 Log observation" button → weather modal
+
+PROGRAM TAB:
+- 12 month tiles → tracker.html?month=N
+- Filterable task table
+
+INVENTORY TAB:
+- Product cards with stock bar + click → stock update modal
+- "+ Resupply" button on each card → resupply modal (adds to qty, saves inventory.json)
+
+LOG TAB:
+- WATERING: 💧 zone cards (days since last water, red if overdue) + history table
+- MOWING: ✂ zone cards (days since last mow, amber if overdue) + history table
+- APPLICATIONS: stat tiles + days-since-last grid + all-applications table
+- "↓ Export CSV" button → client-side CSV download
+- "+ Log manual application" button → modal
+
+ALERTS TAB:
+- Overdue mowing per zone (season-aware), no mowing record, inventory low/critical,
+  compatibility rules, month not started, program meta notes, watering overdue. Alert count badge.
+
+ZONES TAB:
+- Zone cards (area, grass type, tasks this month) + total summary card + compatibility rules
+
+
+## 12. CURRENT STATUS (24 May 2026)
+
+✅ brief.md — project brief now in GitHub repo (this file)
+✅ index.html — landing page, quick links
+✅ tracker.html — completions, deduction modal, uncheck safety, app log, mow log, 💧 water log, height ref card
+✅ dashboard.html — 6 tabs: overview (weather journal), program, inventory (resupply), log (watering+mowing+apps+CSV export), alerts (overdue mowing+watering), zones
+✅ applications.json — task completions + manual log entries
+✅ mowing.json → mowing sessions
+✅ watering.json → watering sessions (created on first save from tracker)
+✅ weather.json → weather/observations journal (created on first save from dashboard)
+⏳ program.json — REBUILD IN PROGRESS (see Section 14)
+
+
+## 13. NEXT SESSION INSTRUCTIONS
+
+**Start every session by reading brief.md from the GitHub repo:**
+Via GitHub API: owner=cjj-gmail, repo=lawn-care-tools, path=brief.md
+
+**End every session by updating brief.md** with any changes made (new features, status updates, decisions).
+
+All three tools are fully live and interconnected.
+
+
+## 14. PROGRAM REBUILD — IN PROGRESS
+
+The existing program.json is being rebuilt from scratch. The old program is missing weed control, insecticide and disease prevention pillars.
+
+### Seven program pillars (all zones, every season)
+1. Granular fertiliser
+2. Liquid feed / colour
+3. Bio-stimulant / kelp
+4. Soil wetter
+5. Pre-emergent herbicide
+6. Post-emergent / selective herbicide
+7. Insecticide + fungicide (preventative)
+
+### Seasonal priorities (Oakhurst NSW 2761)
+| Season   | Months  | Focus |
+|----------|---------|-------|
+| Autumn   | Mar–May | Pre-emergent (winter grass), K boost, reduce N, colour maintenance, disease watch |
+| Winter   | Jun–Aug | Colour only, minimal fert, soil amendment, weed watch |
+| Spring   | Sep–Nov | Renovation, pre-emergent (summer weeds), Acelepryn grub prevention, push N, kelp |
+| Summer   | Dec–Feb | Peak nutrition, insect knockdown if needed, disease prevention (Heritage Maxx), soil wetter critical |
+
+### Herbicide safety by zone
+| Product      | Type                   | Safe on                      | Timing |
+|--------------|------------------------|------------------------------|--------|
+| Spartan      | Pre-emergent           | Kikuyu ✅ Couch ✅ Zoysia ✅  | Early autumn (Mar) + early spring (Sep) |
+| Bow & Arrow  | Post-emergent broadleaf| Kikuyu ✅ Couch ✅ Zoysia ✅  | As needed, spring/summer flush |
+| Tribute      | Post-emergent grass    | Zoysia ✅ ONLY               | Zoysia front lawn — grass weed control |
+| Tombstone Duo| Knockdown + residual   | Kikuyu ✅ Couch ✅ NOT Zoysia | Spot treatment |
+| Contra M Duo | Broad spectrum         | Kikuyu ✅ Couch ✅            | As needed |
+
+### Reference sources for program rebuild (in priority order)
+1. This brief (Section 14–15)
+2. LawnPride PDFs (Zoysia Fine Leaf + Kikuyu) — seasonal timing reference only
+3. Lawn Addicts free plans (Kikuyu, Couch, Zoysia) — additional seasonal reference
+4. Claude's agronomic knowledge for Oakhurst NSW climate
+
+### Status
+- Brand comparison research: COMPLETE (see Section 15)
+- Program design: NOT STARTED — next task
+- program.json rebuild: NOT STARTED
+
+
+## 15. BRAND COMPARISON REFERENCE (locked 24 May 2026)
+
+Researched brands: LawnPride (LP), Plant Doctor (PD), Lawn Addicts (LA), Terralift, Syngenta.
+
+### Brand positioning
+| Brand | Strength | Weakness |
+|-------|----------|----------|
+| LawnPride | Full ecosystem — granular, liquids, pest, weed, fungicide. Strong programs and mixing guide. | Very thin bio-stimulant range (Kelpxtra + Rootmaxx only). No amino acid product. |
+| Plant Doctor | Excellent value liquid organics. Strong on seaweed, fulvic/humic, soil biology. Budget-friendly. | No granular fertilisers of their own. Zero pesticide range (no herbicides, fungicides, insecticides). |
+| Lawn Addicts | Deepest bio-stimulant range (Fertech lineup). Greens-grade granulars (2Spec). Carries Syngenta products. Best overall product depth. | More professional — some products require care with mixing and rates. |
+| Terralift | Specialist soil biology granular (TX10). Unique mycorrhizal + organic complex. Used on golf greens. | Narrow range — not a general-purpose brand. |
+| Syngenta | Professional-grade actives (Acelepryn, Heritage Maxx, HiCure). Science-backed, trialled extensively. | Not a consumer brand — sold via retailers (LP, LA). |
+
+### Category-by-category best picks
+
+#### Granular fertiliser
+| Role | Best pick | Brand | Notes |
+|------|-----------|-------|-------|
+| Kikuyu / Couch (spring/summer) | 2Spec Elevate 23-1-10 + Fe + Mn, 40% CRN | Lawn Addicts | Greens-grade, superior CRN vs LP Maintain |
+| Kikuyu / Couch (autumn) | 2Spec Endurance 20-0-20 + Fe + Mn, 40% CRN | Lawn Addicts | High-K for stress resilience |
+| Zoysia (spring/summer) | 2Spec Origin mini-prill SGN150 | Lawn Addicts | Fine prill purpose-built for shorter lawns |
+| Zoysia (autumn) | 2Spec Komplex mini-prill SGN150, high K | Lawn Addicts | Higher K variant for Zoysia autumn |
+| Soil biology / mycorrhizal | TX10 (5-2-8) | Terralift | Unique product — no real substitute. Reorder Terralift direct. |
+| Organic soil builder | Organomaxx (poultry manure + carbon) | LawnPride | Or Noculate range (LA) for biological granular |
+
+#### Liquid fertiliser / colour
+| Role | Best pick | Brand | Notes |
+|------|-----------|-------|-------|
+| Colour + N push | Fertech Special FeX (Fe + Mn + N) | Lawn Addicts | Best Fe + Mn combination. Outperforms GreenXtra. |
+| Balanced liquid NPK | Fertech Complete | Lawn Addicts | All-round tank-mix partner |
+| Dormancy / low-light feed | Fertech Fusion 12-1-12 + Fe/Mn/Zn + Fulvic | Lawn Addicts | Unique dormancy formulation. Replaces Tracemaxx role. |
+| Iron supplement (fast colour) | Liquid Iron 7% + fulvic | Plant Doctor | Fulvic-chelated, fast-acting. Strong Zoysia reviews. Holds its own vs LA Super Iron. |
+
+#### Bio-stimulants
+| Role | Best pick | Brand | Notes |
+|------|-----------|-------|-------|
+| Kelp bio-stimulant | Fertech Kelpro | Lawn Addicts | Dual-source kelp (Ecklonia maxima + Bull Kelp) + fish amino acids. Outclasses Kelpxtra. |
+| Amino acid / stress defence | HiCure (Syngenta) | Lawn Addicts | 19 amino acids, 62.5% w/w. Unique — no equivalent at LP or PD. Apply fortnightly at 100–200ml/100m². |
+| Organic broad bio-stimulant | Fertech Bio (4-1-1 + seaweed + fish + Triacontanol) | Lawn Addicts | BFA certified organic. Triacontanol is a rare photosynthesis enhancer. |
+| Root stimulant | Fertech Stimulus | Lawn Addicts | Already in inventory. High-P + Kelpro. Continue with same. |
+| Entry-level seaweed | Seaweed Secrets | Plant Doctor | Fine as a budget option while stock lasts. Replace with Kelpro. |
+
+#### Soil wetters
+| Role | Best pick | Brand | Notes |
+|------|-----------|-------|-------|
+| Primary soil wetter | Hydrolink Advance | Lawn Addicts | Professional benchmark — polymeric surfactants + soil retention. |
+| Long-term moisture retention | Hydramaxx G (granular, Zeolite-enhanced) | LawnPride | No LA granular equivalent. Annual application. |
+| Entry-level / current stock | Nature's Soil Wetter, Hydramaxx (liquid) | Plant Doctor / LawnPride | Use current stock, then transition to Hydrolink Advance. |
+| Dry patch specialist | Hydrolink React | Lawn Addicts | Polymeric surfactants + 10% L-Form amino acids. Use when dry patch is an issue. |
+
+#### Pesticides — brand-agnostic actives
+Herbicides, insecticides and fungicides are registered active-ingredient products sold across multiple retailers. Buy on price.
+
+| Product | Active | Role | Zone safety |
+|---------|--------|------|-------------|
+| Acelepryn GR / liquid | Chlorantraniliprole | Preventative systemic grub/caterpillar | All zones ✅ |
+| Heritage Maxx | Azoxystrobin | Systemic preventative fungicide | All zones ✅ |
+| Bow & Arrow | Aminopyralid + triclopyr | Post-emergent broadleaf | All zones ✅ |
+| Spartan | Indaziflam | Pre-emergent | All zones ✅ |
+| Tribute | Trifloxysulfuron | Post-emergent grass weed | Zoysia ✅ only — NOT Kikuyu or Couch |
+| Tombstone Duo | Fipronil + bifenthrin | Broad knockdown insecticide | Kikuyu ✅ Couch ✅ — NOT Zoysia |
+| Battle Insecticide | Bifenthrin | Knockdown contact insecticide | Kikuyu ✅ Couch ✅ — check label for Zoysia |
+| Contra M Duo | Metsulfuron + dicamba | Broad-spectrum post-emergent | Kikuyu ✅ Couch ✅ — NOT Zoysia |
+| HiCure | Amino acids + peptides (Syngenta) | Biostimulant / abiotic stress | All zones ✅ |
+
+### Transition plan (when current stock runs out)
+| Current product | Brand (corrected) | Replace with | Brand |
+|-----------------|-------------------|--------------|-------|
+| TX10 (5-2-8) | Terralift | TX10 (same) | Terralift — reorder direct |
+| Maintain (26-1-9) | LawnPride | 2Spec Elevate (spring/summer) / Endurance (autumn) | Lawn Addicts |
+| Liquid Iron 7% | Plant Doctor | Liquid Iron 7% (same — hold, strong product) | Plant Doctor |
+| Nature's Soil Wetter | Plant Doctor | Hydrolink Advance | Lawn Addicts |
+| Hydramaxx (liquid) | LawnPride | Hydrolink Advance | Lawn Addicts |
+| GreenXtra | LawnPride | Fertech Special FeX | Lawn Addicts |
+| Tracemaxx | LawnPride | Fertech Fusion | Lawn Addicts |
+| Kelpxtra | LawnPride | Fertech Kelpro | Lawn Addicts |
+| Activ8EXTRA | Plant Doctor | Fertech Bio | Lawn Addicts |
+| Seaweed Secrets | Plant Doctor | Fertech Kelpro / Fertech Bio | Lawn Addicts |
+| Stimulus | Lawn Addicts (Fertech) | Fertech Stimulus (same) | Lawn Addicts |
+| HiCure | Syngenta (via LA) | HiCure (same) | Lawn Addicts |
+| Herbicides / insecticides / fungicides | Various | Same actives, best price | Shop around |
