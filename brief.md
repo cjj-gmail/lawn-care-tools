@@ -164,7 +164,7 @@ Fields: name, brand, category, unit, qtyRemaining, ratePer100sqm, rateUnit.
 
 ### applications.json
 Entries newest-first. Written by tracker (task completion) and dashboard (manual log modal).
-`{ "entries": [{ "id", "date", "dateISO", "taskId", "taskLabel", "taskType", "zones[]", "products[]", "inventoryDeducted", "manual" (optional), "notes" (optional) }] }` 
+`{ "entries": [{ "id", "date", "dateISO", "taskId", "taskLabel", "taskType", "zones[]", "products[]", "inventoryDeducted", "manual" (optional), "notes" (optional) }] }`
 
 ### mowing.json
 Entries newest-first. Written by tracker ✂ Log a mow modal.
@@ -295,16 +295,16 @@ The existing program.json is being rebuilt from scratch. The old program is miss
 | Summer   | Dec–Feb | Peak nutrition, insect knockdown if needed, disease prevention (Heritage Maxx), soil wetter critical |
 
 ### Herbicide safety by zone
-| Product      | Type                   | Safe on                      | Timing |
-|--------------|------------------------|------------------------------|--------|
-| Spartan      | Pre-emergent           | Kikuyu ✅ Couch ✅ Zoysia ✅  | Early autumn (Mar) + early spring (Sep) |
-| Bow & Arrow  | Post-emergent broadleaf| Kikuyu ✅ Couch ✅ Zoysia ✅  | As needed, spring/summer flush |
-| Tribute      | Post-emergent grass    | Zoysia ✅ ONLY               | Zoysia front lawn — grass weed control |
-| Tombstone Duo| Knockdown + residual   | Kikuyu ✅ Couch ✅ NOT Zoysia | Spot treatment |
-| Contra M Duo | Broad spectrum         | Kikuyu ✅ Couch ✅            | As needed |
+| Product      | Type                   | Safe on                                        | Timing |
+|--------------|------------------------|------------------------------------------------|--------|
+| Spartan      | Pre-emergent           | Kikuyu ✅ Couch ✅ Zoysia ✅                    | Early autumn (Mar) + early spring (Sep) |
+| Bow & Arrow  | Post-emergent broadleaf| Kikuyu ✅ Couch ✅ Zoysia ✅                    | As needed, spring/summer flush |
+| Tribute      | Post-emergent grass    | Zoysia ✅ Couch ✅ — NOT Kikuyu, NOT QLD Blue Couch | Autumn/spring grass weed flush |
+| Tombstone Duo| Knockdown + residual   | Kikuyu ✅ Couch ✅ — NOT Zoysia               | Spot treatment |
+| Contra M Duo | Broad spectrum         | Kikuyu ✅ Couch ✅ — NOT Zoysia               | As needed |
 
 ### Reference sources for program rebuild (in priority order)
-1. This brief (Section 14–15)
+1. This brief (Section 14–16)
 2. LawnPride PDFs (Zoysia Fine Leaf + Kikuyu) — seasonal timing reference only
 3. Lawn Addicts free plans (Kikuyu, Couch, Zoysia) — additional seasonal reference
 4. Claude's agronomic knowledge for Oakhurst NSW climate
@@ -372,7 +372,7 @@ Herbicides, insecticides and fungicides are registered active-ingredient product
 | Heritage Maxx | Azoxystrobin | Systemic preventative fungicide | All zones ✅ |
 | Bow & Arrow | Aminopyralid + triclopyr | Post-emergent broadleaf | All zones ✅ |
 | Spartan | Indaziflam | Pre-emergent | All zones ✅ |
-| Tribute | Trifloxysulfuron | Post-emergent grass weed | Zoysia ✅ only — NOT Kikuyu or Couch |
+| Tribute | Foramsulfuron | Post-emergent grass weed (Crowsfoot, Wintergrass, Ryegrass, Paspalum) | Zoysia ✅ Couch ✅ — NOT Kikuyu, NOT QLD Blue Couch, NOT Buffalo |
 | Tombstone Duo | Fipronil + bifenthrin | Broad knockdown insecticide | Kikuyu ✅ Couch ✅ — NOT Zoysia |
 | Battle Insecticide | Bifenthrin | Knockdown contact insecticide | Kikuyu ✅ Couch ✅ — check label for Zoysia |
 | Contra M Duo | Metsulfuron + dicamba | Broad-spectrum post-emergent | Kikuyu ✅ Couch ✅ — NOT Zoysia |
@@ -462,6 +462,7 @@ Each month has 4 weeks. Each week has tasks. Each task has:
 - Wk 2: Bio-stimulant — Activ8EXTRA (all zones)
 - Wk 3: Liquid colour — GreenXtra + Tracemaxx (all zones)
 - Wk 3: HiCure (all zones)
+- Wk 4: Tribute — grass weed control if Crowsfoot/Wintergrass active (Zoysia + Couch only — NOT back lawn)
 - Wk 4: Bow & Arrow — broadleaf post-emergent if weeds present (all zones)
 
 **August (Week 1–4)**
@@ -509,7 +510,7 @@ Each month has 4 weeks. Each week has tasks. Each task has:
 - Wk 2: HiCure (all zones)
 - Wk 2: Liquid colour — GreenXtra + Tracemaxx (all zones)
 - Wk 3: Bio-stimulant — Activ8EXTRA or Seaweed Secrets (all zones)
-- Wk 3: Tribute — grass weed control (Zoysia front lawn only)
+- Wk 3: Tribute — grass weed control (Zoysia front + Couch strips — NOT back Kikuyu)
 - Wk 4: Liquid Iron (all zones)
 - Wk 4: HiCure (all zones)
 
@@ -556,7 +557,8 @@ Each month has 4 weeks. Each week has tasks. Each task has:
 ### Notes for program.json build
 - Couch (strip1 + strip2) always follows Kikuyu tasks unless a task is explicitly Kikuyu-only
 - Zoysia (front) gets lighter granular N — TX10 only (not Maintain) through most of year
-- Tribute herbicide: Zoysia only, never Kikuyu or Couch
+- Tribute: safe on Zoysia ✅ and common/hybrid Couch ✅ — NOT Kikuyu (will suppress/damage), NOT QLD Blue Couch
+- Tribute tasks always exclude back lawn (Kikuyu) — apply to front (Zoysia) + strips (Couch) only
 - Tombstone Duo and Contra M Duo: Kikuyu + Couch only, not Zoysia — include as conditional/reactive tasks
 - Kelpxtra must NEVER appear in a tank-mix task with other concentrates
 - HiCure can tank-mix with GreenXtra+Tracemaxx if desired — excellent chelator partner
