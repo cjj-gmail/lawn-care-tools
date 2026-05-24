@@ -121,6 +121,7 @@ Notes:
 - TX10 is Terralift brand (not Plant Doctor — a specialist greens-grade organic sold via various retailers)
 - HiCure is a Syngenta product sold via Lawn Addicts — confirm qty in inventory.json next session
 - Program rebuild pending — see Section 14
+- Soil wetter preference: LIQUID ONLY — no granular wetter (Hydramaxx G removed from consideration)
 
 
 ## 7. EQUIPMENT
@@ -139,6 +140,7 @@ Notes:
 - Custom program built for all three varieties; Couch follows Kikuyu program
 - Program rebuild in progress — new program adds weed, insecticide & disease prevention (missing from old program)
 - Use current inventory first; replace with best-of-brand when stock runs out (see Section 14)
+- Soil wetter format: LIQUID ONLY — no granular wetter products
 - Data storage: GitHub JSON files (primary); Google Sheet (secondary/dormant)
 - Date format: DD/MM/YYYY throughout
 - Always calculate product quantities from actual zone m² — not round numbers
@@ -162,7 +164,7 @@ Fields: name, brand, category, unit, qtyRemaining, ratePer100sqm, rateUnit.
 
 ### applications.json
 Entries newest-first. Written by tracker (task completion) and dashboard (manual log modal).
-`{ "entries": [{ "id", "date", "dateISO", "taskId", "taskLabel", "taskType", "zones[]", "products[]", "inventoryDeducted", "manual" (optional), "notes" (optional) }] }`
+`{ "entries": [{ "id", "date", "dateISO", "taskId", "taskLabel", "taskType", "zones[]", "products[]", "inventoryDeducted", "manual" (optional), "notes" (optional) }] }` 
 
 ### mowing.json
 Entries newest-first. Written by tracker ✂ Log a mow modal.
@@ -279,7 +281,7 @@ The existing program.json is being rebuilt from scratch. The old program is miss
 1. Granular fertiliser
 2. Liquid feed / colour
 3. Bio-stimulant / kelp
-4. Soil wetter
+4. Soil wetter (liquid only)
 5. Pre-emergent herbicide
 6. Post-emergent / selective herbicide
 7. Insecticide + fungicide (preventative)
@@ -309,7 +311,7 @@ The existing program.json is being rebuilt from scratch. The old program is miss
 
 ### Status
 - Brand comparison research: COMPLETE (see Section 15)
-- Program design: NOT STARTED — next task
+- Program structure design: COMPLETE (see Section 16)
 - program.json rebuild: NOT STARTED
 
 
@@ -336,7 +338,6 @@ Researched brands: LawnPride (LP), Plant Doctor (PD), Lawn Addicts (LA), Terrali
 | Zoysia (spring/summer) | 2Spec Origin mini-prill SGN150 | Lawn Addicts | Fine prill purpose-built for shorter lawns |
 | Zoysia (autumn) | 2Spec Komplex mini-prill SGN150, high K | Lawn Addicts | Higher K variant for Zoysia autumn |
 | Soil biology / mycorrhizal | TX10 (5-2-8) | Terralift | Unique product — no real substitute. Reorder Terralift direct. |
-| Organic soil builder | Organomaxx (poultry manure + carbon) | LawnPride | Or Noculate range (LA) for biological granular |
 
 #### Liquid fertiliser / colour
 | Role | Best pick | Brand | Notes |
@@ -355,12 +356,11 @@ Researched brands: LawnPride (LP), Plant Doctor (PD), Lawn Addicts (LA), Terrali
 | Root stimulant | Fertech Stimulus | Lawn Addicts | Already in inventory. High-P + Kelpro. Continue with same. |
 | Entry-level seaweed | Seaweed Secrets | Plant Doctor | Fine as a budget option while stock lasts. Replace with Kelpro. |
 
-#### Soil wetters
+#### Soil wetters (liquid only — no granular)
 | Role | Best pick | Brand | Notes |
 |------|-----------|-------|-------|
 | Primary soil wetter | Hydrolink Advance | Lawn Addicts | Professional benchmark — polymeric surfactants + soil retention. |
-| Long-term moisture retention | Hydramaxx G (granular, Zeolite-enhanced) | LawnPride | No LA granular equivalent. Annual application. |
-| Entry-level / current stock | Nature's Soil Wetter, Hydramaxx (liquid) | Plant Doctor / LawnPride | Use current stock, then transition to Hydrolink Advance. |
+| Current stock | Nature's Soil Wetter, Hydramaxx (liquid) | Plant Doctor / LawnPride | Use current stock, then transition to Hydrolink Advance. |
 | Dry patch specialist | Hydrolink React | Lawn Addicts | Polymeric surfactants + 10% L-Form amino acids. Use when dry patch is an issue. |
 
 #### Pesticides — brand-agnostic actives
@@ -394,3 +394,172 @@ Herbicides, insecticides and fungicides are registered active-ingredient product
 | Stimulus | Lawn Addicts (Fertech) | Fertech Stimulus (same) | Lawn Addicts |
 | HiCure | Syngenta (via LA) | HiCure (same) | Lawn Addicts |
 | Herbicides / insecticides / fungicides | Various | Same actives, best price | Shop around |
+
+
+## 16. PROGRAM STRUCTURE (designed 24 May 2026)
+
+### Task structure in program.json
+Each month has 4 weeks. Each week has tasks. Each task has:
+- id, label, type, notes, zones[], products[]
+- zones: back (Kikuyu 68.2m²), front (Zoysia 35.0m²), strip1 (Couch 20.8m²), strip2 (Couch 16.15m²)
+- Couch zones treated identically to Kikuyu unless noted otherwise
+
+### Mixing rules (carry forward from old program)
+- Kelpxtra: NEVER mix with other concentrates — apply solo
+- HiCure: excellent tank-mix partner with liquid fertilisers and micronutrients
+- GreenXtra + Tracemaxx: can tank-mix together
+- Iron overload caution: reduce Tracemaxx to 100ml/100m² when mixing with GreenXtra at 200ml/100m²
+- Dilute all concentrates with water first before combining
+
+### Month-by-month program structure
+
+#### AUTUMN — March, April, May
+**Focus:** Pre-emergent (winter grass window), reduce N, boost K, colour maintenance, disease watch going into cooler months.
+
+**March (Week 1–4)**
+- Wk 1: Pre-emergent — Spartan (all zones). Dilute well, water in thoroughly.
+- Wk 1: Granular fertiliser — Maintain/TX10 blend (Kikuyu+Couch back+strips) | TX10 only (Zoysia — lower N entering autumn)
+- Wk 2: Soil wetter — Hydramaxx or Nature's Soil Wetter (all zones, autumn dryness)
+- Wk 2: Liquid colour — GreenXtra + Tracemaxx tank-mix (all zones)
+- Wk 3: Bio-stimulant — Kelpxtra solo (all zones) OR Activ8EXTRA / Seaweed Secrets
+- Wk 3: Root stimulant — Stimulus (all zones — root prep ahead of winter)
+- Wk 4: HiCure (all zones — begin stress defence program ahead of cooler weather)
+
+**April (Week 1–4)**
+- Wk 1: Liquid colour — GreenXtra + Tracemaxx tank-mix (all zones)
+- Wk 1: HiCure (all zones — fortnightly)
+- Wk 2: Bio-stimulant — Kelpxtra solo (all zones)
+- Wk 2: Herbicide (post-emergent) — Bow & Arrow if broadleaf weeds visible (all zones)
+- Wk 3: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 3: HiCure (all zones — fortnightly)
+- Wk 4: Soil wetter — Hydramaxx or Nature's Soil Wetter (all zones)
+
+**May (Week 1–4)**
+- Wk 1: Liquid colour — GreenXtra + Tracemaxx tank-mix (all zones)
+- Wk 1: HiCure (all zones)
+- Wk 2: Bio-stimulant — Kelpxtra solo (all zones)
+- Wk 2: Liquid Iron (all zones — deepen colour heading into winter)
+- Wk 3: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 3: HiCure (all zones)
+- Wk 4: Stimulus — root stimulant (all zones — root maintenance through dormancy)
+
+#### WINTER — June, July, August
+**Focus:** Colour maintenance only — minimal N, no granular push. Soil amendment, kelp. Monitor disease. Spray broadleaf weeds if active.
+
+**June (Week 1–4)**
+- Wk 1: Liquid colour — GreenXtra + Tracemaxx tank-mix (all zones)
+- Wk 1: HiCure (all zones)
+- Wk 2: Kelpxtra solo (all zones)
+- Wk 2: Liquid Iron (all zones)
+- Wk 3: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 3: HiCure (all zones)
+- Wk 4: Soil wetter — Hydramaxx or Nature's Soil Wetter (all zones)
+
+**July (Week 1–4)**
+- Wk 1: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 1: HiCure (all zones)
+- Wk 2: Kelpxtra solo (all zones)
+- Wk 2: Bio-stimulant — Activ8EXTRA (all zones)
+- Wk 3: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 3: HiCure (all zones)
+- Wk 4: Bow & Arrow — broadleaf post-emergent if weeds present (all zones)
+
+**August (Week 1–4)**
+- Wk 1: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 1: HiCure (all zones)
+- Wk 2: Kelpxtra solo (all zones) + Stimulus (root prime ahead of spring)
+- Wk 2: Liquid Iron (all zones)
+- Wk 3: Granular fertiliser — light application Maintain (Kikuyu+Couch) | TX10 (all zones, soil bio boost) — wake-up feed as growth returns
+- Wk 3: HiCure (all zones)
+- Wk 4: Soil wetter — Hydramaxx or Nature's Soil Wetter (all zones — pre-spring prep)
+
+#### SPRING — September, October, November
+**Focus:** Renovation (September), pre-emergent (summer weeds), Acelepryn grub prevention, push N hard, kelp+biostimulants for recovery, disease watch in November humidity.
+
+**September (Week 1–4)**
+- Wk 1: Pre-emergent — Spartan (all zones — summer weed window)
+- Wk 1: Acelepryn liquid (all zones — grub/caterpillar prevention, season-long)
+- Wk 1: Granular fertiliser — Maintain (Kikuyu+Couch) | TX10 (Zoysia)
+- Wk 2: RENOVATION — scarify, aerate, topdress (Kikuyu back + Couch strips)
+- Wk 2: Stimulus (all zones — post-renovation root recovery)
+- Wk 2: Soil wetter — Hydramaxx or Nature's Soil Wetter (all zones — renovation moisture)
+- Wk 3: Kelpxtra solo (all zones — post-renovation recovery)
+- Wk 3: HiCure (all zones)
+- Wk 3: Activ8EXTRA or Seaweed Secrets (all zones)
+- Wk 4: Granular fertiliser — Maintain (Kikuyu+Couch) | TX10 (Zoysia)
+- Wk 4: Liquid colour — GreenXtra + Tracemaxx (all zones)
+
+**October (Week 1–4)**
+- Wk 1: Kelpxtra solo (all zones)
+- Wk 1: HiCure (all zones)
+- Wk 1: Bow & Arrow — broadleaf if needed (all zones)
+- Wk 2: Granular fertiliser — Maintain (Kikuyu+Couch) | TX10 (Zoysia)
+- Wk 2: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 3: Soil wetter — Hydramaxx or Nature's Soil Wetter (all zones — warming soil)
+- Wk 3: HiCure (all zones)
+- Wk 3: Bio-stimulant — Activ8EXTRA (all zones)
+- Wk 4: Stimulus (all zones)
+- Wk 4: Liquid colour — GreenXtra + Tracemaxx (all zones)
+
+**November (Week 1–4)**
+- Wk 1: Granular fertiliser — Maintain (Kikuyu+Couch) | TX10 (Zoysia)
+- Wk 1: Kelpxtra solo (all zones)
+- Wk 1: Heritage Maxx — preventative fungicide (all zones — humidity season starting)
+- Wk 2: Soil wetter — Hydramaxx or Nature's Soil Wetter (all zones)
+- Wk 2: HiCure (all zones)
+- Wk 2: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 3: Bio-stimulant — Activ8EXTRA or Seaweed Secrets (all zones)
+- Wk 3: Tribute — grass weed control (Zoysia front lawn only)
+- Wk 4: Liquid Iron (all zones)
+- Wk 4: HiCure (all zones)
+
+#### SUMMER — December, January, February
+**Focus:** Peak nutrition, soil wetter every 4 weeks, disease prevention (Heritage Maxx in humid spells), insect knockdown if armyworm/cutworm flare-up, Acelepryn carries season-long from September.
+
+**December (Week 1–4)**
+- Wk 1: Granular fertiliser — Maintain (Kikuyu+Couch) | TX10 (Zoysia)
+- Wk 1: Kelpxtra solo (all zones)
+- Wk 1: Soil wetter — Hydramaxx or Nature's Soil Wetter (all zones — critical summer moisture)
+- Wk 2: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 2: HiCure (all zones)
+- Wk 2: Heritage Maxx — preventative if humid (all zones)
+- Wk 3: Bio-stimulant — Activ8EXTRA (all zones)
+- Wk 3: Stimulus (all zones)
+- Wk 4: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 4: HiCure (all zones)
+- Wk 4: Battle Insecticide — knockdown if armyworm/pest activity observed (Kikuyu+Couch)
+
+**January (Week 1–4)**
+- Wk 1: Granular fertiliser — Maintain (Kikuyu+Couch) | TX10 (Zoysia)
+- Wk 1: Soil wetter — Hydramaxx or Nature's Soil Wetter (all zones)
+- Wk 1: Kelpxtra solo (all zones)
+- Wk 2: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 2: HiCure (all zones)
+- Wk 3: Bio-stimulant — Activ8EXTRA or Seaweed Secrets (all zones)
+- Wk 3: Liquid Iron (all zones — summer colour deepener)
+- Wk 4: HiCure (all zones)
+- Wk 4: Liquid colour — GreenXtra + Tracemaxx (all zones)
+
+**February (Week 1–4)**
+- Wk 1: Granular fertiliser — Maintain (Kikuyu+Couch) | TX10 (Zoysia)
+- Wk 1: Soil wetter — Hydramaxx or Nature's Soil Wetter (all zones)
+- Wk 1: Kelpxtra solo (all zones)
+- Wk 2: HiCure (all zones)
+- Wk 2: Heritage Maxx — preventative fungicide (all zones — late summer disease pressure)
+- Wk 2: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 3: Bio-stimulant — Activ8EXTRA (all zones)
+- Wk 3: Stimulus (all zones — root prep ahead of autumn)
+- Wk 4: HiCure (all zones)
+- Wk 4: Liquid colour — GreenXtra + Tracemaxx (all zones)
+- Wk 4: Battle Insecticide — if pest activity (Kikuyu+Couch)
+
+### Notes for program.json build
+- Couch (strip1 + strip2) always follows Kikuyu tasks unless a task is explicitly Kikuyu-only
+- Zoysia (front) gets lighter granular N — TX10 only (not Maintain) through most of year
+- Tribute herbicide: Zoysia only, never Kikuyu or Couch
+- Tombstone Duo and Contra M Duo: Kikuyu + Couch only, not Zoysia — include as conditional/reactive tasks
+- Kelpxtra must NEVER appear in a tank-mix task with other concentrates
+- HiCure can tank-mix with GreenXtra+Tracemaxx if desired — excellent chelator partner
+- Acelepryn: tiny qty remaining (0.1L) — apply to highest-risk zone (back Kikuyu) only in September
+- Heritage Maxx: 1L — use preventatively 2–3× per year (November, December/January, February)
+- Spartan 0.5L: enough for 2 applications across 140m² at label rate — March + September
