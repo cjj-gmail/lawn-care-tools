@@ -80,6 +80,7 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
 .zone-qty.combined{background:var(--grass);border-color:var(--grass);}
 .zone-qty.combined .zone-qty-label,.zone-qty.combined .zone-qty-grass{color:rgba(255,255,255,0.75);}
 .zone-qty.combined .zone-qty-amount{color:white;}
+.zone-qty.solo-zone{background:var(--grass-pale);border-color:var(--grass);}
 .notes-section{margin-top:12px;}
 .task-notes-text{font-size:15px;color:var(--ink-mid);line-height:1.6;padding:9px 12px;background:white;border-radius:4px;border:1px solid var(--border);}
 .cautions-wrap{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px;}
@@ -93,6 +94,8 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
 .caution-chip[data-caution="low-stock"]{color:#8a0000;border-color:#c04040;background:#fff0f0;}
 .caution-chip[data-caution="pre-emergent-weed-free-first"]{color:#1a5a0a;border-color:#3a8a3a;background:#f0fff0;}
 .caution-chip[data-caution="tank-mix-dilute-first"]{color:#5a4a00;border-color:#8a7a2a;background:#fffaee;}
+.caution-chip[data-caution="tribute-not-kikuyu"]{color:#8a0000;border-color:#c04040;background:#fff0f0;}
+.caution-chip[data-caution="tombstone-not-zoysia"]{color:#8a0000;border-color:#c04040;background:#fff0f0;}
 .caution-tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:0;background:var(--ink);color:var(--cream);padding:7px 11px;border-radius:4px;font-size:14px;white-space:normal;max-width:300px;z-index:200;line-height:1.5;pointer-events:none;}
 .caution-chip:hover .caution-tooltip{display:block;}
 .completion-info{margin-top:9px;font-size:14px;color:var(--ink-light);font-style:italic;}
@@ -417,7 +420,20 @@ var ZONE_LABELS={
   strip1:{name:'Nature Strip',grass:'Couch',area:20.8},
   strip2:{name:'Left Strip',grass:'Couch',area:16.15}
 };
-var CAUTION_ICONS={'iron-overload':'Fe','kelpxtra-solo':'SOLO','fungicide-rotation':'ROT','staining':'STAIN','water-in':'H2O','no-backpack-sprayer':'NO BP','low-stock':'LOW','pre-emergent-weed-free-first':'WF1st','tank-mix-dilute-first':'DIL'};
+// Caution display icons — covers all v2.0 caution keys
+var CAUTION_ICONS={
+  'iron-overload':'Fe',
+  'kelpxtra-solo':'SOLO',
+  'fungicide-rotation':'ROT',
+  'staining':'STAIN',
+  'water-in':'H₂O',
+  'no-backpack-sprayer':'NO BP',
+  'low-stock':'LOW',
+  'pre-emergent-weed-free-first':'WF1st',
+  'tank-mix-dilute-first':'DIL',
+  'tribute-not-kikuyu':'⚠ ZONES',
+  'tombstone-not-zoysia':'⚠ ZONES'
+};
 
 async function init(){
   showScreen('loading');
@@ -458,9 +474,9 @@ function b64dec(str){return JSON.parse(atob(str.replace(/\n/g,'')));}
 
 async function loadCompletions(){try{var r=await ghFetch(CONFIG.completionsPath);if(r.status===404){state.completions={};return;}if(!r.ok)return;var d=await r.json();state.completionsSha=d.sha;state.completions=b64dec(d.content);}catch(e){state.completions={};}}
 async function loadInventory(){try{var r=await ghFetch(CONFIG.inventoryPath);if(!r.ok)return;var d=await r.json();state.inventorySha=d.sha;state.inventory=b64dec(d.content);var seen={};state.inventory.products=state.inventory.products.filter(function(p){if(seen[p.name])return false;seen[p.name]=true;return true;});}catch(e){}}
-async function loadAppLog(){try{var r=await ghFetch(CONFIG.appLogPath);if(r.status===404){state.appLog={entries:[]};return;}if(!r.ok)return;var d=await r.json();state.appLogSha=d.sha;state.appLog=b64dec(d.content);}catch(e){state.appLog={entries:[]};}}
-async function loadMowLog(){try{var r=await ghFetch(CONFIG.mowLogPath);if(r.status===404){state.mowLog={entries:[]};return;}if(!r.ok)return;var d=await r.json();state.mowLogSha=d.sha;state.mowLog=b64dec(d.content);}catch(e){state.mowLog={entries:[]};}}
-async function loadWaterLog(){try{var r=await ghFetch(CONFIG.waterLogPath);if(r.status===404){state.waterLog={entries:[]};return;}if(!r.ok)return;var d=await r.json();state.waterLogSha=d.sha;state.waterLog=b64dec(d.content);}catch(e){state.waterLog={entries:[]};}}
+async function loadAppLog(){try{var r=await ghFetch(CONFIG.appLogPath);if(r.status===404){state.appLog={entries:[]};return;}if(!r.ok)return;var d=await r.json();state.appLogSha=d.sha;state.appLog=b64dec(d.content);}catch(e){state.appLog={entries:[];};}}
+async function loadMowLog(){try{var r=await ghFetch(CONFIG.mowLogPath);if(r.status===404){state.mowLog={entries:[]};return;}if(!r.ok)return;var d=await r.json();state.mowLogSha=d.sha;state.mowLog=b64dec(d.content);}catch(e){state.mowLog={entries:[];};}}
+async function loadWaterLog(){try{var r=await ghFetch(CONFIG.waterLogPath);if(r.status===404){state.waterLog={entries:[]};return;}if(!r.ok)return;var d=await r.json();state.waterLogSha=d.sha;state.waterLog=b64dec(d.content);}catch(e){state.waterLog={entries:[];};}}
 
 async function saveCompletions(){if(!state.token)return false;try{var r=await ghPut(CONFIG.completionsPath,state.completions,state.completionsSha,'Update task completions');if(!r.ok){var e=await r.json();throw new Error(e.message||'Save failed');}var d=await r.json();state.completionsSha=d.content.sha;return true;}catch(e){showToast('Save failed: '+e.message,'error');return false;}}
 async function saveInventory(){if(!state.token||!state.inventory)return false;var inv=JSON.parse(JSON.stringify(state.inventory));inv.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});try{var r=await ghPut(CONFIG.inventoryPath,inv,state.inventorySha,'Deduct inventory after task completion');if(!r.ok){var e=await r.json();throw new Error(e.message||'Failed');}var d=await r.json();state.inventorySha=d.content.sha;state.inventory.lastUpdated=inv.lastUpdated;return true;}catch(e){showToast('Inventory save failed: '+e.message,'error');return false;}}
@@ -513,7 +529,33 @@ function closeUncheckModal(){document.getElementById('uncheck-modal').classList.
 async function doUncheck(){var p=state.pendingUncheck;if(!p)return;closeUncheckModal();delete state.completions[p.taskId];p.checkEl.classList.remove('checked');p.cardEl.classList.remove('completed');var ie=p.cardEl.querySelector('.completion-info');if(ie)ie.textContent='';updateProgress(state.currentMonth);if(state.token){p.checkEl.classList.add('saving');var ok=await saveCompletions();p.checkEl.classList.remove('saving');if(ok)showToast('Task unmarked','error');}else showToast('Not saved — connect GitHub to persist','error');}
 
 // DEDUCTION
-function calcDeductions(task){var result=[];if(!task.products)return result;task.products.forEach(function(prod){if(!prod.quantities)return;var total=0;Object.values(prod.quantities).forEach(function(q){total+=(parseFloat(q)||0);});total=Math.round(total*100)/100;if(total<=0)return;var invProd=state.inventory?state.inventory.products.find(function(p){return p.name.toLowerCase()===prod.name.toLowerCase()||p.name.toLowerCase().indexOf(prod.name.toLowerCase())>=0||prod.name.toLowerCase().indexOf(p.name.toLowerCase())>=0;}):null;var newLevel=invProd?Math.max(0,Math.round((invProd.qtyRemaining-total)*100)/100):null;var newStatus=null;if(invProd&&newLevel!==null){var fm={'TX10 (5-2-8)':25,'Maintain (26-1-9)':20};var full=fm[invProd.name]||(invProd.unit==='kg'?20:5);var pct=Math.min(100,Math.round((newLevel/full)*100));newStatus=pct>40?'ok':pct>15?'low':'critical';}result.push({name:prod.name,amount:total,unit:prod.rateUnit||'mL',invProd:invProd,newLevel:newLevel,newStatus:newStatus});});return result;}
+function calcDeductions(task){
+  var result=[];
+  if(!task.products)return result;
+  task.products.forEach(function(prod){
+    if(!prod.quantities)return;
+    // Sum only zones that this product actually applies to
+    var total=0;
+    Object.values(prod.quantities).forEach(function(q){total+=(parseFloat(q)||0);});
+    total=Math.round(total*100)/100;
+    if(total<=0)return;
+    var invProd=state.inventory?state.inventory.products.find(function(p){
+      return p.name.toLowerCase()===prod.name.toLowerCase()||
+             p.name.toLowerCase().indexOf(prod.name.toLowerCase())>=0||
+             prod.name.toLowerCase().indexOf(p.name.toLowerCase())>=0;
+    }):null;
+    var newLevel=invProd?Math.max(0,Math.round((invProd.qtyRemaining-total)*100)/100):null;
+    var newStatus=null;
+    if(invProd&&newLevel!==null){
+      var fm={'TX10 (5-2-8)':25,'Maintain (26-1-9)':20};
+      var full=fm[invProd.name]||(invProd.unit==='kg'?20:5);
+      var pct=Math.min(100,Math.round((newLevel/full)*100));
+      newStatus=pct>40?'ok':pct>15?'low':'critical';
+    }
+    result.push({name:prod.name,amount:total,unit:prod.rateUnit||'mL',invProd:invProd,newLevel:newLevel,newStatus:newStatus});
+  });
+  return result;
+}
 function openDeductionModal(task,checkEl,cardEl){var deductions=calcDeductions(task);if(deductions.length===0){writeAppLog(task,[],false);showToast('Task completed ✓','success');return;}state.pendingDeduction={task:task,deductions:deductions,checkEl:checkEl,cardEl:cardEl};document.getElementById('deduct-task-name').textContent=task.label;document.getElementById('deduct-task-sub').textContent=task.taskType.replace('soilwetter','soil wetter')+' · '+task.applicationMethod;var cn=document.getElementById('deduct-conditional-note');if(task.conditional){cn.style.display='block';cn.textContent='⚠ Conditional task — only deduct if you actually applied these products.';}else cn.style.display='none';var list=document.getElementById('deduct-list');list.innerHTML='';deductions.forEach(function(d){var row=document.createElement('div');row.className='deduct-row'+(d.invProd?'':' no-match');var nl=d.invProd&&d.newLevel!==null?'<div class="deduct-new-level '+(d.newStatus!=='ok'?d.newStatus:'')+'">After: '+d.newLevel+d.invProd.unit+' remaining'+(d.newStatus==='low'?' ⚠ running low':d.newStatus==='critical'?' ⚠ critically low':'')+'</div>':'';row.innerHTML='<div class="deduct-product"><div class="deduct-product-name">'+esc(d.name)+'</div><div class="deduct-product-meta">'+(d.invProd?'Currently '+d.invProd.qtyRemaining+d.invProd.unit:'Not found in inventory')+'</div>'+nl+'</div>'+(d.invProd?'<div class="deduct-amount">−'+d.amount+d.unit+'</div>':'<div class="deduct-no-match-label">skip</div>');list.appendChild(row);});document.getElementById('deduct-saving').style.display='none';document.getElementById('deduct-confirm-btn').disabled=false;document.getElementById('deduct-modal').classList.add('open');}
 async function cancelDeduction(){var p=state.pendingDeduction;document.getElementById('deduct-modal').classList.remove('open');state.pendingDeduction=null;if(!p)return;delete state.completions[p.task.id];p.checkEl.classList.remove('checked');p.cardEl.classList.remove('completed');var ie=p.cardEl.querySelector('.completion-info');if(ie)ie.textContent='';updateProgress(state.currentMonth);if(state.token){p.checkEl.classList.add('saving');await saveCompletions();p.checkEl.classList.remove('saving');showToast('Cancelled — task unchecked','error');}else showToast('Cancelled — task unchecked','error');}
 async function skipDeduction(){var p=state.pendingDeduction;document.getElementById('deduct-modal').classList.remove('open');state.pendingDeduction=null;if(p&&state.token)await writeAppLog(p.task,p.deductions,false);showToast('Task completed ✓ — inventory not updated','success');}
@@ -524,7 +566,104 @@ function renderMonthNav(){var nav=document.getElementById('month-nav');nav.inner
 function buildHeightRefCard(season){var card=document.createElement('div');card.className='height-ref';var toggle=document.createElement('div');toggle.className='height-ref-toggle';toggle.innerHTML='<span class="height-ref-label">✂ Mowing height reference</span><span class="height-ref-chevron" id="height-ref-chevron">▼</span>';var body=document.createElement('div');body.className='height-ref-body'+(state.heightRefOpen?' open':'');var tbl=document.createElement('table');tbl.className='height-ref-table';tbl.innerHTML='<thead><tr><th>Grass</th><th>Mower</th><th>Summer/Autumn</th><th>Winter/Spring</th><th>Notes</th></tr></thead>';var tbody=document.createElement('tbody');HEIGHT_REF.forEach(function(gr){gr.mowers.forEach(function(m,mi){var tr=document.createElement('tr');var gc=mi===0?'<td rowspan="'+gr.mowers.length+'" style="vertical-align:middle;"><div class="height-grass">'+gr.grass+'</div><div class="height-grass-sub">'+gr.zone+'</div></td>':'';tr.innerHTML=gc+'<td style="white-space:nowrap;"><div style="font-size:13px;color:var(--ink);">'+m.name+'</div><div style="font-size:11px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.4px;">'+m.type+'</div></td><td><span class="height-chip'+(season==='summer'||season==='autumn'?' recommended':'')+'">'+m.summer+'</span></td><td><span class="height-chip'+(season==='winter'||season==='spring'?' recommended':'')+'">'+m.winter+'</span></td><td class="height-note">'+esc(m.note)+'</td>';tbody.appendChild(tr);});});tbl.appendChild(tbody);body.appendChild(tbl);card.appendChild(toggle);card.appendChild(body);toggle.addEventListener('click',function(){state.heightRefOpen=!state.heightRefOpen;body.classList.toggle('open',state.heightRefOpen);document.getElementById('height-ref-chevron').classList.toggle('open',state.heightRefOpen);});return card;}
 function renderMonth(monthNum){var md=state.program.months.find(function(m){return m.monthNum===monthNum;});if(!md)return;var main=document.getElementById('main-content');main.innerHTML='';var hdr=document.createElement('div');hdr.className='month-header-row';hdr.innerHTML='<div class="month-title">'+md.month+' <span class="season-badge '+md.season+'">'+md.season+'</span></div>';main.appendChild(hdr);main.appendChild(buildHeightRefCard(md.season));md.weeks.forEach(function(week){var wb=document.createElement('div');wb.className='week-block';var wl=week.label.replace(/^Week \d+ \u2014 /,'').replace(/^Week \d+ - /,'');wb.innerHTML='<div class="week-heading"><span class="week-num">W'+week.week+'</span><span class="week-label-text">'+wl+'</span></div>';if(!week.tasks||week.tasks.length===0){wb.innerHTML+='<div style="padding:16px;text-align:center;color:var(--ink-light);font-size:15px;font-style:italic;">No tasks scheduled.</div>';}else{week.tasks.forEach(function(task){wb.appendChild(renderTaskCard(task));});}main.appendChild(wb);});updateProgress(monthNum);}
 function fmt(v){var r=Math.round(v*10)/10;return r%1===0?r.toString():r.toFixed(1);}
-function renderTaskCard(task){var ic=!!state.completions[task.id];var card=document.createElement('div');card.className='task-card'+(ic?' completed':'')+(task.conditional?' conditional':'');var checkEl=document.createElement('div');checkEl.className='task-check'+(ic?' checked':'');checkEl.addEventListener('click',function(e){e.stopPropagation();toggleTask(task.id,checkEl,card,task);});var tl=task.taskType==='soilwetter'?'soil wetter':task.taskType;var wh=task.waterIn?' · H₂O water in':(task.foliarOrIrrigate==='Foliar'?' · foliar — allow to dry':'');var tb=document.createElement('div');tb.className='task-body';tb.innerHTML='<div class="task-top"><span class="task-label">'+esc(task.label)+'</span><span class="type-tag '+task.taskType+'">'+tl+'</span>'+(task.conditional?'<span class="conditional-flag">if required</span>':'')+'</div><div class="task-method">'+esc(task.applicationMethod)+wh+'</div><button class="expand-btn">&#x25B8; Rates &amp; details</button>';var header=document.createElement('div');header.className='task-header';header.appendChild(checkEl);header.appendChild(tb);card.appendChild(header);tb.querySelector('.expand-btn').addEventListener('click',function(e){e.stopPropagation();var det=card.querySelector('.task-detail');var op=det.classList.toggle('open');this.innerHTML=(op?'&#x25BE;':'&#x25B8;')+' Rates &amp; details';});if(task.conditional&&task.condition){var ban=document.createElement('div');ban.className='condition-banner';ban.textContent='⚠ '+task.condition;card.appendChild(ban);}var det=document.createElement('div');det.className='task-detail';if(task.products&&task.products.length>0){var pt=document.createElement('div');pt.className='products-title';pt.textContent='Product quantities by zone';det.appendChild(pt);task.products.forEach(function(prod){var pr=document.createElement('div');pr.style.cssText='padding:9px 0;border-top:1px solid var(--border);';pr.innerHTML='<div class="product-name">'+esc(prod.name)+' — '+prod.ratePer100sqm+prod.rateUnit+'/100m²</div>';if(prod.note)pr.innerHTML+='<div class="product-note">'+esc(prod.note)+'</div>';var zw=document.createElement('div');zw.className='product-zones';var zones=task.zones||Object.keys(prod.quantities||{});var fQ=null,s1=null,s2=null;zones.forEach(function(zid){if(!prod.quantities||prod.quantities[zid]===undefined)return;var info=ZONE_LABELS[zid];if(!info)return;var qty=prod.quantities[zid];if(zid==='front')fQ=qty;if(zid==='strip1')s1=qty;if(zid==='strip2')s2=qty;var chip=document.createElement('div');chip.className='zone-qty';chip.innerHTML='<div class="zone-qty-label">'+info.name+'</div><div class="zone-qty-grass">'+info.grass+' · '+info.area+'m²</div><div class="zone-qty-amount">'+qty+prod.rateUnit+'</div>';zw.appendChild(chip);});if([fQ,s1,s2].filter(function(v){return v!==null;}).length>=2){var ct=(fQ||0)+(s1||0)+(s2||0),ca=(fQ!==null?35.0:0)+(s1!==null?20.8:0)+(s2!==null?16.15:0);zw.appendChild(Object.assign(document.createElement('div'),{className:'zone-qty-divider'}));var cb=document.createElement('div');cb.className='zone-qty combined';cb.innerHTML='<div class="zone-qty-label">Front + Strips</div><div class="zone-qty-grass">Combined · '+fmt(ca)+'m²</div><div class="zone-qty-amount">'+fmt(ct)+prod.rateUnit+'</div>';zw.appendChild(cb);}pr.appendChild(zw);det.appendChild(pr);});}if(task.notes){var ns=document.createElement('div');ns.className='notes-section';ns.innerHTML='<div class="task-notes-text">'+esc(task.notes)+'</div>';if(task.cautions&&task.cautions.length>0){var cw=document.createElement('div');cw.className='cautions-wrap';task.cautions.forEach(function(cKey){var desc=(state.program.cautions&&state.program.cautions[cKey])||cKey;var icon=CAUTION_ICONS[cKey]||'!';var chip=document.createElement('div');chip.className='caution-chip';chip.dataset.caution=cKey;chip.innerHTML='<span>'+icon+'</span> '+cKey.replace(/-/g,' ')+'<span class="caution-tooltip">'+esc(desc)+'</span>';cw.appendChild(chip);});ns.appendChild(cw);}det.appendChild(ns);}var ci=document.createElement('div');ci.className='completion-info';if(state.completions[task.id])ci.textContent='Completed '+state.completions[task.id].completedAt;det.appendChild(ci);card.appendChild(det);return card;}
+
+function renderTaskCard(task){
+  var ic=!!state.completions[task.id];
+  var card=document.createElement('div');
+  card.className='task-card'+(ic?' completed':'')+(task.conditional?' conditional':'');
+  var checkEl=document.createElement('div');
+  checkEl.className='task-check'+(ic?' checked':'');
+  checkEl.addEventListener('click',function(e){e.stopPropagation();toggleTask(task.id,checkEl,card,task);});
+  var tl=task.taskType==='soilwetter'?'soil wetter':task.taskType;
+  var wh=task.waterIn?' · H₂O water in':(task.foliarOrIrrigate==='Foliar'?' · foliar — allow to dry':'');
+  var tb=document.createElement('div');
+  tb.className='task-body';
+  tb.innerHTML='<div class="task-top"><span class="task-label">'+esc(task.label)+'</span><span class="type-tag '+task.taskType+'">'+tl+'</span>'+(task.conditional?'<span class="conditional-flag">if required</span>':'')+'</div><div class="task-method">'+esc(task.applicationMethod)+wh+'</div><button class="expand-btn">&#x25B8; Rates &amp; details</button>';
+  var header=document.createElement('div');
+  header.className='task-header';
+  header.appendChild(checkEl);
+  header.appendChild(tb);
+  card.appendChild(header);
+  tb.querySelector('.expand-btn').addEventListener('click',function(e){e.stopPropagation();var det=card.querySelector('.task-detail');var op=det.classList.toggle('open');this.innerHTML=(op?'&#x25BE;':'&#x25B8;')+' Rates &amp; details';});
+  if(task.conditional&&task.condition){var ban=document.createElement('div');ban.className='condition-banner';ban.textContent='⚠ '+task.condition;card.appendChild(ban);}
+  var det=document.createElement('div');
+  det.className='task-detail';
+  if(task.products&&task.products.length>0){
+    var pt=document.createElement('div');
+    pt.className='products-title';
+    // Show zone scope in heading if not all zones
+    var taskZones=task.zones||[];
+    var allFour=['back','front','strip1','strip2'];
+    var isAllZones=allFour.every(function(z){return taskZones.indexOf(z)>=0;});
+    pt.textContent=isAllZones?'Product quantities by zone':'Product quantities — '+taskZones.map(function(z){return ZONE_LABELS[z]?ZONE_LABELS[z].name:z;}).join(', ');
+    det.appendChild(pt);
+    task.products.forEach(function(prod){
+      var pr=document.createElement('div');
+      pr.style.cssText='padding:9px 0;border-top:1px solid var(--border);';
+      pr.innerHTML='<div class="product-name">'+esc(prod.name)+' — '+prod.ratePer100sqm+prod.rateUnit+'/100m²</div>';
+      if(prod.note)pr.innerHTML+='<div class="product-note">'+esc(prod.note)+'</div>';
+      var zw=document.createElement('div');
+      zw.className='product-zones';
+      // Use the product's own quantities keys to determine which zones to show
+      var prodZones=Object.keys(prod.quantities||{});
+      var fQ=null,s1=null,s2=null;
+      prodZones.forEach(function(zid){
+        if(prod.quantities[zid]===undefined)return;
+        var info=ZONE_LABELS[zid];
+        if(!info)return;
+        var qty=prod.quantities[zid];
+        if(zid==='front')fQ=qty;
+        if(zid==='strip1')s1=qty;
+        if(zid==='strip2')s2=qty;
+        var chip=document.createElement('div');
+        // Highlight solo-zone products (only one zone gets this product)
+        chip.className='zone-qty'+(prodZones.length===1?' solo-zone':'');
+        chip.innerHTML='<div class="zone-qty-label">'+info.name+'</div><div class="zone-qty-grass">'+info.grass+' · '+info.area+'m²</div><div class="zone-qty-amount">'+qty+prod.rateUnit+'</div>';
+        zw.appendChild(chip);
+      });
+      // Combined chip: show if 2 or more of front/strip1/strip2 present
+      var frontStripCount=[fQ,s1,s2].filter(function(v){return v!==null;}).length;
+      if(frontStripCount>=2){
+        var ct=(fQ||0)+(s1||0)+(s2||0);
+        var ca=(fQ!==null?35.0:0)+(s1!==null?20.8:0)+(s2!==null?16.15:0);
+        zw.appendChild(Object.assign(document.createElement('div'),{className:'zone-qty-divider'}));
+        var cb=document.createElement('div');
+        cb.className='zone-qty combined';
+        cb.innerHTML='<div class="zone-qty-label">Front + Strips</div><div class="zone-qty-grass">Combined · '+fmt(ca)+'m²</div><div class="zone-qty-amount">'+fmt(ct)+prod.rateUnit+'</div>';
+        zw.appendChild(cb);
+      }
+      pr.appendChild(zw);
+      det.appendChild(pr);
+    });
+  }
+  if(task.notes){
+    var ns=document.createElement('div');
+    ns.className='notes-section';
+    ns.innerHTML='<div class="task-notes-text">'+esc(task.notes)+'</div>';
+    if(task.cautions&&task.cautions.length>0){
+      var cw=document.createElement('div');
+      cw.className='cautions-wrap';
+      task.cautions.forEach(function(cKey){
+        var desc=(state.program.cautions&&state.program.cautions[cKey])||cKey;
+        var icon=CAUTION_ICONS[cKey]||'!';
+        var chip=document.createElement('div');
+        chip.className='caution-chip';
+        chip.dataset.caution=cKey;
+        chip.innerHTML='<span>'+icon+'</span> '+cKey.replace(/-/g,' ')+'<span class="caution-tooltip">'+esc(desc)+'</span>';
+        cw.appendChild(chip);
+      });
+      ns.appendChild(cw);
+    }
+    det.appendChild(ns);
+  }
+  var ci=document.createElement('div');
+  ci.className='completion-info';
+  if(state.completions[task.id])ci.textContent='Completed '+state.completions[task.id].completedAt;
+  det.appendChild(ci);
+  card.appendChild(det);
+  return card;
+}
+
 function updateProgress(mn){var md=state.program.months.find(function(m){return m.monthNum===mn;});if(!md)return;var total=0,done=0;md.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){total++;if(state.completions[t.id])done++;});});var pct=total>0?Math.round((done/total)*100):0;document.getElementById('progress-fill').style.width=pct+'%';document.getElementById('progress-count').textContent=done+' / '+total+' tasks';}
 function showScreen(n){document.getElementById('loading-screen').style.display=n==='loading'?'flex':'none';document.getElementById('error-screen').style.display=n==='error'?'flex':'none';document.getElementById('auth-gate').style.display=n==='auth-gate'?'flex':'none';document.getElementById('app').style.display=n==='app'?'block':'none';}
 var toastTimer;
