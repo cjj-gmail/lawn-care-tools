@@ -35,7 +35,7 @@ lawn-care-tools/
 |-- github-auth-test.html
 |-- auth-success.html
 |-- data/
-    |-- program.json       -> 12-month custom program (v2.1 -- updated 30 May 2026)
+    |-- program.json       -> 12-month custom program (v2.3 -- updated 31 May 2026)
     |-- inventory.json     -> 21 products, 4 zones, 6 compat rules
     |-- completions.json   -> Task completions (created on first save)
     |-- applications.json  -> Application log
@@ -240,7 +240,9 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 [DONE] dashboard.html -- 6 tabs live, inventory alert logic rebuilt (session 2)
 [DONE] dashboard.html -- weather entry edit/delete added (session 3)
 [DONE] dashboard.html -- "Log a water" references updated to "Log irrigation" (session 3)
+[DONE] program.json -- v2.3 (Stimulizer added to all 12 Wk1 main tank-mix tasks, session 3)
 [DONE] program.json -- v2.2 (Acelepryn twice yearly Sep+Jan, all zones)
+[DONE] alerts verified -- 3 product alerts (HiCure CRITICAL, Liquid Iron LOW, Acelepryn LOW) + 6 compat rules -- all accurate (session 3)
 [DONE] inventory.json -- 21 products, quantities current as of 30 May 2026
 [DONE] applications.json -- May Wk1 task logged
 [DONE] mowing.json -- created on first mow save
@@ -252,10 +254,8 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 [DONE] Fine-grained GitHub token deleted -- not needed
 
 NEXT TASKS (new session):
-- Fix 27/05/2026 weather entry: use the Edit button to change type from "observation" to "rain"
-- Consider adding Stimulizer to Wk1 main tank-mix (PD brochure confirms safe with Iron)
-- Consider adding Phosfighter (LA reference plan) as next new product to stock
-- Verify alerts count is now sensible after invStatus() rebuild
+- Add Phosfighter to inventory (phosphite/SAR gap -- does not replace any existing product)
+- Phosfighter note: available from Lawn Addicts; schedule with Heritage Maxx rotation (different modes of action)
 
 
 ## 13. NEXT SESSION INSTRUCTIONS
