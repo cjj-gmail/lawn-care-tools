@@ -83,6 +83,11 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .inv-status-badge.ok{background:var(--grass-pale);color:var(--grass);}
 .inv-status-badge.low{background:#fff5e0;color:#8a5a00;}
 .inv-status-badge.critical{background:#fff0f0;color:var(--status-critical);}
+.inv-reorder{margin-top:8px;padding-top:8px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.inv-reorder-label{font-size:11px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.6px;}
+.inv-reorder-name{font-size:12px;color:var(--ink-mid);flex:1;}
+.inv-reorder-btn{font-size:11px;padding:2px 10px;border-radius:10px;border:1px solid var(--grass);background:white;color:var(--grass);cursor:pointer;font-family:'DM Mono',monospace;text-decoration:none;white-space:nowrap;transition:all 0.12s;}
+.inv-reorder-btn:hover{background:var(--grass);color:white;}
 .filter-chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
 .filter-chip{font-size:12px;padding:4px 12px;border-radius:12px;border:1px solid var(--border);background:white;color:var(--ink-mid);cursor:pointer;transition:all 0.12s;font-family:'DM Mono',monospace;}
 .filter-chip:hover{border-color:var(--grass);color:var(--grass);}
@@ -140,6 +145,17 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .alert-item.info .alert-title{color:#0a3a6a;}
 .alert-text{font-size:13px;color:var(--ink-mid);}
 .no-alerts{padding:28px;text-align:center;color:var(--ink-light);font-size:14px;font-style:italic;}
+.shop-list-panel{background:white;border:1px solid var(--border);border-radius:6px;padding:22px 24px;margin-bottom:20px;}
+.shop-list-title{font-size:13px;text-transform:uppercase;letter-spacing:0.8px;color:var(--ink-light);margin-bottom:16px;}
+.shop-retailer-group{margin-bottom:18px;}
+.shop-retailer-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border-light);}
+.shop-retailer-name{font-size:14px;font-weight:500;color:var(--ink);}
+.shop-retailer-link{font-size:12px;padding:3px 12px;border-radius:10px;border:1px solid var(--grass);background:white;color:var(--grass);cursor:pointer;font-family:'DM Mono',monospace;text-decoration:none;transition:all 0.12s;}
+.shop-retailer-link:hover{background:var(--grass);color:white;}
+.shop-item{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:13px;}
+.shop-item-name{color:var(--ink-mid);flex:1;}
+.shop-item-replace{font-size:12px;color:var(--ink-light);}
+.shop-all-ok{font-size:14px;color:var(--grass);padding:12px 0;}
 .zone-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;}
 .zone-card{background:white;border:1px solid var(--border);border-radius:6px;padding:16px 18px;}
 .zone-card-name{font-size:14px;font-weight:500;margin-bottom:2px;}
@@ -268,18 +284,18 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 <body>
 
 <header>
-  <div class="header-title">🌿 Lawn Dashboard</div>
+  <div class="header-title">Lawn Dashboard</div>
   <div class="header-right">
     <div id="auth-status"><div class="auth-dot" id="auth-dot"></div><span id="auth-status-text">Not connected</span></div>
     <button id="login-btn" onclick="startLogin()">Connect GitHub</button>
-    <a class="header-link" href="tracker.html">→ Tracker</a>
-    <a class="header-link" href="index.html">⌂ Home</a>
+    <a class="header-link" href="tracker.html">Tracker</a>
+    <a class="header-link" href="index.html">Home</a>
   </div>
 </header>
 
 <div id="loading-screen"><div class="spinner"></div><div class="loading-text">Loading lawn data...</div></div>
 <div id="error-screen">
-  <div class="error-icon">⚠</div><div class="error-title">Could not load data</div>
+  <div class="error-icon">!</div><div class="error-title">Could not load data</div>
   <div class="error-msg" id="error-msg-text">Unable to fetch data files from GitHub.</div>
   <button onclick="init()" style="margin-top:12px;background:var(--grass);color:white;border:none;padding:8px 20px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;font-size:14px;">Retry</button>
 </div>
@@ -301,22 +317,22 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
         <div class="section-title">Overview</div>
         <div class="section-sub" id="overview-date"></div>
         <div style="margin-left:auto;">
-          <button class="panel-btn" onclick="openWeatherModal()">🌤 Log observation</button>
+          <button class="panel-btn" onclick="openWeatherModal()">Log observation</button>
         </div>
       </div>
       <div class="stat-grid" id="stat-grid"></div>
       <div class="panel weather-panel" id="weather-panel">
         <div class="panel-title-row">
-          <div class="panel-title">🌤 Weather &amp; Observations</div>
+          <div class="panel-title">Weather &amp; Observations</div>
           <button class="weather-toggle" id="weather-toggle-btn" onclick="toggleWeatherList()">Show all</button>
         </div>
         <div id="weather-list-container"></div>
       </div>
       <div class="two-col">
-        <div class="panel"><div class="panel-title">Monthly Progress — This Year</div><div id="monthly-progress-bars"></div></div>
+        <div class="panel"><div class="panel-title">Monthly Progress -- This Year</div><div id="monthly-progress-bars"></div></div>
         <div class="panel"><div class="panel-title">Upcoming this month</div><div class="upcoming-list" id="upcoming-list"></div></div>
       </div>
-      <div class="panel"><div class="panel-title">Inventory — Stock levels at a glance</div><div id="inv-summary-bars"></div></div>
+      <div class="panel"><div class="panel-title">Inventory -- Stock levels at a glance</div><div id="inv-summary-bars"></div></div>
     </div>
 
     <!-- PROGRAM -->
@@ -354,9 +370,9 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
     <div class="section" id="tab-log">
       <div class="section-heading"><div class="section-title">Log</div><div class="section-sub" id="log-section-sub">Applications, watering &amp; mowing history</div></div>
       <div class="panel">
-        <div class="panel-title">💧 Watering — days since last water per zone</div>
+        <div class="panel-title">Watering -- days since last water per zone</div>
         <div class="water-zone-grid" id="water-zone-grid"></div>
-        <div style="font-size:12px;color:var(--ink-light);margin-top:4px;">Amber = overdue (&gt;3d summer · &gt;5d other seasons). Log watering via the 💧 button in the Tracker header.</div>
+        <div style="font-size:12px;color:var(--ink-light);margin-top:4px;">Amber = overdue (&gt;3d summer &middot; &gt;5d other seasons). Log watering via the button in the Tracker header.</div>
       </div>
       <div class="panel">
         <div class="panel-title">Watering history</div>
@@ -365,9 +381,9 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
         </div>
       </div>
       <div class="panel">
-        <div class="panel-title">✂ Mowing — days since last mow per zone</div>
+        <div class="panel-title">Mowing -- days since last mow per zone</div>
         <div class="mow-zone-grid" id="mow-zone-grid"></div>
-        <div style="font-size:12px;color:var(--ink-light);margin-top:4px;">Amber = overdue (&gt;14d summer/autumn · &gt;21d winter/spring). Log mows via the Tracker header.</div>
+        <div style="font-size:12px;color:var(--ink-light);margin-top:4px;">Amber = overdue (&gt;14d summer/autumn &middot; &gt;21d winter/spring). Log mows via the Tracker header.</div>
       </div>
       <div class="panel">
         <div class="panel-title">Mowing history</div>
@@ -376,18 +392,18 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
         </div>
       </div>
       <div class="panel" style="margin-top:8px;">
-        <div class="panel-title">💧 Applications — stat summary</div>
+        <div class="panel-title">Applications -- stat summary</div>
         <div class="stat-grid" id="log-stat-grid" style="margin-bottom:0;"></div>
       </div>
       <div class="panel">
-        <div class="panel-title">Days since last application — by product</div>
+        <div class="panel-title">Days since last application -- by product</div>
         <div class="last-applied-grid" id="last-applied-grid"></div>
       </div>
       <div class="panel">
         <div class="panel-title-row">
           <div class="panel-title">All applications</div>
           <div class="panel-btn-row">
-            <button class="panel-btn" onclick="exportCSV()">↓ Export CSV</button>
+            <button class="panel-btn" onclick="exportCSV()">Export CSV</button>
             <button class="panel-btn" onclick="openManualLogModal()">+ Log manual application</button>
           </div>
         </div>
@@ -401,12 +417,13 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
     <!-- ALERTS -->
     <div class="section" id="tab-alerts">
       <div class="section-heading"><div class="section-title">Alerts</div><div class="section-sub">Inventory, mowing, watering &amp; program warnings</div></div>
+      <div id="shop-list-container"></div>
       <div class="alerts-list" id="alerts-list"></div>
     </div>
 
     <!-- ZONES -->
     <div class="section" id="tab-zones">
-      <div class="section-heading"><div class="section-title">Lawn Zones</div><div class="section-sub">4 zones · 140.15 m²</div></div>
+      <div class="section-heading"><div class="section-title">Lawn Zones</div><div class="section-sub">4 zones &middot; 140.15 m&sup2;</div></div>
       <div class="zone-summary-grid" id="zone-summary-grid"></div>
       <div class="panel"><div class="panel-title">Compatibility Rules</div><div id="compat-list"></div></div>
     </div>
@@ -419,14 +436,14 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
   <div class="modal">
     <div class="modal-header">
       <div><div class="modal-title" id="modal-product-name">Product</div><div class="modal-subtitle" id="modal-product-brand"></div></div>
-      <button class="modal-close" onclick="closeStockModal()">×</button>
+      <button class="modal-close" onclick="closeStockModal()">x</button>
     </div>
     <div class="modal-body">
       <div class="modal-current">
         <div class="modal-current-label">Current stock</div>
-        <div><span class="modal-current-val" id="modal-current-qty">—</span><span class="modal-current-unit" id="modal-current-unit"></span></div>
+        <div><span class="modal-current-val" id="modal-current-qty">--</span><span class="modal-current-unit" id="modal-current-unit"></span></div>
       </div>
-      <div id="modal-auth-notice" class="modal-auth-notice" style="display:none;">⚠ Connect GitHub to save changes. Updates lost on refresh without auth.</div>
+      <div id="modal-auth-notice" class="modal-auth-notice" style="display:none;">Connect GitHub to save changes. Updates lost on refresh without auth.</div>
       <div class="modal-field-label">Set new quantity</div>
       <div class="modal-input-row">
         <input class="modal-input" type="number" id="modal-qty-input" min="0" step="0.01" placeholder="0.00">
@@ -434,7 +451,7 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
       </div>
       <div class="modal-field-label">Quick add</div>
       <div style="display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap;" id="modal-quick-add"></div>
-      <div class="modal-saving" id="modal-saving">Saving to GitHub…</div>
+      <div class="modal-saving" id="modal-saving">Saving to GitHub...</div>
     </div>
     <div class="modal-actions">
       <button class="modal-btn secondary" onclick="closeStockModal()">Cancel</button>
@@ -448,21 +465,21 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
   <div class="modal">
     <div class="modal-header">
       <div><div class="modal-title" id="resupply-product-name">Resupply</div><div class="modal-subtitle">Add received stock to current quantity</div></div>
-      <button class="modal-close" onclick="closeResupplyModal()">×</button>
+      <button class="modal-close" onclick="closeResupplyModal()">x</button>
     </div>
     <div class="modal-body">
       <div class="modal-current">
         <div class="modal-current-label">Current stock</div>
-        <div><span class="modal-current-val" id="resupply-current-qty">—</span><span class="modal-current-unit" id="resupply-current-unit"></span></div>
+        <div><span class="modal-current-val" id="resupply-current-qty">--</span><span class="modal-current-unit" id="resupply-current-unit"></span></div>
       </div>
-      <div id="resupply-auth-notice" class="modal-auth-notice" style="display:none;">⚠ Connect GitHub to save changes permanently.</div>
+      <div id="resupply-auth-notice" class="modal-auth-notice" style="display:none;">Connect GitHub to save changes permanently.</div>
       <div class="modal-field-label">Amount received</div>
       <div class="modal-input-row">
         <input class="modal-input" type="number" id="resupply-amount-input" min="0.01" step="0.01" placeholder="0.00">
         <span class="modal-unit-label" id="resupply-unit-label"></span>
       </div>
       <div style="font-size:12px;color:var(--ink-light);margin-top:-8px;margin-bottom:16px;">New total will be shown after saving.</div>
-      <div class="modal-saving" id="resupply-saving">Saving to GitHub…</div>
+      <div class="modal-saving" id="resupply-saving">Saving to GitHub...</div>
     </div>
     <div class="modal-actions">
       <button class="modal-btn secondary" onclick="closeResupplyModal()">Cancel</button>
@@ -476,14 +493,14 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
   <div class="modal" style="max-width:500px;">
     <div class="modal-header">
       <div><div class="modal-title">Log a manual application</div><div class="modal-subtitle" id="man-log-date"></div></div>
-      <button class="modal-close" onclick="closeManualLogModal()">×</button>
+      <button class="modal-close" onclick="closeManualLogModal()">x</button>
     </div>
     <div class="modal-body">
-      <div id="man-auth-notice" class="modal-auth-notice" style="display:none;">⚠ Connect GitHub to save. This entry will be lost on refresh without auth.</div>
+      <div id="man-auth-notice" class="modal-auth-notice" style="display:none;">Connect GitHub to save. This entry will be lost on refresh without auth.</div>
       <div class="man-form">
         <div>
           <div class="man-field-label">Label / task description</div>
-          <input class="man-input" type="text" id="man-label" placeholder="e.g. Spot spray weeds, Liquid iron treatment…" maxlength="80">
+          <input class="man-input" type="text" id="man-label" placeholder="e.g. Spot spray weeds, Liquid iron treatment..." maxlength="80">
         </div>
         <div>
           <div class="man-field-label">Type</div>
@@ -502,16 +519,16 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
           <div style="display:flex;gap:8px;flex-wrap:wrap;" id="man-zone-checks"></div>
         </div>
         <div>
-          <div class="man-field-label">Products used <span style="font-weight:normal;text-transform:none;letter-spacing:0;color:var(--ink-light);">(name · amount · unit)</span></div>
+          <div class="man-field-label">Products used <span style="font-weight:normal;text-transform:none;letter-spacing:0;color:var(--ink-light);">(name - amount - unit)</span></div>
           <div class="man-product-rows" id="man-product-rows"></div>
           <button class="man-add-product" onclick="addManProductRow()">+ Add product</button>
         </div>
         <div>
           <div class="man-field-label">Notes (optional)</div>
-          <textarea class="man-textarea" id="man-notes" placeholder="Conditions, observations, dilution rate…" maxlength="200"></textarea>
+          <textarea class="man-textarea" id="man-notes" placeholder="Conditions, observations, dilution rate..." maxlength="200"></textarea>
         </div>
       </div>
-      <div class="modal-saving" id="man-saving">Saving to GitHub…</div>
+      <div class="modal-saving" id="man-saving">Saving to GitHub...</div>
     </div>
     <div class="modal-actions">
       <button class="modal-btn secondary" onclick="closeManualLogModal()">Cancel</button>
@@ -525,10 +542,10 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
   <div class="modal" style="max-width:440px;">
     <div class="modal-header">
       <div><div class="modal-title">Log observation</div><div class="modal-subtitle" id="weather-modal-date"></div></div>
-      <button class="modal-close" onclick="closeWeatherModal()">×</button>
+      <button class="modal-close" onclick="closeWeatherModal()">x</button>
     </div>
     <div class="modal-body">
-      <div id="weather-auth-notice" class="modal-auth-notice" style="display:none;">⚠ Connect GitHub to save. Entry will be lost on refresh without auth.</div>
+      <div id="weather-auth-notice" class="modal-auth-notice" style="display:none;">Connect GitHub to save. Entry will be lost on refresh without auth.</div>
       <div class="man-form">
         <div>
           <div class="man-field-label">Date</div>
@@ -537,22 +554,22 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
         <div>
           <div class="man-field-label">Type</div>
           <select class="man-select" id="weather-type-input">
-            <option value="rain">🌧 Rain</option>
-            <option value="heat">🌡 Heat</option>
-            <option value="frost">❄ Frost</option>
-            <option value="drought">☀ Drought</option>
-            <option value="storm">⛈ Storm</option>
-            <option value="observation" selected>🔍 Observation</option>
-            <option value="other">📝 Other</option>
+            <option value="rain">Rain</option>
+            <option value="heat">Heat</option>
+            <option value="frost">Frost</option>
+            <option value="drought">Drought</option>
+            <option value="storm">Storm</option>
+            <option value="observation" selected>Observation</option>
+            <option value="other">Other</option>
           </select>
         </div>
         <div>
           <div class="man-field-label">Note <span style="font-weight:normal;text-transform:none;letter-spacing:0;color:var(--ink-light);">(max 200 chars)</span></div>
-          <textarea class="man-textarea" id="weather-note-input" placeholder="e.g. 25mm overnight rain, temps reached 38°C, light frost on grass this morning…" maxlength="200"></textarea>
+          <textarea class="man-textarea" id="weather-note-input" placeholder="e.g. 25mm overnight rain, temps reached 38C, light frost on grass this morning..." maxlength="200"></textarea>
           <div style="font-size:11px;color:var(--ink-light);margin-top:4px;text-align:right;"><span id="weather-note-counter">0</span>/200</div>
         </div>
       </div>
-      <div class="modal-saving" id="weather-saving">Saving to GitHub…</div>
+      <div class="modal-saving" id="weather-saving">Saving to GitHub...</div>
     </div>
     <div class="modal-actions">
       <button class="modal-btn secondary" onclick="closeWeatherModal()">Cancel</button>
@@ -645,7 +662,6 @@ function countDone(mn){var total=0,done=0,m=getMonthData(mn);if(!m)return{total:
 function totalTaskCount(){var t=0;state.program.months.forEach(function(m){m.weeks.forEach(function(w){t+=(w.tasks||[]).length;});});return t;}
 function totalDoneCount(){return Object.keys(state.completions).length;}
 function invStatus(p){
-  // Count scheduled applications for this product across all 12 months
   var appsPerYear=0;
   var qtyPerApp=0;
   if(state.program&&state.program.months){
@@ -655,7 +671,6 @@ function invStatus(p){
           (t.products||[]).forEach(function(tp){
             if(tp.name===p.name){
               appsPerYear++;
-              // Sum quantities across all zones for this task
               var total=0;
               var qs=tp.quantities||{};
               Object.keys(qs).forEach(function(z){total+=qs[z];});
@@ -668,17 +683,13 @@ function invStatus(p){
   }
   var appsRemaining;
   if(appsPerYear===0||qtyPerApp===0){
-    // Product not in program or no quantity data -- use simple percentage fallback
     var fullSizes={'TX10 (5-2-8)':25,'Maintain (26-1-9)':20};
     var full=fullSizes[p.name]||(p.unit==='kg'?20:5);
     var pct=Math.min(100,Math.round((p.qtyRemaining/full)*100));
-    appsRemaining=Math.round(pct/10); // rough proxy
+    appsRemaining=Math.round(pct/10);
     return{pct:pct,appsRemaining:appsRemaining,appsPerYear:0,status:pct>40?'ok':pct>15?'low':'critical'};
   }
-  // Convert remaining qty to same unit as qtyPerApp (mL or kg, consistent within product)
   var remaining=p.qtyRemaining;
-  // qtyPerApp is in mL if rateUnit is mL, kg if rateUnit is kg
-  // inventory qtyRemaining is in L or kg -- need to convert L to mL
   if(p.unit==='L'){remaining=p.qtyRemaining*1000;}
   appsRemaining=Math.floor(remaining/qtyPerApp);
   var pct=Math.min(100,Math.round((appsRemaining/Math.max(appsPerYear,1))*100));
@@ -698,8 +709,8 @@ function renderOverview(){
   document.getElementById('overview-date').textContent=d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   var mn=currentMonthNum(),tm=countDone(mn),td=totalDoneCount(),tt=totalTaskCount(),yp=tt>0?Math.round(td/tt*100):0;
   var la=lastAppDate();
-  var laVal=la?daysSince(la.dateISO)+'d ago':'—';
-  var laSub=la?'Last: '+la.date+' · '+esc(la.taskLabel||la.taskType||''):'No applications logged yet';
+  var laVal=la?daysSince(la.dateISO)+'d ago':'--';
+  var laSub=la?'Last: '+la.date+' - '+esc(la.taskLabel||la.taskType||''):'No applications logged yet';
   document.getElementById('stat-grid').innerHTML=[
     {val:MN[mn-1],label:'Current month',sub:state.program.months[mn-1]?state.program.months[mn-1].season:''},
     {val:tm.done+'/'+tm.total,label:'Tasks done this month',sub:tm.total>0?Math.round(tm.done/tm.total*100)+'% complete':'No tasks logged'},
@@ -708,10 +719,10 @@ function renderOverview(){
   ].map(function(s){return '<div class="stat-tile"><div class="stat-value">'+esc(s.val.toString())+'</div><div class="stat-label">'+s.label+'</div>'+(s.sub?'<div class="stat-sub">'+esc(s.sub)+'</div>':'')+'</div>';}).join('');
   renderWeatherPanel();
   var mpb=document.getElementById('monthly-progress-bars');mpb.innerHTML='';
-  state.program.months.forEach(function(m){var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0,isThis=m.monthNum===mn;var row=document.createElement('div');row.className='progress-row';row.innerHTML='<div class="progress-row-label" style="'+(isThis?'color:var(--grass);font-weight:500;':'')+'">'+m.month.slice(0,3)+(isThis?' ◄':'')+'</div><div class="progress-bar-wrap"><div class="progress-bar-fill ok" style="width:'+pct+'%"></div></div><div class="progress-row-num">'+c.done+'/'+c.total+'</div>';mpb.appendChild(row);});
+  state.program.months.forEach(function(m){var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0,isThis=m.monthNum===mn;var row=document.createElement('div');row.className='progress-row';row.innerHTML='<div class="progress-row-label" style="'+(isThis?'color:var(--grass);font-weight:500;':'')+'">'+(m.month?m.month.slice(0,3):'')+(isThis?' &lt;':'')+'</div><div class="progress-bar-wrap"><div class="progress-bar-fill ok" style="width:'+pct+'%"></div></div><div class="progress-row-num">'+c.done+'/'+c.total+'</div>';mpb.appendChild(row);});
   var ul=document.getElementById('upcoming-list');ul.innerHTML='';
   var rem=allTasks(mn).filter(function(t){return !state.completions[t.task.id];});
-  if(rem.length===0){ul.innerHTML='<div style="padding:16px;text-align:center;color:var(--ink-light);font-size:13px;font-style:italic;">All tasks done for this month ✓</div>';}
+  if(rem.length===0){ul.innerHTML='<div style="padding:16px;text-align:center;color:var(--ink-light);font-size:13px;font-style:italic;">All tasks done for this month</div>';}
   else{rem.slice(0,8).forEach(function(t){var item=document.createElement('div');item.className='upcoming-item';item.innerHTML='<span class="upcoming-type-dot '+t.task.taskType+'"></span><span class="upcoming-week">W'+t.week+'</span><span class="upcoming-label">'+esc(t.task.label)+'</span>'+(t.task.conditional?'<span style="font-size:11px;padding:1px 6px;border-radius:8px;background:var(--cream);border:1px solid var(--soil-light);color:var(--soil);">if req.</span>':'');ul.appendChild(item);});if(rem.length>8)ul.innerHTML+='<div style="padding:8px;text-align:center;color:var(--ink-light);font-size:12px;">+ '+(rem.length-8)+' more</div>';}
   var isb=document.getElementById('inv-summary-bars');isb.innerHTML='';
   state.inventory.products.forEach(function(p){var s=invStatus(p),row=document.createElement('div');row.className='progress-row';row.style.marginBottom='7px';row.innerHTML='<div class="progress-row-label" style="font-size:13px;">'+esc(p.name)+'</div><div class="progress-bar-wrap" style="height:6px;"><div class="progress-bar-fill '+s.status+'" style="width:'+s.pct+'%"></div></div><div class="progress-row-num" style="font-size:12px;">'+p.qtyRemaining+p.unit+'</div>';isb.appendChild(row);});
@@ -721,7 +732,7 @@ function renderWeatherPanel(){
   var entries=(state.weatherLog&&state.weatherLog.entries)||[];
   var container=document.getElementById('weather-list-container');
   var toggleBtn=document.getElementById('weather-toggle-btn');
-  if(entries.length===0){container.innerHTML='<div class="weather-empty">No observations logged yet. Use the 🌤 button above to add one.</div>';toggleBtn.style.display='none';return;}
+  if(entries.length===0){container.innerHTML='<div class="weather-empty">No observations logged yet. Use the button above to add one.</div>';toggleBtn.style.display='none';return;}
   toggleBtn.style.display='inline';
   var displayCount=state.weatherExpanded?entries.length:Math.min(5,entries.length);
   toggleBtn.textContent=state.weatherExpanded?'Show less':'Show all ('+entries.length+')';
@@ -736,20 +747,20 @@ function toggleWeatherList(){state.weatherExpanded=!state.weatherExpanded;render
 
 function renderProgram(){
   var mn=currentMonthNum(),grid=document.getElementById('month-grid');grid.innerHTML='';
-  state.program.months.forEach(function(m){var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0;var tile=document.createElement('a');tile.className='month-tile'+(m.monthNum===mn?' current':'');tile.href='tracker.html?month='+m.monthNum;tile.innerHTML='<div class="month-tile-top"><div class="month-tile-name">'+m.month.slice(0,3)+'</div><div style="display:flex;align-items:center;gap:6px;"><div class="season-dot '+m.season+'"></div><span class="month-tile-arrow">→</span></div></div><div class="month-tile-bar"><div class="month-tile-fill" style="width:'+pct+'%"></div></div><div class="month-tile-count"><span class="done">'+c.done+'</span> / '+c.total+' tasks</div>';grid.appendChild(tile);});
+  state.program.months.forEach(function(m){var c=countDone(m.monthNum),pct=c.total>0?Math.round(c.done/c.total*100):0;var tile=document.createElement('a');tile.className='month-tile'+(m.monthNum===mn?' current':'');tile.href='tracker.html?month='+m.monthNum;tile.innerHTML='<div class="month-tile-top"><div class="month-tile-name">'+(m.month?m.month.slice(0,3):'')+'</div><div style="display:flex;align-items:center;gap:6px;"><div class="season-dot '+m.season+'"></div><span class="month-tile-arrow">-&gt;</span></div></div><div class="month-tile-bar"><div class="month-tile-fill" style="width:'+pct+'%"></div></div><div class="month-tile-count"><span class="done">'+c.done+'</span> / '+c.total+' tasks</div>';grid.appendChild(tile);});
   document.getElementById('type-legend').innerHTML=Object.entries(TYPE_COLORS).map(function(e){return '<div class="legend-item"><div class="legend-dot" style="background:'+e[1]+'"></div>'+e[0].replace('soilwetter','soil wetter')+'</div>';}).join('');
   var chips=document.getElementById('program-filter-chips'),af='all';
   function bc(){chips.innerHTML='';['all','fertilise','biostimulant','herbicide','fungicide','insecticide','soilwetter','renovation'].forEach(function(f){var c=document.createElement('button');c.className='filter-chip'+(f===af?' active':'');c.textContent=f==='all'?'All':f.replace('soilwetter','soil wetter');c.addEventListener('click',function(){af=f;bc();bt();});chips.appendChild(c);});}
-  function bt(){var tb=document.getElementById('prog-tbody');tb.innerHTML='';state.program.months.forEach(function(m){m.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){if(af!=='all'&&t.taskType!==af)return;var id=!!state.completions[t.id],cl=TYPE_COLORS[t.taskType]||'#888';var tr=document.createElement('tr');tr.className=id?'completed-row':'';tr.innerHTML='<td>'+m.month.slice(0,3)+'</td><td>W'+w.week+'</td><td><div class="task-name-cell"><div class="type-pip" style="background:'+cl+'"></div>'+esc(t.label)+(t.conditional?'<span class="cond-flag">if req.</span>':'')+'</div></td><td>'+t.taskType.replace('soilwetter','soil wetter')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(t.applicationMethod).replace('Backpack or handheld sprayer','Sprayer').replace('Fertiliser spreader','Spreader')+'</td><td><div class="done-check '+(id?'yes':'no')+'">'+( id?'✓':'')+'</div></td>';tb.appendChild(tr);});});});}
+  function bt(){var tb=document.getElementById('prog-tbody');tb.innerHTML='';state.program.months.forEach(function(m){m.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){if(af!=='all'&&t.taskType!==af)return;var id=!!state.completions[t.id],cl=TYPE_COLORS[t.taskType]||'#888';var tr=document.createElement('tr');tr.className=id?'completed-row':'';tr.innerHTML='<td>'+(m.month?m.month.slice(0,3):'')+'</td><td>W'+w.week+'</td><td><div class="task-name-cell"><div class="type-pip" style="background:'+cl+'"></div>'+esc(t.label)+(t.conditional?'<span class="cond-flag">if req.</span>':'')+'</div></td><td>'+t.taskType.replace('soilwetter','soil wetter')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(t.applicationMethod||'').replace('Backpack or handheld sprayer','Sprayer').replace('Fertiliser spreader','Spreader')+'</td><td><div class="done-check '+(id?'yes':'no')+'">'+(id?'v':'')+'</div></td>';tb.appendChild(tr);});});});}
   bc();bt();
 }
 
 function renderInventory(){
   var products=state.inventory.products;
-  document.getElementById('inv-section-sub').textContent=products.length+' products · updated '+state.inventory.lastUpdated+' · click a card to update stock';
+  document.getElementById('inv-section-sub').textContent=products.length+' products - updated '+state.inventory.lastUpdated+' - click a card to update stock';
   var total=products.length,ok=0,low=0,crit=0;
   products.forEach(function(p){var s=invStatus(p).status;if(s==='ok')ok++;else if(s==='low')low++;else crit++;});
-  document.getElementById('inv-stat-grid').innerHTML=[{val:total,label:'Products',sub:'in inventory'},{val:ok,label:'Well stocked',sub:'7+ applications remaining'},{val:low,label:'Running low',sub:'4-6 applications remaining'},{val:crit,label:'Critical',sub:'3 or fewer applications left'}].map(function(s){return '<div class="stat-tile"><div class="stat-value" style="'+(s.label==='Critical'&&crit>0?'color:var(--status-critical);':'')+(s.label==='Running low'&&low>0?'color:var(--status-low);':'')+'">'+ s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
+  document.getElementById('inv-stat-grid').innerHTML=[{val:total,label:'Products',sub:'in inventory'},{val:ok,label:'Well stocked',sub:'7+ applications remaining'},{val:low,label:'Running low',sub:'4-6 applications remaining'},{val:crit,label:'Critical',sub:'3 or fewer applications left'}].map(function(s){return '<div class="stat-tile"><div class="stat-value" style="'+(s.label==='Critical'&&crit>0?'color:var(--status-critical);':'')+(s.label==='Running low'&&low>0?'color:var(--status-low);':'')+'">'+s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
   var cats=['All'];products.forEach(function(p){if(cats.indexOf(p.category)<0)cats.push(p.category);});
   var af='All',fc=document.getElementById('inv-filter-chips');
   function bic(){fc.innerHTML='';cats.forEach(function(c){var ch=document.createElement('button');ch.className='filter-chip'+(c===af?' active':'');ch.textContent=c;ch.addEventListener('click',function(){af=c;bic();big();});fc.appendChild(ch);});}
@@ -759,9 +770,24 @@ function renderInventory(){
     filtered.forEach(function(p){
       var s=invStatus(p),card=document.createElement('div');
       card.className='inv-card';card.dataset.cat=p.category;
-      var appsText=s.appsPerYear>0?(s.appsRemaining+' applications remaining'):p.qtyRemaining+p.unit+' remaining';
-      card.innerHTML='<div class="inv-card-top"><div><div class="inv-card-name">'+esc(p.name)+'</div><div class="inv-card-brand">'+esc(p.brand)+' · '+esc(p.category)+'</div></div><span class="inv-status-badge '+s.status+'">'+(s.status==='ok'?'OK':s.status==='low'?'LOW':'⚠ CRITICAL')+'</span></div><div class="inv-bar-wrap"><div class="inv-bar-fill" style="width:'+Math.min(s.pct,100)+'%;background:'+(s.status==='ok'?'var(--grass)':s.status==='low'?'var(--status-low)':'var(--status-critical)')+';" ></div></div><div class="inv-card-meta"><span>'+p.qtyRemaining+p.unit+' remaining</span><span>'+esc(appsText)+'</span></div><div class="inv-card-actions"><div class="inv-card-edit-hint">✏ Click to update stock</div><button class="inv-card-resupply" data-name="'+esc(p.name)+'">+ Resupply</button></div>';
-      card.addEventListener('click',function(evt){if(evt.target.classList.contains('inv-card-resupply')||evt.target.closest('.inv-card-resupply')){evt.stopPropagation();openResupplyModal(p);return;}openStockModal(p);});
+      var appsText='';
+      if(s.appsPerYear>0){
+        var moText='';
+        if(s.appsPerYear>0){
+          var moVal=Math.round((s.appsRemaining/s.appsPerYear)*12*10)/10;
+          moText=' (~'+moVal+'mo)';
+        }
+        appsText=s.appsRemaining+' apps'+moText;
+      }else{
+        appsText=p.qtyRemaining+p.unit+' remaining';
+      }
+      var reorderHtml='';
+      if((s.status==='critical'||s.status==='low')&&p.reorder){
+        var labelColor=s.status==='critical'?'var(--status-critical)':'var(--status-low)';
+        reorderHtml='<div class="inv-reorder"><span class="inv-reorder-label" style="color:'+labelColor+'">Reorder</span><span class="inv-reorder-name">'+esc(p.reorder.replacementName)+'</span><a class="inv-reorder-btn" href="'+esc(p.reorder.buyUrl)+'" target="_blank" rel="noopener">Buy</a></div>';
+      }
+      card.innerHTML='<div class="inv-card-top"><div><div class="inv-card-name">'+esc(p.name)+'</div><div class="inv-card-brand">'+esc(p.brand)+' - '+esc(p.category)+'</div></div><span class="inv-status-badge '+s.status+'">'+(s.status==='ok'?'OK':s.status==='low'?'LOW':'! CRITICAL')+'</span></div><div class="inv-bar-wrap"><div class="inv-bar-fill" style="width:'+Math.min(s.pct,100)+'%;background:'+(s.status==='ok'?'var(--grass)':s.status==='low'?'var(--status-low)':'var(--status-critical)')+';"></div></div><div class="inv-card-meta"><span>'+p.qtyRemaining+p.unit+' remaining</span><span>'+esc(appsText)+'</span></div><div class="inv-card-actions"><div class="inv-card-edit-hint">Click to update stock</div><button class="inv-card-resupply" data-name="'+esc(p.name)+'">+ Resupply</button></div>'+reorderHtml;
+      card.addEventListener('click',function(evt){if(evt.target.classList.contains('inv-card-resupply')||evt.target.closest('.inv-card-resupply')){evt.stopPropagation();openResupplyModal(p);return;}if(evt.target.tagName==='A'||evt.target.closest('a')){return;}openStockModal(p);});
       grid.appendChild(card);
     });
   }
@@ -780,24 +806,24 @@ function renderLog(){
     var last=lastWaterForZone(zid);
     var card=document.createElement('div');
     if(!last){card.className='water-zone-card never';card.innerHTML='<div class="water-zone-name">'+esc(zoneName)+'</div><div class="water-zone-grass">'+esc(grass)+'</div><div class="water-zone-days">No record</div><div class="water-zone-sub">Not yet logged</div>';}
-    else{var days=daysSince(last.dateISO),overdue=days>=wThreshold;card.className='water-zone-card'+(overdue?' overdue':'');card.innerHTML='<div class="water-zone-name">'+esc(zoneName)+'</div><div class="water-zone-grass">'+esc(grass)+'</div><div class="water-zone-days'+(overdue?' overdue':'')+'">'+days+'d ago</div><div class="water-zone-sub">'+esc(last.date)+' · '+(WATER_METHODS[last.method]||last.method||'')+(last.durationMin?' · '+last.durationMin+'min':'')+'</div>';}
+    else{var days=daysSince(last.dateISO),overdue=days>=wThreshold;card.className='water-zone-card'+(overdue?' overdue':'');card.innerHTML='<div class="water-zone-name">'+esc(zoneName)+'</div><div class="water-zone-grass">'+esc(grass)+'</div><div class="water-zone-days'+(overdue?' overdue':'')+'">'+days+'d ago</div><div class="water-zone-sub">'+esc(last.date)+' - '+(WATER_METHODS[last.method]||last.method||'')+(last.durationMin?' - '+last.durationMin+'min':'')+'</div>';}
     wzg.appendChild(card);
   });
   var wtb=document.getElementById('water-tbody');wtb.innerHTML='';
   if(waterEntries.length===0){wtb.innerHTML='<tr><td colspan="6" class="log-empty">No watering sessions logged yet. Use the Log irrigation button in the Tracker header.</td></tr>';}
-  else{waterEntries.forEach(function(e){var zoneNames=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join(', ')||e.zoneNames||'—';var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td style="font-size:13px;color:var(--ink-mid);">'+esc(zoneNames)+'</td><td style="font-size:13px;">'+esc(WATER_METHODS[e.method]||e.method||'—')+'</td><td style="font-size:13px;font-weight:500;color:var(--weather-rain);">'+(e.durationMin?e.durationMin+'min':'—')+'</td><td style="font-size:13px;color:var(--ink-mid);">'+(e.amountL?e.amountL+'L':'—')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(e.notes||'—')+'</td>';wtb.appendChild(tr);});}
+  else{waterEntries.forEach(function(e){var zoneNames=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join(', ')||e.zoneNames||'--';var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td style="font-size:13px;color:var(--ink-mid);">'+esc(zoneNames)+'</td><td style="font-size:13px;">'+esc(WATER_METHODS[e.method]||e.method||'--')+'</td><td style="font-size:13px;font-weight:500;color:var(--weather-rain);">'+(e.durationMin?e.durationMin+'min':'--')+'</td><td style="font-size:13px;color:var(--ink-mid);">'+(e.amountL?e.amountL+'L':'--')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(e.notes||'--')+'</td>';wtb.appendChild(tr);});}
   var mzg=document.getElementById('mow-zone-grid');mzg.innerHTML='';
   ['back','front','strip1','strip2'].forEach(function(zid){
     var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';
     var last=lastMowForZone(zid);
     var card=document.createElement('div');
     if(!last){card.className='mow-zone-card never';card.innerHTML='<div class="mow-zone-name">'+esc(zoneName)+'</div><div class="mow-zone-grass">'+esc(grass)+'</div><div class="mow-zone-days">No record</div><div class="mow-zone-sub">Not yet logged</div>';}
-    else{var days=daysSince(last.dateISO),overdue=days>=threshold;card.className='mow-zone-card'+(overdue?' overdue':'');card.innerHTML='<div class="mow-zone-name">'+esc(zoneName)+'</div><div class="mow-zone-grass">'+esc(grass)+' · '+esc(last.mower.split(' ').slice(0,2).join(' '))+'</div><div class="mow-zone-days'+(overdue?' overdue':'')+'">'+days+'d ago</div><div class="mow-zone-sub">'+esc(last.date)+' · '+last.heightMm+'mm'+(last.notes?' · '+esc(last.notes.slice(0,30)):'')+'</div>';}
+    else{var days=daysSince(last.dateISO),overdue=days>=threshold;card.className='mow-zone-card'+(overdue?' overdue':'');card.innerHTML='<div class="mow-zone-name">'+esc(zoneName)+'</div><div class="mow-zone-grass">'+esc(grass)+' - '+esc((last.mower||'').split(' ').slice(0,2).join(' '))+'</div><div class="mow-zone-days'+(overdue?' overdue':'')+'">'+days+'d ago</div><div class="mow-zone-sub">'+esc(last.date)+' - '+last.heightMm+'mm'+(last.notes?' - '+esc(last.notes.slice(0,30)):'')+'</div>';}
     mzg.appendChild(card);
   });
   var mtb=document.getElementById('mow-tbody');mtb.innerHTML='';
-  if(mowEntries.length===0){mtb.innerHTML='<tr><td colspan="5" class="log-empty">No mowing sessions logged yet. Use the ✂ Log a mow button in the Tracker header.</td></tr>';}
-  else{mowEntries.forEach(function(e){var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td><div class="log-task">'+esc(e.zoneName||e.zone)+'</div><div style="font-size:12px;color:var(--ink-light);">'+esc(e.grass||'')+'</div></td><td style="font-size:13px;color:var(--ink-mid);">'+esc(e.mower||'—')+'</td><td style="font-size:13px;font-weight:500;color:var(--grass);">'+esc(e.heightMm+'mm')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(e.notes||'—')+'</td>';mtb.appendChild(tr);});}
+  if(mowEntries.length===0){mtb.innerHTML='<tr><td colspan="5" class="log-empty">No mowing sessions logged yet. Use the Log a mow button in the Tracker header.</td></tr>';}
+  else{mowEntries.forEach(function(e){var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td><div class="log-task">'+esc(e.zoneName||e.zone)+'</div><div style="font-size:12px;color:var(--ink-light);">'+esc(e.grass||'')+'</div></td><td style="font-size:13px;color:var(--ink-mid);">'+esc(e.mower||'--')+'</td><td style="font-size:13px;font-weight:500;color:var(--grass);">'+esc(e.heightMm+'mm')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(e.notes||'--')+'</td>';mtb.appendChild(tr);});}
   var thisMonth=currentMonthNum(),thisYear=now().getFullYear();
   var monthEntries=entries.filter(function(e){if(!e.dateISO)return false;var d=new Date(e.dateISO);return d.getMonth()+1===thisMonth&&d.getFullYear()===thisYear;});
   var deductedCount=entries.filter(function(e){return e.inventoryDeducted;}).length;
@@ -812,11 +838,11 @@ function renderLog(){
   var prodNames=Object.keys(lastApplied).sort();
   if(prodNames.length===0){lag.innerHTML='<div style="color:var(--ink-light);font-size:13px;font-style:italic;padding:8px 0;">No applications logged yet.</div>';}
   else{prodNames.forEach(function(name){var days=daysSince(lastApplied[name]);var stale=days>28;var card=document.createElement('div');card.className='last-applied-card';card.innerHTML='<div class="last-applied-name">'+esc(name)+'</div><div class="last-applied-days'+(stale?' stale':'')+'">'+days+' days ago</div><div class="last-applied-date">'+lastApplied[name].split('-').reverse().join('/')+'</div>';lag.appendChild(card);});}
-  document.getElementById('log-section-sub').textContent=entries.length+' application'+(entries.length!==1?'s':'')+' · '+mowEntries.length+' mow'+(mowEntries.length!==1?'s':'')+' · '+waterEntries.length+' watering'+(waterEntries.length!==1?'s':'')+' recorded';
+  document.getElementById('log-section-sub').textContent=entries.length+' application'+(entries.length!==1?'s':'')+' - '+mowEntries.length+' mow'+(mowEntries.length!==1?'s':'')+' - '+waterEntries.length+' watering'+(waterEntries.length!==1?'s':'')+' recorded';
   var taskTypes=['All'];entries.forEach(function(e){if(e.taskType&&taskTypes.indexOf(e.taskType)<0)taskTypes.push(e.taskType);});
   var af='All',lfc=document.getElementById('log-filter-chips');
   function buildLogChips(){lfc.innerHTML='';taskTypes.forEach(function(t){var chip=document.createElement('button');chip.className='filter-chip'+(t===af?' active':'');chip.textContent=t==='All'?'All':t.replace('soilwetter','soil wetter');chip.addEventListener('click',function(){af=t;buildLogChips();buildLogTable();});lfc.appendChild(chip);});}
-  function buildLogTable(){var tb=document.getElementById('log-tbody');tb.innerHTML='';var filtered=af==='All'?entries:entries.filter(function(e){return e.taskType===af;});if(filtered.length===0){tb.innerHTML='<tr><td colspan="5" class="log-empty">No applications logged yet. Use "+ Log manual application" above to add an entry.</td></tr>';return;}filtered.forEach(function(e){var color=TYPE_COLORS[e.taskType]||'#888';var prodText=(e.products||[]).map(function(p){return p.name+' '+p.amount+p.unit+(p.deducted?' ✓':'');}).join('<br>');var zoneText=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join(', ');var manBadge=e.manual?'<span style="font-size:10px;padding:1px 5px;border-radius:4px;background:#eef5ff;color:#4a80b0;border:1px solid #4a80b0;margin-left:5px;">manual</span>':'';var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td><div class="log-task"><span class="log-type-pip" style="background:'+color+'"></span>'+esc(e.taskLabel||e.taskType||'')+'</div>'+manBadge+'</td><td class="log-products">'+(prodText||'<span style="color:var(--ink-light);font-style:italic;">No products</span>')+'</td><td class="log-zones">'+esc(zoneText||'—')+'</td><td><span class="log-deducted-badge '+(e.inventoryDeducted?'yes':'no')+'">'+( e.inventoryDeducted?'✓ yes':'skipped')+'</span></td>';tb.appendChild(tr);});}
+  function buildLogTable(){var tb=document.getElementById('log-tbody');tb.innerHTML='';var filtered=af==='All'?entries:entries.filter(function(e){return e.taskType===af;});if(filtered.length===0){tb.innerHTML='<tr><td colspan="5" class="log-empty">No applications logged yet. Use "+ Log manual application" above to add an entry.</td></tr>';return;}filtered.forEach(function(e){var color=TYPE_COLORS[e.taskType]||'#888';var prodText=(e.products||[]).map(function(p){return p.name+' '+p.amount+p.unit+(p.deducted?' v':'');}).join('<br>');var zoneText=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join(', ');var manBadge=e.manual?'<span style="font-size:10px;padding:1px 5px;border-radius:4px;background:#eef5ff;color:#4a80b0;border:1px solid #4a80b0;margin-left:5px;">manual</span>':'';var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td><div class="log-task"><span class="log-type-pip" style="background:'+color+'"></span>'+esc(e.taskLabel||e.taskType||'')+'</div>'+manBadge+'</td><td class="log-products">'+(prodText||'<span style="color:var(--ink-light);font-style:italic;">No products</span>')+'</td><td class="log-zones">'+esc(zoneText||'--')+'</td><td><span class="log-deducted-badge '+(e.inventoryDeducted?'yes':'no')+'">'+(e.inventoryDeducted?'yes':'skipped')+'</span></td>';tb.appendChild(tr);});}
   buildLogChips();buildLogTable();
 }
 
@@ -840,13 +866,13 @@ function exportCSV(){
   showToast('Exported '+entries.length+' applications to CSV','success');
 }
 
-function openStockModal(product){state.modalProduct=product;document.getElementById('modal-product-name').textContent=product.name;document.getElementById('modal-product-brand').textContent=product.brand+' · '+product.category;document.getElementById('modal-current-qty').textContent=product.qtyRemaining;document.getElementById('modal-current-unit').textContent=product.unit;document.getElementById('modal-qty-input').value=product.qtyRemaining;document.getElementById('modal-unit-label').textContent=product.unit;document.getElementById('modal-auth-notice').style.display=state.token?'none':'flex';document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;var qa=document.getElementById('modal-quick-add');qa.innerHTML='';(product.unit==='kg'?[5,10,20,25]:[0.5,1,2,5]).forEach(function(sz){var btn=document.createElement('button');btn.className='filter-chip';btn.textContent='+ '+sz+product.unit;btn.addEventListener('click',function(){var cur=parseFloat(document.getElementById('modal-qty-input').value)||0;document.getElementById('modal-qty-input').value=Math.round((cur+sz)*100)/100;});qa.appendChild(btn);});document.getElementById('stock-modal').classList.add('open');setTimeout(function(){document.getElementById('modal-qty-input').focus();document.getElementById('modal-qty-input').select();},100);}
+function openStockModal(product){state.modalProduct=product;document.getElementById('modal-product-name').textContent=product.name;document.getElementById('modal-product-brand').textContent=product.brand+' - '+product.category;document.getElementById('modal-current-qty').textContent=product.qtyRemaining;document.getElementById('modal-current-unit').textContent=product.unit;document.getElementById('modal-qty-input').value=product.qtyRemaining;document.getElementById('modal-unit-label').textContent=product.unit;document.getElementById('modal-auth-notice').style.display=state.token?'none':'flex';document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;var qa=document.getElementById('modal-quick-add');qa.innerHTML='';(product.unit==='kg'?[5,10,20,25]:[0.5,1,2,5]).forEach(function(sz){var btn=document.createElement('button');btn.className='filter-chip';btn.textContent='+ '+sz+product.unit;btn.addEventListener('click',function(){var cur=parseFloat(document.getElementById('modal-qty-input').value)||0;document.getElementById('modal-qty-input').value=Math.round((cur+sz)*100)/100;});qa.appendChild(btn);});document.getElementById('stock-modal').classList.add('open');setTimeout(function(){document.getElementById('modal-qty-input').focus();document.getElementById('modal-qty-input').select();},100);}
 function closeStockModal(){document.getElementById('stock-modal').classList.remove('open');state.modalProduct=null;}
-async function saveStock(){var p=state.modalProduct;if(!p)return;var newQty=parseFloat(document.getElementById('modal-qty-input').value);if(isNaN(newQty)||newQty<0){showToast('Please enter a valid quantity','error');return;}var prod=state.inventory.products.find(function(x){return x.name===p.name;});if(prod)prod.qtyRemaining=newQty;state.inventory.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});document.getElementById('modal-current-qty').textContent=newQty;if(!state.token){closeStockModal();renderInventory();renderAlerts();renderOverview();showToast('Updated (session only — connect GitHub to save permanently)','error');return;}document.getElementById('modal-saving').style.display='block';document.getElementById('modal-save-btn').disabled=true;try{if(!state.invSha)await fetchInvSha();var inv=JSON.parse(JSON.stringify(state.inventory));var rp=inv.products.find(function(x){return x.name===p.name;});if(rp)rp.qtyRemaining=newQty;inv.lastUpdated=state.inventory.lastUpdated;var content=btoa(unescape(encodeURIComponent(JSON.stringify(inv,null,2))));var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;var body={message:'Update stock: '+p.name+' → '+newQty+p.unit,content:content,branch:CONFIG.branch};if(state.invSha)body.sha=state.invSha;var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}var data=await resp.json();state.invSha=data.content.sha;closeStockModal();renderInventory();renderAlerts();renderOverview();showToast(p.name+' updated to '+newQty+p.unit,'success');}catch(e){document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}}
+async function saveStock(){var p=state.modalProduct;if(!p)return;var newQty=parseFloat(document.getElementById('modal-qty-input').value);if(isNaN(newQty)||newQty<0){showToast('Please enter a valid quantity','error');return;}var prod=state.inventory.products.find(function(x){return x.name===p.name;});if(prod)prod.qtyRemaining=newQty;state.inventory.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});document.getElementById('modal-current-qty').textContent=newQty;if(!state.token){closeStockModal();renderInventory();renderAlerts();renderOverview();showToast('Updated (session only -- connect GitHub to save permanently)','error');return;}document.getElementById('modal-saving').style.display='block';document.getElementById('modal-save-btn').disabled=true;try{if(!state.invSha)await fetchInvSha();var inv=JSON.parse(JSON.stringify(state.inventory));var rp=inv.products.find(function(x){return x.name===p.name;});if(rp)rp.qtyRemaining=newQty;inv.lastUpdated=state.inventory.lastUpdated;var content=btoa(unescape(encodeURIComponent(JSON.stringify(inv,null,2))));var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;var body={message:'Update stock: '+p.name+' to '+newQty+p.unit,content:content,branch:CONFIG.branch};if(state.invSha)body.sha=state.invSha;var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}var data=await resp.json();state.invSha=data.content.sha;closeStockModal();renderInventory();renderAlerts();renderOverview();showToast(p.name+' updated to '+newQty+p.unit,'success');}catch(e){document.getElementById('modal-saving').style.display='none';document.getElementById('modal-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}}
 
 function openResupplyModal(product){
   state.resupplyProduct=product;
-  document.getElementById('resupply-product-name').textContent='+ Resupply — '+product.name;
+  document.getElementById('resupply-product-name').textContent='+ Resupply -- '+product.name;
   document.getElementById('resupply-current-qty').textContent=product.qtyRemaining;
   document.getElementById('resupply-current-unit').textContent=product.unit;
   document.getElementById('resupply-unit-label').textContent=product.unit;
@@ -867,7 +893,7 @@ async function saveResupply(){
   var prod=state.inventory.products.find(function(x){return x.name===p.name;});
   if(prod)prod.qtyRemaining=newQty;
   state.inventory.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});
-  if(!state.token){closeResupplyModal();renderInventory();renderAlerts();renderOverview();showToast(p.name+' restocked: '+oldQty+p.unit+' → '+newQty+p.unit+' (session only)','error');return;}
+  if(!state.token){closeResupplyModal();renderInventory();renderAlerts();renderOverview();showToast(p.name+' restocked: '+oldQty+p.unit+' to '+newQty+p.unit+' (session only)','error');return;}
   document.getElementById('resupply-saving').style.display='block';
   document.getElementById('resupply-save-btn').disabled=true;
   try{
@@ -878,13 +904,13 @@ async function saveResupply(){
     inv.lastUpdated=state.inventory.lastUpdated;
     var content=btoa(unescape(encodeURIComponent(JSON.stringify(inv,null,2))));
     var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.invPath;
-    var body={message:'Resupply: '+p.name+' +'+added+p.unit+' → '+newQty+p.unit,content:content,branch:CONFIG.branch};
+    var body={message:'Resupply: '+p.name+' +'+added+p.unit+' to '+newQty+p.unit,content:content,branch:CONFIG.branch};
     if(state.invSha)body.sha=state.invSha;
     var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});
     if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}
     var data=await resp.json();state.invSha=data.content.sha;
     closeResupplyModal();renderInventory();renderAlerts();renderOverview();
-    showToast(p.name+' restocked: '+oldQty+p.unit+' → '+newQty+p.unit,'success');
+    showToast(p.name+' restocked: '+oldQty+p.unit+' to '+newQty+p.unit,'success');
   }catch(e){document.getElementById('resupply-saving').style.display='none';document.getElementById('resupply-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}
 }
 
@@ -914,7 +940,7 @@ function addManProductRow(){
   var amtIn=document.createElement('input');amtIn.className='man-input amount';amtIn.type='number';amtIn.placeholder='Amount';amtIn.min='0';amtIn.step='0.01';
   var unitSel=document.createElement('select');unitSel.className='man-select';unitSel.style.cssText='width:auto;flex-shrink:0;padding:9px 8px;';
   UNITS.forEach(function(u){var opt=document.createElement('option');opt.value=u;opt.textContent=u;unitSel.appendChild(opt);});
-  var rmBtn=document.createElement('button');rmBtn.className='man-remove-btn';rmBtn.textContent='×';rmBtn.title='Remove';rmBtn.onclick=function(){rows.removeChild(row);};
+  var rmBtn=document.createElement('button');rmBtn.className='man-remove-btn';rmBtn.textContent='x';rmBtn.title='Remove';rmBtn.onclick=function(){rows.removeChild(row);};
   row.appendChild(nameIn);row.appendChild(amtIn);row.appendChild(unitSel);row.appendChild(rmBtn);rows.appendChild(row);
 }
 async function saveManualLog(){
@@ -929,7 +955,7 @@ async function saveManualLog(){
   var entry={id:'app_'+n.getTime(),date:n.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),dateISO:n.toISOString().slice(0,10),taskId:'manual',taskLabel:label,taskType:type,zones:zones,products:products,inventoryDeducted:false,manual:true,notes:notes||undefined};
   if(!state.appLog)state.appLog={entries:[]};
   state.appLog.entries.unshift(entry);
-  if(!state.token){closeManualLogModal();renderLog();renderOverview();showToast('Entry added (session only — connect GitHub to save permanently)','error');return;}
+  if(!state.token){closeManualLogModal();renderLog();renderOverview();showToast('Entry added (session only -- connect GitHub to save permanently)','error');return;}
   document.getElementById('man-saving').style.display='block';document.getElementById('man-save-btn').disabled=true;
   try{
     var content=btoa(unescape(encodeURIComponent(JSON.stringify(state.appLog,null,2))));
@@ -1008,13 +1034,13 @@ async function saveWeather(){
   }
   state.weatherLog.entries.sort(function(a,b){return b.dateISO.localeCompare(a.dateISO);});
   state.weatherEditId=null;
-  if(!state.token){closeWeatherModal();renderOverview();showToast('Observation saved (session only — connect GitHub to save permanently)','error');return;}
+  if(!state.token){closeWeatherModal();renderOverview();showToast('Observation saved (session only -- connect GitHub to save permanently)','error');return;}
   document.getElementById('weather-saving').style.display='block';
   document.getElementById('weather-save-btn').disabled=true;
   try{
     var content=btoa(unescape(encodeURIComponent(JSON.stringify(state.weatherLog,null,2))));
     var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.weatherPath;
-    var body={message:'Weather log: '+type+' — '+dateFormatted,content:content,branch:CONFIG.branch};
+    var body={message:'Weather log: '+type+' -- '+dateFormatted,content:content,branch:CONFIG.branch};
     if(state.weatherSha)body.sha=state.weatherSha;
     var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});
     if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}
@@ -1029,24 +1055,54 @@ function renderAlerts(){
   var mThreshold=mowThreshold();
   var wThreshold=waterThreshold();
   var seasonLabel=(['12','1','2'].indexOf(String(currentMonthNum()))>=0)?'summer':(['3','4','5'].indexOf(String(currentMonthNum()))>=0)?'autumn':(['6','7','8'].indexOf(String(currentMonthNum()))>=0)?'winter':'spring';
-  ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';var last=lastMowForZone(zid);if(!last){alerts.push({type:'info',icon:'✂',title:zoneName+' — no mowing record',text:'No mowing sessions logged yet. Use ✂ Log a mow in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=mThreshold)alerts.push({type:'warn',icon:'✂',title:zoneName+' — mowing overdue',text:days+'d since last mow ('+last.date+' · '+last.heightMm+'mm). Threshold '+mThreshold+'d in '+seasonLabel+'. Grass: '+grass+'.'});}});
-  ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid;var last=lastWaterForZone(zid);if(!last){alerts.push({type:'info',icon:'💧',title:zoneName+' — no watering record',text:'No watering logged. Use the Log irrigation button in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=wThreshold)alerts.push({type:'warn',icon:'💧',title:zoneName+' — watering overdue',text:days+'d since last water ('+last.date+'). Threshold '+wThreshold+'d in '+seasonLabel+'.'});}});
+  ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';var last=lastMowForZone(zid);if(!last){alerts.push({type:'info',icon:'!',title:zoneName+' -- no mowing record',text:'No mowing sessions logged yet. Use Log a mow in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=mThreshold)alerts.push({type:'warn',icon:'!',title:zoneName+' -- mowing overdue',text:days+'d since last mow ('+last.date+' - '+last.heightMm+'mm). Threshold '+mThreshold+'d in '+seasonLabel+'. Grass: '+grass+'.'});}});
+  ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid;var last=lastWaterForZone(zid);if(!last){alerts.push({type:'info',icon:'o',title:zoneName+' -- no watering record',text:'No watering logged. Use the Log irrigation button in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=wThreshold)alerts.push({type:'warn',icon:'o',title:zoneName+' -- watering overdue',text:days+'d since last water ('+last.date+'). Threshold '+wThreshold+'d in '+seasonLabel+'.'});}});
   state.inventory.products.forEach(function(p){
     var s=invStatus(p);
     var appsText=s.appsPerYear>0?s.appsRemaining+' application'+(s.appsRemaining!==1?'s':'')+' remaining':p.qtyRemaining+p.unit+' remaining';
     var schedText=s.appsPerYear>0?' ('+s.appsPerYear+' scheduled per year)':'';
-    if(s.status==='critical')alerts.push({type:'critical',icon:'⚠',title:p.name+' — critically low',text:appsText+schedText+'. Reorder now.'});
-    else if(s.status==='low')alerts.push({type:'warn',icon:'⊙',title:p.name+' — running low',text:appsText+schedText+'. Consider restocking soon.'});
+    if(s.status==='critical')alerts.push({type:'critical',icon:'!',title:p.name+' -- critically low',text:appsText+schedText+'. Reorder now.'});
+    else if(s.status==='low')alerts.push({type:'warn',icon:'o',title:p.name+' -- running low',text:appsText+schedText+'. Consider restocking soon.'});
   });
-  state.inventory.compatibility.forEach(function(rule){if(rule.severity==='critical')alerts.push({type:'critical',icon:'⛔',title:'Compatibility rule',text:rule.rule});});
+  state.inventory.compatibility.forEach(function(rule){if(rule.severity==='critical')alerts.push({type:'critical',icon:'!',title:'Compatibility rule',text:rule.rule});});
   var mn=currentMonthNum(),c=countDone(mn);
-  if(c.total>0&&c.done===0){var MN=['January','February','March','April','May','June','July','August','September','October','November','December'];alerts.push({type:'info',icon:'📋',title:MN[mn-1]+' program not started',text:c.total+' tasks scheduled this month, none completed yet.'});}
-  if(alerts.length===0){list.innerHTML='<div class="no-alerts">No alerts — everything looks good.</div>';return;}
+  if(c.total>0&&c.done===0){var MN=['January','February','March','April','May','June','July','August','September','October','November','December'];alerts.push({type:'info',icon:'!',title:MN[mn-1]+' program not started',text:c.total+' tasks scheduled this month, none completed yet.'});}
+
+  // Build shopping list grouped by retailer
+  var shopContainer=document.getElementById('shop-list-container');
+  var needItems=state.inventory.products.filter(function(p){var s=invStatus(p);return(s.status==='critical'||s.status==='low')&&p.reorder;});
+  var shopHtml='<div class="shop-list-panel"><div class="shop-list-title">Shopping List</div>';
+  if(needItems.length===0){
+    shopHtml+='<div class="shop-all-ok">All products well stocked -- nothing to order.</div>';
+  }else{
+    var byRetailer={};
+    needItems.forEach(function(p){
+      var r=p.reorder.retailer;
+      if(!byRetailer[r])byRetailer[r]={url:p.reorder.buyUrl,items:[]};
+      byRetailer[r].items.push(p);
+    });
+    Object.keys(byRetailer).sort().forEach(function(retailer){
+      var group=byRetailer[retailer];
+      shopHtml+='<div class="shop-retailer-group"><div class="shop-retailer-row"><span class="shop-retailer-name">'+esc(retailer)+'</span><a class="shop-retailer-link" href="'+esc(group.url)+'" target="_blank" rel="noopener">Shop</a></div>';
+      group.items.forEach(function(p){
+        var s=invStatus(p);
+        var statusColor=s.status==='critical'?'var(--status-critical)':'var(--status-low)';
+        var statusLabel=s.status==='critical'?'CRITICAL':'LOW';
+        var appsText=s.appsPerYear>0?s.appsRemaining+' apps left':p.qtyRemaining+p.unit+' left';
+        shopHtml+='<div class="shop-item"><span class="inv-status-badge '+s.status+'">'+statusLabel+'</span><span class="shop-item-name">'+esc(p.name)+'</span><span class="shop-item-replace">Replace: '+esc(p.reorder.replacementName)+'</span><span style="font-size:12px;color:var(--ink-light);">'+esc(appsText)+'</span></div>';
+      });
+      shopHtml+='</div>';
+    });
+  }
+  shopHtml+='</div>';
+  shopContainer.innerHTML=shopHtml;
+
+  if(alerts.length===0){list.innerHTML='<div class="no-alerts">No alerts -- everything looks good.</div>';return;}
   list.innerHTML='';alerts.forEach(function(a){var item=document.createElement('div');item.className='alert-item '+a.type;item.innerHTML='<div class="alert-icon">'+a.icon+'</div><div class="alert-body"><div class="alert-title">'+esc(a.title)+'</div><div class="alert-text">'+esc(a.text)+'</div></div>';list.appendChild(item);});
   var at=document.querySelector('[data-tab="alerts"]');if(at)at.textContent='Alerts ('+alerts.length+')';
 }
 
-function renderZones(){var grid=document.getElementById('zone-summary-grid');grid.innerHTML='';var mn=currentMonthNum(),m=getMonthData(mn);state.inventory.zones.forEach(function(z){var tc=0;if(m)m.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){if((t.zones||[]).indexOf(z.id)>=0)tc++;});});var card=document.createElement('div');card.className='zone-card';card.innerHTML='<div class="zone-area-big">'+z.areaSqm+'m²</div><div class="zone-card-name">'+esc(z.name)+'</div><div class="zone-card-grass '+z.grass+'">'+z.grass.toUpperCase()+'</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Tasks this month</span><span class="zone-stat-val">'+tc+'</span></div></div>';grid.appendChild(card);});var tc=document.createElement('div');tc.className='zone-card';tc.innerHTML='<div class="zone-area-big">140.15m²</div><div class="zone-card-name">Total lawn area</div><div class="zone-card-grass" style="color:var(--ink-light);">ALL ZONES</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Kikuyu</span><span class="zone-stat-val">68.2m²</span></div><div class="zone-stat-row"><span class="zone-stat-label">Zoysia</span><span class="zone-stat-val">35.0m²</span></div><div class="zone-stat-row"><span class="zone-stat-label">Couch</span><span class="zone-stat-val">36.95m²</span></div></div>';grid.appendChild(tc);var cl=document.getElementById('compat-list');cl.innerHTML='';state.inventory.compatibility.forEach(function(rule){var item=document.createElement('div');item.className='alert-item '+(rule.severity==='critical'?'critical':'warn');item.style.marginBottom='8px';item.innerHTML='<div class="alert-icon">'+(rule.severity==='critical'?'⛔':'⚠')+'</div><div class="alert-body"><div class="alert-title">'+esc(rule.products.join(', '))+'</div><div class="alert-text">'+esc(rule.rule)+'</div></div>';cl.appendChild(item);});}
+function renderZones(){var grid=document.getElementById('zone-summary-grid');grid.innerHTML='';var mn=currentMonthNum(),m=getMonthData(mn);state.inventory.zones.forEach(function(z){var tc=0;if(m)m.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){if((t.zones||[]).indexOf(z.id)>=0)tc++;});});var card=document.createElement('div');card.className='zone-card';card.innerHTML='<div class="zone-area-big">'+z.areaSqm+'m&sup2;</div><div class="zone-card-name">'+esc(z.name)+'</div><div class="zone-card-grass '+z.grass+'">'+z.grass.toUpperCase()+'</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Tasks this month</span><span class="zone-stat-val">'+tc+'</span></div></div>';grid.appendChild(card);});var tc=document.createElement('div');tc.className='zone-card';tc.innerHTML='<div class="zone-area-big">140.15m&sup2;</div><div class="zone-card-name">Total lawn area</div><div class="zone-card-grass" style="color:var(--ink-light);">ALL ZONES</div><div style="margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;"><div class="zone-stat-row"><span class="zone-stat-label">Kikuyu</span><span class="zone-stat-val">68.2m&sup2;</span></div><div class="zone-stat-row"><span class="zone-stat-label">Zoysia</span><span class="zone-stat-val">35.0m&sup2;</span></div><div class="zone-stat-row"><span class="zone-stat-label">Couch</span><span class="zone-stat-val">36.95m&sup2;</span></div></div>';grid.appendChild(tc);var cl=document.getElementById('compat-list');cl.innerHTML='';state.inventory.compatibility.forEach(function(rule){var item=document.createElement('div');item.className='alert-item '+(rule.severity==='critical'?'critical':'warn');item.style.marginBottom='8px';item.innerHTML='<div class="alert-icon">'+(rule.severity==='critical'?'!':'o')+'</div><div class="alert-body"><div class="alert-title">'+esc(rule.products.join(', '))+'</div><div class="alert-text">'+esc(rule.rule)+'</div></div>';cl.appendChild(item);});}
 
 var toastTimer;
 function showToast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='show'+(type?' '+type:'');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.className='';},3500);}

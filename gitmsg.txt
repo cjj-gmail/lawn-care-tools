@@ -1,1 +1,1 @@
-brief.md: session 4 update -- v2.4 program, 22 products, Seaweed Secrets + Phosfighter notes, local file read instruction
+dashboard: add reorder badges, shopping list (alerts tab), months remaining estimate; inventory: add reorder replacement data to all 22 products
