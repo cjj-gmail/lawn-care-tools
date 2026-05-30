@@ -1,1 +1,1 @@
-program v2.4: add Seaweed Secrets to all Wk3 Pass 2 runs, add Phosfighter placeholders (9 months), remove Aug Wk3 granular, add Phosfighter to inventory as product 22
+cleanup: remove temporary PS1 scripts from subagent work session
