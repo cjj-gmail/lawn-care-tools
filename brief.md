@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 30 May 2026 (session 2)
+Last Updated: 31 May 2026 (session 3)
 
 ---
 
@@ -182,7 +182,7 @@ Entries newest-first. Written by tracker (task completion) and dashboard (manual
 
 ## 10. TOOL 1 -- TRACKER -- tracker.html (LIVE)
 
-Header: Connect GitHub | Log water | Log mow | Dashboard link
+Header: Connect GitHub | Log irrigation | Log mow | Dashboard link
 
 CHECKBOX BEHAVIOUR:
 1. Tick -> saves completions.json -> deduction modal
@@ -220,38 +220,39 @@ INVENTORY ALERT LOGIC (rebuilt session 2):
 - Program meta notes removed from alerts (were generating 10+ false positives)
 
 WATERING LOG NOTE:
-- "Log water" is for irrigation only -- not rain
+- "Log irrigation" button is for irrigation only -- not rain
 - Rain/weather events go in Weather & Observations (Log observation button)
-- TODO next session: rename "Log water" to "Log irrigation" for clarity
 
-WEATHER OBSERVATIONS KNOWN ISSUE:
-- No edit/delete on weather entries yet
-- 27/05/2026 entry logged as "observation" instead of "rain" -- needs correction
-- TODO next session: add edit/delete to weather entries
+WEATHER OBSERVATIONS:
+- Edit and Delete buttons now on every weather entry (session 3)
+- 27/05/2026 entry can now be corrected via Edit button -- type set to "rain"
 
 NOTE: Dashboard Program tab verified working correctly with v2.2 schema.
 Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 
 
-## 12. CURRENT STATUS (30 May 2026 -- session 2)
+## 12. CURRENT STATUS (31 May 2026 -- session 3)
 
 [DONE] brief.md -- canonical project brief in GitHub repo
 [DONE] index.html -- landing page live
 [DONE] tracker.html -- LIVE, loading correctly, deductions working
+[DONE] tracker.html -- "Log irrigation" button label confirmed correct (session 3)
 [DONE] dashboard.html -- 6 tabs live, inventory alert logic rebuilt (session 2)
+[DONE] dashboard.html -- weather entry edit/delete added (session 3)
+[DONE] dashboard.html -- "Log a water" references updated to "Log irrigation" (session 3)
 [DONE] program.json -- v2.2 (Acelepryn twice yearly Sep+Jan, all zones)
 [DONE] inventory.json -- 21 products, quantities current as of 30 May 2026
 [DONE] applications.json -- May Wk1 task logged
 [DONE] mowing.json -- created on first mow save
 [DONE] watering.json -- created on first water save
 [DONE] weather.json -- rain events logged Mon-Fri 25-29 May 2026
+[DONE] CLAUDE.md -- working folder instructions file created (session 3)
 [DONE] gitrun.bat + .gitignore -- git CLI workflow confirmed working
 [DONE] Docker no longer needed -- Desktop Commander git replaces it
 [DONE] Fine-grained GitHub token deleted -- not needed
 
 NEXT TASKS (new session):
-- Add edit/delete to weather observations (27/05 logged as observation not rain -- needs fix)
-- Rename "Log water" button to "Log irrigation" in tracker header for clarity
+- Fix 27/05/2026 weather entry: use the Edit button to change type from "observation" to "rain"
 - Consider adding Stimulizer to Wk1 main tank-mix (PD brochure confirms safe with Iron)
 - Consider adding Phosfighter (LA reference plan) as next new product to stock
 - Verify alerts count is now sensible after invStatus() rebuild
