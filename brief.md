@@ -360,27 +360,33 @@ IMPORTANT: Do NOT use a Google Drive path for the local repo. GDrive virtual fil
 swallows git stdout silently. Always use a plain local NTFS path.
 
 ### How Claude runs git (via Desktop Commander)
-Git is not in Desktop Commander's PowerShell PATH. Use the batch file wrapper:
-  C:\Users\camer\AppData\Local\Temp\gitrun.bat
+Git is not in Desktop Commander's PowerShell PATH. Use the batch file wrapper
+stored in the repo itself:
+  C:\Users\camer\lawn-care-tools\gitrun.bat
 
-The batch file content (recreate with write_file if missing after reboot):
+The batch file content (it's in the repo, but recreate with write_file if needed):
   @echo off
   cd /d C:\Users\camer\lawn-care-tools
-  C:\PROGRA~1\Git\bin\git.exe %* > C:\Users\camer\AppData\Local\Temp\gitout.txt 2>&1
-  type C:\Users\camer\AppData\Local\Temp\gitout.txt
+  C:\PROGRA~1\Git\bin\git.exe %* > C:\Users\camer\lawn-care-tools\gitout.txt 2>&1
+  type C:\Users\camer\lawn-care-tools\gitout.txt
+
+gitout.txt is listed in .gitignore so it won't be committed.
+gitmsg.txt (commit message file) is NOT in .gitignore -- delete after use or just leave it.
 
 Always call with shell: cmd, e.g.:
-  C:\Users\camer\AppData\Local\Temp\gitrun.bat status
-  C:\Users\camer\AppData\Local\Temp\gitrun.bat log --oneline -5
-  C:\Users\camer\AppData\Local\Temp\gitrun.bat add -A
-  C:\Users\camer\AppData\Local\Temp\gitrun.bat commit -m "message"
-  C:\Users\camer\AppData\Local\Temp\gitrun.bat push
+  C:\Users\camer\lawn-care-tools\gitrun.bat status
+  C:\Users\camer\lawn-care-tools\gitrun.bat log --oneline -5
+  C:\Users\camer\lawn-care-tools\gitrun.bat add -A
+  C:\Users\camer\lawn-care-tools\gitrun.bat commit -F C:\Users\camer\lawn-care-tools\gitmsg.txt
+  C:\Users\camer\lawn-care-tools\gitrun.bat push
+
+NOTE: Commit messages must use -F flag pointing to gitmsg.txt -- passing inline splits on spaces.
 
 ### Standard workflow for large file edits (program.json, tracker.html, dashboard.html)
 1. Desktop Commander read_file -- read current file from local repo
 2. Desktop Commander edit_block or write_file -- make changes locally
 3. gitrun.bat add -A
-4. gitrun.bat commit -m "description"
+4. Write commit message to gitmsg.txt, then: gitrun.bat commit -F gitmsg.txt
 5. gitrun.bat push
 6. Verify at https://github.com/cjj-gmail/lawn-care-tools
 
