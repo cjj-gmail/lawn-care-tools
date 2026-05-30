@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 31 May 2026 (session 4)
+Last Updated: 31 May 2026 (session 5)
 
 ---
 
@@ -205,9 +205,9 @@ KNOWN ISSUE HISTORY:
 Supports: ?tab=overview|program|inventory|log|alerts|zones
 - Overview: stat tiles, progress bars, weather journal (Log observation button top right)
 - Program: 12 month tiles -> tracker, filterable task table
-- Inventory: product cards, stock bars, resupply modal
+- Inventory: product cards, stock bars, resupply modal; Critical/Low cards show reorder badge with replacement product name + Buy link; months remaining estimate shown
 - Log: watering + mowing + applications + CSV export
-- Alerts: overdue mowing/watering, low inventory, compatibility rules
+- Alerts: Shopping List panel (grouped by retailer, auto-generated from Critical/Low stock); overdue mowing/watering, low inventory, compatibility rules
 - Zones: zone cards + compatibility rules
 
 INVENTORY ALERT LOGIC (rebuilt session 2):
@@ -232,7 +232,7 @@ NOTE: Dashboard Program tab verified working correctly with v2.2 schema.
 Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 
 
-## 12. CURRENT STATUS (31 May 2026 -- session 4)
+## 12. CURRENT STATUS (31 May 2026 -- session 5)
 
 [DONE] brief.md -- canonical project brief in GitHub repo
 [DONE] index.html -- landing page live
@@ -255,8 +255,8 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 [DONE] Fine-grained GitHub token deleted -- not needed
 
 NEXT TASKS (new session):
-- Buy Phosfighter from Lawn Addicts -- placeholder tasks already in program.json Wk3 for 9 months (Jan, May-Nov, Dec), activate once purchased
-- Consider dashboard improvements: "next upcoming task" on overview, shopping list view, mowing frequency analysis, rain gauge input on weather observations
+- Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
+- Consider further dashboard improvements: "next upcoming task" on overview, mowing frequency analysis, rain gauge input on weather observations
 
 
 ## 13. NEXT SESSION INSTRUCTIONS

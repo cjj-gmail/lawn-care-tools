@@ -1,1 +1,1 @@
-dashboard: add reorder badges, shopping list (alerts tab), months remaining estimate; inventory: add reorder replacement data to all 22 products
+brief.md: session 5 update -- reorder/shopping list feature documented
