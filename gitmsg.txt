@@ -1,1 +1,1 @@
-brief.md: correct GDrive warning -- issue was DC PowerShell capture not GDrive path
+program.json: Acelepryn twice yearly (Sep+Jan) all zones; dashboard.html: smart inventory alert logic based on scheduled applications

@@ -640,7 +640,47 @@ function allTasks(mn){var m=getMonthData(mn);if(!m)return[];var t=[];m.weeks.for
 function countDone(mn){var total=0,done=0,m=getMonthData(mn);if(!m)return{total:0,done:0};m.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){total++;if(state.completions[t.id])done++;});});return{total:total,done:done};}
 function totalTaskCount(){var t=0;state.program.months.forEach(function(m){m.weeks.forEach(function(w){t+=(w.tasks||[]).length;});});return t;}
 function totalDoneCount(){return Object.keys(state.completions).length;}
-function invStatus(p){var rem=p.qtyRemaining,unit=p.unit;var fm={'TX10 (5-2-8)':25,'Maintain (26-1-9)':20,default_kg:20,default_L:5};var full=fm[p.name]||(unit==='kg'?fm.default_kg:fm.default_L);var pct=Math.min(100,Math.round((rem/full)*100));return{pct:pct,status:pct>40?'ok':pct>15?'low':'critical'};}
+function invStatus(p){
+  // Count scheduled applications for this product across all 12 months
+  var appsPerYear=0;
+  var qtyPerApp=0;
+  if(state.program&&state.program.months){
+    state.program.months.forEach(function(m){
+      m.weeks.forEach(function(w){
+        (w.tasks||[]).forEach(function(t){
+          (t.products||[]).forEach(function(tp){
+            if(tp.name===p.name){
+              appsPerYear++;
+              // Sum quantities across all zones for this task
+              var total=0;
+              var qs=tp.quantities||{};
+              Object.keys(qs).forEach(function(z){total+=qs[z];});
+              if(total>0)qtyPerApp=((qtyPerApp*(appsPerYear-1))+total)/appsPerYear;
+            }
+          });
+        });
+      });
+    });
+  }
+  var appsRemaining;
+  if(appsPerYear===0||qtyPerApp===0){
+    // Product not in program or no quantity data -- use simple percentage fallback
+    var fullSizes={'TX10 (5-2-8)':25,'Maintain (26-1-9)':20};
+    var full=fullSizes[p.name]||(p.unit==='kg'?20:5);
+    var pct=Math.min(100,Math.round((p.qtyRemaining/full)*100));
+    appsRemaining=Math.round(pct/10); // rough proxy
+    return{pct:pct,appsRemaining:appsRemaining,appsPerYear:0,status:pct>40?'ok':pct>15?'low':'critical'};
+  }
+  // Convert remaining qty to same unit as qtyPerApp (mL or kg, consistent within product)
+  var remaining=p.qtyRemaining;
+  // qtyPerApp is in mL if rateUnit is mL, kg if rateUnit is kg
+  // inventory qtyRemaining is in L or kg -- need to convert L to mL
+  if(p.unit==='L'){remaining=p.qtyRemaining*1000;}
+  appsRemaining=Math.floor(remaining/qtyPerApp);
+  var pct=Math.min(100,Math.round((appsRemaining/Math.max(appsPerYear,1))*100));
+  var status=appsRemaining<=3?'critical':appsRemaining<=6?'low':'ok';
+  return{pct:pct,appsRemaining:appsRemaining,appsPerYear:appsPerYear,status:status};
+}
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function daysSince(dateISO){var d=new Date(dateISO+'T00:00:00');return Math.floor((now()-d)/86400000);}
 function mowThreshold(){var mn=currentMonthNum(),summer=[12,1,2],autumn=[3,4,5];return(summer.indexOf(mn)>=0||autumn.indexOf(mn)>=0)?14:21;}
@@ -705,7 +745,7 @@ function renderInventory(){
   document.getElementById('inv-section-sub').textContent=products.length+' products · updated '+state.inventory.lastUpdated+' · click a card to update stock';
   var total=products.length,ok=0,low=0,crit=0;
   products.forEach(function(p){var s=invStatus(p).status;if(s==='ok')ok++;else if(s==='low')low++;else crit++;});
-  document.getElementById('inv-stat-grid').innerHTML=[{val:total,label:'Products',sub:'in inventory'},{val:ok,label:'Well stocked',sub:'>40% remaining'},{val:low,label:'Running low',sub:'15–40% remaining'},{val:crit,label:'Critical',sub:'<15% remaining'}].map(function(s){return '<div class="stat-tile"><div class="stat-value" style="'+(s.label==='Critical'&&crit>0?'color:var(--status-critical);':'')+(s.label==='Running low'&&low>0?'color:var(--status-low);':'')+'">'+ s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
+  document.getElementById('inv-stat-grid').innerHTML=[{val:total,label:'Products',sub:'in inventory'},{val:ok,label:'Well stocked',sub:'7+ applications remaining'},{val:low,label:'Running low',sub:'4-6 applications remaining'},{val:crit,label:'Critical',sub:'3 or fewer applications left'}].map(function(s){return '<div class="stat-tile"><div class="stat-value" style="'+(s.label==='Critical'&&crit>0?'color:var(--status-critical);':'')+(s.label==='Running low'&&low>0?'color:var(--status-low);':'')+'">'+ s.val+'</div><div class="stat-label">'+s.label+'</div><div class="stat-sub">'+s.sub+'</div></div>';}).join('');
   var cats=['All'];products.forEach(function(p){if(cats.indexOf(p.category)<0)cats.push(p.category);});
   var af='All',fc=document.getElementById('inv-filter-chips');
   function bic(){fc.innerHTML='';cats.forEach(function(c){var ch=document.createElement('button');ch.className='filter-chip'+(c===af?' active':'');ch.textContent=c;ch.addEventListener('click',function(){af=c;bic();big();});fc.appendChild(ch);});}
@@ -715,7 +755,8 @@ function renderInventory(){
     filtered.forEach(function(p){
       var s=invStatus(p),card=document.createElement('div');
       card.className='inv-card';card.dataset.cat=p.category;
-      card.innerHTML='<div class="inv-card-top"><div><div class="inv-card-name">'+esc(p.name)+'</div><div class="inv-card-brand">'+esc(p.brand)+' · '+esc(p.category)+'</div></div><span class="inv-status-badge '+s.status+'">'+(s.status==='ok'?'OK':s.status==='low'?'LOW':'⚠ LOW')+'</span></div><div class="inv-bar-wrap"><div class="inv-bar-fill" style="width:'+s.pct+'%;background:'+(s.status==='ok'?'var(--grass)':s.status==='low'?'var(--status-low)':'var(--status-critical)')+';" ></div></div><div class="inv-card-meta"><span>'+p.qtyRemaining+p.unit+' remaining</span><span>'+esc(p.ratePer100sqm)+' / 100m²</span></div><div class="inv-card-actions"><div class="inv-card-edit-hint">✏ Click to update stock</div><button class="inv-card-resupply" data-name="'+esc(p.name)+'">+ Resupply</button></div>';
+      var appsText=s.appsPerYear>0?(s.appsRemaining+' applications remaining'):p.qtyRemaining+p.unit+' remaining';
+      card.innerHTML='<div class="inv-card-top"><div><div class="inv-card-name">'+esc(p.name)+'</div><div class="inv-card-brand">'+esc(p.brand)+' · '+esc(p.category)+'</div></div><span class="inv-status-badge '+s.status+'">'+(s.status==='ok'?'OK':s.status==='low'?'LOW':'⚠ CRITICAL')+'</span></div><div class="inv-bar-wrap"><div class="inv-bar-fill" style="width:'+Math.min(s.pct,100)+'%;background:'+(s.status==='ok'?'var(--grass)':s.status==='low'?'var(--status-low)':'var(--status-critical)')+';" ></div></div><div class="inv-card-meta"><span>'+p.qtyRemaining+p.unit+' remaining</span><span>'+esc(appsText)+'</span></div><div class="inv-card-actions"><div class="inv-card-edit-hint">✏ Click to update stock</div><button class="inv-card-resupply" data-name="'+esc(p.name)+'">+ Resupply</button></div>';
       card.addEventListener('click',function(evt){if(evt.target.classList.contains('inv-card-resupply')||evt.target.closest('.inv-card-resupply')){evt.stopPropagation();openResupplyModal(p);return;}openStockModal(p);});
       grid.appendChild(card);
     });
@@ -947,11 +988,16 @@ function renderAlerts(){
   var seasonLabel=(['12','1','2'].indexOf(String(currentMonthNum()))>=0)?'summer':(['3','4','5'].indexOf(String(currentMonthNum()))>=0)?'autumn':(['6','7','8'].indexOf(String(currentMonthNum()))>=0)?'winter':'spring';
   ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';var last=lastMowForZone(zid);if(!last){alerts.push({type:'info',icon:'✂',title:zoneName+' — no mowing record',text:'No mowing sessions logged yet. Use ✂ Log a mow in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=mThreshold)alerts.push({type:'warn',icon:'✂',title:zoneName+' — mowing overdue',text:days+'d since last mow ('+last.date+' · '+last.heightMm+'mm). Threshold '+mThreshold+'d in '+seasonLabel+'. Grass: '+grass+'.'});}});
   ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid;var last=lastWaterForZone(zid);if(!last){alerts.push({type:'info',icon:'💧',title:zoneName+' — no watering record',text:'No watering logged. Use 💧 Log a water in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=wThreshold)alerts.push({type:'warn',icon:'💧',title:zoneName+' — watering overdue',text:days+'d since last water ('+last.date+'). Threshold '+wThreshold+'d in '+seasonLabel+'.'});}});
-  state.inventory.products.forEach(function(p){var s=invStatus(p);if(s.status==='critical')alerts.push({type:'critical',icon:'⚠',title:p.name+' — critically low',text:p.qtyRemaining+p.unit+' remaining. Reorder soon.'});else if(s.status==='low')alerts.push({type:'warn',icon:'⊙',title:p.name+' — running low',text:p.qtyRemaining+p.unit+' remaining ('+s.pct+'% of estimated full stock).'});});
+  state.inventory.products.forEach(function(p){
+    var s=invStatus(p);
+    var appsText=s.appsPerYear>0?s.appsRemaining+' application'+(s.appsRemaining!==1?'s':'')+' remaining':p.qtyRemaining+p.unit+' remaining';
+    var schedText=s.appsPerYear>0?' ('+s.appsPerYear+' scheduled per year)':'';
+    if(s.status==='critical')alerts.push({type:'critical',icon:'⚠',title:p.name+' — critically low',text:appsText+schedText+'. Reorder now.'});
+    else if(s.status==='low')alerts.push({type:'warn',icon:'⊙',title:p.name+' — running low',text:appsText+schedText+'. Consider restocking soon.'});
+  });
   state.inventory.compatibility.forEach(function(rule){if(rule.severity==='critical')alerts.push({type:'critical',icon:'⛔',title:'Compatibility rule',text:rule.rule});});
   var mn=currentMonthNum(),c=countDone(mn);
   if(c.total>0&&c.done===0){var MN=['January','February','March','April','May','June','July','August','September','October','November','December'];alerts.push({type:'info',icon:'📋',title:MN[mn-1]+' program not started',text:c.total+' tasks scheduled this month, none completed yet.'});}
-  if(state.program.meta&&state.program.meta.notes){state.program.meta.notes.forEach(function(note){if(note.toLowerCase().indexOf('critical')>=0||note.toLowerCase().indexOf('never')>=0||note.toLowerCase().indexOf('must')>=0)alerts.push({type:'warn',icon:'ℹ',title:'Program rule',text:note});});}
   if(alerts.length===0){list.innerHTML='<div class="no-alerts">No alerts — everything looks good.</div>';return;}
   list.innerHTML='';alerts.forEach(function(a){var item=document.createElement('div');item.className='alert-item '+a.type;item.innerHTML='<div class="alert-icon">'+a.icon+'</div><div class="alert-body"><div class="alert-title">'+esc(a.title)+'</div><div class="alert-text">'+esc(a.text)+'</div></div>';list.appendChild(item);});
   var at=document.querySelector('[data-tab="alerts"]');if(at)at.textContent='Alerts ('+alerts.length+')';

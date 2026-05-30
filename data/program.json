@@ -16,7 +16,7 @@
       "Tombstone Duo / Contra M Duo \u2014 Kikuyu + Couch ONLY \u2014 NEVER apply to Zoysia (front)",
       "Heritage Maxx \u2014 DO NOT apply via backpack sprayer (label restriction)",
       "Spartan applied twice per year: March (winter weed prevention) + September (summer weed prevention)",
-      "Acelepryn 100mL stock \u2014 apply to back lawn (Kikuyu) only in September \u2014 consider restocking",
+      "Acelepryn \u2014 apply twice yearly: September Wk1 (spring) + January Wk1 (summer) \u2014 all zones \u2014 15mL/100sqm \u2014 21mL per application, 100mL covers ~2.4 years",
       "Heritage Maxx scheduled November (preventative), February (late summer), December (conditional)",
       "Bio run Pass 2 uses soil wetter + Activ8EXTRA + Stimulus + Stimulizer (every run). Kelpxtra always solo Pass 1.",
       "Couch strips always follow Kikuyu tasks unless explicitly noted",
@@ -226,6 +226,39 @@
                 "tank-mix-dilute-first"
               ],
               "id": "jan-w1-t3"
+            },
+            {
+              "taskType": "insecticide",
+              "label": "Acelepryn \u2014 summer preventative grub treatment \u2014 all zones",
+              "products": [
+                {
+                  "productId": 17,
+                  "name": "Acelepryn",
+                  "ratePer100sqm": 15,
+                  "rateUnit": "mL",
+                  "note": "15mL/100sqm \u2014 all zones. 21mL per application, 100mL stock covers ~2.4 years at twice yearly.",
+                  "quantities": {
+                    "back": 10.23,
+                    "front": 5.25,
+                    "strip1": 3.12,
+                    "strip2": 2.4225
+                  }
+                }
+              ],
+              "applicationMethod": "Backpack or handheld sprayer \u2014 water in immediately",
+              "waterIn": true,
+              "foliarOrIrrigate": "Irrigate",
+              "zones": [
+                "back",
+                "front",
+                "strip1",
+                "strip2"
+              ],
+              "notes": "Summer preventative grub treatment \u2014 all zones. Peak grub pressure season. Water in immediately after application. Applied twice yearly: September (spring) + January (summer).",
+              "cautions": [
+                "water-in"
+              ],
+              "id": "jan-w1-t4"
             }
           ]
         },
@@ -2051,16 +2084,19 @@
             },
             {
               "taskType": "insecticide",
-              "label": "Acelepryn \u2014 spring preventative grub treatment (back lawn only \u2014 limited stock)",
+              "label": "Acelepryn \u2014 spring preventative grub treatment \u2014 all zones",
               "products": [
                 {
                   "productId": 17,
                   "name": "Acelepryn",
                   "ratePer100sqm": 15,
                   "rateUnit": "mL",
-                  "note": "15mL/100sqm \u2014 apply to back lawn (Kikuyu) only. 100mL stock covers ~6.7m\u00b2 total \u2014 prioritise back lawn.",
+                  "note": "15mL/100sqm \u2014 all zones. 21mL per application, 100mL stock covers ~2.4 years at twice yearly.",
                   "quantities": {
-                    "back": 10.23
+                    "back": 10.23,
+                    "front": 5.25,
+                    "strip1": 3.12,
+                    "strip2": 2.4225
                   }
                 }
               ],
@@ -2068,12 +2104,14 @@
               "waterIn": true,
               "foliarOrIrrigate": "Irrigate",
               "zones": [
-                "back"
+                "back",
+                "front",
+                "strip1",
+                "strip2"
               ],
-              "notes": "Low stock \u2014 100mL remaining. Apply to back lawn (Kikuyu) only this season. Water in immediately after application. Consider restocking for full coverage next season.",
+              "notes": "Spring preventative grub treatment \u2014 all zones. Water in immediately after application. Applied twice yearly: September (spring) + January (summer).",
               "cautions": [
-                "water-in",
-                "low-stock"
+                "water-in"
               ],
               "id": "sep-w1-t2"
             },
