@@ -1,6 +1,6 @@
 ﻿{
     "meta":  {
-                 "version":  "2.3",
+                 "version":  "2.4",
                  "lastUpdated":  "31/05/2026",
                  "description":  "Custom 12-month lawn care program — Kikuyu, Zoysia, Couch — Oakhurst NSW 2761",
                  "location":  "Oakhurst, NSW 2761",
@@ -20,7 +20,9 @@
                                "Heritage Maxx scheduled November (preventative), February (late summer), December (conditional)",
                                "Bio run Pass 2 uses soil wetter + Activ8EXTRA + Stimulus + Stimulizer (every run). Kelpxtra always solo Pass 1.",
                                "Couch strips always follow Kikuyu tasks unless explicitly noted",
-                               "Zoysia (front) receives TX10 only for granular — not Maintain — through most of year (lower N)"
+                               "Zoysia (front) receives TX10 only for granular — not Maintain — through most of year (lower N)",
+                               "Seaweed Secrets (productId 7) added to every Wk3 Pass 2 bio run -- 100mL/100sqm -- using up existing 4L stock",
+                               "Phosfighter (productId 22) placeholder added to Wk3 in 9 months -- NOT YET IN STOCK -- activate once purchased from Lawn Addicts"
                            ]
              },
     "zones":  [
@@ -314,7 +316,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulus + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulus + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  11,
@@ -333,6 +335,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -380,6 +395,41 @@
                                                                             "tank-mix-dilute-first"
                                                                         ],
                                                            "id":  "jan-w3-t2"
+                                                       },
+                                                       {
+                                                           "taskType":  "biostimulant",
+                                                           "label":  "Phosfighter -- disease resistance / SAR (NOT YET IN STOCK)",
+                                                           "products":  [
+                                                                            {
+                                                                                "productId":  22,
+                                                                                "name":  "Phosfighter",
+                                                                                "ratePer100sqm":  200,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "200mL/100sqm per LA reference program. Apply to all zones.",
+                                                                                "quantities":  {
+                                                                                                   "back":  136.4,
+                                                                                                   "front":  70.0,
+                                                                                                   "strip1":  41.6,
+                                                                                                   "strip2":  32.3
+                                                                                               }
+                                                                            }
+                                                                        ],
+                                                           "applicationMethod":  "Backpack or handheld sprayer",
+                                                           "waterIn":  false,
+                                                           "foliarOrIrrigate":  "Foliar",
+                                                           "zones":  [
+                                                                         "back",
+                                                                         "front",
+                                                                         "strip1",
+                                                                         "strip2"
+                                                                     ],
+                                                           "notes":  "Phosphite SAR trigger. Mix into Pass 2 tank-mix with Activ8EXTRA + Seaweed Secrets + Stimulizer once in stock. Complementary to Heritage Maxx -- different mode of action.",
+                                                           "cautions":  [
+                                                                            "purchase-required"
+                                                                        ],
+                                                           "conditional":  true,
+                                                           "condition":  "NOT YET IN STOCK -- activate once Phosfighter purchased from Lawn Addicts",
+                                                           "id":  "jan-w3-phosfighter"
                                                        },
                                                        {
                                                            "taskType":  "insecticide",
@@ -628,7 +678,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulus + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulus + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  11,
@@ -647,6 +697,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -949,7 +1012,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulus + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulus + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  11,
@@ -968,6 +1031,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -1178,7 +1254,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  10,
@@ -1197,6 +1273,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -1373,7 +1462,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulus + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulus + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  11,
@@ -1392,6 +1481,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -1439,6 +1541,41 @@
                                                                             "tank-mix-dilute-first"
                                                                         ],
                                                            "id":  "may-w3-t2"
+                                                       },
+                                                       {
+                                                           "taskType":  "biostimulant",
+                                                           "label":  "Phosfighter -- disease resistance / SAR (NOT YET IN STOCK)",
+                                                           "products":  [
+                                                                            {
+                                                                                "productId":  22,
+                                                                                "name":  "Phosfighter",
+                                                                                "ratePer100sqm":  200,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "200mL/100sqm per LA reference program. Apply to all zones.",
+                                                                                "quantities":  {
+                                                                                                   "back":  136.4,
+                                                                                                   "front":  70.0,
+                                                                                                   "strip1":  41.6,
+                                                                                                   "strip2":  32.3
+                                                                                               }
+                                                                            }
+                                                                        ],
+                                                           "applicationMethod":  "Backpack or handheld sprayer",
+                                                           "waterIn":  false,
+                                                           "foliarOrIrrigate":  "Foliar",
+                                                           "zones":  [
+                                                                         "back",
+                                                                         "front",
+                                                                         "strip1",
+                                                                         "strip2"
+                                                                     ],
+                                                           "notes":  "Phosphite SAR trigger. Mix into Pass 2 tank-mix with Activ8EXTRA + Seaweed Secrets + Stimulizer once in stock. Complementary to Heritage Maxx -- different mode of action.",
+                                                           "cautions":  [
+                                                                            "purchase-required"
+                                                                        ],
+                                                           "conditional":  true,
+                                                           "condition":  "NOT YET IN STOCK -- activate once Phosfighter purchased from Lawn Addicts",
+                                                           "id":  "may-w3-phosfighter"
                                                        }
                                                    ]
                                      }
@@ -1580,7 +1717,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  10,
@@ -1599,6 +1736,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -1634,6 +1784,41 @@
                                                                             "tank-mix-dilute-first"
                                                                         ],
                                                            "id":  "jun-w3-t2"
+                                                       },
+                                                       {
+                                                           "taskType":  "biostimulant",
+                                                           "label":  "Phosfighter -- disease resistance / SAR (NOT YET IN STOCK)",
+                                                           "products":  [
+                                                                            {
+                                                                                "productId":  22,
+                                                                                "name":  "Phosfighter",
+                                                                                "ratePer100sqm":  200,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "200mL/100sqm per LA reference program. Apply to all zones.",
+                                                                                "quantities":  {
+                                                                                                   "back":  136.4,
+                                                                                                   "front":  70.0,
+                                                                                                   "strip1":  41.6,
+                                                                                                   "strip2":  32.3
+                                                                                               }
+                                                                            }
+                                                                        ],
+                                                           "applicationMethod":  "Backpack or handheld sprayer",
+                                                           "waterIn":  false,
+                                                           "foliarOrIrrigate":  "Foliar",
+                                                           "zones":  [
+                                                                         "back",
+                                                                         "front",
+                                                                         "strip1",
+                                                                         "strip2"
+                                                                     ],
+                                                           "notes":  "Phosphite SAR trigger. Mix into Pass 2 tank-mix with Activ8EXTRA + Seaweed Secrets + Stimulizer once in stock. Complementary to Heritage Maxx -- different mode of action.",
+                                                           "cautions":  [
+                                                                            "purchase-required"
+                                                                        ],
+                                                           "conditional":  true,
+                                                           "condition":  "NOT YET IN STOCK -- activate once Phosfighter purchased from Lawn Addicts",
+                                                           "id":  "jun-w3-phosfighter"
                                                        }
                                                    ]
                                      }
@@ -1762,7 +1947,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  10,
@@ -1781,6 +1966,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -1816,6 +2014,41 @@
                                                                             "tank-mix-dilute-first"
                                                                         ],
                                                            "id":  "jul-w3-t2"
+                                                       },
+                                                       {
+                                                           "taskType":  "biostimulant",
+                                                           "label":  "Phosfighter -- disease resistance / SAR (NOT YET IN STOCK)",
+                                                           "products":  [
+                                                                            {
+                                                                                "productId":  22,
+                                                                                "name":  "Phosfighter",
+                                                                                "ratePer100sqm":  200,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "200mL/100sqm per LA reference program. Apply to all zones.",
+                                                                                "quantities":  {
+                                                                                                   "back":  136.4,
+                                                                                                   "front":  70.0,
+                                                                                                   "strip1":  41.6,
+                                                                                                   "strip2":  32.3
+                                                                                               }
+                                                                            }
+                                                                        ],
+                                                           "applicationMethod":  "Backpack or handheld sprayer",
+                                                           "waterIn":  false,
+                                                           "foliarOrIrrigate":  "Foliar",
+                                                           "zones":  [
+                                                                         "back",
+                                                                         "front",
+                                                                         "strip1",
+                                                                         "strip2"
+                                                                     ],
+                                                           "notes":  "Phosphite SAR trigger. Mix into Pass 2 tank-mix with Activ8EXTRA + Seaweed Secrets + Stimulizer once in stock. Complementary to Heritage Maxx -- different mode of action.",
+                                                           "cautions":  [
+                                                                            "purchase-required"
+                                                                        ],
+                                                           "conditional":  true,
+                                                           "condition":  "NOT YET IN STOCK -- activate once Phosfighter purchased from Lawn Addicts",
+                                                           "id":  "jul-w3-phosfighter"
                                                        },
                                                        {
                                                            "taskType":  "herbicide",
@@ -2026,7 +2259,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulus + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulus + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  10,
@@ -2045,6 +2278,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -2094,50 +2340,39 @@
                                                            "id":  "aug-w3-t2"
                                                        },
                                                        {
-                                                           "taskType":  "fertilise",
-                                                           "label":  "Light granular wake-up: Maintain (Kikuyu/Couch) + TX10 (all zones)",
+                                                           "taskType":  "biostimulant",
+                                                           "label":  "Phosfighter -- disease resistance / SAR (NOT YET IN STOCK)",
                                                            "products":  [
                                                                             {
-                                                                                "productId":  2,
-                                                                                "name":  "Maintain (26-1-9)",
-                                                                                "ratePer100sqm":  1,
-                                                                                "rateUnit":  "kg",
-                                                                                "note":  "1kg/100sqm light rate — pre-spring wake-up for Kikuyu + Couch only",
+                                                                                "productId":  22,
+                                                                                "name":  "Phosfighter",
+                                                                                "ratePer100sqm":  200,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "200mL/100sqm per LA reference program. Apply to all zones.",
                                                                                 "quantities":  {
-                                                                                                   "back":  0.682,
-                                                                                                   "strip1":  0.208,
-                                                                                                   "strip2":  0.161
-                                                                                               }
-                                                                            },
-                                                                            {
-                                                                                "productId":  1,
-                                                                                "name":  "TX10 (5-2-8)",
-                                                                                "ratePer100sqm":  1,
-                                                                                "rateUnit":  "kg",
-                                                                                "note":  "1kg/100sqm light rate — soil biology and P/K across all zones",
-                                                                                "quantities":  {
-                                                                                                   "back":  0.682,
-                                                                                                   "front":  0.35,
-                                                                                                   "strip1":  0.208,
-                                                                                                   "strip2":  0.161
+                                                                                                   "back":  136.4,
+                                                                                                   "front":  70.0,
+                                                                                                   "strip1":  41.6,
+                                                                                                   "strip2":  32.3
                                                                                                }
                                                                             }
                                                                         ],
-                                                           "applicationMethod":  "Rotary spreader",
-                                                           "waterIn":  true,
-                                                           "foliarOrIrrigate":  "Irrigate",
+                                                           "applicationMethod":  "Backpack or handheld sprayer",
+                                                           "waterIn":  false,
+                                                           "foliarOrIrrigate":  "Foliar",
                                                            "zones":  [
                                                                          "back",
                                                                          "front",
                                                                          "strip1",
                                                                          "strip2"
                                                                      ],
-                                                           "notes":  "Light pre-spring granular application. Maintain to Kikuyu/Couch only. TX10 to all zones. Water in thoroughly after application.",
+                                                           "notes":  "Phosphite SAR trigger. Mix into Pass 2 tank-mix with Activ8EXTRA + Seaweed Secrets + Stimulizer once in stock. Complementary to Heritage Maxx -- different mode of action.",
                                                            "cautions":  [
-                                                                            "staining",
-                                                                            "water-in"
+                                                                            "purchase-required"
                                                                         ],
-                                                           "id":  "aug-w3-t3"
+                                                           "conditional":  true,
+                                                           "condition":  "NOT YET IN STOCK -- activate once Phosfighter purchased from Lawn Addicts",
+                                                           "id":  "aug-w3-phosfighter"
                                                        }
                                                    ]
                                      }
@@ -2448,7 +2683,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulus + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulus + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  11,
@@ -2467,6 +2702,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -2514,6 +2762,41 @@
                                                                             "tank-mix-dilute-first"
                                                                         ],
                                                            "id":  "sep-w3-t4"
+                                                       },
+                                                       {
+                                                           "taskType":  "biostimulant",
+                                                           "label":  "Phosfighter -- disease resistance / SAR (NOT YET IN STOCK)",
+                                                           "products":  [
+                                                                            {
+                                                                                "productId":  22,
+                                                                                "name":  "Phosfighter",
+                                                                                "ratePer100sqm":  200,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "200mL/100sqm per LA reference program. Apply to all zones.",
+                                                                                "quantities":  {
+                                                                                                   "back":  136.4,
+                                                                                                   "front":  70.0,
+                                                                                                   "strip1":  41.6,
+                                                                                                   "strip2":  32.3
+                                                                                               }
+                                                                            }
+                                                                        ],
+                                                           "applicationMethod":  "Backpack or handheld sprayer",
+                                                           "waterIn":  false,
+                                                           "foliarOrIrrigate":  "Foliar",
+                                                           "zones":  [
+                                                                         "back",
+                                                                         "front",
+                                                                         "strip1",
+                                                                         "strip2"
+                                                                     ],
+                                                           "notes":  "Phosphite SAR trigger. Mix into Pass 2 tank-mix with Activ8EXTRA + Seaweed Secrets + Stimulizer once in stock. Complementary to Heritage Maxx -- different mode of action.",
+                                                           "cautions":  [
+                                                                            "purchase-required"
+                                                                        ],
+                                                           "conditional":  true,
+                                                           "condition":  "NOT YET IN STOCK -- activate once Phosfighter purchased from Lawn Addicts",
+                                                           "id":  "sep-w3-phosfighter"
                                                        }
                                                    ]
                                      }
@@ -2737,7 +3020,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulus + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulus + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  10,
@@ -2756,6 +3039,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -2803,6 +3099,41 @@
                                                                             "tank-mix-dilute-first"
                                                                         ],
                                                            "id":  "oct-w3-t2"
+                                                       },
+                                                       {
+                                                           "taskType":  "biostimulant",
+                                                           "label":  "Phosfighter -- disease resistance / SAR (NOT YET IN STOCK)",
+                                                           "products":  [
+                                                                            {
+                                                                                "productId":  22,
+                                                                                "name":  "Phosfighter",
+                                                                                "ratePer100sqm":  200,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "200mL/100sqm per LA reference program. Apply to all zones.",
+                                                                                "quantities":  {
+                                                                                                   "back":  136.4,
+                                                                                                   "front":  70.0,
+                                                                                                   "strip1":  41.6,
+                                                                                                   "strip2":  32.3
+                                                                                               }
+                                                                            }
+                                                                        ],
+                                                           "applicationMethod":  "Backpack or handheld sprayer",
+                                                           "waterIn":  false,
+                                                           "foliarOrIrrigate":  "Foliar",
+                                                           "zones":  [
+                                                                         "back",
+                                                                         "front",
+                                                                         "strip1",
+                                                                         "strip2"
+                                                                     ],
+                                                           "notes":  "Phosphite SAR trigger. Mix into Pass 2 tank-mix with Activ8EXTRA + Seaweed Secrets + Stimulizer once in stock. Complementary to Heritage Maxx -- different mode of action.",
+                                                           "cautions":  [
+                                                                            "purchase-required"
+                                                                        ],
+                                                           "conditional":  true,
+                                                           "condition":  "NOT YET IN STOCK -- activate once Phosfighter purchased from Lawn Addicts",
+                                                           "id":  "oct-w3-phosfighter"
                                                        }
                                                    ]
                                      }
@@ -3005,7 +3336,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulus + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulus + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  10,
@@ -3024,6 +3355,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -3071,6 +3415,41 @@
                                                                             "tank-mix-dilute-first"
                                                                         ],
                                                            "id":  "nov-w3-t2"
+                                                       },
+                                                       {
+                                                           "taskType":  "biostimulant",
+                                                           "label":  "Phosfighter -- disease resistance / SAR (NOT YET IN STOCK)",
+                                                           "products":  [
+                                                                            {
+                                                                                "productId":  22,
+                                                                                "name":  "Phosfighter",
+                                                                                "ratePer100sqm":  200,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "200mL/100sqm per LA reference program. Apply to all zones.",
+                                                                                "quantities":  {
+                                                                                                   "back":  136.4,
+                                                                                                   "front":  70.0,
+                                                                                                   "strip1":  41.6,
+                                                                                                   "strip2":  32.3
+                                                                                               }
+                                                                            }
+                                                                        ],
+                                                           "applicationMethod":  "Backpack or handheld sprayer",
+                                                           "waterIn":  false,
+                                                           "foliarOrIrrigate":  "Foliar",
+                                                           "zones":  [
+                                                                         "back",
+                                                                         "front",
+                                                                         "strip1",
+                                                                         "strip2"
+                                                                     ],
+                                                           "notes":  "Phosphite SAR trigger. Mix into Pass 2 tank-mix with Activ8EXTRA + Seaweed Secrets + Stimulizer once in stock. Complementary to Heritage Maxx -- different mode of action.",
+                                                           "cautions":  [
+                                                                            "purchase-required"
+                                                                        ],
+                                                           "conditional":  true,
+                                                           "condition":  "NOT YET IN STOCK -- activate once Phosfighter purchased from Lawn Addicts",
+                                                           "id":  "nov-w3-phosfighter"
                                                        },
                                                        {
                                                            "taskType":  "herbicide",
@@ -3340,7 +3719,7 @@
                                                        },
                                                        {
                                                            "taskType":  "biostimulant",
-                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Stimulus + Stimulizer",
+                                                           "label":  "Bio run Pass 2: soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulus + Stimulizer",
                                                            "products":  [
                                                                             {
                                                                                 "productId":  11,
@@ -3359,6 +3738,19 @@
                                                                                 "name":  "Activ8EXTRA",
                                                                                 "ratePer100sqm":  100,
                                                                                 "rateUnit":  "mL",
+                                                                                "quantities":  {
+                                                                                                   "back":  68.2,
+                                                                                                   "front":  35.0,
+                                                                                                   "strip1":  20.8,
+                                                                                                   "strip2":  16.15
+                                                                                               }
+                                                                            },
+                                                                            {
+                                                                                "productId":  7,
+                                                                                "name":  "Seaweed Secrets",
+                                                                                "ratePer100sqm":  100,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "100mL/100sqm -- cold-processed kelp + humic/fulvic acid. Using up existing 4L stock.",
                                                                                 "quantities":  {
                                                                                                    "back":  68.2,
                                                                                                    "front":  35.0,
@@ -3406,6 +3798,41 @@
                                                                             "tank-mix-dilute-first"
                                                                         ],
                                                            "id":  "dec-w3-t2"
+                                                       },
+                                                       {
+                                                           "taskType":  "biostimulant",
+                                                           "label":  "Phosfighter -- disease resistance / SAR (NOT YET IN STOCK)",
+                                                           "products":  [
+                                                                            {
+                                                                                "productId":  22,
+                                                                                "name":  "Phosfighter",
+                                                                                "ratePer100sqm":  200,
+                                                                                "rateUnit":  "mL",
+                                                                                "note":  "200mL/100sqm per LA reference program. Apply to all zones.",
+                                                                                "quantities":  {
+                                                                                                   "back":  136.4,
+                                                                                                   "front":  70.0,
+                                                                                                   "strip1":  41.6,
+                                                                                                   "strip2":  32.3
+                                                                                               }
+                                                                            }
+                                                                        ],
+                                                           "applicationMethod":  "Backpack or handheld sprayer",
+                                                           "waterIn":  false,
+                                                           "foliarOrIrrigate":  "Foliar",
+                                                           "zones":  [
+                                                                         "back",
+                                                                         "front",
+                                                                         "strip1",
+                                                                         "strip2"
+                                                                     ],
+                                                           "notes":  "Phosphite SAR trigger. Mix into Pass 2 tank-mix with Activ8EXTRA + Seaweed Secrets + Stimulizer once in stock. Complementary to Heritage Maxx -- different mode of action.",
+                                                           "cautions":  [
+                                                                            "purchase-required"
+                                                                        ],
+                                                           "conditional":  true,
+                                                           "condition":  "NOT YET IN STOCK -- activate once Phosfighter purchased from Lawn Addicts",
+                                                           "id":  "dec-w3-phosfighter"
                                                        },
                                                        {
                                                            "taskType":  "insecticide",
