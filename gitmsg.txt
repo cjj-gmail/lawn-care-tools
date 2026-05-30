@@ -1,1 +1,1 @@
-brief.md: session 2 wrap -- v2.2 program, dashboard alert rebuild, next tasks documented
+fix: correct weather entry 27/05/2026 type from observation to rain
