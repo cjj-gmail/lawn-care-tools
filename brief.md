@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 30 May 2026
+Last Updated: 30 May 2026 (session 2)
 
 ---
 
@@ -202,35 +202,59 @@ KNOWN ISSUE HISTORY:
 ## 11. TOOL 2 -- DASHBOARD -- dashboard.html (LIVE)
 
 Supports: ?tab=overview|program|inventory|log|alerts|zones
-- Overview: stat tiles, progress bars, weather journal
+- Overview: stat tiles, progress bars, weather journal (Log observation button top right)
 - Program: 12 month tiles -> tracker, filterable task table
 - Inventory: product cards, stock bars, resupply modal
 - Log: watering + mowing + applications + CSV export
 - Alerts: overdue mowing/watering, low inventory, compatibility rules
 - Zones: zone cards + compatibility rules
 
-NOTE: Dashboard was built against v1.0 program schema (weeks 1-4). With v2.0/2.1 (Wk1+Wk3 only),
-the Program tab task table should still work but needs verification in next session.
+INVENTORY ALERT LOGIC (rebuilt session 2):
+- invStatus() now calculates scheduled applications per year from program.json
+- Quantities per application summed from actual zone areas in task.products[].quantities
+- Remaining stock divided by avg qty per application = applications remaining
+- Critical: <=3 applications remaining
+- Low: 4-6 applications remaining
+- OK: 7+ applications remaining
+- Inventory cards show "X applications remaining" instead of meaningless percentage
+- Program meta notes removed from alerts (were generating 10+ false positives)
+
+WATERING LOG NOTE:
+- "Log water" is for irrigation only -- not rain
+- Rain/weather events go in Weather & Observations (Log observation button)
+- TODO next session: rename "Log water" to "Log irrigation" for clarity
+
+WEATHER OBSERVATIONS KNOWN ISSUE:
+- No edit/delete on weather entries yet
+- 27/05/2026 entry logged as "observation" instead of "rain" -- needs correction
+- TODO next session: add edit/delete to weather entries
+
+NOTE: Dashboard Program tab verified working correctly with v2.2 schema.
+Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 
 
-## 12. CURRENT STATUS (30 May 2026)
+## 12. CURRENT STATUS (30 May 2026 -- session 2)
 
 [DONE] brief.md -- canonical project brief in GitHub repo
 [DONE] index.html -- landing page live
 [DONE] tracker.html -- LIVE, loading correctly, deductions working
-[DONE] dashboard.html -- 6 tabs live
-[DONE] program.json -- v2.1 (Stimulizer added to all 12 bio run Pass 2 tasks)
+[DONE] dashboard.html -- 6 tabs live, inventory alert logic rebuilt (session 2)
+[DONE] program.json -- v2.2 (Acelepryn twice yearly Sep+Jan, all zones)
 [DONE] inventory.json -- 21 products, quantities current as of 30 May 2026
-[DONE] applications.json -- May Wk1 task logged (first real application entry)
+[DONE] applications.json -- May Wk1 task logged
 [DONE] mowing.json -- created on first mow save
 [DONE] watering.json -- created on first water save
-[DONE] weather.json -- created on first dashboard save
+[DONE] weather.json -- rain events logged Mon-Fri 25-29 May 2026
+[DONE] gitrun.bat + .gitignore -- git CLI workflow confirmed working
+[DONE] Docker no longer needed -- Desktop Commander git replaces it
+[DONE] Fine-grained GitHub token deleted -- not needed
 
 NEXT TASKS (new session):
-- Set up git CLI on local machine (see Section 17) -- resolves large file push limitation
-- Verify dashboard Program tab renders v2.0/2.1 program correctly
-- Check HiCure stock before June Wk1 -- order via Lawn Addicts if needed
-- Consider conditional task visual treatment in tracker
+- Add edit/delete to weather observations (27/05 logged as observation not rain -- needs fix)
+- Rename "Log water" button to "Log irrigation" in tracker header for clarity
+- Consider adding Stimulizer to Wk1 main tank-mix (PD brochure confirms safe with Iron)
+- Consider adding Phosfighter (LA reference plan) as next new product to stock
+- Verify alerts count is now sensible after invStatus() rebuild
 
 
 ## 13. NEXT SESSION INSTRUCTIONS
@@ -246,9 +270,18 @@ For large file edits (program.json, tracker.html):
 - Do NOT use push_files for files >50KB -- it will truncate silently
 
 
-## 14. PROGRAM REBUILD -- COMPLETE (v2.1 as of 30 May 2026)
+## 14. PROGRAM REBUILD -- COMPLETE (v2.2 as of 30 May 2026 session 2)
 
-Key changes from v1 to v2.0:
+v2.2 change (30 May 2026 session 2):
+- Acelepryn expanded to all zones (was back lawn only in Sep)
+- Acelepryn added to January Wk1 -- second annual application (LA reference confirms twice yearly)
+- 100mL stock covers ~2.4 years at 21mL/application twice yearly
+- Reference programs reviewed: Lawn Addicts (Kikuyu + Zoysia all seasons) + Plant Doctor brochure
+- Key gap identified: Phosfighter (LA plan) -- phosphite disease resistance -- not in inventory yet
+- Stimulizer confirmed safe to mix with Iron concentrate (PD brochure) -- consider adding to Wk1
+
+v2.1 change (30 May 2026):
+- Stimulizer (Plant Doctor) added to every bio run Pass 2 task
 - 4 weekly events -> 2 events per month (Wk1 main run + Wk3 bio run)
 - HiCure added to every main tank-mix
 - Spartan: March + September only

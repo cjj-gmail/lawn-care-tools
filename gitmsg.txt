@@ -1,1 +1,1 @@
-program.json: Acelepryn twice yearly (Sep+Jan) all zones; dashboard.html: smart inventory alert logic based on scheduled applications
+brief.md: session 2 wrap -- v2.2 program, dashboard alert rebuild, next tasks documented
