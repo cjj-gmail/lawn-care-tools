@@ -200,6 +200,10 @@ header{background:var(--grass);color:var(--cream);padding:0 28px;display:flex;al
 .weather-date{font-size:12px;color:var(--ink-light);white-space:nowrap;flex-shrink:0;min-width:85px;padding-top:2px;}
 .weather-note{font-size:13px;color:var(--ink-mid);flex:1;line-height:1.5;}
 .weather-empty{font-size:13px;color:var(--ink-light);font-style:italic;padding:8px 0;}
+.weather-actions{margin-left:auto;flex-shrink:0;display:flex;gap:4px;}
+.weather-edit-btn,.weather-del-btn{background:none;border:1px solid var(--border);border-radius:3px;font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-light);cursor:pointer;padding:2px 7px;line-height:1.4;}
+.weather-edit-btn:hover{border-color:var(--grass);color:var(--grass);}
+.weather-del-btn:hover{border-color:var(--status-critical);color:var(--status-critical);}
 .weather-toggle{font-size:12px;color:var(--grass);background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;text-decoration:underline;padding:6px 0 0 0;}
 .man-form{display:flex;flex-direction:column;gap:14px;}
 .man-field-label{font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);margin-bottom:5px;}
@@ -570,7 +574,7 @@ var CONFIG={
 var state={
   program:null,inventory:null,completions:{},appLog:null,mowLog:null,waterLog:null,weatherLog:null,
   invSha:null,appLogSha:null,weatherSha:null,token:null,modalProduct:null,resupplyProduct:null,
-  weatherExpanded:false
+  weatherExpanded:false,weatherEditId:null
 };
 var TYPE_COLORS={fertilise:'#4a7c3f',biostimulant:'#7b5ea7',herbicide:'#c0692a',fungicide:'#c0882a',insecticide:'#2a7aa0',soilwetter:'#3a7a8a',renovation:'#6b4c2a'};
 var ZONE_NAMES={back:'Back Lawn',front:'Front Lawn',strip1:'Nature Strip',strip2:'Left Strip'};
@@ -723,7 +727,7 @@ function renderWeatherPanel(){
   toggleBtn.textContent=state.weatherExpanded?'Show less':'Show all ('+entries.length+')';
   var html='<div class="weather-list">';
   entries.slice(0,displayCount).forEach(function(e){
-    html+='<div class="weather-entry"><span class="weather-date">'+esc(e.date)+'</span><span class="weather-tag '+esc(e.type)+'">'+esc(e.type)+'</span><span class="weather-note">'+esc(e.note)+'</span></div>';
+    html+='<div class="weather-entry"><span class="weather-date">'+esc(e.date)+'</span><span class="weather-tag '+esc(e.type)+'">'+esc(e.type)+'</span><span class="weather-note">'+esc(e.note)+'</span><span class="weather-actions"><button class="weather-edit-btn" onclick="openWeatherModal(\''+esc(e.id)+'\')">Edit</button><button class="weather-del-btn" onclick="deleteWeatherEntry(\''+esc(e.id)+'\')">Del</button></span></div>';
   });
   html+='</div>';
   container.innerHTML=html;
@@ -780,7 +784,7 @@ function renderLog(){
     wzg.appendChild(card);
   });
   var wtb=document.getElementById('water-tbody');wtb.innerHTML='';
-  if(waterEntries.length===0){wtb.innerHTML='<tr><td colspan="6" class="log-empty">No watering sessions logged yet. Use the 💧 Log a water button in the Tracker header.</td></tr>';}
+  if(waterEntries.length===0){wtb.innerHTML='<tr><td colspan="6" class="log-empty">No watering sessions logged yet. Use the Log irrigation button in the Tracker header.</td></tr>';}
   else{waterEntries.forEach(function(e){var zoneNames=(e.zones||[]).map(function(z){return ZONE_NAMES[z]||z;}).join(', ')||e.zoneNames||'—';var tr=document.createElement('tr');tr.innerHTML='<td class="log-date">'+esc(e.date||'')+'</td><td style="font-size:13px;color:var(--ink-mid);">'+esc(zoneNames)+'</td><td style="font-size:13px;">'+esc(WATER_METHODS[e.method]||e.method||'—')+'</td><td style="font-size:13px;font-weight:500;color:var(--weather-rain);">'+(e.durationMin?e.durationMin+'min':'—')+'</td><td style="font-size:13px;color:var(--ink-mid);">'+(e.amountL?e.amountL+'L':'—')+'</td><td style="font-size:12px;color:var(--ink-light);">'+esc(e.notes||'—')+'</td>';wtb.appendChild(tr);});}
   var mzg=document.getElementById('mow-zone-grid');mzg.innerHTML='';
   ['back','front','strip1','strip2'].forEach(function(zid){
@@ -939,20 +943,52 @@ async function saveManualLog(){
   }catch(e){document.getElementById('man-saving').style.display='none';document.getElementById('man-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}
 }
 
-function openWeatherModal(){
+function openWeatherModal(entryId){
   var n=now();
+  state.weatherEditId=entryId||null;
   document.getElementById('weather-modal-date').textContent=n.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   document.getElementById('weather-auth-notice').style.display=state.token?'none':'flex';
-  document.getElementById('weather-date-input').value=n.toISOString().slice(0,10);
-  document.getElementById('weather-type-input').value='observation';
-  document.getElementById('weather-note-input').value='';
-  document.getElementById('weather-note-counter').textContent='0';
   document.getElementById('weather-saving').style.display='none';
   document.getElementById('weather-save-btn').disabled=false;
+  if(entryId){
+    var entry=(state.weatherLog&&state.weatherLog.entries||[]).filter(function(e){return e.id===entryId;})[0];
+    if(entry){
+      document.getElementById('weather-date-input').value=entry.dateISO;
+      document.getElementById('weather-type-input').value=entry.type;
+      document.getElementById('weather-note-input').value=entry.note;
+      document.getElementById('weather-note-counter').textContent=entry.note.length;
+    }
+    document.getElementById('weather-modal').querySelector('.modal-title').textContent='Edit observation';
+    document.getElementById('weather-save-btn').textContent='Save changes';
+  }else{
+    document.getElementById('weather-date-input').value=n.toISOString().slice(0,10);
+    document.getElementById('weather-type-input').value='observation';
+    document.getElementById('weather-note-input').value='';
+    document.getElementById('weather-note-counter').textContent='0';
+    document.getElementById('weather-modal').querySelector('.modal-title').textContent='Log observation';
+    document.getElementById('weather-save-btn').textContent='Save observation';
+  }
   document.getElementById('weather-modal').classList.add('open');
   setTimeout(function(){document.getElementById('weather-note-input').focus();},100);
 }
-function closeWeatherModal(){document.getElementById('weather-modal').classList.remove('open');}
+function closeWeatherModal(){document.getElementById('weather-modal').classList.remove('open');state.weatherEditId=null;}
+async function deleteWeatherEntry(id){
+  if(!confirm('Delete this observation?'))return;
+  if(!state.weatherLog)return;
+  state.weatherLog.entries=state.weatherLog.entries.filter(function(e){return e.id!==id;});
+  renderOverview();
+  if(!state.token){showToast('Deleted (session only)','error');return;}
+  try{
+    var content=btoa(unescape(encodeURIComponent(JSON.stringify(state.weatherLog,null,2))));
+    var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+CONFIG.weatherPath;
+    var body={message:'Delete weather entry',content:content,branch:CONFIG.branch};
+    if(state.weatherSha)body.sha=state.weatherSha;
+    var resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!resp.ok){var err=await resp.json();throw new Error(err.message||'Save failed');}
+    var data=await resp.json();state.weatherSha=data.content.sha;
+    showToast('Observation deleted','success');
+  }catch(e){showToast('Delete failed: '+e.message,'error');}
+}
 async function saveWeather(){
   var note=document.getElementById('weather-note-input').value.trim();
   if(!note){showToast('Please enter an observation note','error');return;}
@@ -961,10 +997,17 @@ async function saveWeather(){
   var type=document.getElementById('weather-type-input').value;
   var d=new Date(dateVal);
   var dateFormatted=d.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});
-  var entry={id:'wx_'+Date.now(),date:dateFormatted,dateISO:dateVal,type:type,note:note};
+  var entryId=state.weatherEditId||('wx_'+Date.now());
+  var entry={id:entryId,date:dateFormatted,dateISO:dateVal,type:type,note:note};
   if(!state.weatherLog)state.weatherLog={entries:[]};
-  state.weatherLog.entries.unshift(entry);
+  if(state.weatherEditId){
+    var eidx=-1;for(var ei=0;ei<state.weatherLog.entries.length;ei++){if(state.weatherLog.entries[ei].id===state.weatherEditId){eidx=ei;break;}}
+    if(eidx>=0)state.weatherLog.entries[eidx]=entry;else state.weatherLog.entries.unshift(entry);
+  }else{
+    state.weatherLog.entries.unshift(entry);
+  }
   state.weatherLog.entries.sort(function(a,b){return b.dateISO.localeCompare(a.dateISO);});
+  state.weatherEditId=null;
   if(!state.token){closeWeatherModal();renderOverview();showToast('Observation saved (session only — connect GitHub to save permanently)','error');return;}
   document.getElementById('weather-saving').style.display='block';
   document.getElementById('weather-save-btn').disabled=true;
@@ -987,7 +1030,7 @@ function renderAlerts(){
   var wThreshold=waterThreshold();
   var seasonLabel=(['12','1','2'].indexOf(String(currentMonthNum()))>=0)?'summer':(['3','4','5'].indexOf(String(currentMonthNum()))>=0)?'autumn':(['6','7','8'].indexOf(String(currentMonthNum()))>=0)?'winter':'spring';
   ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid,grass=ZONE_GRASS[zid]||'';var last=lastMowForZone(zid);if(!last){alerts.push({type:'info',icon:'✂',title:zoneName+' — no mowing record',text:'No mowing sessions logged yet. Use ✂ Log a mow in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=mThreshold)alerts.push({type:'warn',icon:'✂',title:zoneName+' — mowing overdue',text:days+'d since last mow ('+last.date+' · '+last.heightMm+'mm). Threshold '+mThreshold+'d in '+seasonLabel+'. Grass: '+grass+'.'});}});
-  ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid;var last=lastWaterForZone(zid);if(!last){alerts.push({type:'info',icon:'💧',title:zoneName+' — no watering record',text:'No watering logged. Use 💧 Log a water in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=wThreshold)alerts.push({type:'warn',icon:'💧',title:zoneName+' — watering overdue',text:days+'d since last water ('+last.date+'). Threshold '+wThreshold+'d in '+seasonLabel+'.'});}});
+  ['back','front','strip1','strip2'].forEach(function(zid){var zoneName=ZONE_NAMES[zid]||zid;var last=lastWaterForZone(zid);if(!last){alerts.push({type:'info',icon:'💧',title:zoneName+' — no watering record',text:'No watering logged. Use the Log irrigation button in the Tracker header.'});}else{var days=daysSince(last.dateISO);if(days>=wThreshold)alerts.push({type:'warn',icon:'💧',title:zoneName+' — watering overdue',text:days+'d since last water ('+last.date+'). Threshold '+wThreshold+'d in '+seasonLabel+'.'});}});
   state.inventory.products.forEach(function(p){
     var s=invStatus(p);
     var appsText=s.appsPerYear>0?s.appsRemaining+' application'+(s.appsRemaining!==1?'s':'')+' remaining':p.qtyRemaining+p.unit+' remaining';

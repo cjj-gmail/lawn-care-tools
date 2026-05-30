@@ -1,1 +1,9 @@
-fix: correct weather entry 27/05/2026 type from observation to rain
+dashboard: add edit/delete to weather entries; rename Log water to Log irrigation
+
+- Weather panel entries now have Edit and Delete buttons
+- Edit opens existing modal pre-populated with entry data
+- Delete prompts confirm then removes entry and saves to GitHub
+- closeWeatherModal now clears weatherEditId
+- Fixed 'Log a water' references in renderLog and renderAlerts to 'Log irrigation'
+- Removed non-ASCII emoji from inside script tag (watering empty state)
+- tracker.html already had 'Log irrigation' label - no change needed
