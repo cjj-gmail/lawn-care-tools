@@ -100,7 +100,6 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
 .caution-chip:hover .caution-tooltip{display:block;}
 .completion-info{margin-top:9px;font-size:14px;color:var(--ink-light);font-style:italic;}
 .condition-banner{margin:0 18px 10px 52px;padding:7px 11px;background:#fff8f0;border:1px solid var(--soil-light);border-radius:4px;font-size:15px;color:var(--soil);}
-/* HEIGHT REF */
 .height-ref{background:white;border:1px solid var(--border);border-radius:6px;margin-bottom:22px;overflow:hidden;}
 .height-ref-toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;user-select:none;gap:12px;}
 .height-ref-toggle:hover{background:var(--paper);}
@@ -119,7 +118,6 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
 .height-chip{font-size:12px;padding:2px 8px;border-radius:3px;border:1px solid var(--border);background:var(--paper);color:var(--ink-mid);white-space:nowrap;}
 .height-chip.recommended{background:var(--grass);border-color:var(--grass);color:white;font-weight:500;}
 .height-note{font-size:12px;color:var(--ink-light);margin-top:5px;font-style:italic;}
-/* SCREENS */
 #loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:calc(100vh - 60px);gap:16px;color:var(--ink-light);}
 .spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--grass);border-radius:50%;animation:spin 0.7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -146,7 +144,6 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
 .season-badge.spring{background:#e0f5d0;color:#1a5a0a;border:1px solid #5a9448;}
 .month-header-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;}
 .month-title{font-family:'Fraunces',serif;font-weight:300;font-size:32px;color:var(--ink);letter-spacing:-0.5px;}
-/* MODALS */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:400;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal{background:white;border-radius:8px;width:100%;max-width:460px;box-shadow:0 8px 40px rgba(0,0,0,0.22);overflow:hidden;max-height:90vh;display:flex;flex-direction:column;}
@@ -183,7 +180,6 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
 .modal-btn.secondary{background:white;color:var(--ink-mid);border-color:var(--border);}
 .modal-btn.secondary:hover{border-color:var(--ink-mid);}
 .modal-saving{text-align:center;padding:6px;font-size:13px;color:var(--ink-light);display:none;}
-/* LOG FORMS */
 .log-form{display:flex;flex-direction:column;gap:14px;}
 .lf-label{font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-light);margin-bottom:5px;}
 .lf-select,.lf-input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:5px;font-family:'DM Mono',monospace;font-size:15px;color:var(--ink);background:white;outline:none;appearance:none;}
@@ -206,18 +202,16 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="header-title">🌿 Lawn Program Tracker</div>
+  <div class="header-title">&#127807; Lawn Program Tracker</div>
   <div class="header-right">
     <div id="auth-status"><div class="auth-dot" id="auth-dot"></div><span id="auth-status-text">Not connected</span></div>
     <button id="login-btn" onclick="startLogin()">Connect GitHub</button>
-    <button class="hdr-btn" id="water-btn" onclick="openWaterModal()">💧 <span class="hdr-label">Log a water</span></button>
-    <button class="hdr-btn" id="mow-btn" onclick="openMowModal()">✂ <span class="hdr-label">Log a mow</span></button>
-    <a class="header-dash-link" href="dashboard.html">← Dashboard</a>
+    <button class="hdr-btn" id="water-btn" onclick="openWaterModal()">&#128167; <span class="hdr-label">Log a water</span></button>
+    <button class="hdr-btn" id="mow-btn" onclick="openMowModal()">&#9986; <span class="hdr-label">Log a mow</span></button>
+    <a class="header-dash-link" href="dashboard.html">&larr; Dashboard</a>
   </div>
 </header>
-
 <div id="loading-screen"><div class="spinner"></div><div class="loading-text">Loading program data...</div></div>
 <div id="error-screen">
   <div class="error-icon">&#x26A0;</div><div class="error-title">Could not load program</div>
@@ -231,7 +225,6 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
   <button id="github-login-btn" onclick="startLogin()">Connect GitHub</button>
   <button onclick="loadWithoutAuth()" style="background:none;border:none;color:var(--ink-light);font-family:'DM Mono',monospace;font-size:15px;cursor:pointer;text-decoration:underline;margin-top:4px;">Browse without saving</button>
 </div>
-
 <div id="app">
   <nav class="month-nav" id="month-nav"></nav>
   <div class="month-progress">
@@ -241,42 +234,40 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
   </div>
   <main id="main-content"></main>
 </div>
-
 <!-- DEDUCTION MODAL -->
 <div class="modal-overlay" id="deduct-modal">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-header-top">
         <div><div class="modal-title" id="deduct-task-name">Task complete</div><div class="modal-subtitle" id="deduct-task-sub"></div></div>
-        <button class="modal-close" id="deduct-close-btn">×</button>
+        <button class="modal-close" id="deduct-close-btn">&times;</button>
       </div>
     </div>
     <div class="modal-body">
       <div class="modal-intro">Deduct the quantities used from your inventory?</div>
       <div id="deduct-conditional-note" class="modal-conditional-note" style="display:none;"></div>
       <div class="deduct-list" id="deduct-list"></div>
-      <div class="modal-saving" id="deduct-saving">Saving…</div>
+      <div class="modal-saving" id="deduct-saving">Saving...</div>
     </div>
     <div class="modal-footer">
-      <button class="modal-btn secondary" id="deduct-cancel-btn">Cancel — uncheck task</button>
+      <button class="modal-btn secondary" id="deduct-cancel-btn">Cancel &mdash; uncheck task</button>
       <button class="modal-btn secondary" id="deduct-skip-btn">Skip deduction</button>
       <button class="modal-btn primary" id="deduct-confirm-btn">Deduct from inventory</button>
     </div>
   </div>
 </div>
-
 <!-- UNCHECK MODAL -->
 <div class="modal-overlay" id="uncheck-modal">
   <div class="modal" style="max-width:420px;">
     <div class="modal-header danger">
       <div class="modal-header-top">
         <div class="modal-title" id="uncheck-task-name">Uncheck task?</div>
-        <button class="modal-close" onclick="closeUncheckModal()">×</button>
+        <button class="modal-close" onclick="closeUncheckModal()">&times;</button>
       </div>
     </div>
     <div class="modal-body">
       <div class="modal-warn-box">
-        <strong>⚠ This task is already marked complete</strong>
+        <strong>&#x26A0; This task is already marked complete</strong>
         Unchecking will remove the completion record from your program history. This does <em>not</em> reverse any inventory deductions.
         <br><br>Only uncheck if this task was marked done by mistake.
       </div>
@@ -287,25 +278,24 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
     </div>
   </div>
 </div>
-
 <!-- MOW LOG MODAL -->
 <div class="modal-overlay" id="mow-modal">
   <div class="modal" style="max-width:440px;">
     <div class="modal-header">
       <div class="modal-header-top">
         <div><div class="modal-title">Log a mow</div><div class="modal-subtitle" id="mow-modal-date"></div></div>
-        <button class="modal-close" onclick="closeMowModal()">×</button>
+        <button class="modal-close" onclick="closeMowModal()">&times;</button>
       </div>
     </div>
     <div class="modal-body">
-      <div id="mow-auth-notice" class="log-auth-notice" style="display:none;">⚠ Connect GitHub to save mowing records permanently.</div>
+      <div id="mow-auth-notice" class="log-auth-notice" style="display:none;">&#x26A0; Connect GitHub to save mowing records permanently.</div>
       <div class="log-form">
         <div><div class="lf-label">Zone</div>
           <select class="lf-select" id="mow-zone">
-            <option value="back">Back Lawn — Kikuyu (68.2m²)</option>
-            <option value="front">Front Lawn — Zoysia (35.0m²)</option>
-            <option value="strip1">Front Nature Strip — Couch (20.8m²)</option>
-            <option value="strip2">Front Left Strip — Couch (16.15m²)</option>
+            <option value="back">Back Lawn &mdash; Kikuyu (68.2m&sup2;)</option>
+            <option value="front">Front Lawn &mdash; Zoysia (35.0m&sup2;)</option>
+            <option value="strip1">Front Nature Strip &mdash; Couch (20.8m&sup2;)</option>
+            <option value="strip2">Front Left Strip &mdash; Couch (16.15m&sup2;)</option>
             <option value="all">All zones</option>
           </select>
         </div>
@@ -316,14 +306,14 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
             <option value="Ozito PXC">Ozito PXC (Cylinder)</option>
           </select>
         </div>
-        <div><div class="lf-label">Height setting — <span id="mow-height-display">select below</span></div>
+        <div><div class="lf-label">Height setting &mdash; <span id="mow-height-display">select below</span></div>
           <div class="mow-height-grid" id="mow-height-grid"></div>
         </div>
         <div><div class="lf-label">Notes (optional)</div>
-          <input class="lf-input" type="text" id="mow-notes" placeholder="e.g. edges done, dry conditions…" maxlength="120">
+          <input class="lf-input" type="text" id="mow-notes" placeholder="e.g. edges done, dry conditions" maxlength="120">
         </div>
       </div>
-      <div class="modal-saving" id="mow-saving">Saving mow log…</div>
+      <div class="modal-saving" id="mow-saving">Saving mow log...</div>
     </div>
     <div class="modal-footer">
       <button class="modal-btn secondary" onclick="closeMowModal()">Cancel</button>
@@ -331,26 +321,25 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
     </div>
   </div>
 </div>
-
 <!-- WATER LOG MODAL -->
 <div class="modal-overlay" id="water-modal">
   <div class="modal" style="max-width:440px;">
     <div class="modal-header">
       <div class="modal-header-top">
         <div><div class="modal-title">Log a watering</div><div class="modal-subtitle" id="water-modal-date"></div></div>
-        <button class="modal-close" onclick="closeWaterModal()">×</button>
+        <button class="modal-close" onclick="closeWaterModal()">&times;</button>
       </div>
     </div>
     <div class="modal-body">
-      <div id="water-auth-notice" class="log-auth-notice" style="display:none;">⚠ Connect GitHub to save watering records permanently.</div>
+      <div id="water-auth-notice" class="log-auth-notice" style="display:none;">&#x26A0; Connect GitHub to save watering records permanently.</div>
       <div class="log-form">
         <div>
           <div class="lf-label">Zones watered</div>
           <div class="zone-checks" id="water-zone-checks">
-            <label class="zone-check-label"><input type="checkbox" value="back"> Back Lawn — Kikuyu (68.2m²)</label>
-            <label class="zone-check-label"><input type="checkbox" value="front"> Front Lawn — Zoysia (35.0m²)</label>
-            <label class="zone-check-label"><input type="checkbox" value="strip1"> Front Nature Strip — Couch (20.8m²)</label>
-            <label class="zone-check-label"><input type="checkbox" value="strip2"> Front Left Strip — Couch (16.15m²)</label>
+            <label class="zone-check-label"><input type="checkbox" value="back"> Back Lawn &mdash; Kikuyu (68.2m&sup2;)</label>
+            <label class="zone-check-label"><input type="checkbox" value="front"> Front Lawn &mdash; Zoysia (35.0m&sup2;)</label>
+            <label class="zone-check-label"><input type="checkbox" value="strip1"> Front Nature Strip &mdash; Couch (20.8m&sup2;)</label>
+            <label class="zone-check-label"><input type="checkbox" value="strip2"> Front Left Strip &mdash; Couch (16.15m&sup2;)</label>
           </div>
         </div>
         <div><div class="lf-label">Method</div>
@@ -368,10 +357,10 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
           <input class="lf-input" type="number" id="water-amount" min="0" step="0.5" placeholder="e.g. 40">
         </div>
         <div><div class="lf-label">Notes (optional)</div>
-          <input class="lf-input" type="text" id="water-notes" placeholder="e.g. after fertiliser, very dry…" maxlength="120">
+          <input class="lf-input" type="text" id="water-notes" placeholder="e.g. after fertiliser, very dry" maxlength="120">
         </div>
       </div>
-      <div class="modal-saving" id="water-saving">Saving watering log…</div>
+      <div class="modal-saving" id="water-saving">Saving watering log...</div>
     </div>
     <div class="modal-footer">
       <button class="modal-btn secondary" onclick="closeWaterModal()">Cancel</button>
@@ -379,9 +368,7 @@ main{max-width:960px;margin:0 auto;padding:28px 24px;}
     </div>
   </div>
 </div>
-
 <div id="toast"></div>
-
 <script>
 var CONFIG={
   owner:'cjj-gmail',repo:'lawn-care-tools',branch:'main',
@@ -393,16 +380,16 @@ var CONFIG={
 var MOWER_HEIGHTS={'Honda HRN216':[27,39,51,64,76,88,100],'Allett Stirling 43':[5,10,15,20,25,30,35,40,45,50],'Ozito PXC':[14,23,32,38]};
 var HEIGHT_REF=[
   {grass:'Kikuyu',zone:'Back Lawn',mowers:[
-    {name:'Honda HRN216',type:'Rotary',summer:'39–51mm',winter:'51–64mm',note:'Avoid scalping in winter.'},
-    {name:'Allett Stirling 43',type:'Cylinder',summer:'15–25mm',winter:'25–35mm',note:'Cylinder gives a premium finish on Kikuyu.'}]},
+    {name:'Honda HRN216',type:'Rotary',summer:'39-51mm',winter:'51-64mm',note:'Avoid scalping in winter.'},
+    {name:'Allett Stirling 43',type:'Cylinder',summer:'15-25mm',winter:'25-35mm',note:'Cylinder gives a premium finish on Kikuyu.'}]},
   {grass:'Zoysia',zone:'Front Lawn',mowers:[
-    {name:'Honda HRN216',type:'Rotary',summer:'27–39mm',winter:'39–51mm',note:'Zoysia is slow-growing — don\'t cut too low.'},
-    {name:'Allett Stirling 43',type:'Cylinder',summer:'10–20mm',winter:'20–30mm',note:'Cylinder ideal for Zoysia fine-leaf finish.'},
-    {name:'Ozito PXC',type:'Cylinder',summer:'14–23mm',winter:'23mm',note:'Lowest setting gives fine-leaf Zoysia a tight finish.'}]},
+    {name:'Honda HRN216',type:'Rotary',summer:'27-39mm',winter:'39-51mm',note:"Zoysia is slow-growing - don't cut too low."},
+    {name:'Allett Stirling 43',type:'Cylinder',summer:'10-20mm',winter:'20-30mm',note:'Cylinder ideal for Zoysia fine-leaf finish.'},
+    {name:'Ozito PXC',type:'Cylinder',summer:'14-23mm',winter:'23mm',note:'Lowest setting gives fine-leaf Zoysia a tight finish.'}]},
   {grass:'Couch',zone:'Nature Strips',mowers:[
-    {name:'Honda HRN216',type:'Rotary',summer:'27–39mm',winter:'39–51mm',note:'Couch tolerates lower cuts in warm months.'},
-    {name:'Allett Stirling 43',type:'Cylinder',summer:'10–20mm',winter:'20–30mm',note:'Cylinder gives premium stripe finish on Couch.'},
-    {name:'Ozito PXC',type:'Cylinder',summer:'14–23mm',winter:'23–32mm',note:'Good for strips where maneuverability matters.'}]}
+    {name:'Honda HRN216',type:'Rotary',summer:'27-39mm',winter:'39-51mm',note:'Couch tolerates lower cuts in warm months.'},
+    {name:'Allett Stirling 43',type:'Cylinder',summer:'10-20mm',winter:'20-30mm',note:'Cylinder gives premium stripe finish on Couch.'},
+    {name:'Ozito PXC',type:'Cylinder',summer:'14-23mm',winter:'23-32mm',note:'Good for strips where maneuverability matters.'}]}
 ];
 var state={
   program:null,completions:{},completionsSha:null,
@@ -420,21 +407,19 @@ var ZONE_LABELS={
   strip1:{name:'Nature Strip',grass:'Couch',area:20.8},
   strip2:{name:'Left Strip',grass:'Couch',area:16.15}
 };
-// Caution display icons — covers all v2.0 caution keys
 var CAUTION_ICONS={
   'iron-overload':'Fe',
   'kelpxtra-solo':'SOLO',
   'fungicide-rotation':'ROT',
   'staining':'STAIN',
-  'water-in':'H₂O',
+  'water-in':'H2O',
   'no-backpack-sprayer':'NO BP',
   'low-stock':'LOW',
   'pre-emergent-weed-free-first':'WF1st',
   'tank-mix-dilute-first':'DIL',
-  'tribute-not-kikuyu':'⚠ ZONES',
-  'tombstone-not-zoysia':'⚠ ZONES'
+  'tribute-not-kikuyu':'! ZONES',
+  'tombstone-not-zoysia':'! ZONES'
 };
-
 async function init(){
   showScreen('loading');
   var up=new URLSearchParams(window.location.search),code=up.get('code'),mp=parseInt(up.get('month'),10);
@@ -456,7 +441,6 @@ async function init(){
   document.getElementById('water-modal').addEventListener('click',function(e){if(e.target===this)closeWaterModal();});
   document.getElementById('mow-mower').addEventListener('change',renderMowHeights);
 }
-
 function startLogin(){window.location.href=CONFIG.workerUrl+'/login?redirect='+encodeURIComponent(window.location.href);}
 async function handleOAuthCallback(code){try{var r=await fetch(CONFIG.workerUrl+'/callback?code='+code);var d=await r.json();if(d.access_token){state.token=d.access_token;sessionStorage.setItem('gh_token',d.access_token);}}catch(e){}}
 function loadWithoutAuth(){state.readOnly=true;renderMonthNav();renderMonth(state.currentMonth);updateAuthUI();showScreen('app');}
@@ -467,28 +451,21 @@ function updateAuthUI(){
   document.getElementById('mow-btn').classList.add('visible');
   document.getElementById('water-btn').classList.add('visible');
 }
-
 async function ghFetch(path){var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+path;var h={'Accept':'application/vnd.github.v3+json'};if(state.token)h['Authorization']='token '+state.token;return fetch(url,{headers:h});}
 async function ghPut(path,obj,sha,msg){var content=btoa(unescape(encodeURIComponent(JSON.stringify(obj,null,2))));var url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+path;var body={message:msg,content:content,branch:CONFIG.branch};if(sha)body.sha=sha;return fetch(url,{method:'PUT',headers:{'Authorization':'token '+state.token,'Content-Type':'application/json'},body:JSON.stringify(body)});}
 function b64dec(str){return JSON.parse(atob(str.replace(/\n/g,'')));}
-
 async function loadCompletions(){try{var r=await ghFetch(CONFIG.completionsPath);if(r.status===404){state.completions={};return;}if(!r.ok)return;var d=await r.json();state.completionsSha=d.sha;state.completions=b64dec(d.content);}catch(e){state.completions={};}}
 async function loadInventory(){try{var r=await ghFetch(CONFIG.inventoryPath);if(!r.ok)return;var d=await r.json();state.inventorySha=d.sha;state.inventory=b64dec(d.content);var seen={};state.inventory.products=state.inventory.products.filter(function(p){if(seen[p.name])return false;seen[p.name]=true;return true;});}catch(e){}}
 async function loadAppLog(){try{var r=await ghFetch(CONFIG.appLogPath);if(r.status===404){state.appLog={entries:[]};return;}if(!r.ok)return;var d=await r.json();state.appLogSha=d.sha;state.appLog=b64dec(d.content);}catch(e){state.appLog={entries:[];};}}
 async function loadMowLog(){try{var r=await ghFetch(CONFIG.mowLogPath);if(r.status===404){state.mowLog={entries:[]};return;}if(!r.ok)return;var d=await r.json();state.mowLogSha=d.sha;state.mowLog=b64dec(d.content);}catch(e){state.mowLog={entries:[];};}}
 async function loadWaterLog(){try{var r=await ghFetch(CONFIG.waterLogPath);if(r.status===404){state.waterLog={entries:[]};return;}if(!r.ok)return;var d=await r.json();state.waterLogSha=d.sha;state.waterLog=b64dec(d.content);}catch(e){state.waterLog={entries:[];};}}
-
 async function saveCompletions(){if(!state.token)return false;try{var r=await ghPut(CONFIG.completionsPath,state.completions,state.completionsSha,'Update task completions');if(!r.ok){var e=await r.json();throw new Error(e.message||'Save failed');}var d=await r.json();state.completionsSha=d.content.sha;return true;}catch(e){showToast('Save failed: '+e.message,'error');return false;}}
 async function saveInventory(){if(!state.token||!state.inventory)return false;var inv=JSON.parse(JSON.stringify(state.inventory));inv.lastUpdated=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});try{var r=await ghPut(CONFIG.inventoryPath,inv,state.inventorySha,'Deduct inventory after task completion');if(!r.ok){var e=await r.json();throw new Error(e.message||'Failed');}var d=await r.json();state.inventorySha=d.content.sha;state.inventory.lastUpdated=inv.lastUpdated;return true;}catch(e){showToast('Inventory save failed: '+e.message,'error');return false;}}
 async function writeAppLog(task,deductions,inventoryDeducted){if(!state.token)return;if(!state.appLog)state.appLog={entries:[]};var now=new Date();var entry={id:'app_'+now.getTime(),date:now.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),dateISO:now.toISOString().slice(0,10),taskId:task.id,taskLabel:task.label,taskType:task.taskType,zones:task.zones||[],products:deductions.filter(function(d){return d.amount>0;}).map(function(d){return{name:d.name,amount:d.amount,unit:d.unit,deducted:!!(inventoryDeducted&&d.invProd)};}),inventoryDeducted:!!inventoryDeducted};state.appLog.entries.unshift(entry);try{var r=await ghPut(CONFIG.appLogPath,state.appLog,state.appLogSha,'Log application: '+task.label);if(r.ok){var d=await r.json();state.appLogSha=d.content.sha;}}catch(e){}}
-
-// MOW MODAL
 function openMowModal(){var now=new Date();document.getElementById('mow-modal-date').textContent=now.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});document.getElementById('mow-auth-notice').style.display=state.token?'none':'flex';document.getElementById('mow-notes').value='';document.getElementById('mow-saving').style.display='none';document.getElementById('mow-save-btn').disabled=false;state.selectedMowHeight=null;renderMowHeights();document.getElementById('mow-modal').classList.add('open');}
 function closeMowModal(){document.getElementById('mow-modal').classList.remove('open');}
 function renderMowHeights(){var mower=document.getElementById('mow-mower').value;var heights=MOWER_HEIGHTS[mower]||[];var grid=document.getElementById('mow-height-grid');grid.innerHTML='';state.selectedMowHeight=null;document.getElementById('mow-height-display').textContent='select below';heights.forEach(function(h){var btn=document.createElement('button');btn.className='mow-height-btn';btn.textContent=h+'mm';btn.addEventListener('click',function(){document.querySelectorAll('.mow-height-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');state.selectedMowHeight=h;document.getElementById('mow-height-display').textContent=h+'mm';});grid.appendChild(btn);});}
-async function saveMow(){if(!state.selectedMowHeight){showToast('Please select a height setting','error');return;}var now=new Date();var zone=document.getElementById('mow-zone').value;var mower=document.getElementById('mow-mower').value;var notes=document.getElementById('mow-notes').value.trim();var zi=ZONE_LABELS[zone];var entry={id:'mow_'+now.getTime(),date:now.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),dateISO:now.toISOString().slice(0,10),zone:zone,zoneName:zi?zi.name:(zone==='all'?'All zones':zone),grass:zi?zi.grass:(zone==='all'?'Mixed':'—'),mower:mower,heightMm:state.selectedMowHeight,notes:notes};if(!state.mowLog)state.mowLog={entries:[]};state.mowLog.entries.unshift(entry);if(!state.token){closeMowModal();showToast('Mow logged (session only)','error');return;}document.getElementById('mow-saving').style.display='block';document.getElementById('mow-save-btn').disabled=true;try{var r=await ghPut(CONFIG.mowLogPath,state.mowLog,state.mowLogSha,'Log mow: '+entry.zoneName+' @ '+entry.heightMm+'mm');if(!r.ok){var err=await r.json();throw new Error(err.message||'Save failed');}var d=await r.json();state.mowLogSha=d.content.sha;closeMowModal();showToast('Mow logged — '+entry.zoneName+' @ '+entry.heightMm+'mm','success');}catch(e){document.getElementById('mow-saving').style.display='none';document.getElementById('mow-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}}
-
-// WATER MODAL
+async function saveMow(){if(!state.selectedMowHeight){showToast('Please select a height setting','error');return;}var now=new Date();var zone=document.getElementById('mow-zone').value;var mower=document.getElementById('mow-mower').value;var notes=document.getElementById('mow-notes').value.trim();var zi=ZONE_LABELS[zone];var entry={id:'mow_'+now.getTime(),date:now.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),dateISO:now.toISOString().slice(0,10),zone:zone,zoneName:zi?zi.name:(zone==='all'?'All zones':zone),grass:zi?zi.grass:(zone==='all'?'Mixed':'-'),mower:mower,heightMm:state.selectedMowHeight,notes:notes};if(!state.mowLog)state.mowLog={entries:[]};state.mowLog.entries.unshift(entry);if(!state.token){closeMowModal();showToast('Mow logged (session only)','error');return;}document.getElementById('mow-saving').style.display='block';document.getElementById('mow-save-btn').disabled=true;try{var r=await ghPut(CONFIG.mowLogPath,state.mowLog,state.mowLogSha,'Log mow: '+entry.zoneName+' @ '+entry.heightMm+'mm');if(!r.ok){var err=await r.json();throw new Error(err.message||'Save failed');}var d=await r.json();state.mowLogSha=d.content.sha;closeMowModal();showToast('Mow logged - '+entry.zoneName+' @ '+entry.heightMm+'mm','success');}catch(e){document.getElementById('mow-saving').style.display='none';document.getElementById('mow-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}}
 function openWaterModal(){var now=new Date();document.getElementById('water-modal-date').textContent=now.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});document.getElementById('water-auth-notice').style.display=state.token?'none':'flex';document.getElementById('water-duration').value='';document.getElementById('water-amount').value='';document.getElementById('water-notes').value='';document.getElementById('water-saving').style.display='none';document.getElementById('water-save-btn').disabled=false;document.querySelectorAll('#water-zone-checks input').forEach(function(cb){cb.checked=false;});document.getElementById('water-modal').classList.add('open');}
 function closeWaterModal(){document.getElementById('water-modal').classList.remove('open');}
 async function saveWater(){
@@ -501,16 +478,7 @@ async function saveWater(){
   var amtVal=document.getElementById('water-amount').value.trim();
   var notes=document.getElementById('water-notes').value.trim();
   var zoneNames=zones.map(function(z){return ZONE_LABELS[z]?ZONE_LABELS[z].name:z;}).join(', ');
-  var entry={
-    id:'water_'+now.getTime(),
-    date:now.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),
-    dateISO:now.toISOString().slice(0,10),
-    zones:zones,zoneNames:zoneNames,
-    method:method,
-    durationMin:parseInt(durationVal,10),
-    amountL:amtVal?parseFloat(amtVal):null,
-    notes:notes
-  };
+  var entry={id:'water_'+now.getTime(),date:now.toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'}),dateISO:now.toISOString().slice(0,10),zones:zones,zoneNames:zoneNames,method:method,durationMin:parseInt(durationVal,10),amountL:amtVal?parseFloat(amtVal):null,notes:notes};
   if(!state.waterLog)state.waterLog={entries:[]};
   state.waterLog.entries.unshift(entry);
   if(!state.token){closeWaterModal();showToast('Watering logged (session only)','error');return;}
@@ -519,22 +487,17 @@ async function saveWater(){
     var r=await ghPut(CONFIG.waterLogPath,state.waterLog,state.waterLogSha,'Log watering: '+zoneNames+' '+durationVal+'min');
     if(!r.ok){var err=await r.json();throw new Error(err.message||'Save failed');}
     var d=await r.json();state.waterLogSha=d.content.sha;
-    closeWaterModal();showToast('Watering logged — '+zoneNames+' · '+durationVal+'min','success');
+    closeWaterModal();showToast('Watering logged - '+zoneNames+' - '+durationVal+'min','success');
   }catch(e){document.getElementById('water-saving').style.display='none';document.getElementById('water-save-btn').disabled=false;showToast('Save failed: '+e.message,'error');}
 }
-
-// TASK TOGGLE
-async function toggleTask(taskId,checkEl,cardEl,task){var isCompleted=!!state.completions[taskId];if(isCompleted){state.pendingUncheck={taskId:taskId,checkEl:checkEl,cardEl:cardEl};document.getElementById('uncheck-task-name').textContent='Uncheck "'+task.label+'"?';document.getElementById('uncheck-confirm-btn').onclick=doUncheck;document.getElementById('uncheck-modal').classList.add('open');return;}state.completions[taskId]={completedAt:new Date().toLocaleDateString('en-AU'),completedTime:new Date().toISOString()};checkEl.classList.add('checked');cardEl.classList.add('completed');var infoEl=cardEl.querySelector('.completion-info');if(infoEl)infoEl.textContent='Completed '+state.completions[taskId].completedAt;updateProgress(state.currentMonth);if(state.token){checkEl.classList.add('saving');var saved=await saveCompletions();checkEl.classList.remove('saving');if(!saved){delete state.completions[taskId];checkEl.classList.remove('checked');cardEl.classList.remove('completed');if(infoEl)infoEl.textContent='';updateProgress(state.currentMonth);return;}}else showToast('Not saved — connect GitHub to persist','error');if(state.inventory&&task.products&&task.products.length>0&&state.token){openDeductionModal(task,checkEl,cardEl);}else{if(state.token)writeAppLog(task,[],false);showToast('Task completed ✓','success');}}
+async function toggleTask(taskId,checkEl,cardEl,task){var isCompleted=!!state.completions[taskId];if(isCompleted){state.pendingUncheck={taskId:taskId,checkEl:checkEl,cardEl:cardEl};document.getElementById('uncheck-task-name').textContent='Uncheck "'+task.label+'"?';document.getElementById('uncheck-confirm-btn').onclick=doUncheck;document.getElementById('uncheck-modal').classList.add('open');return;}state.completions[taskId]={completedAt:new Date().toLocaleDateString('en-AU'),completedTime:new Date().toISOString()};checkEl.classList.add('checked');cardEl.classList.add('completed');var infoEl=cardEl.querySelector('.completion-info');if(infoEl)infoEl.textContent='Completed '+state.completions[taskId].completedAt;updateProgress(state.currentMonth);if(state.token){checkEl.classList.add('saving');var saved=await saveCompletions();checkEl.classList.remove('saving');if(!saved){delete state.completions[taskId];checkEl.classList.remove('checked');cardEl.classList.remove('completed');if(infoEl)infoEl.textContent='';updateProgress(state.currentMonth);return;}}else showToast('Not saved - connect GitHub to persist','error');if(state.inventory&&task.products&&task.products.length>0&&state.token){openDeductionModal(task,checkEl,cardEl);}else{if(state.token)writeAppLog(task,[],false);showToast('Task completed','success');}}
 function closeUncheckModal(){document.getElementById('uncheck-modal').classList.remove('open');state.pendingUncheck=null;}
-async function doUncheck(){var p=state.pendingUncheck;if(!p)return;closeUncheckModal();delete state.completions[p.taskId];p.checkEl.classList.remove('checked');p.cardEl.classList.remove('completed');var ie=p.cardEl.querySelector('.completion-info');if(ie)ie.textContent='';updateProgress(state.currentMonth);if(state.token){p.checkEl.classList.add('saving');var ok=await saveCompletions();p.checkEl.classList.remove('saving');if(ok)showToast('Task unmarked','error');}else showToast('Not saved — connect GitHub to persist','error');}
-
-// DEDUCTION
+async function doUncheck(){var p=state.pendingUncheck;if(!p)return;closeUncheckModal();delete state.completions[p.taskId];p.checkEl.classList.remove('checked');p.cardEl.classList.remove('completed');var ie=p.cardEl.querySelector('.completion-info');if(ie)ie.textContent='';updateProgress(state.currentMonth);if(state.token){p.checkEl.classList.add('saving');var ok=await saveCompletions();p.checkEl.classList.remove('saving');if(ok)showToast('Task unmarked','error');}else showToast('Not saved - connect GitHub to persist','error');}
 function calcDeductions(task){
   var result=[];
   if(!task.products)return result;
   task.products.forEach(function(prod){
     if(!prod.quantities)return;
-    // Sum only zones that this product actually applies to
     var total=0;
     Object.values(prod.quantities).forEach(function(q){total+=(parseFloat(q)||0);});
     total=Math.round(total*100)/100;
@@ -556,17 +519,14 @@ function calcDeductions(task){
   });
   return result;
 }
-function openDeductionModal(task,checkEl,cardEl){var deductions=calcDeductions(task);if(deductions.length===0){writeAppLog(task,[],false);showToast('Task completed ✓','success');return;}state.pendingDeduction={task:task,deductions:deductions,checkEl:checkEl,cardEl:cardEl};document.getElementById('deduct-task-name').textContent=task.label;document.getElementById('deduct-task-sub').textContent=task.taskType.replace('soilwetter','soil wetter')+' · '+task.applicationMethod;var cn=document.getElementById('deduct-conditional-note');if(task.conditional){cn.style.display='block';cn.textContent='⚠ Conditional task — only deduct if you actually applied these products.';}else cn.style.display='none';var list=document.getElementById('deduct-list');list.innerHTML='';deductions.forEach(function(d){var row=document.createElement('div');row.className='deduct-row'+(d.invProd?'':' no-match');var nl=d.invProd&&d.newLevel!==null?'<div class="deduct-new-level '+(d.newStatus!=='ok'?d.newStatus:'')+'">After: '+d.newLevel+d.invProd.unit+' remaining'+(d.newStatus==='low'?' ⚠ running low':d.newStatus==='critical'?' ⚠ critically low':'')+'</div>':'';row.innerHTML='<div class="deduct-product"><div class="deduct-product-name">'+esc(d.name)+'</div><div class="deduct-product-meta">'+(d.invProd?'Currently '+d.invProd.qtyRemaining+d.invProd.unit:'Not found in inventory')+'</div>'+nl+'</div>'+(d.invProd?'<div class="deduct-amount">−'+d.amount+d.unit+'</div>':'<div class="deduct-no-match-label">skip</div>');list.appendChild(row);});document.getElementById('deduct-saving').style.display='none';document.getElementById('deduct-confirm-btn').disabled=false;document.getElementById('deduct-modal').classList.add('open');}
-async function cancelDeduction(){var p=state.pendingDeduction;document.getElementById('deduct-modal').classList.remove('open');state.pendingDeduction=null;if(!p)return;delete state.completions[p.task.id];p.checkEl.classList.remove('checked');p.cardEl.classList.remove('completed');var ie=p.cardEl.querySelector('.completion-info');if(ie)ie.textContent='';updateProgress(state.currentMonth);if(state.token){p.checkEl.classList.add('saving');await saveCompletions();p.checkEl.classList.remove('saving');showToast('Cancelled — task unchecked','error');}else showToast('Cancelled — task unchecked','error');}
-async function skipDeduction(){var p=state.pendingDeduction;document.getElementById('deduct-modal').classList.remove('open');state.pendingDeduction=null;if(p&&state.token)await writeAppLog(p.task,p.deductions,false);showToast('Task completed ✓ — inventory not updated','success');}
-async function confirmDeduction(){var p=state.pendingDeduction;if(!p||!state.inventory)return;document.getElementById('deduct-confirm-btn').disabled=true;document.getElementById('deduct-saving').style.display='block';p.deductions.forEach(function(d){if(!d.invProd)return;var prod=state.inventory.products.find(function(x){return x.name===d.invProd.name;});if(prod)prod.qtyRemaining=Math.max(0,Math.round((prod.qtyRemaining-d.amount)*100)/100);});var ok=await saveInventory();if(ok)await writeAppLog(p.task,p.deductions,true);document.getElementById('deduct-modal').classList.remove('open');state.pendingDeduction=null;if(ok){var n=p.deductions.filter(function(d){return d.invProd;}).length;showToast('Task done · '+n+' product'+(n!==1?'s':'')+' deducted & logged','success');}}
-
-// RENDER
+function openDeductionModal(task,checkEl,cardEl){var deductions=calcDeductions(task);if(deductions.length===0){writeAppLog(task,[],false);showToast('Task completed','success');return;}state.pendingDeduction={task:task,deductions:deductions,checkEl:checkEl,cardEl:cardEl};document.getElementById('deduct-task-name').textContent=task.label;document.getElementById('deduct-task-sub').textContent=task.taskType.replace('soilwetter','soil wetter')+' - '+task.applicationMethod;var cn=document.getElementById('deduct-conditional-note');if(task.conditional){cn.style.display='block';cn.textContent='Conditional task - only deduct if you actually applied these products.';}else cn.style.display='none';var list=document.getElementById('deduct-list');list.innerHTML='';deductions.forEach(function(d){var row=document.createElement('div');row.className='deduct-row'+(d.invProd?'':' no-match');var nl=d.invProd&&d.newLevel!==null?'<div class="deduct-new-level '+(d.newStatus!=='ok'?d.newStatus:'')+'">After: '+d.newLevel+d.invProd.unit+' remaining'+(d.newStatus==='low'?' - running low':d.newStatus==='critical'?' - critically low':'')+'</div>':'';row.innerHTML='<div class="deduct-product"><div class="deduct-product-name">'+esc(d.name)+'</div><div class="deduct-product-meta">'+(d.invProd?'Currently '+d.invProd.qtyRemaining+d.invProd.unit:'Not found in inventory')+'</div>'+nl+'</div>'+(d.invProd?'<div class="deduct-amount">-'+d.amount+d.unit+'</div>':'<div class="deduct-no-match-label">skip</div>');list.appendChild(row);});document.getElementById('deduct-saving').style.display='none';document.getElementById('deduct-confirm-btn').disabled=false;document.getElementById('deduct-modal').classList.add('open');}
+async function cancelDeduction(){var p=state.pendingDeduction;document.getElementById('deduct-modal').classList.remove('open');state.pendingDeduction=null;if(!p)return;delete state.completions[p.task.id];p.checkEl.classList.remove('checked');p.cardEl.classList.remove('completed');var ie=p.cardEl.querySelector('.completion-info');if(ie)ie.textContent='';updateProgress(state.currentMonth);if(state.token){p.checkEl.classList.add('saving');await saveCompletions();p.checkEl.classList.remove('saving');showToast('Cancelled - task unchecked','error');}else showToast('Cancelled - task unchecked','error');}
+async function skipDeduction(){var p=state.pendingDeduction;document.getElementById('deduct-modal').classList.remove('open');state.pendingDeduction=null;if(p&&state.token)await writeAppLog(p.task,p.deductions,false);showToast('Task completed - inventory not updated','success');}
+async function confirmDeduction(){var p=state.pendingDeduction;if(!p||!state.inventory)return;document.getElementById('deduct-confirm-btn').disabled=true;document.getElementById('deduct-saving').style.display='block';p.deductions.forEach(function(d){if(!d.invProd)return;var prod=state.inventory.products.find(function(x){return x.name===d.invProd.name;});if(prod)prod.qtyRemaining=Math.max(0,Math.round((prod.qtyRemaining-d.amount)*100)/100);});var ok=await saveInventory();if(ok)await writeAppLog(p.task,p.deductions,true);document.getElementById('deduct-modal').classList.remove('open');state.pendingDeduction=null;if(ok){var n=p.deductions.filter(function(d){return d.invProd;}).length;showToast('Task done - '+n+' product'+(n!==1?'s':'')+' deducted & logged','success');}}
 function renderMonthNav(){var nav=document.getElementById('month-nav');nav.innerHTML='';var tm=new Date().getMonth()+1;state.program.months.forEach(function(m){var btn=document.createElement('button');btn.className='month-btn'+(m.monthNum===state.currentMonth?' active':'')+(m.monthNum===tm?' current-month':'');btn.textContent=m.month.slice(0,3).toUpperCase();btn.addEventListener('click',function(){document.querySelectorAll('.month-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');state.currentMonth=m.monthNum;renderMonth(m.monthNum);});nav.appendChild(btn);});}
-function buildHeightRefCard(season){var card=document.createElement('div');card.className='height-ref';var toggle=document.createElement('div');toggle.className='height-ref-toggle';toggle.innerHTML='<span class="height-ref-label">✂ Mowing height reference</span><span class="height-ref-chevron" id="height-ref-chevron">▼</span>';var body=document.createElement('div');body.className='height-ref-body'+(state.heightRefOpen?' open':'');var tbl=document.createElement('table');tbl.className='height-ref-table';tbl.innerHTML='<thead><tr><th>Grass</th><th>Mower</th><th>Summer/Autumn</th><th>Winter/Spring</th><th>Notes</th></tr></thead>';var tbody=document.createElement('tbody');HEIGHT_REF.forEach(function(gr){gr.mowers.forEach(function(m,mi){var tr=document.createElement('tr');var gc=mi===0?'<td rowspan="'+gr.mowers.length+'" style="vertical-align:middle;"><div class="height-grass">'+gr.grass+'</div><div class="height-grass-sub">'+gr.zone+'</div></td>':'';tr.innerHTML=gc+'<td style="white-space:nowrap;"><div style="font-size:13px;color:var(--ink);">'+m.name+'</div><div style="font-size:11px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.4px;">'+m.type+'</div></td><td><span class="height-chip'+(season==='summer'||season==='autumn'?' recommended':'')+'">'+m.summer+'</span></td><td><span class="height-chip'+(season==='winter'||season==='spring'?' recommended':'')+'">'+m.winter+'</span></td><td class="height-note">'+esc(m.note)+'</td>';tbody.appendChild(tr);});});tbl.appendChild(tbody);body.appendChild(tbl);card.appendChild(toggle);card.appendChild(body);toggle.addEventListener('click',function(){state.heightRefOpen=!state.heightRefOpen;body.classList.toggle('open',state.heightRefOpen);document.getElementById('height-ref-chevron').classList.toggle('open',state.heightRefOpen);});return card;}
+function buildHeightRefCard(season){var card=document.createElement('div');card.className='height-ref';var toggle=document.createElement('div');toggle.className='height-ref-toggle';toggle.innerHTML='<span class="height-ref-label">Mowing height reference</span><span class="height-ref-chevron" id="height-ref-chevron">v</span>';var body=document.createElement('div');body.className='height-ref-body'+(state.heightRefOpen?' open':'');var tbl=document.createElement('table');tbl.className='height-ref-table';tbl.innerHTML='<thead><tr><th>Grass</th><th>Mower</th><th>Summer/Autumn</th><th>Winter/Spring</th><th>Notes</th></tr></thead>';var tbody=document.createElement('tbody');HEIGHT_REF.forEach(function(gr){gr.mowers.forEach(function(m,mi){var tr=document.createElement('tr');var gc=mi===0?'<td rowspan="'+gr.mowers.length+'" style="vertical-align:middle;"><div class="height-grass">'+gr.grass+'</div><div class="height-grass-sub">'+gr.zone+'</div></td>':'';tr.innerHTML=gc+'<td style="white-space:nowrap;"><div style="font-size:13px;color:var(--ink);">'+m.name+'</div><div style="font-size:11px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.4px;">'+m.type+'</div></td><td><span class="height-chip'+(season==='summer'||season==='autumn'?' recommended':'')+'">'+m.summer+'</span></td><td><span class="height-chip'+(season==='winter'||season==='spring'?' recommended':'')+'">'+m.winter+'</span></td><td class="height-note">'+esc(m.note)+'</td>';tbody.appendChild(tr);});});tbl.appendChild(tbody);body.appendChild(tbl);card.appendChild(toggle);card.appendChild(body);toggle.addEventListener('click',function(){state.heightRefOpen=!state.heightRefOpen;body.classList.toggle('open',state.heightRefOpen);var chev=document.getElementById('height-ref-chevron');if(chev)chev.classList.toggle('open',state.heightRefOpen);});return card;}
 function renderMonth(monthNum){var md=state.program.months.find(function(m){return m.monthNum===monthNum;});if(!md)return;var main=document.getElementById('main-content');main.innerHTML='';var hdr=document.createElement('div');hdr.className='month-header-row';hdr.innerHTML='<div class="month-title">'+md.month+' <span class="season-badge '+md.season+'">'+md.season+'</span></div>';main.appendChild(hdr);main.appendChild(buildHeightRefCard(md.season));md.weeks.forEach(function(week){var wb=document.createElement('div');wb.className='week-block';var wl=week.label.replace(/^Week \d+ \u2014 /,'').replace(/^Week \d+ - /,'');wb.innerHTML='<div class="week-heading"><span class="week-num">W'+week.week+'</span><span class="week-label-text">'+wl+'</span></div>';if(!week.tasks||week.tasks.length===0){wb.innerHTML+='<div style="padding:16px;text-align:center;color:var(--ink-light);font-size:15px;font-style:italic;">No tasks scheduled.</div>';}else{week.tasks.forEach(function(task){wb.appendChild(renderTaskCard(task));});}main.appendChild(wb);});updateProgress(monthNum);}
 function fmt(v){var r=Math.round(v*10)/10;return r%1===0?r.toString():r.toFixed(1);}
-
 function renderTaskCard(task){
   var ic=!!state.completions[task.id];
   var card=document.createElement('div');
@@ -575,7 +535,7 @@ function renderTaskCard(task){
   checkEl.className='task-check'+(ic?' checked':'');
   checkEl.addEventListener('click',function(e){e.stopPropagation();toggleTask(task.id,checkEl,card,task);});
   var tl=task.taskType==='soilwetter'?'soil wetter':task.taskType;
-  var wh=task.waterIn?' · H₂O water in':(task.foliarOrIrrigate==='Foliar'?' · foliar — allow to dry':'');
+  var wh=task.waterIn?' - water in':(task.foliarOrIrrigate==='Foliar'?' - foliar, allow to dry':'');
   var tb=document.createElement('div');
   tb.className='task-body';
   tb.innerHTML='<div class="task-top"><span class="task-label">'+esc(task.label)+'</span><span class="type-tag '+task.taskType+'">'+tl+'</span>'+(task.conditional?'<span class="conditional-flag">if required</span>':'')+'</div><div class="task-method">'+esc(task.applicationMethod)+wh+'</div><button class="expand-btn">&#x25B8; Rates &amp; details</button>';
@@ -585,26 +545,24 @@ function renderTaskCard(task){
   header.appendChild(tb);
   card.appendChild(header);
   tb.querySelector('.expand-btn').addEventListener('click',function(e){e.stopPropagation();var det=card.querySelector('.task-detail');var op=det.classList.toggle('open');this.innerHTML=(op?'&#x25BE;':'&#x25B8;')+' Rates &amp; details';});
-  if(task.conditional&&task.condition){var ban=document.createElement('div');ban.className='condition-banner';ban.textContent='⚠ '+task.condition;card.appendChild(ban);}
+  if(task.conditional&&task.condition){var ban=document.createElement('div');ban.className='condition-banner';ban.textContent='Note: '+task.condition;card.appendChild(ban);}
   var det=document.createElement('div');
   det.className='task-detail';
   if(task.products&&task.products.length>0){
     var pt=document.createElement('div');
     pt.className='products-title';
-    // Show zone scope in heading if not all zones
     var taskZones=task.zones||[];
     var allFour=['back','front','strip1','strip2'];
     var isAllZones=allFour.every(function(z){return taskZones.indexOf(z)>=0;});
-    pt.textContent=isAllZones?'Product quantities by zone':'Product quantities — '+taskZones.map(function(z){return ZONE_LABELS[z]?ZONE_LABELS[z].name:z;}).join(', ');
+    pt.textContent=isAllZones?'Product quantities by zone':'Product quantities - '+taskZones.map(function(z){return ZONE_LABELS[z]?ZONE_LABELS[z].name:z;}).join(', ');
     det.appendChild(pt);
     task.products.forEach(function(prod){
       var pr=document.createElement('div');
       pr.style.cssText='padding:9px 0;border-top:1px solid var(--border);';
-      pr.innerHTML='<div class="product-name">'+esc(prod.name)+' — '+prod.ratePer100sqm+prod.rateUnit+'/100m²</div>';
+      pr.innerHTML='<div class="product-name">'+esc(prod.name)+' - '+prod.ratePer100sqm+prod.rateUnit+'/100m2</div>';
       if(prod.note)pr.innerHTML+='<div class="product-note">'+esc(prod.note)+'</div>';
       var zw=document.createElement('div');
       zw.className='product-zones';
-      // Use the product's own quantities keys to determine which zones to show
       var prodZones=Object.keys(prod.quantities||{});
       var fQ=null,s1=null,s2=null;
       prodZones.forEach(function(zid){
@@ -616,12 +574,10 @@ function renderTaskCard(task){
         if(zid==='strip1')s1=qty;
         if(zid==='strip2')s2=qty;
         var chip=document.createElement('div');
-        // Highlight solo-zone products (only one zone gets this product)
         chip.className='zone-qty'+(prodZones.length===1?' solo-zone':'');
-        chip.innerHTML='<div class="zone-qty-label">'+info.name+'</div><div class="zone-qty-grass">'+info.grass+' · '+info.area+'m²</div><div class="zone-qty-amount">'+qty+prod.rateUnit+'</div>';
+        chip.innerHTML='<div class="zone-qty-label">'+info.name+'</div><div class="zone-qty-grass">'+info.grass+' - '+info.area+'m2</div><div class="zone-qty-amount">'+qty+prod.rateUnit+'</div>';
         zw.appendChild(chip);
       });
-      // Combined chip: show if 2 or more of front/strip1/strip2 present
       var frontStripCount=[fQ,s1,s2].filter(function(v){return v!==null;}).length;
       if(frontStripCount>=2){
         var ct=(fQ||0)+(s1||0)+(s2||0);
@@ -629,7 +585,7 @@ function renderTaskCard(task){
         zw.appendChild(Object.assign(document.createElement('div'),{className:'zone-qty-divider'}));
         var cb=document.createElement('div');
         cb.className='zone-qty combined';
-        cb.innerHTML='<div class="zone-qty-label">Front + Strips</div><div class="zone-qty-grass">Combined · '+fmt(ca)+'m²</div><div class="zone-qty-amount">'+fmt(ct)+prod.rateUnit+'</div>';
+        cb.innerHTML='<div class="zone-qty-label">Front + Strips</div><div class="zone-qty-grass">Combined - '+fmt(ca)+'m2</div><div class="zone-qty-amount">'+fmt(ct)+prod.rateUnit+'</div>';
         zw.appendChild(cb);
       }
       pr.appendChild(zw);
@@ -663,7 +619,6 @@ function renderTaskCard(task){
   card.appendChild(det);
   return card;
 }
-
 function updateProgress(mn){var md=state.program.months.find(function(m){return m.monthNum===mn;});if(!md)return;var total=0,done=0;md.weeks.forEach(function(w){(w.tasks||[]).forEach(function(t){total++;if(state.completions[t.id])done++;});});var pct=total>0?Math.round((done/total)*100):0;document.getElementById('progress-fill').style.width=pct+'%';document.getElementById('progress-count').textContent=done+' / '+total+' tasks';}
 function showScreen(n){document.getElementById('loading-screen').style.display=n==='loading'?'flex':'none';document.getElementById('error-screen').style.display=n==='error'?'flex':'none';document.getElementById('auth-gate').style.display=n==='auth-gate'?'flex':'none';document.getElementById('app').style.display=n==='app'?'block':'none';}
 var toastTimer;
