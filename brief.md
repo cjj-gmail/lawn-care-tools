@@ -347,43 +347,42 @@ Key: GX=GreenXtra, Tmx=Tracemaxx, A8=Activ8EXTRA, Stim=Stimulus, Stiz=Stimulizer
   but Stimulizer covers similar ground via chemical pathway. Revisit if soil biology issues emerge.
 
 
-## 17. GIT CLI SETUP -- RESOLVES LARGE FILE PUSH LIMITATION
+## 17. GIT CLI SETUP -- RESOLVED (30 May 2026)
 
 The GitHub MCP push_files tool truncates files above ~50KB. program.json (~116KB) and
-tracker.html (~58KB) cannot be reliably pushed via MCP. Installing git on the local machine
-and using Desktop Commander to run git commands solves this permanently.
+tracker.html (~58KB) cannot be reliably pushed via MCP. Git CLI via Desktop Commander
+solves this permanently. CONFIRMED WORKING 30 May 2026.
 
-### Setup steps (do once)
-1. Install git: https://git-scm.com/download/win (Windows) or brew install git (Mac)
-2. Open terminal and configure:
-   git config --global user.name "cjj-gmail"
-   git config --global user.email "your-github-email@example.com"
-3. Create a GitHub Personal Access Token:
-   - GitHub -> Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
-   - Scopes needed: repo (full)
-   - Save the token securely
-4. Clone the repo to a local folder:
-   git clone https://github.com/cjj-gmail/lawn-care-tools.git
-   (enter token as password when prompted, or configure credential helper)
-5. Tell Claude the local repo path at the start of each session
+### Local repo path
+C:\Users\camer\lawn-care-tools
 
-### How Claude will use it (via Desktop Commander)
-When git is set up, Claude can:
-- Read: Desktop Commander read_file on local repo files
-- Write: Desktop Commander write_file to local repo files (no size limit)
-- Publish: Desktop Commander execute_command to run git add, commit, push
+IMPORTANT: Do NOT use a Google Drive path for the local repo. GDrive virtual filesystem
+swallows git stdout silently. Always use a plain local NTFS path.
 
-This replaces the current workflow of:
-- Small files: push via GitHub MCP (still works)
-- Large files: download + drag-and-drop to GitHub (fallback until git is set up)
+### How Claude runs git (via Desktop Commander)
+Git is not in Desktop Commander's PowerShell PATH. Use the batch file wrapper:
+  C:\Users\camer\AppData\Local\Temp\gitrun.bat
 
-### Suggested local repo path
-Tell Claude at start of session: "Local repo is at C:/Users/[you]/lawn-care-tools" (Windows)
-or "/Users/[you]/lawn-care-tools" (Mac)
+The batch file content (recreate with write_file if missing after reboot):
+  @echo off
+  cd /d C:\Users\camer\lawn-care-tools
+  C:\PROGRA~1\Git\bin\git.exe %* > C:\Users\camer\AppData\Local\Temp\gitout.txt 2>&1
+  type C:\Users\camer\AppData\Local\Temp\gitout.txt
 
-### First test in new session
-Once git is installed and cloned, ask Claude to:
-1. Read data/program.json from local repo via Desktop Commander
-2. Make a small test edit
-3. git add + commit + push via Desktop Commander
-4. Verify on GitHub
+Always call with shell: cmd, e.g.:
+  C:\Users\camer\AppData\Local\Temp\gitrun.bat status
+  C:\Users\camer\AppData\Local\Temp\gitrun.bat log --oneline -5
+  C:\Users\camer\AppData\Local\Temp\gitrun.bat add -A
+  C:\Users\camer\AppData\Local\Temp\gitrun.bat commit -m "message"
+  C:\Users\camer\AppData\Local\Temp\gitrun.bat push
+
+### Standard workflow for large file edits (program.json, tracker.html, dashboard.html)
+1. Desktop Commander read_file -- read current file from local repo
+2. Desktop Commander edit_block or write_file -- make changes locally
+3. gitrun.bat add -A
+4. gitrun.bat commit -m "description"
+5. gitrun.bat push
+6. Verify at https://github.com/cjj-gmail/lawn-care-tools
+
+### Small files (inventory.json, brief.md, completions.json etc.)
+Can still be pushed via GitHub MCP push_files -- no change needed.
