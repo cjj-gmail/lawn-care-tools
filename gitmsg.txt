@@ -1,1 +1,1 @@
-Add gitrun.bat and .gitignore; update Section 17 with repo-local batch file path
+brief.md: note Docker no longer needed, Desktop Commander git replaces it

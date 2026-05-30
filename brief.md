@@ -61,8 +61,9 @@ Google OAuth (secondary -- dormant):
 
 Desktop Commander MCP:
 - Status: INSTALLED and connected to Claude
-- Enables Claude to run commands on local machine
-- Use for git operations (see Section 17)
+- Enables Claude to run commands on local machine and read/write local files
+- Used for all git operations (see Section 17) -- replaces Docker + GitHub MCP approach
+- Docker is installed but no longer needed for this project
 
 
 ## 5. LAWN SPECS
