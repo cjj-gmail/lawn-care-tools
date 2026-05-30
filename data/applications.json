@@ -1,0 +1,45 @@
+{
+  "entries": [
+    {
+      "id": "app_1780133876424",
+      "date": "30/05/2026",
+      "dateISO": "2026-05-30",
+      "taskId": "may-w1-t1",
+      "taskLabel": "Main tank-mix: GreenXtra + Tracemaxx (reduced) + HiCure + Liquid Iron — pre-winter colour",
+      "taskType": "fertilise",
+      "zones": [
+        "back",
+        "front",
+        "strip1",
+        "strip2"
+      ],
+      "products": [
+        {
+          "name": "GreenXtra",
+          "amount": 280.3,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Tracemaxx",
+          "amount": 140.15,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "HiCure",
+          "amount": 210.23,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Liquid Iron (7%)",
+          "amount": 140.15,
+          "unit": "mL",
+          "deducted": true
+        }
+      ],
+      "inventoryDeducted": true
+    }
+  ]
+}
