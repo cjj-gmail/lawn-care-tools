@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "id": "wx_1780145243324",
+      "date": "27/05/2026",
+      "dateISO": "2026-05-27",
+      "type": "observation",
+      "note": "10mm of rain"
+    },
+    {
       "id": "wx_1780145225948",
       "date": "26/05/2026",
       "dateISO": "2026-05-26",
