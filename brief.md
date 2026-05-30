@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 31 May 2026 (session 3)
+Last Updated: 31 May 2026 (session 4)
 
 ---
 
@@ -35,8 +35,8 @@ lawn-care-tools/
 |-- github-auth-test.html
 |-- auth-success.html
 |-- data/
-    |-- program.json       -> 12-month custom program (v2.3 -- updated 31 May 2026)
-    |-- inventory.json     -> 21 products, 4 zones, 6 compat rules
+    |-- program.json       -> 12-month custom program (v2.4 -- updated 31 May 2026)
+    |-- inventory.json     -> 22 products, 4 zones, 6 compat rules
     |-- completions.json   -> Task completions (created on first save)
     |-- applications.json  -> Application log
     |-- mowing.json        -> Mowing log
@@ -80,7 +80,7 @@ Total Couch: 36.95 m2
 Location: Oakhurst NSW 2761 -- Humid subtropical, hot summers, mild winters, occasional frost.
 
 
-## 6. PRODUCT INVENTORY (21 products -- 30 May 2026)
+## 6. PRODUCT INVENTORY (22 products -- 31 May 2026)
 
 | Product                | Brand                  | Unit | Remaining |
 |------------------------|------------------------|------|-----------|
@@ -105,6 +105,7 @@ Location: Oakhurst NSW 2761 -- Humid subtropical, hot summers, mild winters, occ
 | Tribute                | Envu                   | L    | 1         |
 | Contra M Duo           | Indigo                 | L    | 1         |
 | Stimulizer             | Plant Doctor           | L    | 0.8       |
+| Phosfighter            | Lawn Addicts           | L    | 0 (TBP)   |
 
 Notes:
 - Quantities reflect post-May Wk1 deduction (GreenXtra, Tracemaxx, HiCure, Liquid Iron updated 30 May 2026)
@@ -152,12 +153,12 @@ CRITICAL -- large file push limitation:
 
 ## 9. DATA FILE STRUCTURES
 
-### program.json (v2.1 -- updated 30 May 2026)
+### program.json (v2.4 -- updated 31 May 2026)
 12-month program. Month > Week (1 or 3) > Tasks.
 Task types: fertilise, biostimulant, herbicide, fungicide, insecticide, soilwetter, renovation.
-v2.1 change: Stimulizer (3mL/100m2) added to every bio run Pass 2 task across all 12 months.
+v2.4 change: Seaweed Secrets added to all 12 Wk3 Pass 2 bio runs. August Wk3 granular removed. Phosfighter placeholder tasks added to 9 months (Jan, May-Nov, Dec) -- conditional, not yet in stock.
 
-### inventory.json (21 products)
+### inventory.json (22 products)
 Fields: id, name, brand, retailer, category, subCategory, form, unit, qtyRemaining,
 ratePer100sqm, rateLow, rateHigh, rateUnit, frequency, applicationMethod, waterIn,
 foliarOrIrrigate, staining, grassSafe[], compatibilityNotes, warnings, notes.
@@ -231,7 +232,7 @@ NOTE: Dashboard Program tab verified working correctly with v2.2 schema.
 Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 
 
-## 12. CURRENT STATUS (31 May 2026 -- session 3)
+## 12. CURRENT STATUS (31 May 2026 -- session 4)
 
 [DONE] brief.md -- canonical project brief in GitHub repo
 [DONE] index.html -- landing page live
@@ -254,14 +255,14 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 [DONE] Fine-grained GitHub token deleted -- not needed
 
 NEXT TASKS (new session):
-- Add Phosfighter to inventory (phosphite/SAR gap -- does not replace any existing product)
-- Phosfighter note: available from Lawn Addicts; schedule with Heritage Maxx rotation (different modes of action)
+- Buy Phosfighter from Lawn Addicts -- placeholder tasks already in program.json Wk3 for 9 months (Jan, May-Nov, Dec), activate once purchased
+- Consider dashboard improvements: "next upcoming task" on overview, shopping list view, mowing frequency analysis, rain gauge input on weather observations
 
 
 ## 13. NEXT SESSION INSTRUCTIONS
 
-Start every session by reading brief.md from the GitHub repo:
-  owner=cjj-gmail, repo=lawn-care-tools, path=brief.md
+Start every session by reading brief.md from the LOCAL REPO (avoids CDN cache):
+  C:\Users\camer\lawn-care-tools\brief.md  (via Desktop Commander read_file)
 
 End every session by updating brief.md with any changes made.
 
@@ -271,7 +272,17 @@ For large file edits (program.json, tracker.html):
 - Do NOT use push_files for files >50KB -- it will truncate silently
 
 
-## 14. PROGRAM REBUILD -- COMPLETE (v2.2 as of 30 May 2026 session 2)
+## 14. PROGRAM REBUILD -- COMPLETE (v2.4 as of 31 May 2026 session 4)
+
+v2.4 change (31 May 2026 session 4):
+- Full program review vs LA (all 8 seasonal calendars), LP (Kikuyu + Zoysia), and PD brochure
+- Seaweed Secrets (productId 7, 100mL/100m2) added to every Wk3 Pass 2 bio run -- uses up 4L stock
+- August Wk3 granular removed -- not supported by LA or LP winter guidance
+- Phosfighter (productId 22) added as conditional placeholder task to Wk3 in 9 months (Jan, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec) -- NOT YET IN STOCK
+- inventory.json updated to 22 products with Phosfighter at qty 0
+- Stimulizer also confirmed in all Wk1 main tank-mix tasks (v2.3 change from session 3)
+
+## 14b. PROGRAM REBUILD -- COMPLETE (v2.2 as of 30 May 2026 session 2)
 
 v2.2 change (30 May 2026 session 2):
 - Acelepryn expanded to all zones (was back lawn only in Sep)
@@ -303,7 +314,7 @@ v2.1 change (30 May 2026):
 - Liquid Iron joins at reduced Tracemaxx rate (100ml/100m2) -- winter/transition months
 - Heritage Maxx per label (NOT via backpack sprayer) -- Nov, Feb, Dec conditional
 - Soil wetter added to main tank-mix in summer months (Dec, Jan, Feb)
-- Bio run Pass 2 (Wk3): soil wetter + Activ8EXTRA + Stimulus (most months) + Stimulizer (every month)
+- Bio run Pass 2 (Wk3): soil wetter + Activ8EXTRA + Seaweed Secrets + Stimulus (most months) + Stimulizer (every month)
 - Kelpxtra: ALWAYS SOLO Pass 1 -- never in any tank-mix
 - Iron overload: Tracemaxx always at 100ml/100m2 when GreenXtra at 200ml/100m2
 
@@ -319,20 +330,20 @@ v2.1 change (30 May 2026):
 ### Month summary
 | Month | Season | Wk1 | Wk3 |
 |-------|--------|-----|-----|
-| Jan | Summer | Maintain+TX10, NatWetter+GX+Tmx+HiCure+LiqIron | Kelpxtra, NatWetter+A8+Stim+Stiz, Battle cond |
-| Feb | Summer | Maintain+TX10, NatWetter+GX+Tmx+HiCure+HeritMaxx | Kelpxtra, NatWetter+A8+Stim+Stiz, Battle cond |
-| Mar | Autumn | Spartan, Maintain+TX10, GX+Tmx+HiCure | Kelpxtra, NatWetter+A8+Stim+Stiz |
-| Apr | Autumn | GX+Tmx+HiCure, B&A cond | Kelpxtra, Hydra+A8+Stiz |
-| May | Autumn | GX+Tmx+HiCure+LiqIron | Kelpxtra, NatWetter+A8+Stim+Stiz |
-| Jun | Winter | GX+Tmx+HiCure+LiqIron | Kelpxtra, Hydra+A8+Stiz |
-| Jul | Winter | GX+Tmx+HiCure | Kelpxtra, Hydra+A8+Stiz, Tribute+B&A cond |
-| Aug | Winter | GX+Tmx+HiCure+LiqIron | Kelpxtra, Hydra+A8+Stim+Stiz, light granular |
-| Sep | Spring | Spartan, Acelepryn(back), Maintain+TX10, GX+Tmx+HiCure | Reno, soil wetter, Kelpxtra, NatWetter+A8+Stim+Stiz |
-| Oct | Spring | Maintain+TX10, GX+Tmx+HiCure, B&A cond | Kelpxtra, Hydra+A8+Stim+Stiz |
-| Nov | Spring | Maintain+TX10, GX+Tmx+HiCure+HeritMaxx | Kelpxtra, Hydra+A8+Stim+Stiz, Tribute cond |
-| Dec | Summer | Maintain+TX10, NatWetter+GX+Tmx+HiCure, HeritMaxx cond | Kelpxtra, NatWetter+A8+Stim+Stiz, Battle cond |
+| Jan | Summer | Maintain+TX10, NatWetter+GX+Tmx+HiCure+LiqIron+Stiz | Kelpxtra, NatWetter+A8+SS+Stim+Stiz+Phosf(cond), Battle cond |
+| Feb | Summer | Maintain+TX10, NatWetter+GX+Tmx+HiCure+HeritMaxx+Stiz | Kelpxtra, NatWetter+A8+SS+Stim+Stiz, Battle cond |
+| Mar | Autumn | Spartan, Maintain+TX10, GX+Tmx+HiCure+Stiz | Kelpxtra, NatWetter+A8+SS+Stim+Stiz |
+| Apr | Autumn | GX+Tmx+HiCure+Stiz, B&A cond | Kelpxtra, Hydra+A8+SS+Stiz |
+| May | Autumn | GX+Tmx+HiCure+LiqIron+Stiz | Kelpxtra, NatWetter+A8+SS+Stim+Stiz+Phosf(cond) |
+| Jun | Winter | GX+Tmx+HiCure+LiqIron+Stiz | Kelpxtra, Hydra+A8+SS+Stiz+Phosf(cond) |
+| Jul | Winter | GX+Tmx+HiCure+Stiz | Kelpxtra, Hydra+A8+SS+Stiz+Phosf(cond), Tribute+B&A cond |
+| Aug | Winter | GX+Tmx+HiCure+LiqIron+Stiz | Kelpxtra, Hydra+A8+SS+Stim+Stiz+Phosf(cond) |
+| Sep | Spring | Spartan, Acelepryn(all), Maintain+TX10, GX+Tmx+HiCure+Stiz | Reno, Kelpxtra, NatWetter+A8+SS+Stim+Stiz+Phosf(cond) |
+| Oct | Spring | Maintain+TX10, GX+Tmx+HiCure+Stiz, B&A cond | Kelpxtra, Hydra+A8+SS+Stim+Stiz+Phosf(cond) |
+| Nov | Spring | Maintain+TX10, GX+Tmx+HiCure+HeritMaxx+Stiz | Kelpxtra, Hydra+A8+SS+Stim+Stiz+Phosf(cond), Tribute cond |
+| Dec | Summer | Maintain+TX10, NatWetter+GX+Tmx+HiCure+Stiz, HeritMaxx cond | Kelpxtra, NatWetter+A8+SS+Stim+Stiz+Phosf(cond), Battle cond |
 
-Key: GX=GreenXtra, Tmx=Tracemaxx, A8=Activ8EXTRA, Stim=Stimulus, Stiz=Stimulizer, Hydra=Hydramaxx, NatWetter=Nature's Soil Wetter, B&A=Bow & Arrow, LiqIron=Liquid Iron, HeritMaxx=Heritage Maxx
+Key: GX=GreenXtra, Tmx=Tracemaxx, A8=Activ8EXTRA, SS=Seaweed Secrets, Stim=Stimulus, Stiz=Stimulizer, Hydra=Hydramaxx, NatWetter=Nature's Soil Wetter, B&A=Bow & Arrow, LiqIron=Liquid Iron, HeritMaxx=Heritage Maxx, Phosf=Phosfighter (cond=conditional/not yet in stock)
 
 
 ## 15. BRAND COMPARISON & TRANSITION PLAN
