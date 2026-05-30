@@ -357,8 +357,10 @@ solves this permanently. CONFIRMED WORKING 30 May 2026.
 ### Local repo path
 C:\Users\camer\lawn-care-tools
 
-IMPORTANT: Do NOT use a Google Drive path for the local repo. GDrive virtual filesystem
-swallows git stdout silently. Always use a plain local NTFS path.
+IMPORTANT: Keep the repo on a plain local NTFS path (not Google Drive). GDrive
+continuously syncs .git internals which can cause lock file conflicts and slow operations.
+Note: the original GDrive output issue was actually a Desktop Commander PowerShell capture
+problem (fixed by the gitrun.bat redirect approach), not a GDrive path problem per se.
 
 ### How Claude runs git (via Desktop Commander)
 Git is not in Desktop Commander's PowerShell PATH. Use the batch file wrapper
