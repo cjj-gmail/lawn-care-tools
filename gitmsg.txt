@@ -1,1 +1,7 @@
-brief: update session 3 status and next tasks
+program v2.3: add Stimulizer to all 12 Wk1 main tank-mix tasks
+
+- Stimulizer (3mL/100m2) added to Wk1 spray pass for all 12 months
+- Quantities: back 2.046mL, front 1.05mL, strip1 0.624mL, strip2 0.484mL
+- PD brochure confirms safe with Iron concentrate (chelator, not reactive)
+- Updated meta note: Stimulizer now listed in core Wk1 tank-mix
+- Version bumped to v2.3, lastUpdated 31/05/2026
