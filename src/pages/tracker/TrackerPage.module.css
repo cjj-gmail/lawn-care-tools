@@ -1,0 +1,29 @@
+.monthNav  { background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; overflow-x: auto; scrollbar-width: none; position: relative; }
+.monthNav::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 32px; background: linear-gradient(to right, transparent, var(--cream)); pointer-events: none; }
+.monthNav::-webkit-scrollbar { display: none; }
+.monthBtn  { padding: 13px 17px; border: none; background: none; font-family: var(--font-mono); font-size: 14px; color: var(--ink-light); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.8px; position: relative; }
+.monthBtn:hover  { color: var(--grass); }
+.monthBtn.active { color: var(--grass); border-bottom-color: var(--grass); font-weight: 500; }
+.monthBtn.current::after { content: ''; width: 4px; height: 4px; background: var(--grass-light); border-radius: 50%; position: absolute; top: 8px; right: 6px; }
+
+.progressBar { background: var(--cream); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; gap: 16px; }
+.progressLabel { font-size: 14px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; }
+.progressWrap  { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.progressFill  { height: 100%; background: var(--grass); border-radius: 3px; transition: width 0.4s ease; }
+.progressCount { font-size: 14px; color: var(--ink-mid); white-space: nowrap; min-width: 65px; text-align: right; }
+
+.main       { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
+.monthHeaderRow { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+.monthTitle { font-family: var(--font-serif); font-weight: 300; font-size: 32px; color: var(--ink); letter-spacing: -0.5px; }
+
+.weekBlock   { margin-bottom: 32px; }
+.weekHeading { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.weekNum     { font-family: var(--font-serif); font-size: 26px; font-weight: 300; font-style: italic; color: var(--grass); line-height: 1; }
+.weekLabel   { font-size: 15px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.8px; }
+.noTasks     { padding: 16px; text-align: center; color: var(--ink-light); font-size: 15px; }
+
+@media (max-width: 600px) {
+  .main { padding: 16px; }
+  .monthBtn { padding: 10px; font-size: 13px; }
+  .progressBar { padding: 10px 16px; }
+}

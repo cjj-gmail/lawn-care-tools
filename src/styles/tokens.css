@@ -1,0 +1,53 @@
+/* Design tokens — single source of truth for the entire app */
+:root {
+  /* Greens */
+  --grass:        #3d6b35;
+  --grass-light:  #5a9448;
+  --grass-pale:   #e8f0e4;
+  --grass-faint:  #f2f7f0;
+
+  /* Soils */
+  --soil:         #6b4c2a;
+  --soil-light:   #c49a6c;
+
+  /* Neutrals */
+  --cream:        #f5f0e8;
+  --paper:        #faf8f3;
+  --ink:          #1a1a18;
+  --ink-mid:      #4a4a42;
+  --ink-light:    #8a8a7a;
+  --border:       #d8d0c0;
+  --border-light: #ede8de;
+
+  /* Status */
+  --status-low:      #c0882a;
+  --status-critical: #c04040;
+
+  /* Task type colours */
+  --type-fertilise:    #4a7c3f;
+  --type-biostimulant: #7b5ea7;
+  --type-herbicide:    #c0692a;
+  --type-fungicide:    #c0882a;
+  --type-insecticide:  #2a7aa0;
+  --type-soilwetter:   #3a7a8a;
+  --type-renovation:   #6b4c2a;
+
+  /* Season colours */
+  --season-summer: #d4a017;
+  --season-autumn: #c07030;
+  --season-winter: #4a80b0;
+  --season-spring: #5a9448;
+
+  /* Weather event colours */
+  --weather-rain:        #2a7aa0;
+  --weather-heat:        #c0882a;
+  --weather-frost:       #6aaed6;
+  --weather-drought:     #c0692a;
+  --weather-storm:       #1a3a6a;
+  --weather-observation: #4a7c3f;
+  --weather-other:       #8a8a7a;
+
+  /* Typography */
+  --font-mono:  'DM Mono', monospace;
+  --font-serif: 'Fraunces', serif;
+}

@@ -1,1 +1,12 @@
-brief.md: session 5 update -- reorder/shopping list feature documented
+React rebuild complete - Phase 1, 3, 4, 5
+
+- Vite + React 18 + React Router 6 (hash routing) scaffold
+- Full TrackerPage: task cards, deduction flow, mow/water modals
+- Full DashboardPage: Overview, Program, Inventory, Log, Alerts, Zones tabs
+- Stock, Resupply, ManualLog, Weather modals
+- Shared AppContext + useReducer state, single loadJson/saveJson service
+- invStatus calculated once at load, cached - no more O(n^2) renders
+- tracker.html + dashboard.html replaced with redirect shims
+- GitHub Actions CI deploy to gh-pages on push to main
+- All CSS variables unified in tokens.css (single source of truth)
+- ZONES, CONFIG, TYPE_COLORS defined once in config.js - no more drift

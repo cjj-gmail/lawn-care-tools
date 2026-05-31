@@ -1,0 +1,41 @@
+/* Tab navigation */
+.dashNav { background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 28px; display: flex; overflow-x: auto; scrollbar-width: none; }
+.dashNav::-webkit-scrollbar { display: none; }
+.navTab  { padding: 12px 18px; border: none; background: none; font-family: var(--font-mono); font-size: 13px; color: var(--ink-light); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.8px; }
+.navTab:hover  { color: var(--grass); }
+.navTab.active { color: var(--grass); border-bottom-color: var(--grass); font-weight: 500; }
+
+/* Content area */
+.dashBody { max-width: 1100px; margin: 0 auto; padding: 28px 24px 60px; }
+
+/* Section headings */
+.sectionHeading { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.sectionTitle   { font-family: var(--font-serif); font-size: 30px; font-weight: 300; color: var(--ink); letter-spacing: -0.5px; }
+.sectionSub     { font-size: 13px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.8px; }
+
+/* Stat grid */
+.statGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 32px; }
+
+/* Panel */
+.panel       { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; margin-bottom: 20px; }
+.panelTitle  { font-size: 13px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ink-light); margin-bottom: 16px; }
+.panelTitleRow { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+.panelTitleRow .panelTitle { margin-bottom: 0; }
+.panelBtn    { font-size: 12px; padding: 5px 12px; border-radius: 4px; border: 1px solid var(--grass); background: white; color: var(--grass); cursor: pointer; font-family: var(--font-mono); transition: all 0.15s; }
+.panelBtn:hover { background: var(--grass); color: white; }
+.panelBtnRow { display: flex; gap: 7px; flex-wrap: wrap; }
+
+/* Progress rows */
+.progressRow      { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.progressRowLabel { font-size: 14px; color: var(--ink-mid); min-width: 130px; flex-shrink: 0; }
+.progressBarWrap  { flex: 1; height: 8px; background: var(--border-light, #ede8de); border-radius: 4px; overflow: hidden; }
+.progressBarFill  { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+.progressBarFill.ok       { background: var(--grass); }
+.progressBarFill.low      { background: var(--status-low); }
+.progressBarFill.critical { background: var(--status-critical); }
+.progressRowNum   { font-size: 13px; color: var(--ink-light); min-width: 80px; text-align: right; flex-shrink: 0; }
+
+@media (max-width: 600px) {
+  .dashBody { padding: 16px 16px 40px; }
+  .dashNav  { padding: 0 12px; }
+}

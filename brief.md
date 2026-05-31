@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 31 May 2026 (session 5)
+Last Updated: 31 May 2026 (session 5 — React rebuild Phase 1 + Phase 3 complete)
 
 ---
 
@@ -255,8 +255,16 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 [DONE] Fine-grained GitHub token deleted -- not needed
 
 NEXT TASKS (new session):
+- [REACT Phase 4] Build DashboardPage with all 6 tabs (see Section 18 for full spec)
+- [REACT deploy] Push React scaffold to GitHub to trigger first CI deploy to gh-pages
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
 - Consider further dashboard improvements: "next upcoming task" on overview, mowing frequency analysis, rain gauge input on weather observations
+
+REACT REBUILD STATUS (session 5):
+- [DONE] Phase 1 -- Vite scaffold, routing, AppContext, services, LandingPage (fully live at localhost:5173)
+- [DONE] Phase 3 -- Full TrackerPage: task cards, all modals, mow/water logging, deduction flow
+- [PENDING] Phase 4 -- DashboardPage (6 tabs)
+- [PENDING] Phase 5 -- Cut-over, delete legacy HTML, final polish
 
 
 ## 13. NEXT SESSION INSTRUCTIONS
@@ -440,3 +448,103 @@ NOTE: Commit messages must use -F flag pointing to gitmsg.txt -- passing inline 
 
 ### Small files (inventory.json, brief.md, completions.json etc.)
 Can still be pushed via GitHub MCP push_files -- no change needed.
+
+
+---
+
+## 18. REACT / VITE REBUILD (started session 3)
+
+A full React rebuild of the tool is underway alongside the existing HTML pages.
+The legacy tracker.html and dashboard.html remain live and untouched throughout migration.
+
+### Tech stack
+- Vite 5 + React 18 + React Router 6 (hash routing)
+- CSS Modules (scoped per component)
+- No TypeScript yet -- add in a later pass once component tree is stable
+- GitHub Actions CI: push to main --> vite build --> deploy to gh-pages branch
+
+### Repo structure (new additions)
+```
+src/
+  main.jsx                    -- React root (AppProvider + RouterProvider)
+  App.jsx                     -- Hash router: / | /tracker | /dashboard
+  config.js                   -- Single source of truth: CONFIG, ZONES, ZONE_ORDER,
+                                 TYPE_COLORS, MOWER_HEIGHTS, HEIGHT_REF,
+                                 CAUTION_ICONS, SEASONS
+  hooks/
+    useAppInit.js             -- Handles OAuth callback + parallel loads all 7 JSON files
+    useTrackerSave.js         -- saveCompletions, saveInventory, writeAppLog
+    useToast.js               -- Toast state hook
+  services/
+    github.js                 -- loadJson(path, token), saveJson(path, obj, sha, msg, token)
+    auth.js                   -- getToken, setToken, startLogin, handleOAuthCallback
+  store/
+    actions.js                -- Action type constants
+    reducer.js                -- Full reducer + invStatusCache build on load/inventory write
+    AppContext.jsx             -- useAppState() / useAppDispatch() hooks
+  utils/
+    invStatus.js              -- Pure calcInvStatus(product, program) -- O(1) via cache
+  styles/
+    tokens.css                -- All CSS custom properties (single source of truth)
+    base.css                  -- Reset, shared header, modal, stat-tile, alert-item classes
+  components/
+    Toast.jsx + Toast.module.css
+  pages/
+    LandingPage.jsx + LandingPage.module.css   -- Full port of index.html
+    tracker/
+      TrackerPage.jsx           -- Main tracker page (month nav, progress, task list)
+      TrackerPage.module.css
+      WeekBlock.jsx             -- Week heading + TaskCard list
+      TaskCard.jsx              -- Task card with checkbox, expand, zone chips, caution chips
+      TaskCard.module.css
+      ZoneChip.jsx              -- ZoneChip + ZoneCombinedChip
+      CautionChip.jsx           -- Caution chip with click-to-open tooltip
+      HeightRefCard.jsx + HeightRefCard.module.css
+      DeductModal.jsx           -- Inventory deduction modal
+      UncheckModal.jsx          -- Uncheck confirmation modal
+      MowModal.jsx              -- Log a mow modal
+      WaterModal.jsx            -- Log irrigation modal
+      Modals.module.css         -- Shared modal styles
+    dashboard/
+      DashboardPage.jsx         -- Phase 1 placeholder (Phase 4 full build pending)
+
+vite.config.js                -- base /lawn-care-tools/, copies legacy HTML + data/ to dist
+.github/workflows/deploy.yml  -- CI: npm ci -> vite build -> deploy to gh-pages
+.gitignore                    -- node_modules/, dist/ added
+package.json                  -- react, react-dom, react-router-dom, vite, @vitejs/plugin-react
+```
+
+### Key architectural decisions
+- Hash router (#/) avoids GitHub Pages redirect issues -- no server config needed
+- Single AppContext + useReducer -- no Redux
+- loadJson() returns both data AND sha in one API call -- eliminates double-fetch
+- invStatus calculated once (BUILD_INV_CACHE) and read from cache -- not O(n^2) on render
+- All GitHub writes go through saveJson() in services/github.js -- no inline fetch PUTs
+- ZONES/ZONE_ORDER/TYPE_COLORS defined once in config.js -- no more drift between pages
+- Legacy tracker.html + dashboard.html copied into dist/ on every build -- stay live
+
+### Phase status
+- [DONE] Phase 1 -- Vite scaffold, routing, AppContext, all services, LandingPage (session 3)
+- [DONE] Phase 3 -- Full TrackerPage: all task cards, modals, mow/water logging (session 3)
+- [PENDING] Phase 2 -- Data layer verification (covered by Phase 3 implementation)
+- [PENDING] Phase 4 -- Full DashboardPage (6 tabs)
+- [PENDING] Phase 5 -- Polish, CSS modules, cut-over, delete legacy HTML
+
+### Dev workflow
+```
+npm run dev       -- local dev server at localhost:5173/lawn-care-tools/
+npm run build     -- production build to dist/ (CI does this automatically on push)
+git push          -- triggers GitHub Actions deploy to gh-pages branch
+```
+PowerShell execution policy blocks npm.ps1 -- always run npm in cmd, not PowerShell.
+Or fix once: Set-ExecutionPolicy -Scope CurrentUser RemoteSigned (run as Admin).
+
+### NEXT TASKS (Phase 4)
+- Build DashboardPage with 6 tabs: Overview, Program, Inventory, Log, Alerts, Zones
+- Port renderOverview(), renderInventory(), renderAlerts() etc. as tab components
+- Add useMemo for alerts and program filter derived state
+- Implement stock edit modal (openStockModal), resupply modal, manual log modal
+- Implement weather log with edit/delete
+- Add CSV export to Log tab
+- Rename "Log water" -> "Log irrigation" (already done in React TrackerPage)
+- Add edit/delete to weather observations (flagged in Section 12)

@@ -1,0 +1,84 @@
+/* Task card */
+.taskCard         { background: white; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; transition: box-shadow 0.15s; }
+.taskCard:hover   { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+.taskCard.completed { opacity: 0.6; }
+.taskCard.completed .taskLabel { text-decoration: line-through; color: var(--ink-light); }
+.taskCard.conditional { border-left: 3px solid var(--soil-light); }
+
+/* Card header row */
+.taskHeader   { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px; }
+.taskCheck    { width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 3px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; cursor: pointer; }
+.taskCheck.checked { background: var(--grass); border-color: var(--grass); }
+.taskCheck.checked::after { content: '\2713'; color: white; font-size: 14px; font-weight: bold; }
+.taskCheck.saving { border-color: var(--soil-light); animation: pulse 0.8s infinite; }
+@keyframes pulse { 0%,100%{ opacity:1; } 50%{ opacity:0.4; } }
+
+.taskBody   { flex: 1; min-width: 0; }
+.taskTop    { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+.taskLabel  { font-size: 17px; font-weight: 500; color: var(--ink); }
+.taskMethod { font-size: 15px; color: var(--ink-light); margin-top: 2px; }
+
+/* Type tag */
+.typeTag { font-size: 13px; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; color: white; flex-shrink: 0; }
+.typeTag.fertilise    { background: var(--type-fertilise); }
+.typeTag.biostimulant { background: var(--type-biostimulant); }
+.typeTag.herbicide    { background: var(--type-herbicide); }
+.typeTag.fungicide    { background: var(--type-fungicide); }
+.typeTag.insecticide  { background: var(--type-insecticide); }
+.typeTag.soilwetter   { background: var(--type-soilwetter); }
+.typeTag.renovation   { background: var(--type-renovation); }
+.conditionalFlag { font-size: 13px; padding: 2px 8px; border-radius: 3px; background: var(--cream); border: 1px solid var(--soil-light); color: var(--soil); }
+.expandBtn { font-size: 15px; color: var(--grass); background: none; border: none; cursor: pointer; padding: 2px 0; margin-top: 5px; font-family: var(--font-mono); display: flex; align-items: center; gap: 4px; }
+.expandBtn:hover { text-decoration: underline; }
+
+/* Expanded detail panel */
+.taskDetail       { display: none; padding: 0 18px 16px 52px; border-top: 1px solid var(--grass-pale); background: var(--grass-pale); }
+.taskDetail.open  { display: block; }
+.conditionBanner  { margin: 0 18px 10px 52px; padding: 7px 11px; background: #fff8f0; border: 1px solid var(--soil-light); border-radius: 4px; font-size: 15px; color: var(--soil); }
+
+/* Products */
+.productsTitle { font-size: 13px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ink-light); margin-bottom: 8px; margin-top: 14px; }
+.productRow    { padding: 9px 0; border-top: 1px solid var(--border); }
+.productName   { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.productNote   { font-size: 15px; color: var(--soil); font-style: italic; margin-top: 4px; }
+.productZones  { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 7px; align-items: flex-start; }
+
+/* Zone chips */
+.zoneQty         { background: white; border: 1px solid var(--border); border-radius: 4px; padding: 6px 11px; font-size: 13px; display: flex; flex-direction: column; align-items: center; min-width: 95px; }
+.zoneQtyLabel    { font-size: 13px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.5px; }
+.zoneQtyGrass    { font-size: 13px; color: var(--grass); margin-bottom: 2px; }
+.zoneQtyAmount   { font-weight: 500; color: var(--ink); font-size: 17px; }
+.zoneQtyDivider  { width: 1px; background: var(--border); align-self: stretch; margin: 0 2px; }
+.combined        { background: var(--grass); border-color: var(--grass); }
+.combined .zoneQtyLabel,
+.combined .zoneQtyGrass { color: rgba(255,255,255,0.75); }
+.combined .zoneQtyAmount { color: white; }
+.soloZone        { background: var(--grass-pale); border-color: var(--grass); }
+/* Notes + cautions */
+.notesSection   { margin-top: 12px; }
+.taskNotesText  { font-size: 15px; color: var(--ink-mid); line-height: 1.6; padding: 9px 12px; background: white; border-radius: 4px; border: 1px solid var(--border); }
+.cautionsWrap   { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+.cautionChip { font-size: 14px; padding: 4px 10px; border-radius: 12px; border: 1px solid; display: flex; align-items: center; gap: 4px; cursor: pointer; position: relative; user-select: none; }
+.caution_iron_overload           { color: #8a5a00; border-color: #d4a017; background: #fff9e8; }
+.caution_kelpxtra_solo           { color: #8a1a00; border-color: #c0401a; background: #fff5f2; }
+.caution_fungicide_rotation      { color: #4a1a6a; border-color: #8a4a9a; background: #faf0ff; }
+.caution_staining                { color: #8a3a00; border-color: #c07030; background: #fff3ee; }
+.caution_water_in                { color: #0a3a6a; border-color: #2a6a9a; background: #eef5ff; }
+.caution_no_backpack_sprayer     { color: #8a0000; border-color: #c04040; background: #fff0f0; }
+.caution_low_stock               { color: #8a0000; border-color: #c04040; background: #fff0f0; }
+.caution_pre_emergent_weed_free_first { color: #1a5a0a; border-color: #3a8a3a; background: #f0fff0; }
+.caution_tank_mix_dilute_first   { color: #5a4a00; border-color: #8a7a2a; background: #fffaee; }
+.caution_tribute_not_kikuyu      { color: #8a0000; border-color: #c04040; background: #fff0f0; }
+.caution_tombstone_not_zoysia    { color: #8a0000; border-color: #c04040; background: #fff0f0; }
+
+.cautionTooltip { position: absolute; bottom: calc(100% + 6px); left: 0; background: var(--ink); color: var(--cream); padding: 7px 11px; border-radius: 4px; font-size: 14px; white-space: normal; max-width: 300px; z-index: 200; line-height: 1.5; pointer-events: none; }
+
+/* Completion info */
+.completionInfo { margin-top: 9px; font-size: 14px; color: var(--ink-light); font-style: italic; }
+
+@media (max-width: 600px) {
+  .taskDetail { padding-left: 16px; }
+  .zoneQty    { min-width: 80px; }
+  .conditionBanner { margin-left: 16px; }
+}
