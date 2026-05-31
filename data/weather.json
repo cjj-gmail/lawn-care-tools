@@ -1,0 +1,39 @@
+{
+  "entries": [
+    {
+      "id": "wx_1780145268084",
+      "date": "29/05/2026",
+      "dateISO": "2026-05-29",
+      "type": "rain",
+      "note": "20mm of rain"
+    },
+    {
+      "id": "wx_1780145256697",
+      "date": "28/05/2026",
+      "dateISO": "2026-05-28",
+      "type": "rain",
+      "note": "20mm of rain"
+    },
+    {
+      "id": "wx_1780145243324",
+      "date": "27/05/2026",
+      "dateISO": "2026-05-27",
+      "type": "rain",
+      "note": "10mm of rain"
+    },
+    {
+      "id": "wx_1780145225948",
+      "date": "26/05/2026",
+      "dateISO": "2026-05-26",
+      "type": "rain",
+      "note": "20mm of rain"
+    },
+    {
+      "id": "wx_1780145200116",
+      "date": "25/05/2026",
+      "dateISO": "2026-05-25",
+      "type": "rain",
+      "note": "20mm of rain"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lawn Care — Authenticated</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-deep: #1a3a2a;
+      --green-light: #52b788;
+      --green-pale: #b7e4c7;
+      --cream: #f8f4e8;
+    }
+    body {
+      font-family: 'Fraunces', Georgia, serif;
+      background: var(--cream);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      border: 2px solid var(--green-deep);
+      border-radius: 2px;
+      max-width: 480px;
+      width: 100%;
+      padding: 3rem;
+      box-shadow: 6px 6px 0 var(--green-deep);
+      text-align: center;
+    }
+    .icon { font-size: 3rem; margin-bottom: 1rem; }
+    h1 { font-size: 1.6rem; color: var(--green-deep); margin-bottom: 0.5rem; }
+    .subtitle {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: #666;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .status {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      padding: 1rem;
+      background: var(--cream);
+      border: 1px solid var(--green-pale);
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+      color: var(--green-deep);
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      background: var(--green-deep);
+      color: white;
+      border: none;
+      border-radius: 2px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .error { color: #c0392b; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="icon" id="icon">⏳</div>
+  <h1 id="title">Authenticating...</h1>
+  <p class="subtitle">GitHub OAuth — Lawn Care Tools</p>
+  <div class="status" id="status">Processing your login...</div>
+  <div id="action"></div>
+</div>
+
+<script>
+  // Token arrives in URL fragment — never sent to any server
+  const hash = window.location.hash.substring(1);
+  const params = new URLSearchParams(hash);
+  const token = params.get('token');
+
+  if (token) {
+    // Store in sessionStorage — tab only, cleared when closed
+    sessionStorage.setItem('gh_token', token);
+
+    document.getElementById('icon').textContent = '✅';
+    document.getElementById('title').textContent = 'Authenticated!';
+    document.getElementById('status').textContent = 'GitHub login successful. Token stored for this session only.';
+
+    // Clear token from URL immediately
+    history.replaceState(null, '', window.location.pathname);
+
+    // Redirect to tracker after 2 seconds
+    document.getElementById('action').innerHTML = `
+      <p style="font-family: 'DM Mono', monospace; font-size: 0.78rem; color: #666; margin-bottom: 1rem;">
+        Redirecting to tracker in 2 seconds...
+      </p>
+      <a class="btn" href="tracker.html">Go to Tracker Now</a>
+    `;
+    setTimeout(() => window.location.href = 'tracker.html', 2000);
+
+  } else {
+    document.getElementById('icon').textContent = '❌';
+    document.getElementById('title').textContent = 'Authentication Failed';
+    document.getElementById('title').classList.add('error');
+    document.getElementById('status').textContent = 'No token received. Please try signing in again.';
+    document.getElementById('action').innerHTML = `
+      <a class="btn" href="github-auth-test.html">Try Again</a>
+    `;
+  }
+</script>
+</body>
+</html>
