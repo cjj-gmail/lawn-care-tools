@@ -29,7 +29,9 @@ function calcDeductions(task, inventory) {
         p.name.toLowerCase().includes(prod.name.toLowerCase()) ||
         prod.name.toLowerCase().includes(p.name.toLowerCase())
       )
-      const newLevel = invProd ? Math.max(0, Math.round((invProd.qtyRemaining - total) * 100) / 100) : null
+      const newLevel = invProd
+        ? Math.max(0, Math.round((invProd.qtyRemaining - total) * 100) / 100)
+        : null
       let newStatus = null
       if (invProd && newLevel !== null) {
         const fullSizes = { 'TX10 (5-2-8)': 25, 'Maintain (26-1-9)': 20 }
@@ -52,25 +54,127 @@ export default function TrackerPage() {
   const { toast, showToast } = useToast()
   const { saveCompletions, saveInventory, writeAppLog } = useTrackerSave(state, dispatch, showToast)
 
-  // Month selection — URL param takes precedence, then current calendar month
+  // Month selection
   const paramMonth = parseInt(searchParams.get('month'), 10)
   const [selectedMonth, setSelectedMonth] = useState(
     paramMonth >= 1 && paramMonth <= 12 ? paramMonth : new Date().getMonth() + 1
   )
 
   // Modal state
-  const [pendingDeduct, setPendingDeduct]   = useState(null)  // { task, deductions }
-  const [pendingUncheck, setPendingUncheck] = useState(null)  // { taskId, taskLabel }
-  const [deductSaving, setDeductSaving]     = useState(false)
-  const [mowOpen,  setMowOpen]              = useState(false)
-  const [waterOpen, setWaterOpen]           = useState(false)
+  const [pendingDeduct,  setPendingDeduct]  = useState(null)
+  const [pendingUncheck, setPendingUncheck] = useState(null)
+  const [deductSaving,   setDeductSaving]   = useState(false)
+  const [mowOpen,        setMowOpen]        = useState(false)
+  const [waterOpen,      setWaterOpen]      = useState(false)
 
-  // ── Loading / error screens ────────────────────────────────────────────────
+  // ── ALL derived values — must be before any early returns ─────────────────
+  const { program, completions, inventory, token, sha } = state
+  const currentCalMonth = new Date().getMonth() + 1
+  const monthData = useMemo(
+    () => program?.months?.find(m => m.monthNum === selectedMonth) ?? null,
+    [program, selectedMonth]
+  )
+
+  const { total, done } = useMemo(() => {
+    let total = 0, done = 0
+    monthData?.weeks?.forEach(w => {
+      ;(w.tasks || []).forEach(t => { total++; if (completions[t.id]) done++ })
+    })
+    return { total, done }
+  }, [monthData, completions])
+
+  const pct = total > 0 ? Math.round(done / total * 100) : 0
+
+  // ── Event handlers — all useCallback must also be before early returns ─────
+  const handleToggle = useCallback(async (task, isCompleted) => {
+    if (isCompleted) {
+      setPendingUncheck({ taskId: task.id, taskLabel: task.label })
+      return
+    }
+    const now = new Date()
+    const newCompletions = {
+      ...completions,
+      [task.id]: {
+        completedAt:   now.toLocaleDateString('en-AU', { day:'2-digit', month:'2-digit', year:'numeric' }),
+        completedTime: now.toISOString(),
+      },
+    }
+    dispatch({ type: A.SET_COMPLETIONS, completions: newCompletions, sha: sha?.completions })
+    if (token) {
+      const ok = await saveCompletions(newCompletions, sha?.completions)
+      if (!ok) {
+        const rolled = { ...newCompletions }
+        delete rolled[task.id]
+        dispatch({ type: A.SET_COMPLETIONS, completions: rolled, sha: sha?.completions })
+        return
+      }
+    } else {
+      showToast('Not saved - connect GitHub to persist', 'error')
+    }
+    if (inventory && task.products?.length > 0 && token) {
+      const deductions = calcDeductions(task, inventory)
+      if (deductions.length > 0) { setPendingDeduct({ task, deductions }); return }
+    }
+    if (token) writeAppLog(task, [], false)
+    showToast('Task completed', 'success')
+  }, [completions, sha, token, inventory, dispatch, saveCompletions, writeAppLog, showToast])
+
+  const handleUncheckConfirm = useCallback(async () => {
+    if (!pendingUncheck) return
+    const { taskId } = pendingUncheck
+    setPendingUncheck(null)
+    const newCompletions = { ...completions }
+    delete newCompletions[taskId]
+    dispatch({ type: A.SET_COMPLETIONS, completions: newCompletions, sha: sha?.completions })
+    if (token) { await saveCompletions(newCompletions, sha?.completions); showToast('Task unmarked', 'error') }
+    else showToast('Not saved - connect GitHub to persist', 'error')
+  }, [pendingUncheck, completions, sha, token, dispatch, saveCompletions, showToast])
+
+  const handleDeductCancel = useCallback(async () => {
+    if (!pendingDeduct) return
+    const { task } = pendingDeduct
+    setPendingDeduct(null)
+    const rolled = { ...completions }
+    delete rolled[task.id]
+    dispatch({ type: A.SET_COMPLETIONS, completions: rolled, sha: sha?.completions })
+    if (token) await saveCompletions(rolled, sha?.completions)
+    showToast('Cancelled', 'error')
+  }, [pendingDeduct, completions, sha, token, dispatch, saveCompletions, showToast])
+
+  const handleDeductSkip = useCallback(async () => {
+    if (!pendingDeduct) return
+    const { task, deductions } = pendingDeduct
+    setPendingDeduct(null)
+    if (token) await writeAppLog(task, deductions, false)
+    showToast('Task completed - inventory not updated', 'success')
+  }, [pendingDeduct, token, writeAppLog, showToast])
+
+  const handleDeductConfirm = useCallback(async () => {
+    if (!pendingDeduct || !inventory) return
+    const { task, deductions } = pendingDeduct
+    setDeductSaving(true)
+    const updatedInv = JSON.parse(JSON.stringify(inventory))
+    deductions.forEach(d => {
+      if (!d.invProd) return
+      const prod = updatedInv.products.find(p => p.name === d.invProd.name)
+      if (prod) prod.qtyRemaining = Math.max(0, Math.round((prod.qtyRemaining - d.amount) * 100) / 100)
+    })
+    const ok = await saveInventory(updatedInv, sha?.inventory)
+    if (ok) await writeAppLog(task, deductions, true)
+    setPendingDeduct(null)
+    setDeductSaving(false)
+    if (ok) {
+      const n = deductions.filter(d => d.invProd).length
+      showToast('Task done - ' + n + ' product' + (n !== 1 ? 's' : '') + ' deducted', 'success')
+    }
+  }, [pendingDeduct, inventory, sha, saveInventory, writeAppLog, showToast])
+
+  // ── Loading / error screens — AFTER all hooks ─────────────────────────────
   if (state.status === 'loading') {
     return (
       <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', height:'100vh', gap:16, color:'var(--ink-light)' }}>
         <div className="spinner" />
-        <div style={{ fontSize: 15 }}>Loading program data...</div>
+        <div style={{ fontSize:15 }}>Loading program data...</div>
       </div>
     )
   }
@@ -84,135 +188,17 @@ export default function TrackerPage() {
     )
   }
 
-  const { program, completions, inventory, token, sha } = state
-  const currentCalMonth = new Date().getMonth() + 1
-  const monthData = program?.months?.find(m => m.monthNum === selectedMonth)
-
-  // Progress for selected month
-  const { total, done } = useMemo(() => {
-    let total = 0, done = 0
-    monthData?.weeks?.forEach(w => {
-      ;(w.tasks || []).forEach(t => { total++; if (completions[t.id]) done++ })
-    })
-    return { total, done }
-  }, [monthData, completions])
-  const pct = total > 0 ? Math.round(done / total * 100) : 0
-
-  // ── Toggle task ────────────────────────────────────────────────────────────
-  const handleToggle = useCallback(async (task, isCompleted) => {
-    if (isCompleted) {
-      // Already done — confirm uncheck
-      setPendingUncheck({ taskId: task.id, taskLabel: task.label })
-      return
-    }
-    // Mark complete optimistically
-    const now  = new Date()
-    const newCompletions = {
-      ...completions,
-      [task.id]: {
-        completedAt:   now.toLocaleDateString('en-AU', { day:'2-digit', month:'2-digit', year:'numeric' }),
-        completedTime: now.toISOString(),
-      },
-    }
-    dispatch({ type: A.SET_COMPLETIONS, completions: newCompletions, sha: sha.completions })
-    if (token) {
-      const ok = await saveCompletions(newCompletions, sha.completions)
-      if (!ok) {
-        // Roll back
-        const rolled = { ...newCompletions }
-        delete rolled[task.id]
-        dispatch({ type: A.SET_COMPLETIONS, completions: rolled, sha: sha.completions })
-        return
-      }
-    } else {
-      showToast('Not saved — connect GitHub to persist', 'error')
-    }
-    // Open deduction modal if products exist and authenticated
-    if (inventory && task.products?.length > 0 && token) {
-      const deductions = calcDeductions(task, inventory)
-      if (deductions.length > 0) {
-        setPendingDeduct({ task, deductions })
-        return
-      }
-    }
-    if (token) writeAppLog(task, [], false)
-    showToast('Task completed', 'success')
-  }, [completions, sha, token, inventory, dispatch, saveCompletions, writeAppLog, showToast])
-
-  // ── Uncheck confirm ────────────────────────────────────────────────────────
-  const handleUncheckConfirm = useCallback(async () => {
-    if (!pendingUncheck) return
-    const { taskId } = pendingUncheck
-    setPendingUncheck(null)
-    const newCompletions = { ...completions }
-    delete newCompletions[taskId]
-    dispatch({ type: A.SET_COMPLETIONS, completions: newCompletions, sha: sha.completions })
-    if (token) {
-      await saveCompletions(newCompletions, sha.completions)
-      showToast('Task unmarked', 'error')
-    } else {
-      showToast('Not saved — connect GitHub to persist', 'error')
-    }
-  }, [pendingUncheck, completions, sha, token, dispatch, saveCompletions, showToast])
-
-  // ── Deduction handlers ─────────────────────────────────────────────────────
-  const handleDeductCancel = useCallback(async () => {
-    if (!pendingDeduct) return
-    const { task } = pendingDeduct
-    setPendingDeduct(null)
-    // Roll back the completion
-    const rolled = { ...completions }
-    delete rolled[task.id]
-    dispatch({ type: A.SET_COMPLETIONS, completions: rolled, sha: sha.completions })
-    if (token) await saveCompletions(rolled, sha.completions)
-    showToast('Cancelled', 'error')
-  }, [pendingDeduct, completions, sha, token, dispatch, saveCompletions, showToast])
-
-  const handleDeductSkip = useCallback(async () => {
-    if (!pendingDeduct) return
-    const { task, deductions } = pendingDeduct
-    setPendingDeduct(null)
-    if (token) await writeAppLog(task, deductions, false)
-    showToast('Task completed — inventory not updated', 'success')
-  }, [pendingDeduct, token, writeAppLog, showToast])
-
-  const handleDeductConfirm = useCallback(async () => {
-    if (!pendingDeduct || !inventory) return
-    const { task, deductions } = pendingDeduct
-    setDeductSaving(true)
-    // Apply deductions to a fresh copy of inventory
-    const updatedInv = JSON.parse(JSON.stringify(inventory))
-    deductions.forEach(d => {
-      if (!d.invProd) return
-      const prod = updatedInv.products.find(p => p.name === d.invProd.name)
-      if (prod) prod.qtyRemaining = Math.max(0, Math.round((prod.qtyRemaining - d.amount) * 100) / 100)
-    })
-    const ok = await saveInventory(updatedInv, sha.inventory)
-    if (ok) await writeAppLog(task, deductions, true)
-    setPendingDeduct(null)
-    setDeductSaving(false)
-    if (ok) {
-      const n = deductions.filter(d => d.invProd).length
-      showToast('Task done — ' + n + ' product' + (n !== 1 ? 's' : '') + ' deducted', 'success')
-    }
-  }, [pendingDeduct, inventory, sha, saveInventory, writeAppLog, showToast])
-
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <div>
-      {/* Header */}
       <header className="app-header">
         <div className="app-header-title">Lawn Program Tracker</div>
         <div className="app-header-right">
           <div style={{ display:'flex', alignItems:'center', gap:6, fontSize:13, opacity:0.8 }}>
             <div className={`auth-dot${token ? ' connected' : ''}`} />
-            <span style={{ display: token ? 'none' : undefined }}>
-              {state.readOnly ? 'Read-only' : 'Not connected'}
-            </span>
+            <span>{token ? 'GitHub connected' : state.readOnly ? 'Read-only' : 'Not connected'}</span>
           </div>
-          {!token && (
-            <button className="hdr-btn" onClick={startLogin}>Connect GitHub</button>
-          )}
+          {!token && <button className="hdr-btn" onClick={startLogin}>Connect GitHub</button>}
           {token && (
             <>
               <button className="hdr-btn" onClick={() => setWaterOpen(true)}>Log irrigation</button>
@@ -224,93 +210,45 @@ export default function TrackerPage() {
         </div>
       </header>
 
-      {/* Month navigation */}
       <nav className={styles.monthNav}>
         {program?.months?.map(m => (
-          <button
-            key={m.monthNum}
-            className={[
-              styles.monthBtn,
-              m.monthNum === selectedMonth ? styles.active : '',
-              m.monthNum === currentCalMonth ? styles.current : '',
-            ].filter(Boolean).join(' ')}
-            onClick={() => setSelectedMonth(m.monthNum)}
-          >
-            {m.month.slice(0, 3).toUpperCase()}
+          <button key={m.monthNum}
+            className={[styles.monthBtn, m.monthNum===selectedMonth?styles.active:'', m.monthNum===currentCalMonth?styles.current:''].filter(Boolean).join(' ')}
+            onClick={() => setSelectedMonth(m.monthNum)}>
+            {m.month.slice(0,3).toUpperCase()}
           </button>
         ))}
       </nav>
 
-      {/* Progress bar */}
       <div className={styles.progressBar}>
         <div className={styles.progressLabel}>Month progress</div>
-        <div className={styles.progressWrap}>
-          <div className={styles.progressFill} style={{ width: pct + '%' }} />
-        </div>
+        <div className={styles.progressWrap}><div className={styles.progressFill} style={{ width: pct + '%' }} /></div>
         <div className={styles.progressCount}>{done} / {total} tasks</div>
       </div>
 
-      {/* Main content */}
       <main className={styles.main}>
         {monthData ? (
           <>
             <div className={styles.monthHeaderRow}>
               <div className={styles.monthTitle}>
                 {monthData.month}
-                <span className={['season-badge', monthData.season].filter(Boolean).join(' ')}>
-                  {monthData.season}
-                </span>
+                <span className={['season-badge', monthData.season].filter(Boolean).join(' ')}>{monthData.season}</span>
               </div>
             </div>
             <HeightRefCard season={monthData.season} />
             {monthData.weeks?.map(week => (
-              <WeekBlock
-                key={week.week}
-                week={week}
-                completions={completions}
-                cautions={program?.cautions}
-                onToggle={handleToggle}
-              />
+              <WeekBlock key={week.week} week={week} completions={completions} cautions={program?.cautions} onToggle={handleToggle} />
             ))}
           </>
         ) : (
-          <div style={{ padding:32, textAlign:'center', color:'var(--ink-light)' }}>
-            No data for this month.
-          </div>
+          <div style={{ padding:32, textAlign:'center', color:'var(--ink-light)' }}>No data for this month.</div>
         )}
       </main>
 
-      {/* Modals */}
-      <DeductModal
-        pending={pendingDeduct}
-        saving={deductSaving}
-        onCancel={handleDeductCancel}
-        onSkip={handleDeductSkip}
-        onConfirm={handleDeductConfirm}
-      />
-      <UncheckModal
-        taskLabel={pendingUncheck?.taskLabel}
-        onKeep={() => setPendingUncheck(null)}
-        onConfirm={handleUncheckConfirm}
-      />
-      <MowModal
-        open={mowOpen}
-        token={token}
-        mowLog={state.mowLog}
-        mowLogSha={state.sha.mowLog}
-        dispatch={dispatch}
-        onClose={() => setMowOpen(false)}
-        showToast={showToast}
-      />
-      <WaterModal
-        open={waterOpen}
-        token={token}
-        waterLog={state.waterLog}
-        waterLogSha={state.sha.waterLog}
-        dispatch={dispatch}
-        onClose={() => setWaterOpen(false)}
-        showToast={showToast}
-      />
+      <DeductModal pending={pendingDeduct} saving={deductSaving} onCancel={handleDeductCancel} onSkip={handleDeductSkip} onConfirm={handleDeductConfirm} />
+      <UncheckModal taskLabel={pendingUncheck?.taskLabel} onKeep={() => setPendingUncheck(null)} onConfirm={handleUncheckConfirm} />
+      <MowModal open={mowOpen} token={token} mowLog={state.mowLog} mowLogSha={state.sha?.mowLog} dispatch={dispatch} onClose={() => setMowOpen(false)} showToast={showToast} />
+      <WaterModal open={waterOpen} token={token} waterLog={state.waterLog} waterLogSha={state.sha?.waterLog} dispatch={dispatch} onClose={() => setWaterOpen(false)} showToast={showToast} />
       <Toast {...toast} />
     </div>
   )
