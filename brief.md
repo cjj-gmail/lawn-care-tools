@@ -260,7 +260,7 @@ NEXT TASKS (new session):
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
 - Consider further dashboard improvements: "next upcoming task" on overview, mowing frequency analysis, rain gauge input on weather observations
 
-REACT REBUILD STATUS (session 5 -- COMPLETE):
+REACT REBUILD STATUS (session 5 -- COMPLETE, bugs fixed session 6):
 - [DONE] Phase 1 -- Vite scaffold, routing, AppContext, services, LandingPage
 - [DONE] Phase 3 -- Full TrackerPage: task cards, all modals, mow/water logging, deduction flow
 - [DONE] Phase 4 -- DashboardPage: 6 tabs, 4 modals, invStatusCache, lazy tab mount
@@ -283,6 +283,17 @@ After CI deploy is set up, change to serve from 'gh-pages' branch:
 MANUAL DEPLOY (until CI is set up):
 Run locally: npm run build
 Then push dist/ contents to gh-pages branch manually, OR drag-and-drop to GitHub.
+
+BUGS FIXED (session 6):
+- program.json HTTP 0 error -- switched to raw CDN fetch (GitHub Contents API ~100KB limit)
+- Rules-of-hooks violation in TrackerPage + DashboardPage -- all useMemo/useCallback
+  hooks moved above early loading/error returns
+- React error #310 resolved
+
+UX IMPROVEMENTS (session 6):
+- Overview tab reordered: stats -> upcoming tasks -> weather -> inventory alerts (critical/low only) -> year progress (collapsible, default closed)
+- TaskCard expand: replaced inline "Rates & details" link with right-edge chevron button (full-height, accessible, works on mobile tap)
+- Month nav URL sync: clicking a month tab now updates ?month= in the URL (bookmarkable)
 
 
 ## 13. NEXT SESSION INSTRUCTIONS

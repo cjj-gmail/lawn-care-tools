@@ -64,19 +64,19 @@ export function TaskCard({ task, isCompleted, completedAt, cautions, onToggle })
       task.conditional ? styles.conditional : '',
     ].filter(Boolean).join(' ')}>
 
-      {/* ── Header row ── */}
-      <div className={styles.taskHeader}>
+      {/* ── Header row + right-edge chevron ── */}
+      <div className={styles.taskHeader} onClick={() => setExpanded(e => !e)} style={{ cursor:'pointer' }}>
         <div
           className={[
             styles.taskCheck,
             isCompleted ? styles.checked : '',
             saving      ? styles.saving  : '',
           ].filter(Boolean).join(' ')}
-          onClick={handleCheck}
+          onClick={e => { e.stopPropagation(); handleCheck() }}
           role="checkbox"
           aria-checked={isCompleted}
           tabIndex={0}
-          onKeyDown={e => { if (e.key === ' ' || e.key === 'Enter') handleCheck() }}
+          onKeyDown={e => { if (e.key === ' ' || e.key === 'Enter') { e.stopPropagation(); handleCheck() } }}
         />
         <div className={styles.taskBody}>
           <div className={styles.taskTop}>
@@ -89,10 +89,15 @@ export function TaskCard({ task, isCompleted, completedAt, cautions, onToggle })
             )}
           </div>
           <div className={styles.taskMethod}>{task.applicationMethod}{waterHint}</div>
-          <button className={styles.expandBtn} onClick={() => setExpanded(e => !e)}>
-            {expanded ? '▾' : '▸'} Rates &amp; details
-          </button>
         </div>
+        <button
+          className={styles.chevronBtn}
+          onClick={e => { e.stopPropagation(); setExpanded(ex => !ex) }}
+          aria-label={expanded ? 'Collapse details' : 'Expand rates and details'}
+          title={expanded ? 'Collapse' : 'Rates & details'}
+        >
+          {expanded ? '▲' : '▼'}
+        </button>
       </div>
 
       {/* ── Condition banner ── */}

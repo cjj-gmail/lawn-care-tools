@@ -48,7 +48,7 @@ function calcDeductions(task, inventory) {
 export default function TrackerPage() {
   const state    = useAppState()
   const dispatch = useAppDispatch()
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   useAppInit(dispatch)
 
   const { toast, showToast } = useToast()
@@ -214,7 +214,7 @@ export default function TrackerPage() {
         {program?.months?.map(m => (
           <button key={m.monthNum}
             className={[styles.monthBtn, m.monthNum===selectedMonth?styles.active:'', m.monthNum===currentCalMonth?styles.current:''].filter(Boolean).join(' ')}
-            onClick={() => setSelectedMonth(m.monthNum)}>
+            onClick={() => { setSelectedMonth(m.monthNum); setSearchParams({ month: m.monthNum }) }}>
             {m.month.slice(0,3).toUpperCase()}
           </button>
         ))}

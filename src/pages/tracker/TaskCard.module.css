@@ -6,7 +6,7 @@
 .taskCard.conditional { border-left: 3px solid var(--soil-light); }
 
 /* Card header row */
-.taskHeader   { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px; }
+.taskHeader   { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px; padding-right: 56px; position: relative; }
 .taskCheck    { width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 3px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; cursor: pointer; }
 .taskCheck.checked { background: var(--grass); border-color: var(--grass); }
 .taskCheck.checked::after { content: '\2713'; color: white; font-size: 14px; font-weight: bold; }
@@ -28,8 +28,9 @@
 .typeTag.soilwetter   { background: var(--type-soilwetter); }
 .typeTag.renovation   { background: var(--type-renovation); }
 .conditionalFlag { font-size: 13px; padding: 2px 8px; border-radius: 3px; background: var(--cream); border: 1px solid var(--soil-light); color: var(--soil); }
-.expandBtn { font-size: 15px; color: var(--grass); background: none; border: none; cursor: pointer; padding: 2px 0; margin-top: 5px; font-family: var(--font-mono); display: flex; align-items: center; gap: 4px; }
-.expandBtn:hover { text-decoration: underline; }
+.expandBtn { display: none; } /* replaced by right-edge chevron */
+.chevronBtn { position: absolute; right: 0; top: 0; bottom: 0; width: 44px; background: none; border: none; border-left: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--grass); font-size: 14px; transition: background 0.12s; flex-shrink: 0; }
+.chevronBtn:hover { background: var(--grass-pale); }
 
 /* Expanded detail panel */
 .taskDetail       { display: none; padding: 0 18px 16px 52px; border-top: 1px solid var(--grass-pale); background: var(--grass-pale); }
