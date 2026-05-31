@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 31 May 2026 (session 5 — React rebuild Phase 1 + Phase 3 complete)
+Last Updated: 31 May 2026 (session 5 — React rebuild ALL PHASES COMPLETE)
 
 ---
 
@@ -260,11 +260,29 @@ NEXT TASKS (new session):
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
 - Consider further dashboard improvements: "next upcoming task" on overview, mowing frequency analysis, rain gauge input on weather observations
 
-REACT REBUILD STATUS (session 5):
-- [DONE] Phase 1 -- Vite scaffold, routing, AppContext, services, LandingPage (fully live at localhost:5173)
+REACT REBUILD STATUS (session 5 -- COMPLETE):
+- [DONE] Phase 1 -- Vite scaffold, routing, AppContext, services, LandingPage
 - [DONE] Phase 3 -- Full TrackerPage: task cards, all modals, mow/water logging, deduction flow
-- [PENDING] Phase 4 -- DashboardPage (6 tabs)
-- [PENDING] Phase 5 -- Cut-over, delete legacy HTML, final polish
+- [DONE] Phase 4 -- DashboardPage: 6 tabs, 4 modals, invStatusCache, lazy tab mount
+- [DONE] Phase 5 -- tracker.html + dashboard.html replaced with redirect shims, pushed to GitHub
+
+GITHUB ACTIONS DEPLOY (one-time setup required):
+The deploy.yml workflow file could NOT be pushed via PAT (requires 'workflow' scope).
+Two options to enable CI deploy:
+  Option A (recommended): Add 'workflow' scope to the PAT used by gitrun.bat
+    Settings -> Developer settings -> Personal access tokens -> Edit token -> check 'workflow'
+    Then: gitrun.bat add .github/workflows/deploy.yml && gitrun.bat commit -m "Add CI deploy" && gitrun.bat push
+  Option B: Create the workflow manually via GitHub web UI
+    github.com/cjj-gmail/lawn-care-tools -> Actions -> New workflow -> paste deploy.yml content
+
+GITHUB PAGES SOURCE (one-time setting change required):
+Currently serving from 'main' branch root.
+After CI deploy is set up, change to serve from 'gh-pages' branch:
+  github.com/cjj-gmail/lawn-care-tools -> Settings -> Pages -> Source -> gh-pages branch
+
+MANUAL DEPLOY (until CI is set up):
+Run locally: npm run build
+Then push dist/ contents to gh-pages branch manually, OR drag-and-drop to GitHub.
 
 
 ## 13. NEXT SESSION INSTRUCTIONS
