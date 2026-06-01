@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "31/05/2026",
+  "lastUpdated": "02/06/2026",
   "totalProducts": 22,
   "products": [
     {
@@ -271,7 +271,7 @@
       "analysis": "Ascophyllum nodosum kelp + minerals + vitamins + trace elements",
       "form": "Liquid concentrate",
       "unit": "L",
-      "qtyRemaining": 3.86,
+      "qtyRemaining": 0,
       "ratePer100sqm": "100 mL",
       "rateLow": 100,
       "rateHigh": 100,
