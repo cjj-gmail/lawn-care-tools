@@ -175,7 +175,7 @@ export default function DashboardPage() {
       </nav>
 
       <div className={db.dashBody}>
-        {rendered.has('overview')  && <div style={{ display:activeTab==='overview'  ? 'block':'none' }}><OverviewTab  state={state} onLogObservation={openWeatherModal} onDeleteWeather={handleWeatherDelete} /></div>}
+        {rendered.has('overview')  && <div style={{ display:activeTab==='overview'  ? 'block':'none' }}><OverviewTab  state={state} onLogObservation={openWeatherModal} onDeleteWeather={handleWeatherDelete} onNavigateTab={activateTab} /></div>}
         {rendered.has('program')   && <div style={{ display:activeTab==='program'   ? 'block':'none' }}><ProgramTab   state={state} /></div>}
         {rendered.has('inventory') && <div style={{ display:activeTab==='inventory' ? 'block':'none' }}><InventoryTab state={state} onOpenStock={setStockProduct} onOpenResupply={setResupplyProduct} /></div>}
         {rendered.has('log')       && <div style={{ display:activeTab==='log'       ? 'block':'none' }}><LogTab       state={state} onOpenManualLog={() => setManualLogOpen(true)} /></div>}

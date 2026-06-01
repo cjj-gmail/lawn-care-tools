@@ -28,7 +28,7 @@
 .typeTag.soilwetter   { background: var(--type-soilwetter); }
 .typeTag.renovation   { background: var(--type-renovation); }
 .conditionalFlag { font-size: 13px; padding: 2px 8px; border-radius: 3px; background: var(--cream); border: 1px solid var(--soil-light); color: var(--soil); }
-.expandBtn { display: none; } /* replaced by right-edge chevron */
+/* .expandBtn removed — replaced by .chevronBtn right-edge button */
 .chevronBtn { position: absolute; right: 0; top: 0; bottom: 0; width: 44px; background: none; border: none; border-left: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--grass); font-size: 14px; transition: background 0.12s; flex-shrink: 0; }
 .chevronBtn:hover { background: var(--grass-pale); }
 

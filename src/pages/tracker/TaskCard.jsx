@@ -89,6 +89,8 @@ export function TaskCard({ task, isCompleted, completedAt, cautions, onToggle })
             )}
           </div>
           <div className={styles.taskMethod}>{task.applicationMethod}{waterHint}</div>
+          {/* Expand hint shown only when collapsed — helps discoverability */}
+          {!expanded && <div style={{ fontSize:12, color:'var(--grass)', marginTop:4 }}>Tap card for rates &amp; details</div>}
         </div>
         <button
           className={styles.chevronBtn}

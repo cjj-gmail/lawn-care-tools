@@ -14,7 +14,7 @@ const WEATHER_COLORS = {
   drought:'#c0692a', storm:'#1a3a6a', observation:'#4a7c3f', other:'#8a8a7a',
 }
 
-export function OverviewTab({ state, onLogObservation, onDeleteWeather }) {
+export function OverviewTab({ state, onLogObservation, onDeleteWeather, onNavigateTab }) {
   const { program, inventory, completions, invStatusCache, appLog, weatherLog } = state
   const mn  = currentMonthNum()
   const { total, done } = useMemo(() => countDone(program, completions, mn), [program, completions, mn])
@@ -131,10 +131,10 @@ export function OverviewTab({ state, onLogObservation, onDeleteWeather }) {
       <div className={db.panel}>
         <div className={db.panelTitleRow}>
           <div className={db.panelTitle}>Inventory alerts</div>
-          <Link to="/dashboard" style={{ fontSize:12, color:'var(--grass)', textDecoration:'none' }}
-            onClick={e => { e.preventDefault(); document.querySelector('[data-tab="inventory"]')?.click() }}>
+          <button onClick={() => onNavigateTab?.('inventory')}
+            style={{ fontSize:12, color:'var(--grass)', background:'none', border:'none', cursor:'pointer', fontFamily:'var(--font-mono)', padding:0 }}>
             View all &rarr;
-          </Link>
+          </button>
         </div>
         {alertedProducts.length === 0
           ? <div style={{ display:'flex', alignItems:'center', gap:8, color:'var(--grass)', fontSize:13 }}>

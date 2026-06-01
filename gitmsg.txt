@@ -1,8 +1,7 @@
-UX improvements: Overview tab reorder, TaskCard chevron, URL sync
+Fix remaining bugs: nav link, dead CSS, expand hint
 
-- Overview tab: stats -> upcoming tasks -> weather (moved up) ->
-  inventory alerts (critical/low only) -> year progress (collapsible)
-- TaskCard: right-edge chevron replaces inline expand link; full card
-  header is now clickable to expand
-- Tracker month nav: clicking a tab now updates ?month= in the URL
-- brief.md updated with session 6 changes
+- Pass onNavigateTab prop to OverviewTab so "View all" button
+  correctly switches to Inventory tab via activateTab()
+- Remove broken document.querySelector data-tab selector
+- Clean up dead expandBtn CSS (replaced by chevronBtn)
+- Add subtle "Tap card for rates & details" hint on collapsed cards
