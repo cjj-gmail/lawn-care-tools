@@ -1,21 +1,31 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
+import { resolve, dirname, join } from 'path'
 import { copyFileSync, mkdirSync, cpSync, existsSync } from 'fs'
 
-// Post-build plugin: copies redirect shims + data/ into dist/
-// tracker.html and dashboard.html are now redirect shims -> React routes
+// Resolve .js imports to .ts files — lets JSX files import renamed TS modules
+// without having to change every import statement during the migration.
+function resolveJsToTs() {
+  return {
+    name: 'resolve-js-to-ts',
+    resolveId(id, importer) {
+      if (!importer || !id.startsWith('.') || !id.endsWith('.js')) return null
+      const candidate = join(dirname(importer), id.replace(/\.js$/, '.ts'))
+      return existsSync(candidate) ? candidate : null
+    },
+  }
+}
+
+// Post-build: copies auth-success.html and data/ into dist/
 function copyLegacyAssets() {
   return {
     name: 'copy-legacy-assets',
     closeBundle() {
-      // Redirect shims (old URLs -> React hash routes)
-      for (const f of ['tracker.html', 'dashboard.html', 'auth-success.html']) {
+      for (const f of ['auth-success.html']) {
         if (existsSync(f)) {
           try { copyFileSync(f, `dist/${f}`) } catch (_) {}
         }
       }
-      // data/ directory — JSON files must be accessible at the same URLs
       try {
         mkdirSync('dist/data', { recursive: true })
         cpSync('data', 'dist/data', { recursive: true })
@@ -25,7 +35,7 @@ function copyLegacyAssets() {
 }
 
 export default defineConfig({
-  plugins: [react(), copyLegacyAssets()],
+  plugins: [react(), resolveJsToTs(), copyLegacyAssets()],
   base: '/lawn-care-tools/',
   build: {
     outDir:    'dist',

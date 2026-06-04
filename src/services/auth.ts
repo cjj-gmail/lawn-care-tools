@@ -2,29 +2,27 @@ import { CONFIG } from '../config.js'
 
 const TOKEN_KEY = 'gh_token'
 
-export function getToken() {
-  return sessionStorage.getItem(TOKEN_KEY) || null
+export function getToken(): string | null {
+  return sessionStorage.getItem(TOKEN_KEY)
 }
 
-export function setToken(token) {
+export function setToken(token: string): void {
   sessionStorage.setItem(TOKEN_KEY, token)
 }
 
-export function clearToken() {
+export function clearToken(): void {
   sessionStorage.removeItem(TOKEN_KEY)
 }
 
-export function startLogin() {
-  // After OAuth, the worker redirects back to the current URL with ?code=
-  // Hash router means we redirect back to the app root, not a sub-path
+export function startLogin(): void {
   const redirect = window.location.origin + window.location.pathname
   window.location.href = `${CONFIG.workerUrl}/login?redirect=${encodeURIComponent(redirect)}`
 }
 
-export async function handleOAuthCallback(code) {
+export async function handleOAuthCallback(code: string): Promise<string | null> {
   try {
     const r = await fetch(`${CONFIG.workerUrl}/callback?code=${code}`)
-    const d = await r.json()
+    const d = await r.json() as { access_token?: string }
     if (d.access_token) {
       setToken(d.access_token)
       return d.access_token
