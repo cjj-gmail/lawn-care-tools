@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 05 Jun 2026 (session 7 -- TypeScript core conversion + shim cleanup)
+Last Updated: 05 Jun 2026 (session 7 -- TypeScript core conversion + shim cleanup + brief update protocol)
 
 ---
 
@@ -298,12 +298,28 @@ UX IMPROVEMENTS (session 6):
 
 ## 13. NEXT SESSION INSTRUCTIONS
 
-Start every session by reading brief.md from the LOCAL REPO (avoids CDN cache):
+### Session start
+Read brief.md from the LOCAL REPO (avoids CDN cache):
   C:\Users\camer\lawn-care-tools\brief.md  (via Desktop Commander read_file)
 
-End every session by updating brief.md with any changes made.
+### Before starting any piece of work
+Update brief.md (local + push to GitHub) with what is ABOUT TO be done:
+- Add the task to NEXT TASKS or mark it IN PROGRESS
+- Push so the brief reflects intent even if the session ends mid-task
+- This ensures the next session knows exactly where to pick up without needing chat history
 
-For large file edits (program.json, tracker.html):
+### After completing any piece of work
+Update brief.md (local + push to GitHub) with what WAS DONE:
+- Move task from IN PROGRESS / NEXT TASKS to DONE in Section 12
+- Update Last Updated line with today's date + session summary
+- Update any relevant sections (inventory counts, program version, tool status, etc.)
+- Push immediately -- do not batch brief updates with code changes
+
+### Why
+If a session hits the context limit or ends unexpectedly, the next session reads the brief
+and has full context. No need to copy chat history across sessions.
+
+### For large file edits (program.json, tracker.html, dashboard components)
 - Use git CLI via Desktop Commander (see Section 17) -- PREFERRED
 - Or download file, edit locally, drag-and-drop to GitHub -- FALLBACK
 - Do NOT use push_files for files >50KB -- it will truncate silently
