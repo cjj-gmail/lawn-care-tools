@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 05 Jun 2026 (session 9 -- IN PROGRESS: mowing frequency analysis + rain gauge on weather log)
+Last Updated: 05 Jun 2026 (session 9 -- mowing frequency stats + rain gauge field done)
 
 ---
 
@@ -256,7 +256,7 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 
 NEXT TASKS (new session):
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
-- Consider further dashboard improvements: mowing frequency analysis, rain gauge input on weather observations
+- Consider further dashboard improvements: watering frequency analysis (similar to mowing stats)
 - TypeScript pass on .jsx components (optional, lower priority)
 
 REACT REBUILD STATUS (sessions 5-7 -- COMPLETE):
@@ -266,6 +266,8 @@ REACT REBUILD STATUS (sessions 5-7 -- COMPLETE):
 - [DONE] Phase 5 -- tracker.html + dashboard.html replaced with redirect shims, pushed to GitHub
 - [DONE] Session 7 -- TypeScript core conversion (services, store, utils), shims deleted, build 312KB clean
 - [DONE] Session 8 -- "Next up" card on dashboard Overview tab (next incomplete week block, links to tracker)
+- [DONE] Session 9 -- Mowing frequency stats grid in Log tab (count + avg interval per zone)
+- [DONE] Session 9 -- Rain gauge field on weather modal (optional mm, blue badge in overview log)
 
 GITHUB ACTIONS DEPLOY (one-time setup required):
 The deploy.yml workflow file could NOT be pushed via PAT (requires 'workflow' scope).
