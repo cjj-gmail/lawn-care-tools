@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 05 Jun 2026 (session 8 -- "Next up" card added to dashboard Overview tab)
+Last Updated: 05 Jun 2026 (session 9 -- IN PROGRESS: mowing frequency analysis + rain gauge on weather log)
 
 ---
 

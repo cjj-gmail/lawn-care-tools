@@ -163,6 +163,7 @@ export function OverviewTab({ state, onLogObservation, onDeleteWeather, onNaviga
                 <div key={e.id} style={{ display:'flex', alignItems:'center', gap:10, padding:'9px 0', borderBottom:'1px solid var(--border-light,#ede8de)', fontSize:13 }}>
                   <span style={{ color:'var(--ink-light)', minWidth:85, flexShrink:0 }}>{e.date}</span>
                   <span style={{ padding:'2px 8px', borderRadius:10, fontSize:11, fontWeight:500, color:'white', background:WEATHER_COLORS[e.type]||'#888', flexShrink:0 }}>{e.type}</span>
+                  {e.rainMm != null && <span style={{ fontSize:11, padding:'2px 7px', borderRadius:10, background:'#e8f4fb', color:'#2a7aa0', border:'1px solid #b0d4ea', flexShrink:0 }}>{e.rainMm}mm</span>}
                   <span style={{ flex:1, color:'var(--ink-mid)' }}>{e.note}</span>
                   <button onClick={() => onLogObservation(e.id)} style={{ fontSize:11, border:'1px solid var(--border)', background:'white', borderRadius:4, padding:'2px 8px', cursor:'pointer', color:'var(--ink-mid)', flexShrink:0 }}>Edit</button>
                   <button onClick={() => onDeleteWeather(e.id)} style={{ fontSize:11, border:'1px solid #c04040', background:'white', borderRadius:4, padding:'2px 8px', cursor:'pointer', color:'#c04040', flexShrink:0 }}>Del</button>

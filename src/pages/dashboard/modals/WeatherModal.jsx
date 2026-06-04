@@ -7,20 +7,23 @@ export function WeatherModal({ editEntry, token, onSave, onClose }) {
   const isEdit = !!editEntry
   const now = new Date()
 
-  const [date,   setDate]   = useState(now.toISOString().slice(0,10))
-  const [type,   setType]   = useState('observation')
-  const [note,   setNote]   = useState('')
-  const [saving, setSaving] = useState(false)
+  const [date,    setDate]    = useState(now.toISOString().slice(0,10))
+  const [type,    setType]    = useState('observation')
+  const [note,    setNote]    = useState('')
+  const [rainMm,  setRainMm]  = useState('')
+  const [saving,  setSaving]  = useState(false)
 
   useEffect(() => {
     if (editEntry) {
       setDate(editEntry.dateISO || now.toISOString().slice(0,10))
       setType(editEntry.type || 'observation')
       setNote(editEntry.note || '')
+      setRainMm(editEntry.rainMm != null ? String(editEntry.rainMm) : '')
     } else {
       setDate(now.toISOString().slice(0,10))
       setType('observation')
       setNote('')
+      setRainMm('')
     }
   }, [editEntry])
 
@@ -35,6 +38,7 @@ export function WeatherModal({ editEntry, token, onSave, onClose }) {
       dateISO: date,
       type,
       note:    note.trim(),
+      ...(type === 'rain' && rainMm !== '' && !isNaN(Number(rainMm)) ? { rainMm: Number(rainMm) } : {}),
     }
     setSaving(true)
     await onSave(entry)
@@ -62,6 +66,13 @@ export function WeatherModal({ editEntry, token, onSave, onClose }) {
                 {TYPES.map(t => <option key={t} value={t}>{t.charAt(0).toUpperCase()+t.slice(1)}</option>)}
               </select>
             </div>
+            {type === 'rain' && (
+              <div>
+                <div className={s.fieldLabel}>Rainfall (mm) <span style={{ color:'var(--ink-light)', fontWeight:400 }}>optional</span></div>
+                <input className={s.input} style={{ width:'100%' }} type="number" min="0" max="999" step="0.5"
+                  value={rainMm} onChange={e => setRainMm(e.target.value)} placeholder="e.g. 25" />
+              </div>
+            )}
             <div>
               <div className={s.fieldLabel} style={{ display:'flex', justifyContent:'space-between' }}>
                 <span>Note (max 200 chars)</span>

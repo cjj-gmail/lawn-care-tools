@@ -41,6 +41,23 @@ export function LogTab({ state, onOpenManualLog }) {
     return map
   }, [entries])
 
+  const mowStats = useMemo(() =>
+    Object.fromEntries(ZONE_ORDER.map(zid => {
+      const zm = mowEntries.filter(e => e.zone === zid).sort((a,b) => a.dateISO < b.dateISO ? -1 : 1)
+      const count = zm.length
+      let avg = null
+      if (count >= 2) {
+        const iv = []
+        for (let i = 1; i < zm.length; i++) {
+          const d = Math.round((new Date(zm[i].dateISO) - new Date(zm[i-1].dateISO)) / 86400000)
+          if (d > 0) iv.push(d)
+        }
+        if (iv.length) avg = Math.round(iv.reduce((a,b) => a+b, 0) / iv.length)
+      }
+      return [zid, { count, avg }]
+    }))
+  , [mowEntries])
+
   function exportCSV() {
     const headers = ['Date','Label','Type','Zones','Products','Amounts','Units','Inv. Deducted','Manual','Notes']
     const rows = [headers, ...entries.map(e => [
@@ -140,6 +157,20 @@ export function LogTab({ state, onOpenManualLog }) {
                   ? <><div style={{ fontSize:20, fontFamily:'var(--font-serif)', color: overdue?'#8a5a00':'var(--grass)', fontWeight:300 }}>{daysSince(last.dateISO)}d ago</div><div style={{ fontSize:11, color:'var(--ink-light)' }}>{last.date} &middot; {last.heightMm}mm{last.notes?' &middot; '+last.notes.slice(0,30):''}</div></>
                   : <div style={{ fontSize:13, color:'var(--ink-light)', fontStyle:'italic' }}>No record</div>
                 }
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))', gap:8, marginBottom:16 }}>
+          {ZONE_ORDER.map(zid => {
+            const st = mowStats[zid]
+            return (
+              <div key={zid} style={{ background:'var(--paper)', border:'1px solid var(--border-light,#ede8de)', borderRadius:4, padding:'8px 12px', fontSize:12 }}>
+                <span style={{ color:'var(--ink-light)' }}>{ZONES[zid]?.name}:</span>
+                <span style={{ fontWeight:500, marginLeft:6 }}>{st.count} mow{st.count !== 1 ? 's' : ''}</span>
+                {st.avg && <span style={{ color:'var(--ink-light)', marginLeft:6 }}>&#183; avg every {st.avg}d</span>}
+                {!st.avg && st.count === 1 && <span style={{ color:'var(--ink-light)', marginLeft:6 }}>&#183; 1 session only</span>}
+                {st.count === 0 && <span style={{ color:'var(--ink-light)', marginLeft:6 }}>&#183; no data</span>}
               </div>
             )
           })}

@@ -1,1 +1,6 @@
-Update brief - session 8 done
+Dashboard: mowing frequency stats + rain gauge field
+
+- LogTab: mowStats useMemo calculates per-zone mow count and avg interval
+  Grid of frequency chips shown above the mowing table (e.g. "Back Lawn: 4 mows · avg every 9d")
+- WeatherModal: optional Rainfall (mm) field shown when type = rain
+  rainMm stored in weather entry, displayed as blue badge in OverviewTab weather log
