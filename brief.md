@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 05 Jun 2026 (session 8 -- IN PROGRESS: adding "next upcoming task" panel to dashboard Overview tab)
+Last Updated: 05 Jun 2026 (session 8 -- "Next up" card added to dashboard Overview tab)
 
 ---
 
@@ -256,7 +256,7 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 
 NEXT TASKS (new session):
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
-- Consider further dashboard improvements: "next upcoming task" on overview, mowing frequency analysis, rain gauge input on weather observations
+- Consider further dashboard improvements: mowing frequency analysis, rain gauge input on weather observations
 - TypeScript pass on .jsx components (optional, lower priority)
 
 REACT REBUILD STATUS (sessions 5-7 -- COMPLETE):
@@ -265,6 +265,7 @@ REACT REBUILD STATUS (sessions 5-7 -- COMPLETE):
 - [DONE] Phase 4 -- DashboardPage: 6 tabs, 4 modals, invStatusCache, lazy tab mount
 - [DONE] Phase 5 -- tracker.html + dashboard.html replaced with redirect shims, pushed to GitHub
 - [DONE] Session 7 -- TypeScript core conversion (services, store, utils), shims deleted, build 312KB clean
+- [DONE] Session 8 -- "Next up" card on dashboard Overview tab (next incomplete week block, links to tracker)
 
 GITHUB ACTIONS DEPLOY (one-time setup required):
 The deploy.yml workflow file could NOT be pushed via PAT (requires 'workflow' scope).

@@ -1,5 +1,1 @@
-Add "Next up" card to dashboard Overview tab
-
-Shows the next incomplete week block (Wk1 or Wk3, current or next month)
-with task chips, type colour dots, and a direct link to open the tracker
-at that month. Looks ahead up to 1 month if current month is fully done.
+Update brief - session 8 done
