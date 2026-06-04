@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 31 May 2026 (session 5 — React rebuild ALL PHASES COMPLETE)
+Last Updated: 05 Jun 2026 (session 7 -- TypeScript core conversion + shim cleanup)
 
 ---
 
@@ -255,16 +255,16 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 [DONE] Fine-grained GitHub token deleted -- not needed
 
 NEXT TASKS (new session):
-- [REACT Phase 4] Build DashboardPage with all 6 tabs (see Section 18 for full spec)
-- [REACT deploy] Push React scaffold to GitHub to trigger first CI deploy to gh-pages
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
 - Consider further dashboard improvements: "next upcoming task" on overview, mowing frequency analysis, rain gauge input on weather observations
+- TypeScript pass on .jsx components (optional, lower priority)
 
-REACT REBUILD STATUS (session 5 -- COMPLETE, bugs fixed session 6):
+REACT REBUILD STATUS (sessions 5-7 -- COMPLETE):
 - [DONE] Phase 1 -- Vite scaffold, routing, AppContext, services, LandingPage
 - [DONE] Phase 3 -- Full TrackerPage: task cards, all modals, mow/water logging, deduction flow
 - [DONE] Phase 4 -- DashboardPage: 6 tabs, 4 modals, invStatusCache, lazy tab mount
 - [DONE] Phase 5 -- tracker.html + dashboard.html replaced with redirect shims, pushed to GitHub
+- [DONE] Session 7 -- TypeScript core conversion (services, store, utils), shims deleted, build 312KB clean
 
 GITHUB ACTIONS DEPLOY (one-time setup required):
 The deploy.yml workflow file could NOT be pushed via PAT (requires 'workflow' scope).
