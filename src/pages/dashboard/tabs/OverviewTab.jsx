@@ -29,6 +29,29 @@ export function OverviewTab({ state, onLogObservation, onDeleteWeather, onNaviga
     allTasksForMonth(program, mn).filter(({ task }) => !completions[task.id])
   , [program, mn, completions])
 
+  // Next incomplete week block — current month first, then next month
+  const nextUp = useMemo(() => {
+    for (let offset = 0; offset <= 1; offset++) {
+      const targetMn = ((mn - 1 + offset) % 12) + 1
+      const monthTasks = allTasksForMonth(program, targetMn)
+      for (const weekNum of [1, 3]) {
+        const weekTasks = monthTasks
+          .filter(({ week }) => week === weekNum)
+          .filter(({ task }) => !completions[task.id])
+        if (weekTasks.length > 0) {
+          return {
+            monthNum: targetMn,
+            monthName: MONTHS[targetMn - 1],
+            week: weekNum,
+            tasks: weekTasks.map(({ task }) => task),
+            approxDay: weekNum === 1 ? 1 : 15,
+          }
+        }
+      }
+    }
+    return null
+  }, [program, mn, completions])
+
   const weatherEntries = weatherLog?.entries || []
   const [wxExpanded,  setWxExpanded]  = useState(false)
   const [yearExpanded, setYearExpanded] = useState(false)
@@ -67,6 +90,33 @@ export function OverviewTab({ state, onLogObservation, onDeleteWeather, onNaviga
           </div>
         ))}
       </div>
+
+      {/* 1b. Next up */}
+      {nextUp && (
+        <div className={db.panel} style={{ borderLeft:'3px solid var(--grass)' }}>
+          <div className={db.panelTitleRow}>
+            <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+              <span style={{ fontSize:11, fontWeight:600, textTransform:'uppercase', letterSpacing:'0.8px', color:'var(--grass)' }}>Next up</span>
+              <span style={{ fontSize:13, fontWeight:500 }}>Wk{nextUp.week} &middot; {nextUp.monthName} (~{nextUp.approxDay} {nextUp.monthName.slice(0,3)})</span>
+            </div>
+            <Link to={'/tracker?month=' + nextUp.monthNum} style={{ fontSize:12, color:'var(--grass)', textDecoration:'none' }}>
+              Open &rarr;
+            </Link>
+          </div>
+          <div style={{ display:'flex', flexWrap:'wrap', gap:6, marginTop:8 }}>
+            {nextUp.tasks.slice(0, 5).map(task => (
+              <span key={task.id} style={{ display:'flex', alignItems:'center', gap:5, fontSize:12, padding:'3px 9px', borderRadius:4, background:'var(--cream)', border:'1px solid var(--border-light,#ede8de)' }}>
+                <span style={{ width:7, height:7, borderRadius:'50%', background:TYPE_COLORS[task.taskType]||'#888', display:'inline-block', flexShrink:0 }} />
+                {task.label}
+                {task.conditional && <span style={{ fontSize:10, color:'var(--ink-light)', marginLeft:2 }}>(if req.)</span>}
+              </span>
+            ))}
+            {nextUp.tasks.length > 5 && (
+              <span style={{ fontSize:12, color:'var(--ink-light)', padding:'3px 6px' }}>+{nextUp.tasks.length - 5} more</span>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* 2. Upcoming tasks */}
       <div className={db.panel}>

@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 05 Jun 2026 (session 7 -- TypeScript core conversion + shim cleanup + brief update protocol)
+Last Updated: 05 Jun 2026 (session 8 -- IN PROGRESS: adding "next upcoming task" panel to dashboard Overview tab)
 
 ---
 

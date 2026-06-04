@@ -1,7 +1,5 @@
-Fix remaining bugs: nav link, dead CSS, expand hint
+Add "Next up" card to dashboard Overview tab
 
-- Pass onNavigateTab prop to OverviewTab so "View all" button
-  correctly switches to Inventory tab via activateTab()
-- Remove broken document.querySelector data-tab selector
-- Clean up dead expandBtn CSS (replaced by chevronBtn)
-- Add subtle "Tap card for rates & details" hint on collapsed cards
+Shows the next incomplete week block (Wk1 or Wk3, current or next month)
+with task chips, type colour dots, and a direct link to open the tracker
+at that month. Looks ahead up to 1 month if current month is fully done.
