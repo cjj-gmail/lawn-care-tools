@@ -1,3 +1,1 @@
-TypeScript: convert 4 tracker modals to .tsx
-
-DeductModal, UncheckModal, MowModal, WaterModal
+TypeScript: convert TaskCard.jsx to TaskCard.tsx

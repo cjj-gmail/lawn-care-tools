@@ -5,18 +5,18 @@ import { CautionChip } from './CautionChip'
 import styles from './TaskCard.module.css'
 
 // ─── ProductsTitle ────────────────────────────────────────────────────────────
-function ProductsTitle({ task }) {
+function ProductsTitle({ task }: { task: any }) {
   const allFour = ['back', 'front', 'strip1', 'strip2']
   const zones   = task.zones || []
-  const isAll   = allFour.every(z => zones.includes(z))
+  const isAll   = allFour.every((z: string) => zones.includes(z))
   const label   = isAll
     ? 'Product quantities by zone'
-    : 'Product quantities — ' + zones.map(z => ZONES[z]?.name || z).join(', ')
+    : 'Product quantities -- ' + zones.map((z: string) => (ZONES as any)[z]?.name || z).join(', ')
   return <div className={styles.productsTitle}>{label}</div>
 }
 
 // ─── ProductRow ───────────────────────────────────────────────────────────────
-function ProductRow({ prod }) {
+function ProductRow({ prod }: { prod: any }) {
   const zones  = Object.keys(prod.quantities || {})
   const isSolo = zones.length === 1
   return (
@@ -42,7 +42,15 @@ function ProductRow({ prod }) {
 }
 
 // ─── TaskCard ─────────────────────────────────────────────────────────────────
-export function TaskCard({ task, isCompleted, completedAt, cautions, onToggle }) {
+interface TaskCardProps {
+  task: any
+  isCompleted: boolean
+  completedAt?: string
+  cautions: Record<string, string>
+  onToggle: (task: any, isCompleted: boolean) => Promise<void>
+}
+
+export function TaskCard({ task, isCompleted, completedAt, cautions, onToggle }: TaskCardProps) {
   const [expanded, setExpanded] = useState(false)
   const [saving,   setSaving]   = useState(false)
 
@@ -64,8 +72,8 @@ export function TaskCard({ task, isCompleted, completedAt, cautions, onToggle })
       task.conditional ? styles.conditional : '',
     ].filter(Boolean).join(' ')}>
 
-      {/* ── Header row + right-edge chevron ── */}
-      <div className={styles.taskHeader} onClick={() => setExpanded(e => !e)} style={{ cursor:'pointer' }}>
+      {/* Header row + right-edge chevron */}
+      <div className={styles.taskHeader} onClick={() => setExpanded(e => !e)} style={{ cursor: 'pointer' }}>
         <div
           className={[
             styles.taskCheck,
@@ -89,8 +97,7 @@ export function TaskCard({ task, isCompleted, completedAt, cautions, onToggle })
             )}
           </div>
           <div className={styles.taskMethod}>{task.applicationMethod}{waterHint}</div>
-          {/* Expand hint shown only when collapsed — helps discoverability */}
-          {!expanded && <div style={{ fontSize:12, color:'var(--grass)', marginTop:4 }}>Tap card for rates &amp; details</div>}
+          {!expanded && <div style={{ fontSize: 12, color: 'var(--grass)', marginTop: 4 }}>Tap card for rates &amp; details</div>}
         </div>
         <button
           className={styles.chevronBtn}
@@ -102,17 +109,17 @@ export function TaskCard({ task, isCompleted, completedAt, cautions, onToggle })
         </button>
       </div>
 
-      {/* ── Condition banner ── */}
+      {/* Condition banner */}
       {task.conditional && task.condition && (
         <div className={styles.conditionBanner}>Note: {task.condition}</div>
       )}
 
-      {/* ── Expandable detail ── */}
+      {/* Expandable detail */}
       <div className={[styles.taskDetail, expanded ? styles.open : ''].filter(Boolean).join(' ')}>
         {task.products && task.products.length > 0 && (
           <>
             <ProductsTitle task={task} />
-            {task.products.map((prod, i) => <ProductRow key={i} prod={prod} />)}
+            {task.products.map((prod: any, i: number) => <ProductRow key={i} prod={prod} />)}
           </>
         )}
         {task.notes && (
@@ -120,7 +127,7 @@ export function TaskCard({ task, isCompleted, completedAt, cautions, onToggle })
             <div className={styles.taskNotesText}>{task.notes}</div>
             {task.cautions && task.cautions.length > 0 && (
               <div className={styles.cautionsWrap}>
-                {task.cautions.map(key => (
+                {task.cautions.map((key: string) => (
                   <CautionChip key={key} cautionKey={key} description={cautions?.[key] || key} />
                 ))}
               </div>
