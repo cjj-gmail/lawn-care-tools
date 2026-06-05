@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 06 Jun 2026 (session 12 -- TypeScript pass on .jsx components started)
+Last Updated: 06 Jun 2026 (session 12 -- TypeScript pass complete, all 26 .jsx files converted)
 
 ---
 
@@ -257,10 +257,10 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 NEXT TASKS (new session):
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
 - Consider further dashboard improvements: (none outstanding -- all planned items done)
-- TypeScript pass on .jsx components (IN PROGRESS -- Toast.tsx done session 12)
-  Completed: Toast.jsx -> Toast.tsx (ToastProps interface added)
-  Fixed: .jsx extension removed from Toast imports in TrackerPage + DashboardPage
-  Remaining: all other .jsx files in src/components/ and src/pages/
+- [DONE] TypeScript pass -- all 26 .jsx files converted to .tsx (session 12)
+  Every component, modal, tab, page, context, and entry point now .tsx
+  All prop interfaces added; JSON data shapes use any (incremental migration)
+  Build: 318KB JS, clean, zero .jsx files remaining in src/
 
 REACT REBUILD STATUS (sessions 5-7 -- COMPLETE):
 - [DONE] Phase 1 -- Vite scaffold, routing, AppContext, services, LandingPage
