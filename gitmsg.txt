@@ -1,1 +1,1 @@
-Update brief - session 9 done
+Restore redirect shims for tracker.html and dashboard.html
