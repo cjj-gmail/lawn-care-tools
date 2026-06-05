@@ -1,1 +1,1 @@
-TypeScript: convert ZoneChip.jsx to ZoneChip.tsx
+TypeScript: convert CautionChip.jsx to CautionChip.tsx

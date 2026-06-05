@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import { CAUTION_ICONS } from '../../config.js'
 import styles from './TaskCard.module.css'
 
-export function CautionChip({ cautionKey, description }) {
+interface CautionChipProps {
+  cautionKey: string
+  description: string
+}
+
+export function CautionChip({ cautionKey, description }: CautionChipProps) {
   const [open, setOpen] = useState(false)
   const icon = CAUTION_ICONS[cautionKey] || '!'
   const label = cautionKey.replace(/-/g, ' ')
