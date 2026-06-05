@@ -12,7 +12,7 @@ import { DeductModal } from './DeductModal.jsx'
 import { UncheckModal } from './UncheckModal.jsx'
 import { MowModal } from './MowModal.jsx'
 import { WaterModal } from './WaterModal.jsx'
-import { Toast } from '../../components/Toast.jsx'
+import { Toast } from '../../components/Toast'
 import styles from './TrackerPage.module.css'
 
 // ─── helpers ─────────────────────────────────────────────────────────────────

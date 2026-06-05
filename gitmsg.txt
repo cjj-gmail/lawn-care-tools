@@ -1,1 +1,4 @@
-Update brief - session 11 done
+TypeScript: convert Toast.jsx to Toast.tsx
+
+- Add ToastProps interface (msg: string, type?: string, visible: boolean)
+- Remove .jsx extension from Toast imports in TrackerPage and DashboardPage

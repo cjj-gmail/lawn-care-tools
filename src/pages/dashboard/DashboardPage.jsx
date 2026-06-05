@@ -19,7 +19,7 @@ import { ResupplyModal }  from './modals/ResupplyModal.jsx'
 import { ManualLogModal } from './modals/ManualLogModal.jsx'
 import { WeatherModal }   from './modals/WeatherModal.jsx'
 
-import { Toast } from '../../components/Toast.jsx'
+import { Toast } from '../../components/Toast'
 import db from './Dashboard.module.css'
 
 const TABS = [
