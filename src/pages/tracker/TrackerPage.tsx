@@ -15,16 +15,16 @@ import { WaterModal } from './WaterModal'
 import { Toast } from '../../components/Toast'
 import styles from './TrackerPage.module.css'
 
-// ─── helpers ─────────────────────────────────────────────────────────────────
-function calcDeductions(task, inventory) {
+// ─── helpers ──────────────────────────────────────────────────────────────────
+function calcDeductions(task: any, inventory: any) {
   if (!task.products || !inventory) return []
   return task.products
-    .map(prod => {
+    .map((prod: any) => {
       const total = Math.round(
-        Object.values(prod.quantities || {}).reduce((s, q) => s + (parseFloat(q) || 0), 0) * 100
+        Object.values(prod.quantities || {}).reduce((s: number, q: any) => s + (parseFloat(q) || 0), 0) * 100
       ) / 100
       if (total <= 0) return null
-      const invProd = inventory.products.find(p =>
+      const invProd = inventory.products.find((p: any) =>
         p.name.toLowerCase() === prod.name.toLowerCase() ||
         p.name.toLowerCase().includes(prod.name.toLowerCase()) ||
         prod.name.toLowerCase().includes(p.name.toLowerCase())
@@ -32,9 +32,9 @@ function calcDeductions(task, inventory) {
       const newLevel = invProd
         ? Math.max(0, Math.round((invProd.qtyRemaining - total) * 100) / 100)
         : null
-      let newStatus = null
+      let newStatus: string | null = null
       if (invProd && newLevel !== null) {
-        const fullSizes = { 'TX10 (5-2-8)': 25, 'Maintain (26-1-9)': 20 }
+        const fullSizes: Record<string, number> = { 'TX10 (5-2-8)': 25, 'Maintain (26-1-9)': 20 }
         const full = fullSizes[invProd.name] || (invProd.unit === 'kg' ? 20 : 5)
         const pct  = Math.min(100, Math.round((newLevel / full) * 100))
         newStatus  = pct > 40 ? 'ok' : pct > 15 ? 'low' : 'critical'
@@ -44,7 +44,7 @@ function calcDeductions(task, inventory) {
     .filter(Boolean)
 }
 
-// ─── TrackerPage ──────────────────────────────────────────────────────────────
+// ─── TrackerPage ───────────────────────────────────────────────────────────────
 export default function TrackerPage() {
   const state    = useAppState()
   const dispatch = useAppDispatch()
@@ -54,39 +54,35 @@ export default function TrackerPage() {
   const { toast, showToast } = useToast()
   const { saveCompletions, saveInventory, writeAppLog } = useTrackerSave(state, dispatch, showToast)
 
-  // Month selection
-  const paramMonth = parseInt(searchParams.get('month'), 10)
-  const [selectedMonth, setSelectedMonth] = useState(
+  const paramMonth = parseInt(searchParams.get('month') ?? '', 10)
+  const [selectedMonth, setSelectedMonth] = useState<number>(
     paramMonth >= 1 && paramMonth <= 12 ? paramMonth : new Date().getMonth() + 1
   )
 
-  // Modal state
-  const [pendingDeduct,  setPendingDeduct]  = useState(null)
-  const [pendingUncheck, setPendingUncheck] = useState(null)
+  const [pendingDeduct,  setPendingDeduct]  = useState<{ task: any; deductions: any[] } | null>(null)
+  const [pendingUncheck, setPendingUncheck] = useState<{ taskId: string; taskLabel: string } | null>(null)
   const [deductSaving,   setDeductSaving]   = useState(false)
   const [mowOpen,        setMowOpen]        = useState(false)
   const [waterOpen,      setWaterOpen]      = useState(false)
 
-  // ── ALL derived values — must be before any early returns ─────────────────
   const { program, completions, inventory, token, sha } = state
   const currentCalMonth = new Date().getMonth() + 1
   const monthData = useMemo(
-    () => program?.months?.find(m => m.monthNum === selectedMonth) ?? null,
+    () => program?.months?.find((m: any) => m.monthNum === selectedMonth) ?? null,
     [program, selectedMonth]
   )
 
   const { total, done } = useMemo(() => {
     let total = 0, done = 0
-    monthData?.weeks?.forEach(w => {
-      ;(w.tasks || []).forEach(t => { total++; if (completions[t.id]) done++ })
+    monthData?.weeks?.forEach((w: any) => {
+      ;(w.tasks || []).forEach((t: any) => { total++; if (completions[t.id]) done++ })
     })
     return { total, done }
   }, [monthData, completions])
 
   const pct = total > 0 ? Math.round(done / total * 100) : 0
 
-  // ── Event handlers — all useCallback must also be before early returns ─────
-  const handleToggle = useCallback(async (task, isCompleted) => {
+  const handleToggle = useCallback(async (task: any, isCompleted: boolean) => {
     if (isCompleted) {
       setPendingUncheck({ taskId: task.id, taskLabel: task.label })
       return
@@ -95,7 +91,7 @@ export default function TrackerPage() {
     const newCompletions = {
       ...completions,
       [task.id]: {
-        completedAt:   now.toLocaleDateString('en-AU', { day:'2-digit', month:'2-digit', year:'numeric' }),
+        completedAt:   now.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' }),
         completedTime: now.toISOString(),
       },
     }
@@ -154,9 +150,9 @@ export default function TrackerPage() {
     const { task, deductions } = pendingDeduct
     setDeductSaving(true)
     const updatedInv = JSON.parse(JSON.stringify(inventory))
-    deductions.forEach(d => {
+    deductions.forEach((d: any) => {
       if (!d.invProd) return
-      const prod = updatedInv.products.find(p => p.name === d.invProd.name)
+      const prod = updatedInv.products.find((p: any) => p.name === d.invProd.name)
       if (prod) prod.qtyRemaining = Math.max(0, Math.round((prod.qtyRemaining - d.amount) * 100) / 100)
     })
     const ok = await saveInventory(updatedInv, sha?.inventory)
@@ -164,37 +160,35 @@ export default function TrackerPage() {
     setPendingDeduct(null)
     setDeductSaving(false)
     if (ok) {
-      const n = deductions.filter(d => d.invProd).length
+      const n = deductions.filter((d: any) => d.invProd).length
       showToast('Task done - ' + n + ' product' + (n !== 1 ? 's' : '') + ' deducted', 'success')
     }
   }, [pendingDeduct, inventory, sha, saveInventory, writeAppLog, showToast])
 
-  // ── Loading / error screens — AFTER all hooks ─────────────────────────────
   if (state.status === 'loading') {
     return (
-      <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', height:'100vh', gap:16, color:'var(--ink-light)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', gap: 16, color: 'var(--ink-light)' }}>
         <div className="spinner" />
-        <div style={{ fontSize:15 }}>Loading program data...</div>
+        <div style={{ fontSize: 15 }}>Loading program data...</div>
       </div>
     )
   }
   if (state.status === 'error') {
     return (
-      <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', height:'100vh', gap:12, padding:24, textAlign:'center' }}>
-        <div style={{ fontFamily:'var(--font-serif)', fontSize:24 }}>Could not load program</div>
-        <div style={{ fontSize:15, color:'var(--ink-light)', maxWidth:400 }}>{state.error}</div>
-        <Link to="/" style={{ marginTop:8, color:'var(--grass)' }}>&larr; Back to home</Link>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', gap: 12, padding: 24, textAlign: 'center' }}>
+        <div style={{ fontFamily: 'var(--font-serif)', fontSize: 24 }}>Could not load program</div>
+        <div style={{ fontSize: 15, color: 'var(--ink-light)', maxWidth: 400 }}>{state.error}</div>
+        <Link to="/" style={{ marginTop: 8, color: 'var(--grass)' }}>&larr; Back to home</Link>
       </div>
     )
   }
 
-  // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <div>
       <header className="app-header">
         <div className="app-header-title">Lawn Program Tracker</div>
         <div className="app-header-right">
-          <div style={{ display:'flex', alignItems:'center', gap:6, fontSize:13, opacity:0.8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, opacity: 0.8 }}>
             <div className={`auth-dot${token ? ' connected' : ''}`} />
             <span>{token ? 'GitHub connected' : state.readOnly ? 'Read-only' : 'Not connected'}</span>
           </div>
@@ -211,11 +205,11 @@ export default function TrackerPage() {
       </header>
 
       <nav className={styles.monthNav}>
-        {program?.months?.map(m => (
+        {program?.months?.map((m: any) => (
           <button key={m.monthNum}
-            className={[styles.monthBtn, m.monthNum===selectedMonth?styles.active:'', m.monthNum===currentCalMonth?styles.current:''].filter(Boolean).join(' ')}
+            className={[styles.monthBtn, m.monthNum === selectedMonth ? styles.active : '', m.monthNum === currentCalMonth ? styles.current : ''].filter(Boolean).join(' ')}
             onClick={() => { setSelectedMonth(m.monthNum); setSearchParams({ month: m.monthNum }) }}>
-            {m.month.slice(0,3).toUpperCase()}
+            {m.month.slice(0, 3).toUpperCase()}
           </button>
         ))}
       </nav>
@@ -236,17 +230,17 @@ export default function TrackerPage() {
               </div>
             </div>
             <HeightRefCard season={monthData.season} />
-            {monthData.weeks?.map(week => (
+            {monthData.weeks?.map((week: any) => (
               <WeekBlock key={week.week} week={week} completions={completions} cautions={program?.cautions} onToggle={handleToggle} />
             ))}
           </>
         ) : (
-          <div style={{ padding:32, textAlign:'center', color:'var(--ink-light)' }}>No data for this month.</div>
+          <div style={{ padding: 32, textAlign: 'center', color: 'var(--ink-light)' }}>No data for this month.</div>
         )}
       </main>
 
       <DeductModal pending={pendingDeduct} saving={deductSaving} onCancel={handleDeductCancel} onSkip={handleDeductSkip} onConfirm={handleDeductConfirm} />
-      <UncheckModal taskLabel={pendingUncheck?.taskLabel} onKeep={() => setPendingUncheck(null)} onConfirm={handleUncheckConfirm} />
+      <UncheckModal taskLabel={pendingUncheck?.taskLabel ?? null} onKeep={() => setPendingUncheck(null)} onConfirm={handleUncheckConfirm} />
       <MowModal open={mowOpen} token={token} mowLog={state.mowLog} mowLogSha={state.sha?.mowLog} dispatch={dispatch} onClose={() => setMowOpen(false)} showToast={showToast} />
       <WaterModal open={waterOpen} token={token} waterLog={state.waterLog} waterLogSha={state.sha?.waterLog} dispatch={dispatch} onClose={() => setWaterOpen(false)} showToast={showToast} />
       <Toast {...toast} />
