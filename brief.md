@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 06 Jun 2026 (session 10 -- watering frequency stats done)
+Last Updated: 06 Jun 2026 (session 11 -- IN PROGRESS: rainfall totals in Overview weather panel)
 
 ---
 

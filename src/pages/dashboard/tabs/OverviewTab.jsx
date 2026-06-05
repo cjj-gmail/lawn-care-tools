@@ -53,6 +53,19 @@ export function OverviewTab({ state, onLogObservation, onDeleteWeather, onNaviga
   }, [program, mn, completions])
 
   const weatherEntries = weatherLog?.entries || []
+
+  const rainfallStats = useMemo(() => {
+    const year = new Date().getFullYear()
+    let monthMm = 0, totalMm = 0
+    weatherEntries.forEach(e => {
+      if (e.type === 'rain' && e.rainMm) {
+        totalMm += e.rainMm
+        const d = new Date(e.dateISO)
+        if (d.getMonth() + 1 === mn && d.getFullYear() === year) monthMm += e.rainMm
+      }
+    })
+    return { monthMm: Math.round(monthMm * 10) / 10, totalMm: Math.round(totalMm * 10) / 10 }
+  }, [weatherEntries, mn])
   const [wxExpanded,  setWxExpanded]  = useState(false)
   const [yearExpanded, setYearExpanded] = useState(false)
 
@@ -151,7 +164,17 @@ export function OverviewTab({ state, onLogObservation, onDeleteWeather, onNaviga
       {/* 3. Weather & observations — moved up */}
       <div className={db.panel}>
         <div className={db.panelTitleRow}>
-          <div className={db.panelTitle}>Weather &amp; observations</div>
+          <div>
+            <div className={db.panelTitle}>Weather &amp; observations</div>
+            {rainfallStats.totalMm > 0 && (
+              <div style={{ fontSize:12, color:'var(--ink-light)', marginTop:2 }}>
+                <span style={{ color:'#2a7aa0', fontWeight:500 }}>{rainfallStats.monthMm}mm</span> this month
+                {rainfallStats.totalMm !== rainfallStats.monthMm && (
+                  <span> &middot; {rainfallStats.totalMm}mm total logged</span>
+                )}
+              </div>
+            )}
+          </div>
           <button className={db.panelBtn} onClick={() => onLogObservation(null)}>+ Log observation</button>
         </div>
         {weatherEntries.length === 0

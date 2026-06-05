@@ -1,1 +1,5 @@
-Update brief - session 10 done
+Add rainfall totals to Overview weather panel
+
+rainfallStats useMemo sums rainMm from weather entries (this month + all time).
+Shown as subtitle under "Weather & observations" panel title when data exists.
+e.g. "42mm this month · 156mm total logged"
