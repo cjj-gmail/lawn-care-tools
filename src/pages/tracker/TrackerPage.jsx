@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { useAppState, useAppDispatch } from '../../store/AppContext.jsx'
+import { useAppState, useAppDispatch } from '../../store/AppContext'
 import { useAppInit } from '../../hooks/useAppInit.js'
 import { useTrackerSave } from '../../hooks/useTrackerSave.js'
 import { useToast } from '../../hooks/useToast.js'

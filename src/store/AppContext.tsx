@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useReducer } from 'react'
 import { reducer, initialState } from './reducer.js'
 
-const StateCtx    = createContext(null)
-const DispatchCtx = createContext(null)
+const StateCtx    = createContext<any>(null)
+const DispatchCtx = createContext<React.Dispatch<any>>(null as any)
 
-export function AppProvider({ children }) {
+export function AppProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState)
   return (
     <StateCtx.Provider value={state}>

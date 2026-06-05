@@ -7,9 +7,9 @@ const MONTHS = ['January','February','March','April','May','June',
                 'July','August','September','October','November','December']
 
 function currentMonthNum() { return new Date().getMonth() + 1 }
-function currentSeason() {
+function currentSeason(): string {
   const mn = currentMonthNum()
-  for (const [s, months] of Object.entries(SEASONS)) {
+  for (const [s, months] of Object.entries(SEASONS as Record<string, number[]>)) {
     if (months.includes(mn)) return s
   }
   return 'summer'
@@ -20,43 +20,42 @@ export default function LandingPage() {
   const monthName = MONTHS[mn - 1]
   const season    = currentSeason()
 
-  const [banner, setBanner]     = useState(`${monthName} · ${season}`)
-  const [taskCount, setTaskCount] = useState(null)
+  const [banner,    setBanner]    = useState(`${monthName} \xb7 ${season}`)
+  const [taskCount, setTaskCount] = useState<number | null>(null)
 
   useEffect(() => {
-    const url = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/main/${CONFIG.paths.program}?t=${Date.now()}`
+    const url = `https://raw.githubusercontent.com/${(CONFIG as any).owner}/${(CONFIG as any).repo}/main/${(CONFIG as any).paths.program}?t=${Date.now()}`
     fetch(url)
       .then(r => r.json())
       .then(program => {
-        const monthData = program.months.find(m => m.monthNum === mn)
+        const monthData = program.months.find((m: any) => m.monthNum === mn)
         if (!monthData) return
         let total = 0
-        monthData.weeks.forEach(w => { total += (w.tasks || []).length })
+        monthData.weeks.forEach((w: any) => { total += (w.tasks || []).length })
         setTaskCount(total)
 
-        // Try to read completions for the progress message
         const token   = sessionStorage.getItem('gh_token')
-        const headers = { Accept: 'application/vnd.github.v3+json' }
+        const headers: Record<string, string> = { Accept: 'application/vnd.github.v3+json' }
         if (token) headers['Authorization'] = 'token ' + token
-        const apiUrl = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.paths.completions}`
+        const apiUrl = `https://api.github.com/repos/${(CONFIG as any).owner}/${(CONFIG as any).repo}/contents/${(CONFIG as any).paths.completions}`
         fetch(apiUrl, { headers })
           .then(r => r.ok ? r.json() : null)
           .then(data => {
             if (!data) {
-              setBanner(`${monthName} — ${total} tasks scheduled · ${season}`)
+              setBanner(`${monthName} — ${total} tasks scheduled \xb7 ${season}`)
               return
             }
             const completions = JSON.parse(atob(data.content.replace(/\n/g, '')))
             let done = 0
-            monthData.weeks.forEach(w => {
-              ;(w.tasks || []).forEach(t => { if (completions[t.id]) done++ })
+            monthData.weeks.forEach((w: any) => {
+              ;(w.tasks || []).forEach((t: any) => { if (completions[t.id]) done++ })
             })
             const pct = total > 0 ? Math.round(done / total * 100) : 0
-            setBanner(`${monthName} — ${done} of ${total} tasks done (${pct}%) · ${season}`)
+            setBanner(`${monthName} — ${done} of ${total} tasks done (${pct}%) \xb7 ${season}`)
           })
-          .catch(() => { setBanner(`${monthName} — ${total} tasks scheduled · ${season}`) })
+          .catch(() => { setBanner(`${monthName} — ${total} tasks scheduled \xb7 ${season}`) })
       })
-      .catch(() => { setBanner(`${monthName} · ${season}`) })
+      .catch(() => { setBanner(`${monthName} \xb7 ${season}`) })
   }, [mn, monthName, season])
 
   return (
@@ -143,7 +142,7 @@ export default function LandingPage() {
         <div className={styles.lawnSummary}>
           <div className={styles.lawnSummaryTitle}>4 zones &middot; 140.15 m&sup2; total</div>
           <div className={styles.zonesGrid}>
-            {Object.entries(ZONES).map(([id, z]) => (
+            {Object.entries(ZONES as Record<string, any>).map(([id, z]) => (
               <div key={id} className={styles.zonePill}>
                 <div className={styles.zonePillArea}>{z.area}m&sup2;</div>
                 <div className={styles.zonePillName}>{z.name}</div>
@@ -167,7 +166,7 @@ export default function LandingPage() {
 
       <footer className={styles.footer}>
         Oakhurst NSW 2761 &nbsp;&middot;&nbsp; Humid subtropical climate &nbsp;&middot;&nbsp;
-        <a href={`https://github.com/${CONFIG.owner}/${CONFIG.repo}`} target="_blank" rel="noopener noreferrer">
+        <a href={`https://github.com/${(CONFIG as any).owner}/${(CONFIG as any).repo}`} target="_blank" rel="noopener noreferrer">
           GitHub repo
         </a>
       </footer>
