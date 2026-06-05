@@ -21,7 +21,7 @@ function copyLegacyAssets() {
   return {
     name: 'copy-legacy-assets',
     closeBundle() {
-      for (const f of ['auth-success.html']) {
+      for (const f of ['auth-success.html', 'tracker.html', 'dashboard.html']) {
         if (existsSync(f)) {
           try { copyFileSync(f, `dist/${f}`) } catch (_) {}
         }

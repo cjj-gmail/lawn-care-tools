@@ -1,1 +1,1 @@
-Restore redirect shims for tracker.html and dashboard.html
+Fix vite.config.js to copy tracker.html and dashboard.html to dist
