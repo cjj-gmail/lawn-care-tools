@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 06 Jun 2026 (session 10 -- IN PROGRESS: watering frequency stats)
+Last Updated: 06 Jun 2026 (session 10 -- watering frequency stats done)
 
 ---
 
@@ -256,7 +256,7 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 
 NEXT TASKS (new session):
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
-- Consider further dashboard improvements: watering frequency analysis (similar to mowing stats)
+- Consider further dashboard improvements: total rainfall tracking (sum rainMm from weather log)
 - TypeScript pass on .jsx components (optional, lower priority)
 
 REACT REBUILD STATUS (sessions 5-7 -- COMPLETE):
@@ -268,6 +268,8 @@ REACT REBUILD STATUS (sessions 5-7 -- COMPLETE):
 - [DONE] Session 8 -- "Next up" card on dashboard Overview tab (next incomplete week block, links to tracker)
 - [DONE] Session 9 -- Mowing frequency stats grid in Log tab (count + avg interval per zone)
 - [DONE] Session 9 -- Rain gauge field on weather modal (optional mm, blue badge in overview log)
+- [DONE] Session 10 -- Watering frequency stats grid in Log tab (count + avg interval per zone)
+- [DONE] Session 10 -- Redirect shims restored + vite.config.js fixed to copy shims into dist
 
 GITHUB ACTIONS DEPLOY (one-time setup required):
 The deploy.yml workflow file could NOT be pushed via PAT (requires 'workflow' scope).

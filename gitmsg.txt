@@ -1,5 +1,1 @@
-Add watering frequency stats to Log tab
-
-waterStats useMemo calculates per-zone irrigation session count and avg interval.
-Grid of frequency chips shown above the watering table, matching mowing stats style.
-Handles zones[] array (watering entries can cover multiple zones).
+Update brief - session 10 done
