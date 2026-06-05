@@ -12,8 +12,18 @@ const WATER_METHODS = [
   { value: 'manual',    label: 'Manual (watering can)' },
 ]
 
-export function WaterModal({ open, token, waterLog, waterLogSha, dispatch, onClose, showToast }) {
-  const [checkedZones, setCheckedZones] = useState([])
+interface WaterModalProps {
+  open: boolean
+  token: string | null
+  waterLog: any
+  waterLogSha: string | null
+  dispatch: (action: any) => void
+  onClose: () => void
+  showToast: (msg: string, type?: string) => void
+}
+
+export function WaterModal({ open, token, waterLog, waterLogSha, dispatch, onClose, showToast }: WaterModalProps) {
+  const [checkedZones, setCheckedZones] = useState<string[]>([])
   const [method,       setMethod]       = useState('sprinkler')
   const [duration,     setDuration]     = useState('')
   const [amount,       setAmount]       = useState('')
@@ -25,7 +35,7 @@ export function WaterModal({ open, token, waterLog, waterLogSha, dispatch, onClo
   const now = new Date()
   const dateLabel = now.toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
 
-  function toggleZone(id) {
+  function toggleZone(id: string) {
     setCheckedZones(z => z.includes(id) ? z.filter(x => x !== id) : [...z, id])
   }
 
@@ -33,7 +43,7 @@ export function WaterModal({ open, token, waterLog, waterLogSha, dispatch, onClo
     if (checkedZones.length === 0) { showToast('Please select at least one zone', 'error'); return }
     const dur = parseInt(duration, 10)
     if (!duration || dur <= 0) { showToast('Please enter a duration in minutes', 'error'); return }
-    const zoneNames = checkedZones.map(z => ZONES[z]?.name || z).join(', ')
+    const zoneNames = checkedZones.map(z => (ZONES as any)[z]?.name || z).join(', ')
     const entry = {
       id: 'water_' + now.getTime(),
       date: now.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' }),
@@ -47,10 +57,10 @@ export function WaterModal({ open, token, waterLog, waterLogSha, dispatch, onClo
     if (!token) { onClose(); showToast('Watering logged (session only)', 'error'); return }
     setSaving(true)
     try {
-      const newSha = await saveJson(CONFIG.paths.waterLog, updated, waterLogSha, 'Log watering: ' + zoneNames, token)
+      const newSha = await saveJson((CONFIG as any).paths.waterLog, updated, waterLogSha, 'Log watering: ' + zoneNames, token)
       dispatch({ type: A.SET_WATER_LOG, waterLog: updated, sha: newSha })
       onClose(); showToast('Watering logged', 'success')
-    } catch (e) {
+    } catch (e: any) {
       showToast('Save failed: ' + e.message, 'error')
     } finally { setSaving(false) }
   }
@@ -68,7 +78,7 @@ export function WaterModal({ open, token, waterLog, waterLogSha, dispatch, onClo
             <div>
               <div className={styles.lfLabel}>Zones watered</div>
               <div className={styles.zoneChecks}>
-                {Object.entries(ZONES).map(([id, z]) => (
+                {Object.entries(ZONES).map(([id, z]: [string, any]) => (
                   <label key={id} className={styles.zoneCheckLabel}>
                     <input type="checkbox" checked={checkedZones.includes(id)} onChange={() => toggleZone(id)} style={{ accentColor: 'var(--grass)' }} />
                     {z.name} &ndash; {z.grass}

@@ -6,27 +6,37 @@ import { CONFIG } from '../../config.js'
 import styles from './Modals.module.css'
 
 const ZONE_OPTIONS = [
-  ...Object.entries(ZONES).map(([id, z]) => ({ value: id, label: `${z.name} - ${z.grass} (${z.area}m2)` })),
+  ...Object.entries(ZONES).map(([id, z]: [string, any]) => ({ value: id, label: `${z.name} - ${z.grass} (${z.area}m2)` })),
   { value: 'all', label: 'All zones' },
 ]
 const MOWER_OPTIONS = Object.keys(MOWER_HEIGHTS)
 
-export function MowModal({ open, token, mowLog, mowLogSha, dispatch, onClose, showToast }) {
+interface MowModalProps {
+  open: boolean
+  token: string | null
+  mowLog: any
+  mowLogSha: string | null
+  dispatch: (action: any) => void
+  onClose: () => void
+  showToast: (msg: string, type?: string) => void
+}
+
+export function MowModal({ open, token, mowLog, mowLogSha, dispatch, onClose, showToast }: MowModalProps) {
   const [zone,           setZone]          = useState('back')
   const [mower,          setMower]         = useState(MOWER_OPTIONS[0])
-  const [selectedHeight, setSelectedHeight] = useState(null)
+  const [selectedHeight, setSelectedHeight] = useState<number | null>(null)
   const [notes,          setNotes]         = useState('')
   const [saving,         setSaving]        = useState(false)
 
   if (!open) return null
 
-  const heights = MOWER_HEIGHTS[mower] || []
+  const heights: number[] = (MOWER_HEIGHTS as any)[mower] || []
   const now = new Date()
   const dateLabel = now.toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
 
   async function handleSave() {
     if (!selectedHeight) { showToast('Please select a height setting', 'error'); return }
-    const zoneInfo = ZONES[zone]
+    const zoneInfo = (ZONES as any)[zone]
     const entry = {
       id: 'mow_' + now.getTime(),
       date: now.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' }),
@@ -42,10 +52,10 @@ export function MowModal({ open, token, mowLog, mowLogSha, dispatch, onClose, sh
     if (!token) { onClose(); showToast('Mow logged (session only)', 'error'); return }
     setSaving(true)
     try {
-      const newSha = await saveJson(CONFIG.paths.mowLog, updated, mowLogSha, 'Log mow: ' + entry.zoneName, token)
+      const newSha = await saveJson((CONFIG as any).paths.mowLog, updated, mowLogSha, 'Log mow: ' + entry.zoneName, token)
       dispatch({ type: A.SET_MOW_LOG, mowLog: updated, sha: newSha })
       onClose(); showToast('Mow logged', 'success')
-    } catch (e) {
+    } catch (e: any) {
       showToast('Save failed: ' + e.message, 'error')
     } finally { setSaving(false) }
   }

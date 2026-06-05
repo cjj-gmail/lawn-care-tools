@@ -1,1 +1,3 @@
-TypeScript: convert HeightRefCard.jsx and WeekBlock.jsx to .tsx
+TypeScript: convert 4 tracker modals to .tsx
+
+DeductModal, UncheckModal, MowModal, WaterModal

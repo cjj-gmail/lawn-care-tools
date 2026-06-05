@@ -1,7 +1,13 @@
 import React from 'react'
 import styles from './Modals.module.css'
 
-export function UncheckModal({ taskLabel, onKeep, onConfirm }) {
+interface UncheckModalProps {
+  taskLabel: string | null
+  onKeep: () => void
+  onConfirm: () => void
+}
+
+export function UncheckModal({ taskLabel, onKeep, onConfirm }: UncheckModalProps) {
   if (!taskLabel) return null
   return (
     <div className={styles.overlay} onClick={e => { if (e.target === e.currentTarget) onKeep() }}>

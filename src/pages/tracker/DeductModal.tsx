@@ -1,7 +1,24 @@
 import React from 'react'
 import styles from './Modals.module.css'
 
-export function DeductModal({ pending, saving, onCancel, onSkip, onConfirm }) {
+interface Deduction {
+  name: string
+  amount: number
+  unit: string
+  invProd?: { qtyRemaining: number; unit: string } | null
+  newLevel?: number | null
+  newStatus?: string
+}
+
+interface DeductModalProps {
+  pending: { task: any; deductions: Deduction[] } | null
+  saving: boolean
+  onCancel: () => void
+  onSkip: () => void
+  onConfirm: () => void
+}
+
+export function DeductModal({ pending, saving, onCancel, onSkip, onConfirm }: DeductModalProps) {
   if (!pending) return null
   const { task, deductions } = pending
   return (
@@ -10,7 +27,7 @@ export function DeductModal({ pending, saving, onCancel, onSkip, onConfirm }) {
         <div className={styles.header}>
           <div>
             <div className={styles.title}>{task.label}</div>
-            <div className={styles.subtitle}>{task.taskType} — {task.applicationMethod}</div>
+            <div className={styles.subtitle}>{task.taskType} &mdash; {task.applicationMethod}</div>
           </div>
           <button className={styles.close} onClick={onCancel}>&times;</button>
         </div>
@@ -18,7 +35,7 @@ export function DeductModal({ pending, saving, onCancel, onSkip, onConfirm }) {
           <div className={styles.intro}>Deduct quantities used from your inventory?</div>
           {task.conditional && (
             <div className={styles.conditionalNote}>
-              Conditional task — only deduct if you actually applied these products.
+              Conditional task &mdash; only deduct if you actually applied these products.
             </div>
           )}
           <div className={styles.deductList}>
@@ -29,10 +46,10 @@ export function DeductModal({ pending, saving, onCancel, onSkip, onConfirm }) {
                   <div className={styles.deductMeta}>
                     {d.invProd ? 'Currently ' + d.invProd.qtyRemaining + d.invProd.unit : 'Not found in inventory'}
                   </div>
-                  {d.invProd && d.newLevel !== null && (
-                    <div className={[styles.deductNewLevel, d.newStatus !== 'ok' ? styles[d.newStatus] : ''].filter(Boolean).join(' ')}>
+                  {d.invProd && d.newLevel != null && (
+                    <div className={[styles.deductNewLevel, d.newStatus !== 'ok' ? styles[d.newStatus!] : ''].filter(Boolean).join(' ')}>
                       After: {d.newLevel}{d.invProd.unit} remaining
-                      {d.newStatus === 'low' ? ' — running low' : d.newStatus === 'critical' ? ' — critically low' : ''}
+                      {d.newStatus === 'low' ? ' -- running low' : d.newStatus === 'critical' ? ' -- critically low' : ''}
                     </div>
                   )}
                 </div>
@@ -47,7 +64,7 @@ export function DeductModal({ pending, saving, onCancel, onSkip, onConfirm }) {
         </div>
         <div className={styles.footer}>
           <button className={[styles.btn, styles.secondary].join(' ')} onClick={onCancel}>
-            Cancel — uncheck task
+            Cancel &mdash; uncheck task
           </button>
           <button className={[styles.btn, styles.secondary].join(' ')} onClick={onSkip}>
             Skip deduction
