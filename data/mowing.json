@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "id": "mow_1780693287109",
+      "date": "06/06/2026",
+      "dateISO": "2026-06-05",
+      "zone": "back",
+      "zoneName": "Back Lawn",
+      "grass": "Kikuyu",
+      "mower": "Honda HRN216",
+      "heightMm": 51,
+      "notes": ""
+    },
+    {
       "id": "mow_1780339708711",
       "date": "02/06/2026",
       "dateISO": "2026-06-01",
