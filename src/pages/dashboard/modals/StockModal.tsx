@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import s from './DashModal.module.css'
 
-export function StockModal({ product, token, onSave, onClose }) {
+interface StockModalProps {
+  product: any | null
+  token: string | null
+  onSave: (product: any, newQty: number) => Promise<void>
+  onClose: () => void
+}
+
+export function StockModal({ product, token, onSave, onClose }: StockModalProps) {
   const [qty,    setQty]    = useState('')
   const [saving, setSaving] = useState(false)
 
@@ -11,7 +18,7 @@ export function StockModal({ product, token, onSave, onClose }) {
 
   if (!product) return null
 
-  const quickSizes = product.unit === 'kg' ? [5,10,20,25] : [0.5,1,2,5]
+  const quickSizes: number[] = product.unit === 'kg' ? [5, 10, 20, 25] : [0.5, 1, 2, 5]
 
   async function handleSave() {
     const n = parseFloat(qty)
@@ -41,10 +48,10 @@ export function StockModal({ product, token, onSave, onClose }) {
             <span className={s.unit}>{product.unit}</span>
           </div>
           <div className={s.fieldLabel}>Quick add</div>
-          <div style={{ display:'flex', gap:7, flexWrap:'wrap', marginBottom:18 }}>
+          <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap', marginBottom: 18 }}>
             {quickSizes.map(sz => (
-              <button key={sz} onClick={() => setQty(v => String(Math.round((parseFloat(v)||0)+sz)*100/100))}
-                style={{ fontSize:12, padding:'4px 12px', borderRadius:12, border:'1px solid var(--border)', background:'white', color:'var(--ink-mid)', cursor:'pointer', fontFamily:'var(--font-mono)' }}>
+              <button key={sz} onClick={() => setQty(v => String(Math.round((parseFloat(v) || 0) + sz) * 100 / 100))}
+                style={{ fontSize: 12, padding: '4px 12px', borderRadius: 12, border: '1px solid var(--border)', background: 'white', color: 'var(--ink-mid)', cursor: 'pointer', fontFamily: 'var(--font-mono)' }}>
                 + {sz}{product.unit}
               </button>
             ))}

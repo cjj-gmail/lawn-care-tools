@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
 import s from './DashModal.module.css'
 
-export function ResupplyModal({ product, token, onSave, onClose }) {
+interface ResupplyModalProps {
+  product: any | null
+  token: string | null
+  onSave: (product: any, newQty: number) => Promise<void>
+  onClose: () => void
+}
+
+export function ResupplyModal({ product, token, onSave, onClose }: ResupplyModalProps) {
   const [amount, setAmount] = useState('')
   const [saving, setSaving] = useState(false)
 
@@ -21,7 +28,7 @@ export function ResupplyModal({ product, token, onSave, onClose }) {
     <div className={s.overlay} onClick={e => { if (e.target === e.currentTarget) onClose() }}>
       <div className={s.modal}>
         <div className={s.header}>
-          <div><div className={s.title}>+ Resupply — {product.name}</div><div className={s.subtitle}>Add received stock to current quantity</div></div>
+          <div><div className={s.title}>+ Resupply -- {product.name}</div><div className={s.subtitle}>Add received stock to current quantity</div></div>
           <button className={s.close} onClick={onClose}>&times;</button>
         </div>
         <div className={s.body}>
@@ -36,8 +43,8 @@ export function ResupplyModal({ product, token, onSave, onClose }) {
             <span className={s.unit}>{product.unit}</span>
           </div>
           {amount && !isNaN(parseFloat(amount)) && (
-            <div style={{ fontSize:13, color:'var(--ink-light)', marginBottom:16 }}>
-              New total: {Math.round((product.qtyRemaining + parseFloat(amount))*100)/100}{product.unit}
+            <div style={{ fontSize: 13, color: 'var(--ink-light)', marginBottom: 16 }}>
+              New total: {Math.round((product.qtyRemaining + parseFloat(amount)) * 100) / 100}{product.unit}
             </div>
           )}
           {saving && <div className={s.saving}>Saving to GitHub...</div>}

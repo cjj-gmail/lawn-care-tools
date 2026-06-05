@@ -1,3 +1,3 @@
-TypeScript: convert 6 dashboard tabs to .tsx
+TypeScript: convert 4 dashboard modals to .tsx
 
-AlertsTab, ZonesTab, ProgramTab, InventoryTab, LogTab, OverviewTab
+StockModal, ResupplyModal, ManualLogModal, WeatherModal
