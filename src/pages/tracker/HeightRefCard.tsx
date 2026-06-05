@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import { HEIGHT_REF } from '../../config.js'
 import styles from './HeightRefCard.module.css'
 
-export function HeightRefCard({ season }) {
+interface HeightRefCardProps {
+  season: string
+}
+
+export function HeightRefCard({ season }: HeightRefCardProps) {
   const [open, setOpen] = useState(false)
   const isSummer = season === 'summer' || season === 'autumn'
   const isWinter = season === 'winter' || season === 'spring'
@@ -24,8 +28,8 @@ export function HeightRefCard({ season }) {
               </tr>
             </thead>
             <tbody>
-              {HEIGHT_REF.map(gr =>
-                gr.mowers.map((m, mi) => (
+              {HEIGHT_REF.map((gr: any) =>
+                gr.mowers.map((m: any, mi: number) => (
                   <tr key={gr.grass + m.name}>
                     {mi === 0 && (
                       <td rowSpan={gr.mowers.length} style={{ verticalAlign: 'middle' }}>

@@ -1,1 +1,1 @@
-TypeScript: convert CautionChip.jsx to CautionChip.tsx
+TypeScript: convert HeightRefCard.jsx and WeekBlock.jsx to .tsx

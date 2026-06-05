@@ -2,14 +2,20 @@ import React from 'react'
 import { TaskCard } from './TaskCard.jsx'
 import styles from './TrackerPage.module.css'
 
-export function WeekBlock({ week, completions, cautions, onToggle }) {
+interface WeekBlockProps {
+  week: { week: number; label?: string; tasks?: any[] }
+  completions: Record<string, { completedAt?: string } | undefined>
+  cautions: Record<string, string>
+  onToggle: (task: any) => void
+}
+
+export function WeekBlock({ week, completions, cautions, onToggle }: WeekBlockProps) {
   return (
     <div className={styles.weekBlock}>
       <div className={styles.weekHeading}>
         <span className={styles.weekNum}>W{week.week}</span>
         <span className={styles.weekLabel}>
-          {/* Strip "Week N — " prefix if present */}
-          {(week.label || '').replace(/^Week \d+ [—-] /, '')}
+          {(week.label || '').replace(/^Week \d+ [--] /, '')}
         </span>
       </div>
       {!week.tasks || week.tasks.length === 0 ? (
