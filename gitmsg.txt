@@ -1,1 +1,1 @@
-brief: session 12 -- TypeScript pass started, Toast.tsx done
+TypeScript: convert ZoneChip.jsx to ZoneChip.tsx

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ZONES } from '../../config.js'
-import { ZoneChip, ZoneCombinedChip } from './ZoneChip.jsx'
+import { ZoneChip, ZoneCombinedChip } from './ZoneChip'
 import { CautionChip } from './CautionChip.jsx'
 import styles from './TaskCard.module.css'
 

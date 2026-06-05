@@ -2,7 +2,14 @@ import React from 'react'
 import { ZONES } from '../../config.js'
 import styles from './TaskCard.module.css'
 
-export function ZoneChip({ zoneId, qty, unit, solo }) {
+interface ZoneChipProps {
+  zoneId: string
+  qty: number
+  unit: string
+  solo?: boolean
+}
+
+export function ZoneChip({ zoneId, qty, unit, solo }: ZoneChipProps) {
   const info = ZONES[zoneId]
   if (!info) return null
   return (
@@ -14,13 +21,18 @@ export function ZoneChip({ zoneId, qty, unit, solo }) {
   )
 }
 
-export function ZoneCombinedChip({ zones, quantities, unit }) {
-  // Only show if 2+ of front/strip1/strip2 are present
+interface ZoneCombinedChipProps {
+  zones: string[]
+  quantities: Record<string, number>
+  unit: string
+}
+
+export function ZoneCombinedChip({ zones, quantities, unit }: ZoneCombinedChipProps) {
   const frontZones = ['front', 'strip1', 'strip2'].filter(z => zones.includes(z) && quantities[z] != null)
   if (frontZones.length < 2) return null
   const totalQty  = frontZones.reduce((s, z) => s + (quantities[z] || 0), 0)
   const totalArea = frontZones.reduce((s, z) => s + (ZONES[z]?.area || 0), 0)
-  const fmt = v => { const r = Math.round(v * 10) / 10; return r % 1 === 0 ? String(r) : r.toFixed(1) }
+  const fmt = (v: number) => { const r = Math.round(v * 10) / 10; return r % 1 === 0 ? String(r) : r.toFixed(1) }
   return (
     <>
       <div className={styles.zoneQtyDivider} />
