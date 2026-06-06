@@ -4,6 +4,9 @@ import type { Product, Program, InvStatusResult } from '../types.js'
 const FULL_SIZES: Record<string, number> = {
   'TX10 (5-2-8)':     25,
   'Maintain (26-1-9)': 20,
+  // Situational herbicides -- not scheduled, use actual bottle size
+  'Contra M Duo':     1,
+  'Tombstone Duo':    0.5,
 }
 
 /**

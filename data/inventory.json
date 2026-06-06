@@ -676,7 +676,7 @@
       "analysis": "MCPA 340 g/L + Dicamba 80 g/L - Group 4",
       "form": "Liquid concentrate",
       "unit": "L",
-      "qtyRemaining": 1,
+      "qtyRemaining": 0.98,
       "ratePer100sqm": "65 mL",
       "rateLow": 65,
       "rateHigh": 65,
