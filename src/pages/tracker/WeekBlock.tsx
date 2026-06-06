@@ -6,7 +6,7 @@ interface WeekBlockProps {
   week: { week: number; label?: string; tasks?: any[] }
   completions: Record<string, { completedAt?: string } | undefined>
   cautions: Record<string, string>
-  onToggle: (task: any) => void
+  onToggle: (task: any, isCompleted: boolean) => Promise<void>
 }
 
 export function WeekBlock({ week, completions, cautions, onToggle }: WeekBlockProps) {

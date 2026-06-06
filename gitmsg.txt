@@ -1,1 +1,5 @@
-brief: session 12 complete -- TypeScript pass done, all 26 .jsx converted
+TypeScript: fix all typecheck errors -- zero errors
+
+- Add src/vite-env.d.ts (was missing -- caused 19 CSS module TS2307 errors)
+- Cast Object.values() arg in TrackerPage calcDeductions (TS2571)
+- Fix WeekBlock onToggle signature to match TaskCard/TrackerPage (TS2322)

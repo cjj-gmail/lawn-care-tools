@@ -21,7 +21,7 @@ function calcDeductions(task: any, inventory: any) {
   return task.products
     .map((prod: any) => {
       const total = Math.round(
-        Object.values(prod.quantities || {}).reduce((s: number, q: any) => s + (parseFloat(q) || 0), 0) * 100
+        Object.values((prod.quantities || {}) as Record<string, any>).reduce((s: number, q: any) => s + (parseFloat(q) || 0), 0) * 100
       ) / 100
       if (total <= 0) return null
       const invProd = inventory.products.find((p: any) =>
