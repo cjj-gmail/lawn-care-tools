@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import { currentMonthNum, countDone } from '../../../utils/dashboardHelpers.js'
 import { TYPE_COLORS, TASK_TYPES } from '../../../config.js'
 import db from '../Dashboard.module.css'
+import type { AppState } from '../../../types.js'
 
 interface ProgramTabProps {
-  state: any
+  state: AppState
 }
 
 export function ProgramTab({ state }: ProgramTabProps) {

@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react'
 import { buildAlerts, buildShoppingList } from '../../../utils/dashboardHelpers.js'
 import db from '../Dashboard.module.css'
+import type { AppState } from '../../../types.js'
 
 interface AlertsTabProps {
-  state: any
+  state: AppState
 }
 
 export function AlertsTab({ state }: AlertsTabProps) {

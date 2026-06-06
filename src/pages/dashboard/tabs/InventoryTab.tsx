@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from 'react'
 import db from '../Dashboard.module.css'
+import type { AppState, Product } from '../../../types.js'
 
 interface InventoryTabProps {
-  state: any
-  onOpenStock: (p: any) => void
-  onOpenResupply: (p: any) => void
+  state: AppState
+  onOpenStock: (p: Product) => void
+  onOpenResupply: (p: Product) => void
 }
 
 export function InventoryTab({ state, onOpenStock, onOpenResupply }: InventoryTabProps) {

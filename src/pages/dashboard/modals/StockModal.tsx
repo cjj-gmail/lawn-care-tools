@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import s from './DashModal.module.css'
+import type { Product } from '../../../types.js'
 
 interface StockModalProps {
-  product: any | null
+  product: Product | null
   token: string | null
-  onSave: (product: any, newQty: number) => Promise<void>
+  onSave: (product: Product, newQty: number) => Promise<void>
   onClose: () => void
 }
 
@@ -24,7 +25,7 @@ export function StockModal({ product, token, onSave, onClose }: StockModalProps)
     const n = parseFloat(qty)
     if (isNaN(n) || n < 0) return
     setSaving(true)
-    await onSave(product, n)
+    await onSave(product!, n)
     setSaving(false)
     onClose()
   }

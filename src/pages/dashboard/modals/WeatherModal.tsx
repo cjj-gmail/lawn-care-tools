@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import s from './DashModal.module.css'
+import type { WeatherEntry, WeatherType } from '../../../types.js'
 
 const TYPES = ['rain', 'heat', 'frost', 'drought', 'storm', 'observation', 'other']
 
 interface WeatherModalProps {
-  editEntry: any | null
+  editEntry: WeatherEntry | null
   token: string | null
-  onSave: (entry: any) => Promise<void>
+  onSave: (entry: WeatherEntry) => Promise<void>
   onClose: () => void
 }
 
@@ -43,7 +44,7 @@ export function WeatherModal({ editEntry, token, onSave, onClose }: WeatherModal
       id:      editEntry?.id || ('wx_' + Date.now()),
       date:    d.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' }),
       dateISO: date,
-      type,
+      type: type as WeatherType,
       note:    note.trim(),
       ...(type === 'rain' && rainMm !== '' && !isNaN(Number(rainMm)) ? { rainMm: Number(rainMm) } : {}),
     }

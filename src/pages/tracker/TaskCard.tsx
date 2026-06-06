@@ -3,12 +3,13 @@ import { ZONES } from '../../config.js'
 import { ZoneChip, ZoneCombinedChip } from './ZoneChip'
 import { CautionChip } from './CautionChip'
 import styles from './TaskCard.module.css'
+import type { Task, TaskProduct } from '../../types.js'
 
 // ─── ProductsTitle ────────────────────────────────────────────────────────────
-function ProductsTitle({ task }: { task: any }) {
-  const allFour = ['back', 'front', 'strip1', 'strip2']
+function ProductsTitle({ task }: { task: Task }) {
+  const allFour: import('../../types.js').ZoneId[] = ['back', 'front', 'strip1', 'strip2']
   const zones   = task.zones || []
-  const isAll   = allFour.every((z: string) => zones.includes(z))
+  const isAll   = allFour.every(z => zones.includes(z))
   const label   = isAll
     ? 'Product quantities by zone'
     : 'Product quantities -- ' + zones.map((z: string) => (ZONES as any)[z]?.name || z).join(', ')
@@ -16,8 +17,8 @@ function ProductsTitle({ task }: { task: any }) {
 }
 
 // ─── ProductRow ───────────────────────────────────────────────────────────────
-function ProductRow({ prod }: { prod: any }) {
-  const zones  = Object.keys(prod.quantities || {})
+function ProductRow({ prod }: { prod: TaskProduct }) {
+  const zones  = Object.keys(prod.quantities || {}) as import('../../types.js').ZoneId[]
   const isSolo = zones.length === 1
   return (
     <div className={styles.productRow}>
@@ -30,7 +31,7 @@ function ProductRow({ prod }: { prod: any }) {
           <ZoneChip
             key={zid}
             zoneId={zid}
-            qty={prod.quantities[zid]}
+            qty={prod.quantities[zid] ?? 0}
             unit={prod.rateUnit}
             solo={isSolo}
           />
@@ -43,11 +44,11 @@ function ProductRow({ prod }: { prod: any }) {
 
 // ─── TaskCard ─────────────────────────────────────────────────────────────────
 interface TaskCardProps {
-  task: any
+  task: Task
   isCompleted: boolean
   completedAt?: string
   cautions: Record<string, string>
-  onToggle: (task: any, isCompleted: boolean) => Promise<void>
+  onToggle: (task: Task, isCompleted: boolean) => Promise<void>
 }
 
 export function TaskCard({ task, isCompleted, completedAt, cautions, onToggle }: TaskCardProps) {

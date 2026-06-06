@@ -2,11 +2,12 @@ import React from 'react'
 import { currentMonthNum, getMonthData } from '../../../utils/dashboardHelpers.js'
 import { ZONES, ZONE_ORDER } from '../../../config.js'
 import db from '../Dashboard.module.css'
+import type { AppState } from '../../../types.js'
 
 const GRASS_COLORS: Record<string, string> = { Kikuyu: '#4a7c3f', Zoysia: '#7b5ea7', Couch: '#3a7a8a' }
 
 interface ZonesTabProps {
-  state: any
+  state: AppState
 }
 
 export function ZonesTab({ state }: ZonesTabProps) {

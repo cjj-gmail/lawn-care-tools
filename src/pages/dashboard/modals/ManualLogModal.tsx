@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { ZONES, ZONE_ORDER, TASK_TYPES } from '../../../config.js'
 import s from './DashModal.module.css'
+import type { AppLogEntry, TaskType, ZoneId } from '../../../types.js'
 
 const UNITS = ['mL', 'L', 'g', 'kg']
 
@@ -12,8 +13,8 @@ interface ProductEntry {
 
 interface ManualLogModalProps {
   token: string | null
-  inventory: any
-  onSave: (entry: any) => Promise<void>
+  inventory: { products: { name: string }[] } | null
+  onSave: (entry: AppLogEntry) => Promise<void>
   onClose: () => void
 }
 
@@ -43,8 +44,8 @@ export function ManualLogModal({ token, inventory, onSave, onClose }: ManualLogM
       id: 'app_' + now.getTime(),
       date: now.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' }),
       dateISO: now.toISOString().slice(0, 10),
-      taskId: 'manual', taskLabel: label.trim(), taskType: type,
-      zones,
+      taskId: 'manual', taskLabel: label.trim(), taskType: type as TaskType,
+      zones: zones as ZoneId[],
       products: products.filter(p => p.name && parseFloat(p.amount) > 0).map(p => ({
         name: p.name, amount: Math.round(parseFloat(p.amount) * 100) / 100, unit: p.unit, deducted: false,
       })),

@@ -5,9 +5,10 @@ import {
 } from '../../../utils/dashboardHelpers.js'
 import { TYPE_COLORS, ZONES, ZONE_ORDER } from '../../../config.js'
 import db from '../Dashboard.module.css'
+import type { AppState } from '../../../types.js'
 
 interface LogTabProps {
-  state: any
+  state: AppState
   onOpenManualLog: () => void
 }
 

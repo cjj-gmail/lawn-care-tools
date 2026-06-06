@@ -1,1 +1,1 @@
-PWA: add app icons (icon-192.png, icon-512.png)  
+TypeScript: tighten any types -- replace with proper interfaces  

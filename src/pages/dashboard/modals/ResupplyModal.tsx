@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import s from './DashModal.module.css'
+import type { Product } from '../../../types.js'
 
 interface ResupplyModalProps {
-  product: any | null
+  product: Product | null
   token: string | null
-  onSave: (product: any, newQty: number) => Promise<void>
+  onSave: (product: Product, newQty: number) => Promise<void>
   onClose: () => void
 }
 
@@ -18,8 +19,8 @@ export function ResupplyModal({ product, token, onSave, onClose }: ResupplyModal
     const n = parseFloat(amount)
     if (isNaN(n) || n <= 0) return
     setSaving(true)
-    const newQty = Math.round((product.qtyRemaining + n) * 100) / 100
-    await onSave(product, newQty)
+    const newQty = Math.round((product!.qtyRemaining + n) * 100) / 100
+    await onSave(product!, newQty)
     setSaving(false)
     onClose()
   }

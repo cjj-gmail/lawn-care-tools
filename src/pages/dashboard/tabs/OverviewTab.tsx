@@ -6,6 +6,7 @@ import {
 } from '../../../utils/dashboardHelpers.js'
 import { TYPE_COLORS } from '../../../config.js'
 import db from '../Dashboard.module.css'
+import type { AppState } from '../../../types.js'
 
 const MONTHS = ['January','February','March','April','May','June',
                 'July','August','September','October','November','December']
@@ -15,7 +16,7 @@ const WEATHER_COLORS: Record<string, string> = {
 }
 
 interface OverviewTabProps {
-  state: any
+  state: AppState
   onLogObservation: (id: string | null) => void
   onDeleteWeather: (id: string) => void
   onNavigateTab?: (tab: string) => void

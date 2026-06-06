@@ -1,12 +1,14 @@
 import React from 'react'
 import { TaskCard } from './TaskCard.jsx'
 import styles from './TrackerPage.module.css'
+import type { Task, Completions } from '../../types.js'
+import type { Week } from '../../types.js'
 
 interface WeekBlockProps {
-  week: { week: number; label?: string; tasks?: any[] }
-  completions: Record<string, { completedAt?: string } | undefined>
+  week: Week
+  completions: Completions
   cautions: Record<string, string>
-  onToggle: (task: any, isCompleted: boolean) => Promise<void>
+  onToggle: (task: Task, isCompleted: boolean) => Promise<void>
 }
 
 export function WeekBlock({ week, completions, cautions, onToggle }: WeekBlockProps) {
