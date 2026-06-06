@@ -256,8 +256,14 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 
 NEXT TASKS (new session):
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
+  Activation steps when stock arrives:
+  1. Add Phosfighter to inventory.json (productId 22, qty received, rate 20mL/100m2)
+  2. In program.json, change conditional:true to conditional:false on all Phosfighter tasks
+  3. Push both files via git CLI
 - Restock HiCure before September -- order via Lawn Addicts (LawnPride showing lead time)
+  HiCure note: safe to skip July application to stretch remaining 0.54L stock
 - weather.json 27/05 entry: confirmed correct ("rain") -- no action needed
+- weather.json rainMm: backfilled on all 5 May entries (90mm total) -- DONE session 12
 
 DONE THIS SESSION (session 12):
 - [DONE] TypeScript pass -- all 26 .jsx files converted to .tsx

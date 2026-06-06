@@ -1,1 +1,1 @@
-weather.json: backfill rainMm on 5 May rain entries  
+brief: add Phosfighter activation steps and HiCure note  
