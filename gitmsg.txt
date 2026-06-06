@@ -1,6 +1,1 @@
-fix: Contra M Duo and Tombstone Duo showing LOW incorrectly  
-  
-Both products are situational (not in program.json). The fallback  
-in invStatus.ts assumed 5L bottles. Added correct sizes to FULL_SIZES:  
-  Contra M Duo: 1L, Tombstone Duo: 0.5L  
-Also corrected Contra M Duo qty from 1L to 0.98L in inventory.json  
+brief: add future improvement tasks (charts, program editor, 1Password)  

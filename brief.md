@@ -255,6 +255,14 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 [DONE] Fine-grained GitHub token deleted -- not needed
 
 NEXT TASKS (new session):
+- Rainfall chart -- monthly bar chart in Overview weather panel (rainMm data already logged)
+- Mowing height chart -- per-zone height over time in Log tab
+- Program editing UI -- toggle conditional, adjust quantities, add notes without editing JSON directly
+- 1Password Service Account integration (future/low priority)
+  Use case: pull GitHub OAuth client secret + any future API keys (weather, irrigation) at deploy time
+  Avoids hardcoding secrets in Cloudflare Worker config or scripts
+  Setup: Service Account (not Connect) -- no server needed, included in existing 1Password plan
+  Trigger: when adding weather API or smart irrigation (IrriSense), or when rotating OAuth secret
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
   Activation steps when stock arrives:
   1. Add Phosfighter to inventory.json (productId 22, qty received, rate 20mL/100m2)
