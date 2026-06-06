@@ -1,5 +1,6 @@
-TypeScript: convert remaining JS files to .ts, add proper types  
+PWA: add vite-plugin-pwa with offline caching  
   
-- config.js, useToast, useAppInit, useTrackerSave, useDashboardSave, dashboardHelpers  
-- types.ts: add rainMm to WeatherEntry  
-- Zero .js files remain in src/  
+- App shell precached (8 entries, 349KB)  
+- NetworkFirst for raw.githubusercontent.com (program.json)  
+- CacheFirst for Google Fonts  
+- manifest: Lawn Care Tools, standalone display  
