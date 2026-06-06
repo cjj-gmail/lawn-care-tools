@@ -1,3 +1,5 @@
+import type { ZoneId, TaskType, Season } from './types.js'
+
 export const CONFIG = {
   owner:     'cjj-gmail',
   repo:      'lawn-care-tools',
@@ -12,23 +14,23 @@ export const CONFIG = {
     waterLog:    'data/watering.json',
     weatherLog:  'data/weather.json',
   },
-}
+} as const
 
-export const ZONES = {
+export const ZONES: Record<ZoneId, { name: string; grass: string; area: number }> = {
   back:   { name: 'Back Lawn',          grass: 'Kikuyu', area: 68.20 },
   front:  { name: 'Front Lawn',         grass: 'Zoysia', area: 35.00 },
   strip1: { name: 'Front Nature Strip', grass: 'Couch',  area: 20.80 },
   strip2: { name: 'Front Left Strip',   grass: 'Couch',  area: 16.15 },
 }
 
-export const ZONE_ORDER = ['back', 'front', 'strip1', 'strip2']
+export const ZONE_ORDER: ZoneId[] = ['back', 'front', 'strip1', 'strip2']
 
-export const TASK_TYPES = [
+export const TASK_TYPES: TaskType[] = [
   'fertilise', 'biostimulant', 'herbicide',
   'fungicide', 'insecticide', 'soilwetter', 'renovation',
 ]
 
-export const TYPE_COLORS = {
+export const TYPE_COLORS: Record<TaskType, string> = {
   fertilise:    '#4a7c3f',
   biostimulant: '#7b5ea7',
   herbicide:    '#c0692a',
@@ -38,13 +40,16 @@ export const TYPE_COLORS = {
   renovation:   '#6b4c2a',
 }
 
-export const MOWER_HEIGHTS = {
+interface MowerHeight { name: string; type: string; summer: string; winter: string; note: string }
+interface GrassHeight { grass: string; zone: string; mowers: MowerHeight[] }
+
+export const MOWER_HEIGHTS: Record<string, number[]> = {
   'Honda HRN216':       [27, 39, 51, 64, 76, 88, 100],
   'Allett Stirling 43': [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
   'Ozito PXC':          [14, 23, 32, 38],
 }
 
-export const HEIGHT_REF = [
+export const HEIGHT_REF: GrassHeight[] = [
   {
     grass: 'Kikuyu', zone: 'Back Lawn',
     mowers: [
@@ -70,7 +75,7 @@ export const HEIGHT_REF = [
   },
 ]
 
-export const CAUTION_ICONS = {
+export const CAUTION_ICONS: Record<string, string> = {
   'iron-overload':               'Fe',
   'kelpxtra-solo':               'SOLO',
   'fungicide-rotation':          'ROT',
@@ -84,16 +89,16 @@ export const CAUTION_ICONS = {
   'tombstone-not-zoysia':        '! ZONES',
 }
 
-export const SEASONS = {
+export const SEASONS: Record<Season, number[]> = {
   summer: [12, 1, 2],
   autumn: [3, 4, 5],
   winter: [6, 7, 8],
   spring: [9, 10, 11],
 }
 
-export function currentSeason() {
+export function currentSeason(): Season {
   const mn = new Date().getMonth() + 1
-  for (const [s, months] of Object.entries(SEASONS)) {
+  for (const [s, months] of Object.entries(SEASONS) as [Season, number[]][]) {
     if (months.includes(mn)) return s
   }
   return 'summer'

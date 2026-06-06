@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import type { Dispatch } from 'react'
 import { A } from '../store/actions.js'
 import { CONFIG } from '../config.js'
 import { loadJson } from '../services/github.js'
@@ -7,17 +8,15 @@ import { getToken, setToken, handleOAuthCallback } from '../services/auth.js'
 /**
  * Runs once on mount. Handles OAuth callback, then loads all data files.
  *
- * program.json  -> raw CDN (avoids GitHub Contents API ~100KB inline limit,
- *                  and we never write to it from the browser anyway)
+ * program.json  -> raw CDN (avoids GitHub Contents API ~100KB inline limit)
  * inventory.json -> Contents API (need SHA for stock updates)
  * all logs       -> Contents API (need SHA for writes)
  */
-export function useAppInit(dispatch) {
+export function useAppInit(dispatch: Dispatch<any>) {
   useEffect(() => {
     async function init() {
       dispatch({ type: A.LOAD_START })
 
-      // Handle OAuth callback (?code= in query string, outside the hash)
       let token = getToken()
       const params = new URLSearchParams(window.location.search)
       const code   = params.get('code')
@@ -28,29 +27,26 @@ export function useAppInit(dispatch) {
         window.history.replaceState({}, '', clean)
       }
 
-      // ── program.json: raw CDN fetch (read-only, no SHA needed) ──────────────
-      // The GitHub Contents API has a ~100KB soft limit for inline content.
-      // program.json is ~116KB so we use the raw CDN exactly as the original tool did.
+      // program.json: raw CDN (avoids ~100KB Contents API limit)
       let programData = null
       try {
         const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/main/${CONFIG.paths.program}?t=${Date.now()}`
         const r = await fetch(rawUrl)
         if (!r.ok) throw new Error('HTTP ' + r.status)
         programData = await r.json()
-      } catch (e) {
+      } catch (e: any) {
         dispatch({ type: A.LOAD_ERROR, error: 'Could not load program.json: ' + e.message })
         return
       }
 
-      // ── inventory.json: Contents API (SHA needed for writes) ─────────────────
       const invResult = await loadJson(CONFIG.paths.inventory, token)
       if (!invResult.data) {
         dispatch({ type: A.LOAD_ERROR, error: 'Could not load inventory.json (HTTP ' + invResult.status + ')' })
         return
       }
 
-      // ── Optional logs: all in parallel, failures default to empty ────────────
-      const safe = (promise, fallback) => promise.catch(() => ({ data: fallback, sha: null }))
+      const safe = <T>(promise: Promise<{ data: T; sha: string | null }>, fallback: T) =>
+        promise.catch(() => ({ data: fallback, sha: null }))
 
       const [comp, appLog, mowLog, waterLog, weatherLog] = await Promise.all([
         safe(loadJson(CONFIG.paths.completions, token), {}),

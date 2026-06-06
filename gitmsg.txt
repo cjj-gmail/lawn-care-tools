@@ -1,1 +1,5 @@
-brief: add Phosfighter activation steps and HiCure note  
+TypeScript: convert remaining JS files to .ts, add proper types  
+  
+- config.js, useToast, useAppInit, useTrackerSave, useDashboardSave, dashboardHelpers  
+- types.ts: add rainMm to WeatherEntry  
+- Zero .js files remain in src/  

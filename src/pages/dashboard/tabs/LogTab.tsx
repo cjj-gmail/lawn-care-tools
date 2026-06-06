@@ -47,7 +47,7 @@ export function LogTab({ state, onOpenManualLog }: LogTabProps) {
   }, [entries])
 
   const waterStats = useMemo(() =>
-    Object.fromEntries((ZONE_ORDER as string[]).map(zid => {
+    Object.fromEntries(ZONE_ORDER.map(zid => {
       const zw = waterEntries.filter((e: any) => (e.zones || []).includes(zid)).sort((a: any, b: any) => a.dateISO < b.dateISO ? -1 : 1)
       const count = zw.length
       let avg: number | null = null
@@ -64,7 +64,7 @@ export function LogTab({ state, onOpenManualLog }: LogTabProps) {
   , [waterEntries])
 
   const mowStats = useMemo(() =>
-    Object.fromEntries((ZONE_ORDER as string[]).map(zid => {
+    Object.fromEntries(ZONE_ORDER.map(zid => {
       const zm = mowEntries.filter((e: any) => e.zone === zid).sort((a: any, b: any) => a.dateISO < b.dateISO ? -1 : 1)
       const count = zm.length
       let avg: number | null = null
@@ -125,7 +125,7 @@ export function LogTab({ state, onOpenManualLog }: LogTabProps) {
       <div className={db.panel}>
         <div className={db.panelTitle}>Watering -- zone status</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 10, marginBottom: 16 }}>
-          {(ZONE_ORDER as string[]).map(zid => {
+          {ZONE_ORDER.map(zid => {
             const last = lastWaterForZone(waterLog, zid)
             const overdue = last && daysSince(last.dateISO) >= wThreshold
             return (
@@ -182,7 +182,7 @@ export function LogTab({ state, onOpenManualLog }: LogTabProps) {
       <div className={db.panel}>
         <div className={db.panelTitle}>Mowing -- zone status</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 10, marginBottom: 16 }}>
-          {(ZONE_ORDER as string[]).map(zid => {
+          {ZONE_ORDER.map(zid => {
             const last = lastMowForZone(mowLog, zid)
             const overdue = last && daysSince(last.dateISO) >= mThreshold
             return (

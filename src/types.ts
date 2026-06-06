@@ -171,6 +171,7 @@ export interface WeatherEntry {
   dateISO: string
   type:    WeatherType
   note:    string
+  rainMm?: number
 }
 
 export interface AppLog     { entries: AppLogEntry[]   }
