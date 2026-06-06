@@ -232,7 +232,7 @@ NOTE: Dashboard Program tab verified working correctly with v2.2 schema.
 Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 
 
-## 12. CURRENT STATUS (31 May 2026 -- session 5)
+## 12. CURRENT STATUS (06 Jun 2026 -- session 12)
 
 [DONE] brief.md -- canonical project brief in GitHub repo
 [DONE] index.html -- landing page live
@@ -256,11 +256,15 @@ Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
 
 NEXT TASKS (new session):
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
-- Consider further dashboard improvements: (none outstanding -- all planned items done)
-- [DONE] TypeScript pass -- all 26 .jsx files converted to .tsx (session 12)
+- Restock HiCure before September -- order via Lawn Addicts (LawnPride showing lead time)
+- weather.json 27/05 entry: confirmed correct ("rain") -- no action needed
+
+DONE THIS SESSION (session 12):
+- [DONE] TypeScript pass -- all 26 .jsx files converted to .tsx
   Every component, modal, tab, page, context, and entry point now .tsx
   All prop interfaces added; JSON data shapes use any (incremental migration)
   Build: 318KB JS, clean, zero .jsx files remaining in src/
+- [DONE] npm run typecheck -- zero errors (added vite-env.d.ts, fixed 2 type errors)
 
 REACT REBUILD STATUS (sessions 5-7 -- COMPLETE):
 - [DONE] Phase 1 -- Vite scaffold, routing, AppContext, services, LandingPage
