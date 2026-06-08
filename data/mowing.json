@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "id": "mow_1780906509282",
+      "date": "08/06/2026",
+      "dateISO": "2026-06-08",
+      "zone": "front",
+      "zoneName": "Front Lawn",
+      "grass": "Zoysia",
+      "mower": "Ozito PXC",
+      "heightMm": 32,
+      "notes": ""
+    },
+    {
       "id": "mow_1780693287109",
       "date": "06/06/2026",
       "dateISO": "2026-06-05",
