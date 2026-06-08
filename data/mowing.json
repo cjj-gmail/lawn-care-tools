@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "id": "mow_1780906525802",
+      "date": "08/06/2026",
+      "dateISO": "2026-06-08",
+      "zone": "strip1",
+      "zoneName": "Front Nature Strip",
+      "grass": "Couch",
+      "mower": "Ozito PXC",
+      "heightMm": 32,
+      "notes": ""
+    },
+    {
       "id": "mow_1780906509282",
       "date": "08/06/2026",
       "dateISO": "2026-06-08",
