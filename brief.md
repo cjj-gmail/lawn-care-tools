@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 06 Jun 2026 (session 12 -- TypeScript pass complete, all 26 .jsx files converted)
+Last Updated: 22 Aug 2026 (session 13 -- logged ad-hoc weed control application)
 
 ---
 
@@ -230,6 +230,25 @@ WEATHER OBSERVATIONS:
 
 NOTE: Dashboard Program tab verified working correctly with v2.2 schema.
 Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
+
+
+## 12b. SESSION 13 (22 Aug 2026) -- Ad-hoc weed control logged
+
+[DONE] Logged ad-hoc weed control application (not part of scheduled program):
+  - Tribute 15mL + Bow & Arrow 40mL + Nature's Soil Wetter 20mL
+  - Tank mix diluted in 600mL water
+  - Zones: Front Lawn + both Couch strips (71.95 sqm) -- Zoysia/Couch only, never Kikuyu
+  - applications.json: new entry app_1787270717997 (22/08/2026)
+  - inventory.json deducted: Tribute 1L->0.985L, Bow & Arrow 0.5L->0.46L,
+    Nature's Soil Wetter 3.75L->3.73L
+  - Also cleaned up stray em-dash encoding corruption in two older applications.json entries
+- Noted: data/mowing.json had a new entry from Cowork/site activity since last session
+  (pulled cleanly before edits, no conflict)
+- Desktop Commander allowedDirectories needed C:\Users\camer\lawn-care-tools added
+  manually this session (was reset to just OneDrive\Temp + Software Packaging)
+
+NOTE: Kelpxtra is now at 0L remaining (was 3.86L as of 02 Jun) and Phosfighter still
+0L (not yet purchased) -- both flagged for restock, not actioned this session.
 
 
 ## 12. CURRENT STATUS (06 Jun 2026 -- session 12)
