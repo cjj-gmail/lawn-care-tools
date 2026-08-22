@@ -1,11 +1,46 @@
 {
   "entries": [
     {
+      "id": "app_1787270717997",
+      "date": "22/08/2026",
+      "dateISO": "2026-08-22",
+      "taskId": "adhoc-2026-08-22-weedcontrol",
+      "taskLabel": "Ad-hoc weed control: Tribute + Bow and Arrow + Soil Wetter",
+      "taskType": "herbicide",
+      "zones": [
+        "front",
+        "strip1",
+        "strip2"
+      ],
+      "products": [
+        {
+          "name": "Tribute",
+          "amount": 15,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Bow & Arrow",
+          "amount": 40,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Nature's Soil Wetter",
+          "amount": 20,
+          "unit": "mL",
+          "deducted": true
+        }
+      ],
+      "inventoryDeducted": true,
+      "notes": "Mixed as tank mix diluted in 600mL water. Zoysia + Couch zones only (Tribute zone-locked, never Kikuyu back lawn)."
+    },
+    {
       "id": "app_1780339665721",
       "date": "02/06/2026",
       "dateISO": "2026-06-01",
       "taskId": "may-w3-t1",
-      "taskLabel": "Kelpxtra — solo (Pass 1 of bio run)",
+      "taskLabel": "Kelpxtra - solo (Pass 1 of bio run)",
       "taskType": "biostimulant",
       "zones": [
         "back",
@@ -28,7 +63,7 @@
       "date": "30/05/2026",
       "dateISO": "2026-05-30",
       "taskId": "may-w1-t1",
-      "taskLabel": "Main tank-mix: GreenXtra + Tracemaxx (reduced) + HiCure + Liquid Iron â pre-winter colour",
+      "taskLabel": "Main tank-mix: GreenXtra + Tracemaxx (reduced) + HiCure + Liquid Iron - pre-winter colour",
       "taskType": "fertilise",
       "zones": [
         "back",
