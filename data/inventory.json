@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "02/06/2026",
+  "lastUpdated": "22/08/2026",
   "totalProducts": 22,
   "products": [
     {
@@ -382,7 +382,7 @@
       "analysis": "Complex organic compounds: botanical extracts, humates, fulvates",
       "form": "Liquid concentrate",
       "unit": "L",
-      "qtyRemaining": 3.75,
+      "qtyRemaining": 3.73,
       "ratePer100sqm": "100 mL",
       "rateLow": 100,
       "rateHigh": 300,
@@ -589,7 +589,7 @@
       "analysis": "MCPA 300 g/L + Clopyralid 20 g/L + Diflufenican 15 g/L - Group 1/3/4",
       "form": "Liquid concentrate",
       "unit": "L",
-      "qtyRemaining": 0.5,
+      "qtyRemaining": 0.46,
       "ratePer100sqm": "35 mL",
       "rateLow": 35,
       "rateHigh": 35,
@@ -634,7 +634,7 @@
       "analysis": "Foramsulfuron 22.5 g/L - Group 2",
       "form": "Liquid concentrate",
       "unit": "L",
-      "qtyRemaining": 1,
+      "qtyRemaining": 0.985,
       "ratePer100sqm": "10 mL",
       "rateLow": 10,
       "rateHigh": 15,
