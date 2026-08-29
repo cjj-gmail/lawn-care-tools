@@ -1,6 +1,39 @@
 {
   "entries": [
     {
+      "id": "mow_1788010401199",
+      "date": "29/08/2026",
+      "dateISO": "2026-08-29",
+      "zone": "front",
+      "zoneName": "Front Lawn",
+      "grass": "Zoysia",
+      "mower": "Allett Stirling 43",
+      "heightMm": 21,
+      "notes": "Honda HRN216 first pass, finished with Allett Stirling 43"
+    },
+    {
+      "id": "mow_1788010400199",
+      "date": "29/08/2026",
+      "dateISO": "2026-08-29",
+      "zone": "strip2",
+      "zoneName": "Front Left Strip",
+      "grass": "Couch",
+      "mower": "Ozito PXC",
+      "heightMm": 14,
+      "notes": "Honda HRN216 first pass, finished with Ozito PXC"
+    },
+    {
+      "id": "mow_1788010399199",
+      "date": "29/08/2026",
+      "dateISO": "2026-08-29",
+      "zone": "strip1",
+      "zoneName": "Front Nature Strip",
+      "grass": "Couch",
+      "mower": "Ozito PXC",
+      "heightMm": 14,
+      "notes": "Honda HRN216 first pass, finished with Ozito PXC"
+    },
+    {
       "id": "mow_1780906534363",
       "date": "08/06/2026",
       "dateISO": "2026-06-08",
