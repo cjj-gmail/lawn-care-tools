@@ -1,6 +1,53 @@
 {
   "entries": [
     {
+      "id": "app_1788010500000",
+      "date": "29/08/2026",
+      "dateISO": "2026-08-29",
+      "taskId": "adhoc-2026-08-29-tankmix-pass1",
+      "taskLabel": "Main tank-mix: GreenXtra + Tracemaxx (reduced) + HiCure + Liquid Iron + Stimulizer (post-mow pre-spring wake-up)",
+      "taskType": "fertilise",
+      "zones": [
+        "front",
+        "strip1",
+        "strip2"
+      ],
+      "products": [
+        {
+          "name": "GreenXtra",
+          "amount": 143.9,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Tracemaxx",
+          "amount": 71.95,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "HiCure",
+          "amount": 107.925,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Liquid Iron (7%)",
+          "amount": 71.95,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Stimulizer",
+          "amount": 2.158,
+          "unit": "mL",
+          "deducted": true
+        }
+      ],
+      "inventoryDeducted": true,
+      "notes": "Pass 1 of 2 -- front zones only (Front Lawn, Front Nature Strip, Front Left Strip). Back lawn held off until mowed. Applied after mowing (Zoysia 21mm, Couch 14mm same day). Allowed to dry on leaf, not watered in. Pass 2 (Spartan + Acelepryn) to follow once dry."
+    },
+    {
       "id": "app_1787270717997",
       "date": "22/08/2026",
       "dateISO": "2026-08-22",
