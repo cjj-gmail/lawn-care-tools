@@ -1,5 +1,5 @@
 # LAWN CARE PROJECT BRIEF
-Last Updated: 22 Aug 2026 (session 13 -- logged ad-hoc weed control application)
+Last Updated: 30 Aug 2026 (session 14 -- mow log, Pass 1 tank-mix, git auth behaviour documented)
 
 ---
 
@@ -230,6 +230,34 @@ WEATHER OBSERVATIONS:
 
 NOTE: Dashboard Program tab verified working correctly with v2.2 schema.
 Dashboard iterates weeks generically so Wk1+Wk3 structure renders fine.
+
+
+## 12c. SESSION 14 (29-30 Aug 2026) -- Mow log, Pass 1 tank-mix application, git auth diagnosed
+
+[DONE] Logged mow: Front Lawn (Zoysia 21mm, Allett Stirling 43), Front Nature Strip
+  and Front Left Strip (Couch 14mm, Ozito PXC) -- Honda HRN216 first pass noted on
+  all three, 29/08/2026. mowing.json: 3 new entries.
+[DONE] Logged Pass 1 of post-mow tank-mix on the same 3 zones (front, strip1, strip2
+  only -- back lawn held off until mowed): GreenXtra 143.9mL, Tracemaxx 71.95mL,
+  HiCure 107.925mL, Liquid Iron 71.95mL, Stimulizer 2.158mL. applications.json:
+  app_1788010500000, dated 30/08/2026 (corrected from an initial 29/08/2026 mistake --
+  real time had passed between the mow and the application across a multi-day
+  conversation, so always re-check the current date before logging rather than
+  reusing an earlier date from the same conversation).
+  inventory.json deducted: GreenXtra 4.22->4.0761L, Tracemaxx 3.86->3.788L,
+  HiCure 0.54->0.4321L, Liquid Iron 0.86->0.7881L, Stimulizer 0.8->0.7978L.
+- Pass 2 (Spartan 14.39mL + Acelepryn 10.79mL, front zones only -- Acelepryn scoped
+  to front only this season per user decision, not back lawn/all 4 zones) discussed
+  and quantities agreed but NOT YET APPLIED/logged as of end of session.
+- Diagnosed and documented the git push auth behaviour -- see Section 17b. Two
+  commits from this session initially sat unpushed for a while due to this; both
+  went through once the user signed in interactively.
+- NOTE: mounted repo folder (via Cowork device bridge) shows the whole tree as
+  "modified" in git status -- this is CRLF/LF line-ending noise from the mount,
+  not real changes (confirmed via git diff --stat showing equal insertions/deletions
+  on every file). Always `git checkout -- <file>` before editing a file that shows
+  as modified but you haven't touched, and only stage the specific files you
+  actually changed -- never `git add -A` while this noise is present.
 
 
 ## 12b. SESSION 13 (22 Aug 2026) -- Ad-hoc weed control logged
@@ -539,6 +567,36 @@ NOTE: Commit messages must use -F flag pointing to gitmsg.txt -- passing inline 
 
 ### Small files (inventory.json, brief.md, completions.json etc.)
 Can still be pushed via GitHub MCP push_files -- no change needed.
+
+### 17b. GIT PUSH AUTH -- Credential Manager / GCM (found session 14, 30 Aug 2026)
+
+`git push` authenticates via Git Credential Manager (credential.helper=manager,
+confirmed at system config level). GCM stores the login in Windows Credential
+Manager under target `git:https://github.com` (user cjj-gmail) -- ENCRYPTED at
+rest, confirmed via `cmdkey /list`.
+
+IMPORTANT BEHAVIOUR: when that stored credential is missing or stale, `git push`
+run through Desktop Commander (or any non-interactive process) does NOT fail
+cleanly -- it either errors "could not read Username" / "Invalid username or
+token" (stale/rejected credential) or hangs indefinitely with no output (GCM
+trying to launch an interactive browser sign-in that nothing can click through
+in an automated context). This is NOT a permanent blocker and NOT a sign the
+task is impossible -- it just means the credential needs refreshing.
+
+RULE FOR FUTURE SESSIONS: if a push fails or hangs like this, tell the user and
+ask them to sign in (they may need to trigger a browser popup themselves, or it
+can take a little while to complete) -- do NOT report the update as something
+Claude "cannot do." Retry the push once they confirm they've signed in; it
+typically starts working immediately after ("Everything up-to-date" or a
+successful ref update is the sign it worked).
+
+Optional permanent fix (not yet actioned): generate a fine-grained GitHub PAT
+scoped to just this repo (Contents: Read/write) and store it in the same
+encrypted Windows Credential Manager slot via:
+  git credential approve   (fed protocol=https/host=github.com/username=cjj-gmail/password=<token>)
+This avoids the interactive browser flow entirely going forward. Do NOT embed
+tokens in the remote URL (.git/config) -- plaintext on disk, avoid unless the
+user explicitly asks for that trade-off.
 
 
 ---

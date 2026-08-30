@@ -1,1 +1,1 @@
-Fix Pass 1 application date - 30/08/2026 not 29/08/2026
+Update brief.md - session 14: git auth behaviour + session log
