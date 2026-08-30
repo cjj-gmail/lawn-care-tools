@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "29/08/2026",
+  "lastUpdated": "30/08/2026",
   "totalProducts": 22,
   "products": [
     {
@@ -508,7 +508,7 @@
       "analysis": "Indaziflam 500 g/L - Group 29",
       "form": "Liquid concentrate",
       "unit": "L",
-      "qtyRemaining": 0.5,
+      "qtyRemaining": 0.4856,
       "ratePer100sqm": "20 mL",
       "rateLow": 10,
       "rateHigh": 40,
@@ -721,7 +721,7 @@
       "analysis": "Chlorantraniliprole 200 g/L",
       "form": "Liquid concentrate",
       "unit": "L",
-      "qtyRemaining": 0.1,
+      "qtyRemaining": 0.0892,
       "ratePer100sqm": "15 mL",
       "rateLow": 7.5,
       "rateHigh": 15,

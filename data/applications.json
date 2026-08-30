@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "id": "app_1788081048791",
+      "date": "30/08/2026",
+      "dateISO": "2026-08-30",
+      "taskId": "adhoc-2026-08-30-spartan-acelepryn-pass2",
+      "taskLabel": "Spartan pre-emergent + Acelepryn spring grub treatment (Pass 2, post-mow)",
+      "taskType": "herbicide",
+      "zones": ["front", "strip1", "strip2"],
+      "products": [
+        {"name": "Spartan", "amount": 14.39, "unit": "mL", "deducted": true},
+        {"name": "Acelepryn", "amount": 10.7925, "unit": "mL", "deducted": true}
+      ],
+      "inventoryDeducted": true,
+      "notes": "Pass 2 of 2 -- front zones only (Front Lawn, Front Nature Strip, Front Left Strip). Acelepryn scoped to front zones only this season (low stock, 0.1L) -- back lawn deferred until back lawn is mowed. Applied same day as mow + Pass 1 tank-mix; watered in immediately per Acelepryn label."
+    },
+    {
       "id": "app_1788010500000",
       "date": "30/08/2026",
       "dateISO": "2026-08-30",
