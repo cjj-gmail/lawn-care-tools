@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "id": "wx_1788687000000",
+      "date": "06/09/2026",
+      "dateISO": "2026-09-06",
+      "type": "drought",
+      "note": "No rain 30/08-06/09 (BOM Sydney/Horsley Park), max temps to 32C, evaporation rising to ~9mm/day. Back lawn found heavily compacted on mow day - watering recommended."
+    },
+    {
       "id": "wx_1780145268084",
       "date": "29/05/2026",
       "dateISO": "2026-05-29",
