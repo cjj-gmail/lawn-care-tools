@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "id": "mow_1788679440063",
+      "date": "06/09/2026",
+      "dateISO": "2026-09-06",
+      "zone": "back",
+      "zoneName": "Back Lawn",
+      "grass": "Kikuyu",
+      "mower": "Ozito PXC",
+      "heightMm": 14,
+      "notes": "Two pass mow: Honda HRN216 first pass on setting 2 (39mm), finished with Ozito PXC at 14mm. Observation: back lawn appears heavily compacted."
+    },
+    {
       "id": "mow_1788010401199",
       "date": "29/08/2026",
       "dateISO": "2026-08-29",
