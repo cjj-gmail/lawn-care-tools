@@ -1,16 +1,129 @@
 {
   "entries": [
     {
+      "id": "app_1789200300000",
+      "date": "13/09/2026",
+      "dateISO": "2026-09-13",
+      "taskId": "adhoc-2026-09-13-spartan-acelepryn",
+      "taskLabel": "Spartan pre-emergent + Acelepryn spring grub treatment - back lawn",
+      "taskType": "herbicide",
+      "zones": [
+        "back"
+      ],
+      "products": [
+        {
+          "name": "Spartan",
+          "amount": 13.64,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Acelepryn",
+          "amount": 10.23,
+          "unit": "mL",
+          "deducted": true
+        }
+      ],
+      "inventoryDeducted": true,
+      "notes": "Back lawn included this season (previously front-only Pass 2 on 30/08). Applied after granular round once tank-mix had dried; watered in via second irrigation pass."
+    },
+    {
+      "id": "app_1789200200000",
+      "date": "13/09/2026",
+      "dateISO": "2026-09-13",
+      "taskId": "adhoc-2026-09-13-granular-round",
+      "taskLabel": "Granular: Maintain (26-1-9) + gypsum + GroTurf - back lawn spring kick-off",
+      "taskType": "fertilise",
+      "zones": [
+        "back"
+      ],
+      "products": [
+        {
+          "name": "Maintain (26-1-9)",
+          "amount": 1.364,
+          "unit": "kg",
+          "deducted": true
+        },
+        {
+          "name": "Gypsum",
+          "amount": 2,
+          "unit": "kg",
+          "deducted": false
+        },
+        {
+          "name": "GroTurf (LawnPride, 15-4-11)",
+          "amount": 1,
+          "unit": "kg",
+          "deducted": false
+        }
+      ],
+      "inventoryDeducted": true,
+      "notes": "Gypsum and GroTurf are ad-hoc additions from existing stock, not tracked in inventory.json (no deduction). Gypsum applied as a soil conditioner to help the diagnosed compaction; GroTurf is old LawnPride stock, ~750g-1kg remaining after this application. Spread via rotary spreader."
+    },
+    {
+      "id": "app_1789200100000",
+      "date": "13/09/2026",
+      "dateISO": "2026-09-13",
+      "taskId": "adhoc-2026-09-13-tankmix",
+      "taskLabel": "Main tank-mix: GreenXtra + Tracemaxx + HiCure + Stimulizer - back lawn spring kick-off",
+      "taskType": "fertilise",
+      "zones": [
+        "back"
+      ],
+      "products": [
+        {
+          "name": "GreenXtra",
+          "amount": 136.4,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Tracemaxx",
+          "amount": 68.2,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "HiCure",
+          "amount": 102.3,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Stimulizer",
+          "amount": 2.046,
+          "unit": "mL",
+          "deducted": true
+        }
+      ],
+      "inventoryDeducted": true,
+      "notes": "Applied ~12:30pm, foliar only, allowed to dry on leaf before granular round and spray followed. First back lawn application since 30/05/2026; back lawn was held off from the 30/08 front-zone round until mowed."
+    },
+    {
       "id": "app_1788081048791",
       "date": "30/08/2026",
       "dateISO": "2026-08-30",
       "taskId": "adhoc-2026-08-30-spartan-acelepryn-pass2",
       "taskLabel": "Spartan pre-emergent + Acelepryn spring grub treatment (Pass 2, post-mow)",
       "taskType": "herbicide",
-      "zones": ["front", "strip1", "strip2"],
+      "zones": [
+        "front",
+        "strip1",
+        "strip2"
+      ],
       "products": [
-        {"name": "Spartan", "amount": 14.39, "unit": "mL", "deducted": true},
-        {"name": "Acelepryn", "amount": 10.7925, "unit": "mL", "deducted": true}
+        {
+          "name": "Spartan",
+          "amount": 14.39,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Acelepryn",
+          "amount": 10.7925,
+          "unit": "mL",
+          "deducted": true
+        }
       ],
       "inventoryDeducted": true,
       "notes": "Pass 2 of 2 -- front zones only (Front Lawn, Front Nature Strip, Front Left Strip). Acelepryn scoped to front zones only this season (low stock, 0.1L) -- back lawn deferred until back lawn is mowed. Applied same day as mow + Pass 1 tank-mix; watered in immediately per Acelepryn label."

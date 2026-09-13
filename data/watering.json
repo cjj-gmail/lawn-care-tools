@@ -1,0 +1,30 @@
+{
+  "entries": [
+    {
+      "id": "water_1789200400000",
+      "date": "13/09/2026",
+      "dateISO": "2026-09-13",
+      "zones": [
+        "back"
+      ],
+      "zoneNames": "Back Lawn",
+      "method": "LinkTap Instant Watering (By Volume)",
+      "durationMin": 31,
+      "amountL": 300,
+      "notes": "Second pass, post-spray water-in for Maintain granular, gypsum, GroTurf, and Spartan+Acelepryn. Flow rate measured at 9.58 L/min this session (down from earlier 12.44 L/min reading)."
+    },
+    {
+      "id": "water_1789200000000",
+      "date": "13/09/2026",
+      "dateISO": "2026-09-13",
+      "zones": [
+        "back"
+      ],
+      "zoneNames": "Back Lawn",
+      "method": "LinkTap sprinkler - Eco cycle (5 min on / 5 min off)",
+      "durationMin": 30,
+      "amountL": 185,
+      "notes": "Pre-wet before spray application, to help dry/compacted soil absorb water rather than run off. Eco cycle pulses the valve to reduce runoff and save water."
+    }
+  ]
+}
