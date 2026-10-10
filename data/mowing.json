@@ -1,6 +1,94 @@
 {
   "entries": [
     {
+      "id": "mow_1791800000007",
+      "date": "09/10/2026",
+      "dateISO": "2026-10-09",
+      "zone": "front",
+      "zoneName": "Front Lawn",
+      "grass": "Zoysia",
+      "mower": "Honda HRN216",
+      "heightMm": 25,
+      "notes": "Clean-up pass only (dead leaf/debris removal), not a height cut - height carried over from the 04/10/2026 Allett mow. Little debris to remove since the last mow."
+    },
+    {
+      "id": "mow_1791800000006",
+      "date": "09/10/2026",
+      "dateISO": "2026-10-09",
+      "zone": "strip1",
+      "zoneName": "Front Nature Strip",
+      "grass": "Couch",
+      "mower": "Honda HRN216",
+      "heightMm": 25,
+      "notes": "Attached to front Zoysia, same clean-up pass. Clean-up only (dead leaf/debris removal), not a height cut - height carried over from 04/10/2026 Allett mow."
+    },
+    {
+      "id": "mow_1791800000005",
+      "date": "09/10/2026",
+      "dateISO": "2026-10-09",
+      "zone": "strip2",
+      "zoneName": "Front Left Strip",
+      "grass": "Couch",
+      "mower": "Ozito PXC",
+      "heightMm": 24,
+      "notes": "Cut separately, same mower/height as back (\"side couch\")."
+    },
+    {
+      "id": "mow_1791800000004",
+      "date": "09/10/2026",
+      "dateISO": "2026-10-09",
+      "zone": "back",
+      "zoneName": "Back Lawn",
+      "grass": "Kikuyu",
+      "mower": "Ozito PXC",
+      "heightMm": 24,
+      "notes": ""
+    },
+    {
+      "id": "mow_1791233729293",
+      "date": "04/10/2026",
+      "dateISO": "2026-10-04",
+      "zone": "back",
+      "zoneName": "Back Lawn",
+      "grass": "Kikuyu",
+      "mower": "Ozito PXC",
+      "heightMm": 24,
+      "notes": ""
+    },
+    {
+      "id": "mow_1791233729292",
+      "date": "04/10/2026",
+      "dateISO": "2026-10-04",
+      "zone": "strip1",
+      "zoneName": "Front Nature Strip",
+      "grass": "Couch",
+      "mower": "Allett Stirling 43",
+      "heightMm": 25,
+      "notes": "Cut alongside front Zoysia, same mower/height (\"attached couch\")."
+    },
+    {
+      "id": "mow_1791233729291",
+      "date": "04/10/2026",
+      "dateISO": "2026-10-04",
+      "zone": "strip2",
+      "zoneName": "Front Left Strip",
+      "grass": "Couch",
+      "mower": "Ozito PXC",
+      "heightMm": 24,
+      "notes": "Cut separately, same mower/height as back (\"side couch\")."
+    },
+    {
+      "id": "mow_1791233729290",
+      "date": "04/10/2026",
+      "dateISO": "2026-10-04",
+      "zone": "front",
+      "zoneName": "Front Lawn",
+      "grass": "Zoysia",
+      "mower": "Allett Stirling 43",
+      "heightMm": 25,
+      "notes": ""
+    },
+    {
       "id": "mow_1788679440063",
       "date": "06/09/2026",
       "dateISO": "2026-09-06",
