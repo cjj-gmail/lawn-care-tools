@@ -1,6 +1,48 @@
 {
   "entries": [
     {
+      "id": "app_1791682200000",
+      "date": "11/10/2026",
+      "dateISO": "2026-10-11",
+      "taskId": "oct-w1-t3",
+      "taskLabel": "Main tank-mix: GreenXtra + Tracemaxx + HiCure + Stimulizer - October Wk1 main run (all zones)",
+      "taskType": "fertilise",
+      "zones": [
+        "back",
+        "front",
+        "strip1",
+        "strip2"
+      ],
+      "products": [
+        {
+          "name": "GreenXtra",
+          "amount": 280.3,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Tracemaxx",
+          "amount": 140.15,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "HiCure",
+          "amount": 210.225,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Stimulizer",
+          "amount": 4.204,
+          "unit": "mL",
+          "deducted": true
+        }
+      ],
+      "inventoryDeducted": true,
+      "notes": "Applied morning, foliar only, not watered in. Front zones (front+strip1+strip2, 71.95m2) as one combined mix: GX 143.9, Tmx 71.95, HiCure 107.925, Stiz 2.158mL. Back lawn (68.2m2) separate mix: GX 136.4, Tmx 68.2, HiCure 102.3, Stiz 2.046mL. Back lawn granular skipped this month (Maintain+GroTurf applied 13/09, only 4 weeks prior). Front granular (TX10 front 0.7kg, Maintain strips 0.739kg) pending - evening 11/10 or 12/10."
+    },
+    {
       "id": "app_1789200300000",
       "date": "13/09/2026",
       "dateISO": "2026-09-13",
