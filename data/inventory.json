@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-13",
+  "lastUpdated": "2026-10-25",
   "totalProducts": 22,
   "products": [
     {
@@ -12,7 +12,7 @@
       "analysis": "N5-P2-K8 + Fe + Mycorrhiza fungi",
       "form": "Granular",
       "unit": "kg",
-      "qtyRemaining": 19.25,
+      "qtyRemaining": 18.55,
       "ratePer100sqm": "1-4 kg",
       "rateLow": 1,
       "rateHigh": 4,
@@ -49,7 +49,7 @@
       "analysis": "N26-P1-K9 + 3.4% Fe (70% slow-release N)",
       "form": "Granular",
       "unit": "kg",
-      "qtyRemaining": 16.636,
+      "qtyRemaining": 15.897,
       "ratePer100sqm": "2 kg",
       "rateLow": 2,
       "rateHigh": 2,

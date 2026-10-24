@@ -1,1 +1,9 @@
-Log Pass 2: Spartan + Acelepryn - front zones (30/08/2026)
+Log 18/10 front granular (TX10 + Maintain) and 24/10 back mow
+
+- applications.json: TX10 0.7kg front (oct-w1-t2), Maintain 0.739kg strips (oct-w1-t1), burn noted 24/10
+- inventory.json: TX10 19.25 -> 18.55kg, Maintain 16.636 -> 15.897kg
+- mowing.json: back lawn 24/10, Ozito PXC 32mm (setting 3)
+- completions.json: oct-w1-t1 and oct-w1-t2 marked complete 18/10
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_013XhvoDPo97CdDLUNeSCwTd
