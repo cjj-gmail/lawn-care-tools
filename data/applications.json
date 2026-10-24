@@ -1,6 +1,49 @@
 {
   "entries": [
     {
+      "id": "app_1792276200000",
+      "date": "18/10/2026",
+      "dateISO": "2026-10-18",
+      "taskId": "oct-w1-t2",
+      "taskLabel": "Granular: TX10 (2kg/100m2) - Zoysia front lawn (October Wk1, a week late)",
+      "taskType": "fertilise",
+      "zones": [
+        "front"
+      ],
+      "products": [
+        {
+          "name": "TX10 (5-2-8)",
+          "amount": 0.7,
+          "unit": "kg",
+          "deducted": true
+        }
+      ],
+      "inventoryDeducted": true,
+      "notes": "Applied morning via rotary spreader, watered in. Front lawn 35.0m2 at 2kg/100m2. Burn noticed 24/10 at the Zoysia/Couch boundary - likely double dose where TX10 and Maintain overlapped at the edge."
+    },
+    {
+      "id": "app_1792277100000",
+      "date": "18/10/2026",
+      "dateISO": "2026-10-18",
+      "taskId": "oct-w1-t1",
+      "taskLabel": "Granular: Maintain (2kg/100m2) - Couch strips only (October Wk1, a week late)",
+      "taskType": "fertilise",
+      "zones": [
+        "strip1",
+        "strip2"
+      ],
+      "products": [
+        {
+          "name": "Maintain (26-1-9)",
+          "amount": 0.739,
+          "unit": "kg",
+          "deducted": true
+        }
+      ],
+      "inventoryDeducted": true,
+      "notes": "Front Nature Strip 0.416kg + Front Left Strip 0.323kg, watered in. Back lawn skipped (Maintain applied 13/09). Fertiliser burn noticed 24/10 on the Couch strip and Zoysia/Couch edge, base appears dead - repair by top-dress/patching; Activ8EXTRA withheld from burnt patches in the 25/10 bio run."
+    },
+    {
       "id": "app_1791682200000",
       "date": "11/10/2026",
       "dateISO": "2026-10-11",

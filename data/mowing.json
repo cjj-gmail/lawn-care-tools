@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "id": "mow_1792792800000",
+      "date": "24/10/2026",
+      "dateISO": "2026-10-24",
+      "zone": "back",
+      "zoneName": "Back Lawn",
+      "grass": "Kikuyu",
+      "mower": "Ozito PXC",
+      "heightMm": 32,
+      "notes": "Ozito setting 3 (32mm). Raised from 24mm - Kikuyu to be kept at 32mm to help it fill in."
+    },
+    {
       "id": "mow_1791800000007",
       "date": "09/10/2026",
       "dateISO": "2026-10-09",
