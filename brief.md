@@ -449,7 +449,8 @@ v2.1 change (30 May 2026):
 - Couch (strip1 + strip2) always follows Kikuyu tasks
 - Zoysia (front) gets TX10 only for granular -- not Maintain
 - Tribute: Zoysia + Couch ONLY -- NEVER back lawn (Kikuyu)
-- Tombstone Duo / Contra M Duo: Kikuyu + Couch ONLY -- NEVER Zoysia
+- Contra M Duo: Kikuyu + Couch ONLY -- NEVER Zoysia
+- Tombstone Duo: safe on ALL zones incl. Zoysia -- label has no turf species restriction (corrected 25/10/2026; the old "not Zoysia" rule was wrong). Contains Group 11 -- rotate with Heritage Maxx as the same group
 - Acelepryn 0.1L -- back lawn only in September
 - Heritage Maxx 1L -- Nov, Dec/Jan, Feb
 - Spartan 0.5L -- March + September (2 full applications)

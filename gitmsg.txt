@@ -1,9 +1,13 @@
-Log 18/10 front granular (TX10 + Maintain) and 24/10 back mow
+Correct Tombstone Duo: safe on Zoysia per product label
 
-- applications.json: TX10 0.7kg front (oct-w1-t2), Maintain 0.739kg strips (oct-w1-t1), burn noted 24/10
-- inventory.json: TX10 19.25 -> 18.55kg, Maintain 16.636 -> 15.897kg
-- mowing.json: back lawn 24/10, Ozito PXC 32mm (setting 3)
-- completions.json: oct-w1-t1 and oct-w1-t2 marked complete 18/10
+The old rule said Tombstone Duo was Kikuyu + Couch only. The label registers it
+for turf generally with no species restriction, so it is safe on Zoysia.
+
+- inventory.json: Zoysia added to grassSafe, notes/warnings corrected, dollar
+  spot rate 30mL/100m2 added, full label disease list, critical "not Zoysia"
+  rule replaced with a Group 11 rotation warning (shared with Heritage Maxx)
+- program.json: rules and caution text now restrict Contra M Duo only
+- brief.md: zone rules split - Contra M Duo not Zoysia, Tombstone Duo all zones
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_013XhvoDPo97CdDLUNeSCwTd

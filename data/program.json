@@ -13,7 +13,7 @@
                                "Iron overload rule: Tracemaxx always at 100mL/100sqm (GreenXtra at 200mL/100sqm)",
                                "When Liquid Iron is added: Tracemaxx ALREADY at reduced rate — no further reduction needed",
                                "Tribute — Zoysia (front) + Couch (strips) ONLY — NEVER apply to back lawn (Kikuyu)",
-                               "Tombstone Duo / Contra M Duo — Kikuyu + Couch ONLY — NEVER apply to Zoysia (front)",
+                               "Contra M Duo — Kikuyu + Couch ONLY — NEVER apply to Zoysia (front). Tombstone Duo IS safe on Zoysia (label checked 25/10/2026)",
                                "Heritage Maxx — DO NOT apply via backpack sprayer (label restriction)",
                                "Spartan applied twice per year: March (winter weed prevention) + September (summer weed prevention)",
                                "Acelepryn — apply twice yearly: September Wk1 (spring) + January Wk1 (summer) — all zones — 15mL/100sqm — 21mL per application, 100mL covers ~2.4 years",
@@ -3883,6 +3883,6 @@
                      "low-stock":  "Low stock alert — check inventory before scheduling. May need to reduce application area or restock.",
                      "pre-emergent-weed-free-first":  "Pre-emergent herbicide only — has NO effect on established weeds. Lawn must be weed-free before Spartan application.",
                      "tribute-not-kikuyu":  "CRITICAL: Tribute is NOT safe on Kikuyu. Apply to Zoysia (front) and Couch (strips) ONLY — never spray back lawn.",
-                     "tombstone-not-zoysia":  "Tombstone Duo and Contra M Duo are NOT safe on Zoysia. Apply to Kikuyu and Couch ONLY — never spray front lawn."
+                     "tombstone-not-zoysia":  "Contra M Duo is NOT safe on Zoysia. Apply to Kikuyu and Couch ONLY — never spray front lawn. (Tombstone Duo is safe on Zoysia.)"
                  }
 }
