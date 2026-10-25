@@ -420,30 +420,35 @@
       "form": "Liquid concentrate",
       "unit": "L",
       "qtyRemaining": 0.44,
-      "ratePer100sqm": "20 mL",
+      "ratePer100sqm": "20 mL (30 mL for dollar spot)",
       "rateLow": 20,
-      "rateHigh": 20,
+      "rateHigh": 30,
       "rateUnit": "mL",
-      "frequency": "Preventative: every 21-28 days",
+      "frequency": "Preventative: every 21-28 days. Curative: every 14-21 days",
       "applicationMethod": "Backpack or handheld sprayer",
       "waterIn": false,
       "foliarOrIrrigate": "Foliar",
       "staining": false,
       "grassSafe": [
         "Kikuyu",
+        "Zoysia",
         "Couch",
         "Buffalo"
       ],
-      "compatibilityNotes": "NOT safe on Zoysia. Good tank mix compatibility otherwise.",
-      "warnings": "NOT for Zoysia front lawn. Max 2 consecutive applications then rotate fungicide group.",
+      "compatibilityNotes": "Label registers it for turf generally with no species restriction - safe on Zoysia, Kikuyu and Couch. Good tank mix compatibility.",
+      "warnings": "Max 2 consecutive sprays, then rotate fungicide group (unless mixed with a Group 14, 28, M2, M3, M4 or M5 protectant). Contains Group 11 (trifloxystrobin) - counts as the same group as Heritage Maxx for rotation. Keep off until spray has dried.",
       "diseasesControlled": [
         "Anthracnose",
         "Brown Patch",
         "Dollar Spot",
-        "Winter Fusarium",
-        "Helminthosporium"
+        "Fusarium / Microdochium Patch",
+        "Helminthosporium",
+        "Leptosphaerulina",
+        "Curvularia",
+        "Spring Dead Spot",
+        "Ectotrophic root infecting fungi"
       ],
-      "notes": "Kikuyu + Couch only. Spot treatment / curative. Not in v2.0 program schedule.",
+      "notes": "All zones including the Zoysia front lawn. Water volume 4-16 L per 100m2, foliar, do not water in. Spot treatment / curative; not in the program schedule. CORRECTED 25/10/2026: the earlier \"not safe on Zoysia\" restriction was wrong - checked against the product label, which has no turf species restriction.",
       "reorder": {
         "replacementName": "Tombstone Duo",
         "replacementBrand": "Indigo",
@@ -931,18 +936,19 @@
       "severity": "critical"
     },
     {
-      "rule": "Tombstone Duo is NOT safe on Zoysia - Kikuyu + Couch only. NEVER spray front lawn.",
-      "products": [
-        "Tombstone Duo"
-      ],
-      "severity": "critical"
-    },
-    {
       "rule": "Heritage Maxx must NOT be applied with a backpack sprayer (label restriction)",
       "products": [
         "Heritage Maxx"
       ],
       "severity": "critical"
+    },
+    {
+      "rule": "Tombstone Duo and Heritage Maxx both contain Group 11 (strobilurin) - count them as the same group. Max 2 consecutive Group 11 sprays, then rotate.",
+      "products": [
+        "Tombstone Duo",
+        "Heritage Maxx"
+      ],
+      "severity": "warning"
     }
   ]
 }
