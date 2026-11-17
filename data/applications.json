@@ -1,6 +1,35 @@
 {
   "entries": [
     {
+      "id": "app_1794899700000",
+      "date": "17/11/2026",
+      "dateISO": "2026-11-17",
+      "taskId": "adhoc-2026-11-17-tombstone",
+      "taskLabel": "Fungicide: Tombstone Duo + Wetter 600 - front lawn + both strips (patches spreading)",
+      "taskType": "fungicide",
+      "zones": [
+        "front",
+        "strip1",
+        "strip2"
+      ],
+      "products": [
+        {
+          "name": "Tombstone Duo",
+          "amount": 21.6,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Wetter 600 (LawnPride spray surfactant)",
+          "amount": 0.7,
+          "unit": "mL",
+          "deducted": false
+        }
+      ],
+      "inventoryDeducted": true,
+      "notes": "Curative spray at 30mL/100m2 (label dollar spot rate) over 71.95m2: front 10.5mL, strip1 6.24mL, strip2 4.85mL, in 5L water (~7L/100m2) + Wetter 600 surfactant ~0.7mL. Applied evening, foliar, not watered in. Straw spots first seen 24/10 (front Zoysia/Couch edge + both Couch strips), initially treated as fertiliser burn from 18/10 granular; by 15/11 the patches had grown slightly but not spread to new areas, so disease suspected. Counts as November Group 11 fungicide (in place of Heritage Maxx). Re-spray allowed 14-21 days later if still spreading; max 2 consecutive Group 11 sprays then rotate. Wetter 600 not tracked in inventory."
+    },
+    {
       "id": "app_1792276200000",
       "date": "18/10/2026",
       "dateISO": "2026-10-18",

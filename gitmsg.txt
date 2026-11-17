@@ -1,13 +1,8 @@
-Correct Tombstone Duo: safe on Zoysia per product label
+Log 17/11 Tombstone Duo fungicide spray on front zones
 
-The old rule said Tombstone Duo was Kikuyu + Couch only. The label registers it
-for turf generally with no species restriction, so it is safe on Zoysia.
-
-- inventory.json: Zoysia added to grassSafe, notes/warnings corrected, dollar
-  spot rate 30mL/100m2 added, full label disease list, critical "not Zoysia"
-  rule replaced with a Group 11 rotation warning (shared with Heritage Maxx)
-- program.json: rules and caution text now restrict Contra M Duo only
-- brief.md: zone rules split - Contra M Duo not Zoysia, Tombstone Duo all zones
+- applications.json: Tombstone Duo 21.6mL (30mL/100m2) + Wetter 600 0.7mL in 5L,
+  front + strip1 + strip2, evening, not watered in
+- inventory.json: Tombstone Duo 0.44 -> 0.4184L
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_013XhvoDPo97CdDLUNeSCwTd

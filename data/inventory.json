@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-25",
+  "lastUpdated": "2026-11-17",
   "totalProducts": 22,
   "products": [
     {
@@ -419,7 +419,7 @@
       "analysis": "Trifloxystrobin 100 g/L + Tebuconazole 200 g/L",
       "form": "Liquid concentrate",
       "unit": "L",
-      "qtyRemaining": 0.44,
+      "qtyRemaining": 0.4184,
       "ratePer100sqm": "20 mL (30 mL for dollar spot)",
       "rateLow": 20,
       "rateHigh": 30,
