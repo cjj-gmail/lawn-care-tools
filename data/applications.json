@@ -1,6 +1,53 @@
 {
   "entries": [
     {
+      "id": "app_1794987000000",
+      "date": "18/11/2026",
+      "dateISO": "2026-11-18",
+      "taskId": "adhoc-2026-11-18-bio-front",
+      "taskLabel": "Bio run Pass 2: Hydramaxx + Activ8EXTRA + Seaweed Secrets + Stimulus + Stimulizer - front zones",
+      "taskType": "biostimulant",
+      "zones": [
+        "front",
+        "strip1",
+        "strip2"
+      ],
+      "products": [
+        {
+          "name": "Hydramaxx",
+          "amount": 179.9,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Activ8EXTRA",
+          "amount": 71.95,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Seaweed Secrets",
+          "amount": 71.95,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Stimulus",
+          "amount": 71.95,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Stimulizer",
+          "amount": 2.159,
+          "unit": "mL",
+          "deducted": true
+        }
+      ],
+      "inventoryDeducted": true,
+      "notes": "Front zones only (71.95m2) as one combined mix in 6-7L water. Delayed October Wk3 bio run for the front (postponed from 25/10 due to wind). Kelpxtra Pass 1 skipped (out of stock); Phosfighter not in stock. Activ8EXTRA included to support recovery from suspected dollar spot (Tombstone Duo sprayed 17/11). Sprayed evening, left on leaf overnight, to be watered in ~4mm at 6am 19/11."
+    },
+    {
       "id": "app_1794899700000",
       "date": "17/11/2026",
       "dateISO": "2026-11-17",
