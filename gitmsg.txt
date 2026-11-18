@@ -1,8 +1,8 @@
-Log 17/11 Tombstone Duo fungicide spray on front zones
+Log 18/11 front bio run (Pass 2) and deduct inventory
 
-- applications.json: Tombstone Duo 21.6mL (30mL/100m2) + Wetter 600 0.7mL in 5L,
-  front + strip1 + strip2, evening, not watered in
-- inventory.json: Tombstone Duo 0.44 -> 0.4184L
+- applications.json: Hydramaxx 179.9mL, Activ8EXTRA 71.95mL, Seaweed Secrets 71.95mL,
+  Stimulus 71.95mL, Stimulizer 2.159mL over front + strip1 + strip2 (71.95m2)
+- inventory.json: matching deductions
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_013XhvoDPo97CdDLUNeSCwTd
