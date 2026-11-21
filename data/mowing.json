@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "id": "mow_1795249800000",
+      "date": "21/11/2026",
+      "dateISO": "2026-11-21",
+      "zone": "back",
+      "zoneName": "Back Lawn",
+      "grass": "Kikuyu",
+      "mower": "Allett Stirling 43",
+      "heightMm": 32,
+      "notes": "Evening mow. Kikuyu kept at 32mm."
+    },
+    {
       "id": "mow_1792792800000",
       "date": "24/10/2026",
       "dateISO": "2026-10-24",
