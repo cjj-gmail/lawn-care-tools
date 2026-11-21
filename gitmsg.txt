@@ -1,6 +1,9 @@
-Log 21/11 back lawn mow (Allett, 32mm)
+Log 25/10 back lawn bio run (retrospective) and deduct inventory
 
-- mowing.json: back lawn (Kikuyu) 21/11/2026, Allett Stirling 43 at 32mm
+- applications.json: Hydramaxx 170.5mL, Activ8EXTRA 68.2mL, Seaweed Secrets 68.2mL,
+  Stimulus 68.2mL, Stimulizer 2.046mL on back lawn (68.2m2), watered in ~4mm
+- inventory.json: matching deductions
+- completions.json: oct-w3-t2 marked complete 25/10
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_013XhvoDPo97CdDLUNeSCwTd

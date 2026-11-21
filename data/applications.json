@@ -77,6 +77,51 @@
       "notes": "Curative spray at 30mL/100m2 (label dollar spot rate) over 71.95m2: front 10.5mL, strip1 6.24mL, strip2 4.85mL, in 5L water (~7L/100m2) + Wetter 600 surfactant ~0.7mL. Applied evening, foliar, not watered in. Straw spots first seen 24/10 (front Zoysia/Couch edge + both Couch strips), initially treated as fertiliser burn from 18/10 granular; by 15/11 the patches had grown slightly but not spread to new areas, so disease suspected. Counts as November Group 11 fungicide (in place of Heritage Maxx). Re-spray allowed 14-21 days later if still spreading; max 2 consecutive Group 11 sprays then rotate. Wetter 600 not tracked in inventory."
     },
     {
+      "id": "app_1792876500000",
+      "date": "25/10/2026",
+      "dateISO": "2026-10-25",
+      "taskId": "oct-w3-t2",
+      "taskLabel": "Bio run Pass 2: Hydramaxx + Activ8EXTRA + Seaweed Secrets + Stimulus + Stimulizer - back lawn (October Wk3)",
+      "taskType": "biostimulant",
+      "zones": [
+        "back"
+      ],
+      "products": [
+        {
+          "name": "Hydramaxx",
+          "amount": 170.5,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Activ8EXTRA",
+          "amount": 68.2,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Seaweed Secrets",
+          "amount": 68.2,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Stimulus",
+          "amount": 68.2,
+          "unit": "mL",
+          "deducted": true
+        },
+        {
+          "name": "Stimulizer",
+          "amount": 2.046,
+          "unit": "mL",
+          "deducted": true
+        }
+      ],
+      "inventoryDeducted": true,
+      "notes": "Back lawn only (68.2m2), morning, sprayed while dew still on, then watered in ~4mm (30 min at 9 L/min). Kelpxtra Pass 1 skipped (out of stock). Front zones postponed due to wind - applied 18/11. Logged retrospectively 21/11/2026."
+    },
+    {
       "id": "app_1792276200000",
       "date": "18/10/2026",
       "dateISO": "2026-10-18",
