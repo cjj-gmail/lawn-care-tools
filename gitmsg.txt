@@ -1,8 +1,6 @@
-Log 18/11 front bio run (Pass 2) and deduct inventory
+Log 21/11 back lawn mow (Allett, 32mm)
 
-- applications.json: Hydramaxx 179.9mL, Activ8EXTRA 71.95mL, Seaweed Secrets 71.95mL,
-  Stimulus 71.95mL, Stimulizer 2.159mL over front + strip1 + strip2 (71.95m2)
-- inventory.json: matching deductions
+- mowing.json: back lawn (Kikuyu) 21/11/2026, Allett Stirling 43 at 32mm
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_013XhvoDPo97CdDLUNeSCwTd
