@@ -1,6 +1,50 @@
 {
   "entries": [
     {
+      "id": "mow_1795336200001",
+      "date": "22/11/2026",
+      "dateISO": "2026-11-22",
+      "zone": "front",
+      "zoneName": "Front Lawn",
+      "grass": "Zoysia",
+      "mower": "Allett Stirling 43",
+      "heightMm": 27,
+      "notes": "Evening mow on a 34C heatwave day. Finishing cut."
+    },
+    {
+      "id": "mow_1795336200002",
+      "date": "22/11/2026",
+      "dateISO": "2026-11-22",
+      "zone": "strip1",
+      "zoneName": "Front Nature Strip",
+      "grass": "Couch",
+      "mower": "Allett Stirling 43",
+      "heightMm": 27,
+      "notes": "Evening mow on a 34C heatwave day. Finishing cut (strip attached to the Zoysia)."
+    },
+    {
+      "id": "mow_1795336200003",
+      "date": "22/11/2026",
+      "dateISO": "2026-11-22",
+      "zone": "strip2",
+      "zoneName": "Front Left Strip",
+      "grass": "Couch",
+      "mower": "Ozito PXC",
+      "heightMm": 24,
+      "notes": "Evening mow on a 34C heatwave day. Finishing cut."
+    },
+    {
+      "id": "mow_1795336200004",
+      "date": "22/11/2026",
+      "dateISO": "2026-11-22",
+      "zone": "front",
+      "zoneName": "Front Lawn",
+      "grass": "Zoysia",
+      "mower": "Honda HRN216",
+      "heightMm": 39,
+      "notes": "Clean-up pass over the whole front (front lawn + both strips), Honda setting 2."
+    },
+    {
       "id": "mow_1795249800000",
       "date": "21/11/2026",
       "dateISO": "2026-11-21",

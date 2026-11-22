@@ -1,10 +1,7 @@
-Record 22/11 Lawn Addicts order; add Rapide Aqua; fix Phosfighter rate
+Log 22/11 front mow (Allett 27mm, Ozito 24mm, Honda clean-up)
 
-- inventory.json: HiCure 1 L, Phosfighter 2.5 L, Acelepryn 100 mL marked on order
-  (stock to be added on delivery); Phosfighter rate corrected to label 100-200 mL/100m2
-  with Fertech analysis; Acelepryn frequency aligned to program (Sep + Jan, all zones);
-  new product Rapide Aqua 500SC (iprodione, Group 2) at 0 L on order + rotation rule
-- brief.md: Phosfighter rate typo (20 mL) corrected
+- mowing.json: front lawn + Front Nature Strip Allett Stirling 43 at 27mm,
+  Front Left Strip Ozito PXC at 24mm, Honda HRN216 clean-up pass (setting 2, 39mm)
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_013XhvoDPo97CdDLUNeSCwTd
