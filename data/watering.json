@@ -1,6 +1,47 @@
 {
   "entries": [
     {
+      "id": "water_1795287660000",
+      "date": "22/11/2026",
+      "dateISO": "2026-11-22",
+      "zones": [
+        "back"
+      ],
+      "zoneNames": "Back Lawn",
+      "method": "LinkTap sprinkler - Eco cycle (5 min on / 5 min off)",
+      "durationMin": 75,
+      "amountL": 675,
+      "notes": "Morning deep soak (~10 mm over 68.2 m2 at ~9 L/min) ahead of a 35C heatwave day. Duration/amount are the planned figures - user confirmed the watering was done."
+    },
+    {
+      "id": "water_1795287600000",
+      "date": "22/11/2026",
+      "dateISO": "2026-11-22",
+      "zones": [
+        "front",
+        "strip1",
+        "strip2"
+      ],
+      "zoneNames": "Front Lawn, Front Nature Strip, Front Left Strip",
+      "method": "LinkTap sprinkler - Eco cycle (5 min on / 5 min off)",
+      "durationMin": 80,
+      "amountL": 720,
+      "notes": "Morning deep soak (~10 mm over 71.95 m2 at ~9 L/min) ahead of a 35C heatwave day; front mowed that evening. Duration/amount are the planned figures - user confirmed the watering was done."
+    },
+    {
+      "id": "water_1792877700000",
+      "date": "25/10/2026",
+      "dateISO": "2026-10-25",
+      "zones": [
+        "back"
+      ],
+      "zoneNames": "Back Lawn",
+      "method": "LinkTap sprinkler - Eco cycle (5 min on / 5 min off)",
+      "durationMin": 30,
+      "amountL": 270,
+      "notes": "Water-in after the October Wk3 bio run (~4 mm over 68.2 m2 at 9 L/min). Logged retrospectively 22/11/2026."
+    },
+    {
       "id": "water_1789200400000",
       "date": "13/09/2026",
       "dateISO": "2026-09-13",

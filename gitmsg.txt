@@ -1,7 +1,7 @@
-Log 22/11 front mow (Allett 27mm, Ozito 24mm, Honda clean-up)
+Log 22/11 morning watering (front + back) and 25/10 back water-in
 
-- mowing.json: front lawn + Front Nature Strip Allett Stirling 43 at 27mm,
-  Front Left Strip Ozito PXC at 24mm, Honda HRN216 clean-up pass (setting 2, 39mm)
+- watering.json: 22/11 front zones 80 min / ~720 L (~10 mm), back 75 min / ~675 L (~10 mm);
+  25/10 back 30 min / ~270 L (~4 mm) water-in after bio run (retrospective)
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_013XhvoDPo97CdDLUNeSCwTd
