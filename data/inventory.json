@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-11-21",
-  "totalProducts": 22,
+  "lastUpdated": "2026-11-22",
+  "totalProducts": 23,
   "products": [
     {
       "id": 1,
@@ -574,7 +574,7 @@
         "Buffalo"
       ],
       "compatibilityNotes": "Compatible with GreenXtra + Tracemaxx tank-mix; dilute with water before mixing",
-      "warnings": "Dilute with water before combining in tank. Do not apply in extreme heat.",
+      "warnings": "ON ORDER 22/11/2026 from Lawn Addicts (1 L). Current stock is below one full main run (210 mL).",
       "notes": "Syngenta amino acid biostimulant. Abiotic stress defence. In every main tank-mix.",
       "reorder": {
         "replacementName": "HiCure",
@@ -720,7 +720,7 @@
       "id": 19,
       "name": "Acelepryn",
       "brand": "Syngenta",
-      "retailer": "Syngenta",
+      "retailer": "Lawn Addicts",
       "category": "Insecticide",
       "subCategory": "Systemic - Group 28",
       "analysis": "Chlorantraniliprole 200 g/L",
@@ -731,7 +731,7 @@
       "rateLow": 7.5,
       "rateHigh": 15,
       "rateUnit": "mL",
-      "frequency": "1x per year: September Wk1 - back lawn only (limited stock)",
+      "frequency": "2x per year: September Wk1 + January Wk1 - all zones (21 mL per full application)",
       "applicationMethod": "Spray, water in immediately",
       "waterIn": true,
       "foliarOrIrrigate": "Irrigate",
@@ -743,7 +743,7 @@
         "Buffalo"
       ],
       "compatibilityNotes": "Compatible with most programs",
-      "warnings": "LOW STOCK - 0.1L remaining. Back lawn (Kikuyu) only this season.",
+      "warnings": "ON ORDER 22/11/2026 from Lawn Addicts (100 mL). Water in immediately.",
       "pestsControlled": [
         "African Black Beetle",
         "Argentinian Scarab",
@@ -755,8 +755,8 @@
       "reorder": {
         "replacementName": "Acelepryn",
         "replacementBrand": "Syngenta",
-        "retailer": "Syngenta",
-        "buyUrl": "https://www.syngenta.com.au",
+        "retailer": "Lawn Addicts",
+        "buyUrl": "https://www.lawnaddicts.com.au",
         "note": "Same product -- reorder direct"
       }
     },
@@ -843,19 +843,19 @@
     {
       "id": 22,
       "name": "Phosfighter",
-      "brand": "Lawn Addicts",
+      "brand": "Fertech",
       "retailer": "Lawn Addicts",
       "category": "Biostimulant",
       "subCategory": "Liquid - Phosphite / Disease Resistance",
-      "analysis": "Phosphorous acid (phosphite) - SAR trigger",
+      "analysis": "P 13% (as phosphoric acid), K 25%, amino acids 11.5% (w/v)",
       "form": "Liquid concentrate",
       "unit": "L",
       "qtyRemaining": 0,
-      "ratePer100sqm": "200 mL",
-      "rateLow": 200,
+      "ratePer100sqm": "100-200 mL (min 5 L water per 100m2)",
+      "rateLow": 100,
       "rateHigh": 200,
       "rateUnit": "mL",
-      "frequency": "Monthly -- every Wk3 during growing season and winter",
+      "frequency": "Label: every 2-4 weeks (shorter interval under stress). Program: monthly, every Wk3 bio run",
       "applicationMethod": "Backpack or handheld sprayer",
       "waterIn": false,
       "foliarOrIrrigate": "Foliar",
@@ -867,14 +867,58 @@
         "Buffalo"
       ],
       "compatibilityNotes": "Compatible with Activ8EXTRA + Seaweed Secrets + Stimulizer. Different mode of action to Heritage Maxx -- complementary.",
-      "warnings": "NOT YET IN STOCK -- placeholder. Purchase from Lawn Addicts before adding to active runs.",
-      "notes": "Phosphite triggers SAR (systemic acquired resistance) -- disease resistance mechanism. Not a fertiliser phosphate. Schedule alongside Heritage Maxx rotation (different modes of action). From LA reference program -- all seasons Wk3.",
+      "warnings": "ON ORDER 22/11/2026 from Lawn Addicts (2.5 L). Avoid mowing for 24 hours after application.",
+      "notes": "Label rate 100-200 mL/100m2 (upper end when vigour is low from stress) - checked 22/11/2026; the old '20 mL' figure in the brief was a typo. Foliar spray or soil drench. Disease resistance / stress support, not a fungicide. Different mode of action to Heritage Maxx, Tombstone Duo and Rapide Aqua.",
       "reorder": {
         "replacementName": "Phosfighter",
-        "replacementBrand": "Lawn Addicts",
+        "replacementBrand": "Fertech",
         "retailer": "Lawn Addicts",
-        "buyUrl": "https://www.lawnaddicts.com.au",
-        "note": "Same product -- reorder direct"
+        "buyUrl": "https://www.lawnaddicts.com.au/product/fertech-phosfighter",
+        "note": "Same product -- reorder direct. Packs 1 L / 2.5 L / 5 L / 20 L"
+      }
+    },
+    {
+      "id": 23,
+      "name": "Rapide Aqua 500SC",
+      "brand": "Surefire",
+      "retailer": "Lawn Addicts",
+      "category": "Fungicide",
+      "subCategory": "Contact / locally systemic - Group 2",
+      "analysis": "Iprodione 500 g/L",
+      "form": "Liquid concentrate (SC)",
+      "unit": "L",
+      "qtyRemaining": 0,
+      "ratePer100sqm": "45-90 mL in 10-150 L water",
+      "rateLow": 45,
+      "rateHigh": 90,
+      "rateUnit": "mL",
+      "frequency": "When conditions favour disease; repeat under severe pressure",
+      "applicationMethod": "Backpack or handheld sprayer",
+      "waterIn": false,
+      "foliarOrIrrigate": "Foliar",
+      "staining": false,
+      "grassSafe": [
+        "Kikuyu",
+        "Zoysia",
+        "Couch",
+        "Buffalo"
+      ],
+      "compatibilityNotes": "Group 2 - rotation partner for Heritage Maxx (11) and Tombstone Duo (3+11). Unstable at pH 7 or higher: mix fresh and spray same day.",
+      "warnings": "ON ORDER 22/11/2026 from Lawn Addicts (1 L). Keep off until spray has dried. Low-nutrition turf may yellow slightly - nitrogen corrects it.",
+      "diseasesControlled": [
+        "Dollar Spot",
+        "Brown Patch",
+        "Fusarium Patch",
+        "Spring Dead Spot",
+        "Helminthosporium (leaf spot)"
+      ],
+      "notes": "Rotation fungicide chosen 18/11/2026. Label lists no turf species restriction. Front zones (71.95m2) = 32-65 mL per spray.",
+      "reorder": {
+        "replacementName": "Rapide Aqua 500SC",
+        "replacementBrand": "Surefire",
+        "retailer": "Lawn Addicts",
+        "buyUrl": "https://www.lawnaddicts.com.au/product/surefire-rapide-aqua-500sc-1-litre",
+        "note": "Same product -- reorder direct ($95 / 1 L)"
       }
     }
   ],
@@ -947,6 +991,15 @@
       "products": [
         "Tombstone Duo",
         "Heritage Maxx"
+      ],
+      "severity": "warning"
+    },
+    {
+      "rule": "Fungicide rotation: Rapide Aqua 500SC (Group 2) alternates with the Group 11 products (Heritage Maxx, Tombstone Duo). Max 2 consecutive Group 11 sprays.",
+      "products": [
+        "Rapide Aqua 500SC",
+        "Heritage Maxx",
+        "Tombstone Duo"
       ],
       "severity": "warning"
     }

@@ -1,9 +1,10 @@
-Log 25/10 back lawn bio run (retrospective) and deduct inventory
+Record 22/11 Lawn Addicts order; add Rapide Aqua; fix Phosfighter rate
 
-- applications.json: Hydramaxx 170.5mL, Activ8EXTRA 68.2mL, Seaweed Secrets 68.2mL,
-  Stimulus 68.2mL, Stimulizer 2.046mL on back lawn (68.2m2), watered in ~4mm
-- inventory.json: matching deductions
-- completions.json: oct-w3-t2 marked complete 25/10
+- inventory.json: HiCure 1 L, Phosfighter 2.5 L, Acelepryn 100 mL marked on order
+  (stock to be added on delivery); Phosfighter rate corrected to label 100-200 mL/100m2
+  with Fertech analysis; Acelepryn frequency aligned to program (Sep + Jan, all zones);
+  new product Rapide Aqua 500SC (iprodione, Group 2) at 0 L on order + rotation rule
+- brief.md: Phosfighter rate typo (20 mL) corrected
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_013XhvoDPo97CdDLUNeSCwTd

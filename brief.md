@@ -312,7 +312,7 @@ NEXT TASKS (new session):
   Trigger: when adding weather API or smart irrigation (IrriSense), or when rotating OAuth secret
 - Buy Phosfighter from Lawn Addicts -- placeholder tasks in program.json Wk3 for 9 months ready to activate
   Activation steps when stock arrives:
-  1. Add Phosfighter to inventory.json (productId 22, qty received, rate 20mL/100m2)
+  1. Add Phosfighter to inventory.json (productId 22, qty received, rate 100-200mL/100m2 per label -- corrected 22/11/2026, was mistyped as 20mL)
   2. In program.json, change conditional:true to conditional:false on all Phosfighter tasks
   3. Push both files via git CLI
 - Restock HiCure before September -- order via Lawn Addicts (LawnPride showing lead time)
